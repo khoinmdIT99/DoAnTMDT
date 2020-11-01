@@ -1,0 +1,69 @@
+﻿@model Domain.Shop.Dto.ShopSetting.ShopSettingViewModel
+<!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form class="form-horizontal" method="post" action="@Url.ActionLink("Index")" asp-antiforgery="true">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="box-body">
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group">
+                                    <label asp-for="PageName" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="PageName" class="form-control" />
+                                        <span asp-validation-for="PageName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Pagetitle" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="Pagetitle" class="form-control" />
+                                        <span asp-validation-for="Pagetitle" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PageDescription" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="PageDescription" class="form-control" />
+                                        <span asp-validation-for="PageDescription" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Keyword" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="Keyword" class="form-control" />
+                                        <span asp-validation-for="Keyword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="TaxPercent" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="TaxPercent" class="form-control" />
+                                        <span asp-validation-for="TaxPercent" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <div class="card-footer">
+                            <a href="@Url.ActionLink("Index")" role="button" class="btn btn-default">Hủy</a>
+                            <button type="submit" class="btn btn-info pull-right float-right">Cập nhập</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </section>
+@if(ViewBag.Message != null) 
+{
+    <script type="text/javascript" >
+        window.onload = function () {
+            alert("@ViewBag.Message");
+        }
+    </script>
+}
+

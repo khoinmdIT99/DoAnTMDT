@@ -1,0 +1,118 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Administrator\Data\**" />
+    <Compile Remove="Areas\Administrator\Helpers\**" />
+    <Compile Remove="Areas\Administrator\Models\**" />
+    <Compile Remove="wwwroot\js\bootstrap\**" />
+    <Content Remove="Areas\Administrator\Data\**" />
+    <Content Remove="Areas\Administrator\Helpers\**" />
+    <Content Remove="Areas\Administrator\Models\**" />
+    <Content Remove="wwwroot\js\bootstrap\**" />
+    <EmbeddedResource Remove="Areas\Administrator\Data\**" />
+    <EmbeddedResource Remove="Areas\Administrator\Helpers\**" />
+    <EmbeddedResource Remove="Areas\Administrator\Models\**" />
+    <EmbeddedResource Remove="wwwroot\js\bootstrap\**" />
+    <None Remove="Areas\Administrator\Data\**" />
+    <None Remove="Areas\Administrator\Helpers\**" />
+    <None Remove="Areas\Administrator\Models\**" />
+    <None Remove="wwwroot\js\bootstrap\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="internalLog.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="NLog" Version="4.7.5" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Components\" />
+    <Folder Include="Views\Shared\Components\Account\" />
+    <Folder Include="wwwroot\assets\css\" />
+    <Folder Include="wwwroot\assets\fonts\" />
+    <Folder Include="wwwroot\assets\img\" />
+    <Folder Include="wwwroot\assets\img\banner\" />
+    <Folder Include="wwwroot\assets\img\bg\" />
+    <Folder Include="wwwroot\assets\img\blog\" />
+    <Folder Include="wwwroot\assets\img\brand-logo\" />
+    <Folder Include="wwwroot\assets\img\cart\" />
+    <Folder Include="wwwroot\assets\img\icon-img\" />
+    <Folder Include="wwwroot\assets\img\instra\" />
+    <Folder Include="wwwroot\assets\img\logo\" />
+    <Folder Include="wwwroot\assets\img\product-details\" />
+    <Folder Include="wwwroot\assets\img\product\" />
+    <Folder Include="wwwroot\assets\img\product\book\" />
+    <Folder Include="wwwroot\assets\img\product\electro\" />
+    <Folder Include="wwwroot\assets\img\product\fashion-2\" />
+    <Folder Include="wwwroot\assets\img\product\fashion-colorful\" />
+    <Folder Include="wwwroot\assets\img\product\food\" />
+    <Folder Include="wwwroot\assets\img\product\furits\" />
+    <Folder Include="wwwroot\assets\img\product\furniture\" />
+    <Folder Include="wwwroot\assets\img\product\handicraft\" />
+    <Folder Include="wwwroot\assets\img\product\sidebar-product\" />
+    <Folder Include="wwwroot\assets\img\product\smart-watch\" />
+    <Folder Include="wwwroot\assets\img\product\sports\" />
+    <Folder Include="wwwroot\assets\img\quick-view\" />
+    <Folder Include="wwwroot\assets\img\slider\" />
+    <Folder Include="wwwroot\assets\img\team\" />
+    <Folder Include="wwwroot\assets\js\" />
+    <Folder Include="wwwroot\assets\js\vendor\" />
+    <Folder Include="wwwroot\imageUpload\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\fonts\icofont.svg" />
+    <None Include="wwwroot\assets\fonts\Pe-icon-7-stroke.svg" />
+    <None Include="wwwroot\assets\fonts\themify.svg" />
+    <None Include="wwwroot\assets\js\ajax-mail.js" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\imagesloaded.pkgd.min.js" />
+    <None Include="wwwroot\assets\js\isotope.pkgd.min.js" />
+    <None Include="wwwroot\assets\js\jquery.counterup.min.js" />
+    <None Include="wwwroot\assets\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\assets\js\main.js" />
+    <None Include="wwwroot\assets\js\owl.carousel.min.js" />
+    <None Include="wwwroot\assets\js\plugins.js" />
+    <None Include="wwwroot\assets\js\popper.js" />
+    <None Include="wwwroot\assets\js\vendor\jquery-1.12.0.min.js" />
+    <None Include="wwwroot\assets\js\vendor\modernizr-2.8.3.min.js" />
+    <None Include="wwwroot\assets\js\waypoints.min.js" />
+    <None Include="wwwroot\assets\mail.php" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Application.Dto\Domain.Application.Dto.csproj" />
+    <ProjectReference Include="..\Domain.Application\Domain.Application.csproj" />
+    <ProjectReference Include="..\Domain.Shop\Domain.Shop.csproj" />
+    <ProjectReference Include="..\Infrastructure.Common\Infrastructure.Common.csproj" />
+    <ProjectReference Include="..\Infrastructure.Web\Infrastructure.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="nlog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+
+</Project>

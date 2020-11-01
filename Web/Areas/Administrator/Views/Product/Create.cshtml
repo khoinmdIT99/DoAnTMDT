@@ -1,0 +1,166 @@
+﻿@model Domain.Shop.Dto.Products.ProductViewModel
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form class="form-horizontal" method="post" action="@Url.ActionLink("Create")" enctype="multipart/form-data" asp-antiforgery="true">
+                    <div class="card-header">
+                        <h5 class="card-title">Thêm mới Sản phẩm</h5>
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label asp-for="ProductCode" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="ProductCode" class="form-control" />
+                                    <span asp-validation-for="ProductCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProductName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="ProductName" class="form-control" id="product-name" onchange="ChangeToSlug();" />
+                                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Slug" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Slug" class="form-control" id="slug" />
+                                    <span asp-validation-for="Slug" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <textarea rows="9" cols="70" asp-for="Description" class="form-control"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProductTypeName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <select asp-for="ProductTypeId" asp-items="(List<SelectListItem>)ViewBag.productTypeRepository" class="product-type-select" style="width: 100%;">
+                                        <option></option>
+                                    </select>
+                                    <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CategoryName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <select asp-for="CategoryId" asp-items="(List<SelectListItem>)ViewBag.categoryRepository" class="categories-select" style="width: 100%;">
+                                        <option></option>
+                                    </select>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MaterialName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <select asp-for="MaterialId" asp-items="(List<SelectListItem>)ViewBag.materialRepository" class="material-select" style="width: 100%;">
+                                        <option></option>
+                                    </select>
+                                    <span asp-validation-for="MaterialId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="Price" class="form-control" />
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PriceType" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <select asp-for="PriceType" asp-items="ViewBag.priceType" class="material-select" style="width: 100%;">
+                                        <option></option>
+                                    </select>
+                                    <span asp-validation-for="PriceType" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ProductImages" class="col-sm-2 control-label"></label>
+                                <div class="custom-file col-sm-10" style="margin-left: 8px;">
+                                    <input asp-for="ProductImages" class="custom-file-input form-control" style="width: 100%;" multiple>
+                                    <label class="custom-file-label">Choose file</label>
+                                </div>
+                                <span asp-validation-for="ProductImages" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TagList" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <select asp-for="TagList" asp-items="(List<SelectListItem>)ViewBag.tagRepository" class="tag-select" style="width: 100%;" multiple>
+                                        <option></option>
+                                    </select>
+                                    <span asp-validation-for="TagList" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="card-footer">
+                        <a href="@Url.ActionLink("Index")" role="button" class="btn btn-default">Hủy</a>
+                        <button type="submit" class="btn btn-info pull-right float-right">Thêm mới</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        $('.custom-file-input').on("chage", function () {
+            var fileLable = $(this).next('.custom-file-label');
+            var files = $(this)[0].files;
+            if (files.length > 1) {
+                fileLable.html(files.length + ' files selected')
+            }
+            else if (files.length == 1) {
+                fileLable.html(files[0].name);
+            }
+        });
+        $('.categories-select').select2({
+            allowClear: true,
+            placeholder: 'Chọn danh mục sản phẩm'
+        });
+        $('.product-type-select').select2({
+            allowClear: true,
+            placeholder: 'Chọn loại sản phẩm'
+        });
+        $('.tag-select').select2({
+            allowClear: true,
+            placeholder: 'Chọn tag sản phẩm'
+        });
+        $('.material-select').select2({
+            allowClear: true,
+            placeholder: 'Chọn Vật liệu'
+        });
+        const ChangeToSlug = () => {
+            var str = document.getElementById('product-name').value;
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+            str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+            str = str.replace(/Đ/g, "D");
+            str = str.replace(/\s+/g, " ");
+            str = str.replace(/\s/g, "-");
+            document.getElementById('slug').value = str;
+        };</script>
+
+}

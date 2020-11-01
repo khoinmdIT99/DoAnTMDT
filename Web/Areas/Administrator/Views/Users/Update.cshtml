@@ -1,0 +1,254 @@
+﻿@model Domain.Application.Dto.Users.UserViewModel
+@using Domain.Common.Enums
+<script src="~/plugins/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="~/plugins/cropper/cropper.js" type="text/javascript"></script>
+<link rel="stylesheet" href="~/plugins/cropper/cropper.css" />
+<style>
+    .image-container {
+        width: 100%;
+    }
+
+        .image-container .cropper {
+            max-width: 100%;
+        }
+
+    .button-container {
+        width: 600px;
+        height: 100px;
+        text-align: center;
+    }
+
+    .ProfileImage {
+        height: 150px;
+        width: 150px;
+        margin-left: 5px;
+        margin-bottom: 10px;
+    }
+</style>
+<!-- Main content -->
+<div class="modal fade" id="imgProfileModal" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chỉnh sửa hình nhỏ</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="image-container">
+                        <img class="cropper" id="cropper">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Lưu lại</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<section class="content">
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="@Url.ActionLink("Update")" asp-antiforgery="true">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-blue">
+
+                    <div class="card-header">
+                        <h5 class="card-title">Cập nhật người dùng</h5>
+                    </div>
+                    <!-- /.card-header -->
+
+                    <div class="card-body">
+                        <input asp-for="Id" hidden />
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label asp-for="UserName" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <input asp-for="UserName" class="form-control" />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Roles" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <select asp-for="Roles" asp-items="(List<SelectListItem>)ViewBag.roles" multiple class="select2" style="width: 100%;"></select>
+                                    <span asp-validation-for="Roles" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 icheck-primary d-inline">
+                                    <input type="checkbox" asp-for="ChangePassword" class="form-control" />
+                                    <label asp-for="ChangePassword" class="col-sm-12 control-label" style="margin-left: 5px; "></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <input asp-for="Password" class="form-control" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <input asp-for="ConfirmPassword" class="form-control" />
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="avatar" class="col-sm-12 control-label">Ảnh đại diện</label>
+                                <img src="" class="ProfileImage" />
+                                <div class="col-sm-12 custom-file">
+                                    <input type="hidden" asp-for="ProfileImage" />
+                                    <input type="file" name="avatar" class="custom-file-input form-control" id="avatar" accept="image/x-png,image/gif,image/jpeg">
+                                    <label class="custom-file-label" for="avatar" style="margin-left: 5px;">Chọn file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label asp-for="FullName" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <input asp-for="FullName" class="form-control" />
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Gender" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <div class="icheck-primary d-inline">
+                                        <input asp-for="Gender" type="radio" id="gender-@((int)Gender.Male)" value="@((int)Gender.Male)" />
+                                        <label for="gender-@((int)Gender.Male)">
+                                            @CustomEnumUtility.TextValue(Gender.Male)
+                                        </label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
+                                        <input asp-for="Gender" type="radio" id="gender-@((int)Gender.Female)" value="@((int)Gender.Female)" />
+                                        <label for="gender-@((int)Gender.Female)">
+                                            @CustomEnumUtility.TextValue(Gender.Female)
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PhoneNo" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <input asp-for="PhoneNo" class="form-control" />
+                                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DayOfBirth" class="col-sm-12 control-label"></label>
+                                <div class="col-sm-12">
+                                    <input asp-for="DayOfBirth" class="form-control" />
+                                    <span asp-validation-for="DayOfBirth" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="card-footer">
+                        <a href="@Url.ActionLink("Index")" role="button" class="btn btn-default">Hủy</a>
+                        <button type="submit" class="btn btn-info pull-right float-right">Cập nhật</button>
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </form>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        var cropper;
+        function readFile(file) {
+            var FR = new FileReader();
+
+            FR.onload = function (e) {
+                console.log(e.target);
+                $("#cropper").attr("src", e.target.result);
+                cropper = new Cropper(document.getElementById("cropper"), {
+                    aspectRatio: 1 / 1,
+                    minContainerHeight: 400,
+                    minContainerWidth: 766,
+                    minCanvasHeight: 400,
+                    minCanvasWidth: 766,
+                });
+            };
+            FR.readAsDataURL(file);
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#imgProfileModal').on('hidden.bs.modal', function () {
+                cropper.destroy();
+            });
+            $("#ChangePassword").change(function () {
+                var checked = $(this).is(":checked")
+                if (checked) {
+                    $("#Password").closest(".form-group").show();
+                    $("#ConfirmPassword").closest(".form-group").show();
+                } else {
+                    $("#Password").closest(".form-group").hide();
+                    $("#ConfirmPassword").closest(".form-group").hide();
+                }
+            });
+            $("#ChangePassword").trigger("change");
+
+            $("#avatar").change(function () {
+                var file = $("#avatar")[0];
+                if (file.files.length > 0) {
+                    readFile(file.files[0]);
+                    $('#imgProfileModal').modal('show');
+                }
+            });
+            $("#btnSave").click(function () {
+                var img = cropper.getCroppedCanvas({
+                    maxWidth: 200,
+                    maxHeight: 200,
+                }).toDataURL('image/jpeg');
+
+                $("#ProfileImage").val(img);
+                $("#ProfileImage").trigger("change");
+                $('#imgProfileModal').modal('hide');
+            });
+
+            $('#btnCancel').click(function () {
+                $("#avatar").val('Chọn ảnh');
+            });
+
+            $("#ProfileImage").change(function () {
+                var url = $(this).val();
+                $("img.ProfileImage").attr("src", "").hide()
+                if (url) {
+                    $("img.ProfileImage").attr("src", url).show();
+                } else {
+                    this.val("");
+                }
+            });
+            $("#ProfileImage").trigger("change");
+        });
+    </script>
+}

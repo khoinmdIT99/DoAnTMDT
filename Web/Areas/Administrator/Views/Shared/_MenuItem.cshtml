@@ -1,0 +1,43 @@
+﻿@model Infrastructure.Web.Models.CacheMenuViewModel
+@{
+	//var hasChild = Model.Childs != null && Model.Childs.Count > 0;
+	List<Infrastructure.Web.Models.CacheMenu> menus;
+	if (string.IsNullOrEmpty(Model.HierarchyCode))
+	{
+		menus = Model.menus.Where(p => p.HierarchyCode.Length == Domain.Common.Consts.Infrastructure.HierarchyCodeLength).OrderBy(p => p.Order).ToList();
+	}
+	else
+	{
+		menus = Model.menus.Where(p => p.HierarchyCode.StartsWith(Model.HierarchyCode) && p.HierarchyCode.Length - Model.HierarchyCode.Length == Domain.Common.Consts.Infrastructure.HierarchyCodeLength).OrderBy(p => p.Order).ToList();
+	}
+	var childMenus = new List<Infrastructure.Web.Models.CacheMenu>();
+}
+@foreach (var item in menus)
+{
+	childMenus = Model.menus.Where(p => p.HierarchyCode.Length > item.HierarchyCode.Length && p.HierarchyCode.StartsWith(item.HierarchyCode)).OrderBy(p=>p.Order).ToList();
+	<li class="nav-item @(childMenus.Any() ? "has-treeview" : "") @(!string.IsNullOrEmpty(Model.SelectedHierarchyCode) && Model.SelectedHierarchyCode.StartsWith(item.HierarchyCode) ? "menu-open" : "")">
+		<a href="@(!string.IsNullOrEmpty(item.Controller) && item.Controller != "#" ? Url.ActionLink("Index", item.Controller) : "#")"
+		   class="nav-link @(!string.IsNullOrEmpty(Model.SelectedHierarchyCode) && Model.SelectedHierarchyCode.StartsWith(item.HierarchyCode) ? "active" : "")">
+			<i class="nav-icon fas @item.Icon"></i>
+			<p>
+				@item.Name
+				@if (childMenus.Any())
+				{
+					<i class="fas fa-angle-left right"></i>
+				}
+			</p>
+		</a>
+		@if (childMenus.Any())
+		{
+			Infrastructure.Web.Models.CacheMenuViewModel menuViewModel = new Infrastructure.Web.Models.CacheMenuViewModel()
+			{
+				HierarchyCode = item.HierarchyCode,
+				menus = Model.menus,
+				SelectedHierarchyCode = Model.SelectedHierarchyCode
+			};
+			<ul class="nav nav-treeview">
+				<partial name="_MenuItem" model="menuViewModel" />
+			</ul>
+		}
+	</li>
+}

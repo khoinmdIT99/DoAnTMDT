@@ -1,0 +1,36 @@
+﻿@model Domain.Shop.Dto.ProductTypes.ProductTypeViewModel
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form class="form-horizontal" method="post" action="@Url.ActionLink("Create")" asp-antiforgery="true">
+                    <div class="card-header">
+                        <h5 class="card-title">Thêm mới loại sản phẩm</h5>
+                    </div>
+
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label asp-for="TypeName" class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <input asp-for="TypeName" class="form-control" />
+                                    <span asp-validation-for="TypeName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="card-footer">
+                        <a href="@Url.ActionLink("Index")" role="button" class="btn btn-default">Hủy</a>
+                        <button type="submit" class="btn btn-info pull-right float-right">Thêm mới</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>

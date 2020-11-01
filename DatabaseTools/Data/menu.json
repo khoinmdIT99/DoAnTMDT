@@ -1,0 +1,56 @@
+﻿[
+    {
+        "Id": "4a57ca88-a43a-4919-8904-3a7613b8b1a4",
+        "Order": 1,
+        "Name": "Người dùng",
+        "DisplayName": "Quản lý người dùng",
+        "Icon": "fa-users",
+        "HierarchyCode": "000000000000005000000000000000",
+        "Controller": "Users"
+    },
+    {
+        "Id": "70755585-de6e-45db-a6f9-36a05c236084",
+        "Order": 2,
+        "Name": "Vai trò",
+        "DisplayName": "Quản lý vai trò",
+        "Icon": "fa-th",
+        "HierarchyCode": "000000000000005000000000000001",
+        "Controller": "Roles"
+    },
+    {
+        "Id": "7a081b51-54c1-45d0-a716-d5c8026381a7",
+        "Order": 3,
+        "Name": "Menu",
+        "DisplayName": "Quản lý menu",
+        "Icon": "fa-th-list",
+        "HierarchyCode": "000000000000008000000000000000",
+        "Controller": "Menus"
+    },
+    {
+        "Id": "32d82b2a-ef45-44a6-97e2-23c875a8d5ac",
+        "Order": 1,
+        "Name": "Cấu hình",
+        "DisplayName": "Quản lý cấu hình",
+        "Icon": "fa-cogs",
+        "HierarchyCode": "000000000000008000000000000001",
+        "Controller": "Configuration"
+    },
+    {
+        "Id": "71c65b93-e868-44f3-b269-f86ca39f48d9",
+        "Order": 100,
+        "Name": "Hệ thống",
+        "DisplayName": "Quản trị hệ thống",
+        "Icon": "fa-laptop",
+        "HierarchyCode": "000000000000008",
+        "Controller": "#"
+    },
+    {
+        "Id": "dc8b1f7d-4e0a-4a3e-bfd1-4691b90a1e00",
+        "Order": 1,
+        "Name": "Danh mục",
+        "DisplayName": "Quản lý danh mục",
+        "Icon": "fa-list",
+        "HierarchyCode": "000000000000005",
+        "Controller": "#"
+    }
+]

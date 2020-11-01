@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Id": "bcb4d5df-0f25-49a3-8d09-99b3abe86385",
+    "RoleCode": "User",
+    "RoleName": "Người dùng hệ thống"
+  },
+  {
+    "Id": "99143bb7-95c6-4795-991b-15c33853dba0",
+    "RoleCode": "admin",
+    "RoleName": "Quản trị hệ thống"
+  },
+  {
+    "Id": "99143bb7-95c6-4795-991b-15c33853dba1",
+    "RoleCode": "Staff",
+    "RoleName": "Nhân viên kho"
+  }
+]

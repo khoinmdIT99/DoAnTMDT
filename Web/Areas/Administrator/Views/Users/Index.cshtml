@@ -1,0 +1,93 @@
+﻿<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Danh sách người dùng</h5>
+                    <div class="card-tools">
+
+                        <a href="@Url.ActionLink("Create")" role="button" class="btn bg-gradient-success btn-sm">
+                            Thêm mới
+                        </a>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" style="overflow-x: auto;">
+                    <table id="table-users" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tên đăng nhập</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>vai trò</th>
+                            </tr>
+                            <tr role="row">
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo Tên đăng nhập"></th>
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo Họ tên"></th>
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo Email"></th>
+                                <th rowspan="1" colspan="1">
+                                    <select name="Roles" asp-items="(List<SelectListItem>)ViewBag.roles" class="select2" style="width: 100%;">
+                                        <option value="">--- Tìm theo Vai trò ---</option>
+                                    </select>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+@section Scripts
+{
+
+    <!-- page script -->
+    <script>
+		$(function () {
+			$('#table-users').CoreTable({
+			orderCellsTop: true,
+			fixedHeader: true,
+			processing: true,
+			columns: [
+				{
+                    data: "userName",
+                    name: "userName"
+				},
+				{
+                    data: "fullName",
+                    name: "fullName"
+				},
+				{
+                    data: "email",
+                    name: "email"
+				},
+				{
+					name: "roles",
+                    data: function (data) {
+                        
+                        return data.roles ? data.roles.map(function (role) { return role.roleName }).join("; ") : data.roles;
+
+                    }
+				}
+			],
+			defaultAction: {
+				update: '@Url.ActionLink("Update", "Users")',
+				delete: '@Url.ActionLink("Delete", "Users")'
+                },
+			serverSide: true,
+			ajax: {
+				url: '@Url.Action("GetData")',
+                }
+
+		});
+
+    });
+    </script>
+}

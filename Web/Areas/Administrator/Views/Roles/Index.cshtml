@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Domain.Application.Dto.Roles.RoleViewModel>
+<!-- Main content -->
+<section class="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="card-title">Danh sách vai trò</h5>
+					<div class="card-tools">
+
+						<a href="@Url.ActionLink("Create")" role="button" class="btn bg-gradient-success btn-sm">
+							Thêm mới
+						</a>
+					</div>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body" style="overflow-x: auto;">
+					<table id="table-roles" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>RoleCode</th>
+								<th>RoleName</th>
+								<th style="width: 80px;"></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+
+								<tr>
+									<td>@Html.DisplayFor(modelItem => item.RoleCode)</td>
+									<td>@Html.DisplayFor(modelItem => item.RoleName)</td>
+									<td>
+										<div class="btn-group">
+											<a role="button" class="btn btn-info" href="@Url.ActionLink("Update", "Roles", new { id = item.Id })">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a role="button" class="btn btn-danger" href="#" onclick="Delete('@item.Id')">
+												<i class="fas fa-trash"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+					<!-- /.row -->
+				</div>
+			</div>
+			<!-- /.card -->
+		</div>
+		<!-- /.col -->
+	</div>
+</section>
+
+@section Scripts
+{
+
+	<!-- page script -->
+	<script>
+    $(function () {
+		$('#table-roles').DataTable({
+			"columnDefs": [
+				{ "orderable": false, "targets": 2 }
+			]
+		});
+    });
+        function FilterByCategory(categoryName){
+		
+            $.ajax(
+            {
+                type: "POST",
+                url: '@Url.ActionLink("Filter", "Home")',
+				data: {
+                        categoryName: categoryName
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        window.location.reload();
+                    }
+                    else {
+						alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                    }
+                }
+            });
+        
+    }
+	</script>
+}

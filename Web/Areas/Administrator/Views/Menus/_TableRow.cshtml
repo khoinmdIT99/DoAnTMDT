@@ -1,0 +1,43 @@
+﻿@model Domain.Application.Dto.Menus.MenuViewModel
+@{ 
+	var HierarchyPrefix = "|";
+	for (int i = 0; i < Model.HierarchyCode.Length / 5; i++)
+	{
+		HierarchyPrefix += "-";
+	}
+}
+<tr data-hierarchy="@Model.HierarchyCode" class="expanded">
+	<td>
+		@if (Model.Childs.Count() > 0)
+		{
+			<span onclick="Toggle('@Model.HierarchyCode')" class="toggle-button expanded">
+				<i class="far fa-minus-square"></i>
+			</span>
+			<span onclick="Toggle('@Model.HierarchyCode')" class="toggle-button collapsed">
+				<i class="far fa-plus-square"></i>
+			</span>
+		}
+	</td>
+	<td>@HierarchyPrefix @Model.Name</td>
+	<td>@Model.DisplayName</td>
+	<td>@string.Join(", ", Model.Roles)</td>
+	<td>
+		<div class="btn-group">
+			<a role="button" class="btn btn-info" href="@Url.ActionLink("Update", "Menus", new { id = Model.Id })">
+				<i class="fas fa-edit"></i>
+			</a>
+			<a role="button" class="btn btn-danger" href="#" onclick="Delete('@Model.Id')">
+				<i class="fas fa-trash"></i>
+			</a>
+		</div>
+	</td>
+</tr>
+@if (Model.Childs.Count() > 0)
+{
+<tbody data-child="@Model.HierarchyCode">
+	@foreach (var item in Model.Childs)
+	{
+		<partial name="_TableRow" model="item" />
+	}
+</tbody>
+}

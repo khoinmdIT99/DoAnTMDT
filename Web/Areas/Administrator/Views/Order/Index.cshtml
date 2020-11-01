@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Domain.Shop.Dto.Cart.CartViewModel>
+@{ ViewData["Title"] = "Index";
+    var check = ViewBag.CheckBlogCategory; } <!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Danh sách mua hàng</h5>
+
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" style="overflow-x: auto;">
+                    <table id="table-roles" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tên khách hàng</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Ngày mua</th>
+                                <th>Tổng số tiền</th>
+                                <th style="width: 80px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@item.Customer.FirstName.ToString()  @item.Customer.LastName.ToString()</td>
+                                    <td>@item.Customer.PhoneNo</td>
+                                    <td>@item.Customer.Province.ToString(), @item.Customer.District.ToString(), @item.Customer.Address.ToString()</td>
+                                    <td>@item.CreateAt.ToString()</td>
+                                    <td>@item.Total $</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a role="button" class="btn btn-info" href="@Url.ActionLink("Detail", "Order", new { id = item.Id })">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a role="button" class="btn btn-danger" onclick="Delete('@item.Id')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+}
+                        </tbody>
+                    </table>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+@section Scripts
+{
+
+    <!-- page script -->
+    <script>
+    
+	
+    function Delete(id){
+		var r = confirm("Bạn có chắc chắn muốn xóa Vật liệu này?");
+        if (r == true) {
+            $.ajax(
+            {
+                type: "POST",
+                url: '@Url.ActionLink("Delete", "Order")',
+                data: {
+                    id: id
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        window.location.reload();
+                    }
+                    else {
+						alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                    }
+                }
+            });
+        }
+        }
+       
+    </script>
+}

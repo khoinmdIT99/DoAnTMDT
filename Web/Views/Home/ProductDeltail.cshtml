@@ -1,0 +1,772 @@
+﻿@model Domain.Shop.Dto.Products.ProductViewModel
+@{
+    ViewData["Title"] = "Product Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link href="~/js/lightslider/lightslider.css" rel="stylesheet">
+    <link href="~/js/slick-slider/slick.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/js/quickview/magnific-popup.css">
+}
+<div class="product-detail-top">
+    <div class="container">
+        <div class="clearfix box">
+            <div class="product-slider-box clearfix">
+                @if (Model.DisplayImages != null && Model.DisplayImages.Count > 0)
+                {
+                    <div class="main-slider-box">
+                        <div class="product-detail-slider popup-gallery">
+                            <div class="item-slider">
+                                <a href="~/imageUpload/@Model.DisplayImages[0]">
+                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
+                                </a>
+                            </div>
+                            <div class="item-slider">
+                                <a href="~/imageUpload/@Model.DisplayImages[0]">
+                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
+                                </a>
+                            </div>
+                            <div class="item-slider">
+                                <a href="~/imageUpload/@Model.DisplayImages[0]">
+                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
+                                </a>
+                            </div>
+                            <div class="item-slider">
+                                <a href="~/imageUpload/@Model.DisplayImages[0]">
+                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
+                                </a>
+                            </div>
+                            <div class="item-slider">
+                                <a href="~/imageUpload/@Model.DisplayImages[0]">
+                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-box">
+                        <div class="product-detail-slider-gallery">
+                            @for (int i = 1; i < Model.DisplayImages.Count; i++)
+                            {
+                                <div class="gallery-item">
+                                    <img src="~/imageUpload/@Model.DisplayImages[i]">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="product-infomation">
+                <div class="product-box">
+                    <h1 class="product-name">@Model.CategoryName</h1>
+                    <div class="review-box">
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <a href="#reviews" data-toggle="scroll" class="smooth reviews-button"> 1 Reviews</a>
+                        <a href="#reviews" data-toggle="scroll" class="smooth add-reviews">Add Your Rivew</a>
+                    </div>
+                    <div class="price">
+                        $@Model.Price
+                    </div>
+                    <div class="product-desc-box">
+                        <h4 class="product-desc-title">Chất liệu</h4>
+                        <p class="product-desc">@Model.MaterialName</p>
+                    </div>
+                    <div class="product-desc-box">
+                        <h4 class="product-desc-title">Loại sản phẩm</h4>
+                        <p class="product-desc">@Model.ProductTypeName</p>
+                    </div>
+                    <div class="product-desc-box">
+                        <h4 class="product-desc-title">Danh mục sản phẩm</h4>
+                        <p class="product-desc">@Model.CategoryName</p>
+                    </div>
+                    <div class="option-group">
+                        <div class="quantity-control-box">
+                            <label>Qty:</label>
+                            <input type="text" name="" class="input-quantity only-number" value="1">
+                            <span class="quantity-control-btn quantity-add">+</span>
+                            <span class="quantity-control-btn quantity-minus">-</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                                ADD TO CART
+                            </button>
+                            <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                                <i class="fa fa-retweet" aria-hidden="true"></i>
+                            </button>
+                            <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="share-box">
+                        <h5 class="share-title">SHARE THIS PRODUCT</h5>
+                        <div class="fb-like marl5 fb_iframe_widget" data-href="https://web5s.info/demo/bangtanha/gioi-thieu-bang-flipchart-a-model-tan-ha" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=0&amp;href=https%3A%2F%2Fweb5s.info%2Fdemo%2Fbangtanha%2Fgioi-thieu-bang-flipchart-a-model-tan-ha&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=true"><span style="vertical-align: bottom; width: 122px; height: 20px;"><iframe name="f3bdea1d845d2c4" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" title="fb:like Facebook Social Plugin" src="https://www.facebook.com/v2.6/plugins/like.php?action=like&amp;app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2Fd_vbiawPdxB.js%3Fversion%3D44%23cb%3Df20be4dd5d3ce6%26domain%3Dweb5s.info%26origin%3Dhttps%253A%252F%252Fweb5s.info%252Ff29a7f99d1644ac%26relation%3Dparent.parent&amp;container_width=0&amp;href=https%3A%2F%2Fweb5s.info%2Fdemo%2Fbangtanha%2Fgioi-thieu-bang-flipchart-a-model-tan-ha&amp;layout=button_count&amp;locale=vi_VN&amp;sdk=joey&amp;share=true&amp;show_faces=true" style="border: none; visibility: visible; width: 122px; height: 20px;" class="mrr5"></iframe></span></div>
+                        <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 60px; height: 20px; margin-bottom: 8px; margin-left: 4px;" title="Twitter Tweet Button" src="https://platform.twitter.com/widgets/tweet_button.2e9f365dae390394eb8d923cba8c5b11.vi.html#dnt=false&amp;id=twitter-widget-1&amp;lang=vi&amp;original_referer=https%3A%2F%2Fweb5s.info%2Fdemo%2Fbangtanha%2Fgioi-thieu-bang-flipchart-a-model-tan-ha&amp;size=m&amp;text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20b%E1%BA%A3ng%20Flipchart%20A%20Model%20T%C3%A2n%20H%C3%A0&amp;time=1557474728906&amp;type=share&amp;url=https%3A%2F%2Fweb5s.info%2Fdemo%2Fbangtanha%2Fgioi-thieu-bang-flipchart-a-model-tan-ha" data-url="https://web5s.info/demo/bangtanha/gioi-thieu-bang-flipchart-a-model-tan-ha"></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-product">
+    <div class="container">
+        <div class="content-product-tab clearfix">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#description" class="smooth">description</a></li>
+                <li><a data-toggle="tab" href="#reviews" class="smooth">reviews</a></li>
+                <li><a data-toggle="tab" href="#product-tags" class="smooth">product tags</a></li>
+                <li><a data-toggle="tab" href="#custom-tabs" class="smooth">custom tabs</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="description" class="tab-pane fade in active">
+                    <p>@Model.Description</p>
+                </div>
+                <div id="reviews" class="tab-pane fade">
+                    <form class="reviews-form">
+                        <h4 class="form-title">Write A Review</h4>
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" name="" placeholder="Your Name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Review</label>
+                            <textarea placeholder="Your Review"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">Bad</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                <label class="form-check-label" for="inlineRadio3">Good</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="smooth hv-border-inline">CONTINUTE</button>
+                    </form>
+                </div>
+                <div id="product-tags" class="tags-tab tab-pane fade">
+                    <a href="#" class="smooth active tag" title="">fashion </a>
+                    <a href="#" class="smooth tag" title="">gift </a>
+                    <a href="#" class="smooth tag" title="">shoes </a>
+                    <a href="#" class="smooth tag" title="">woman </a>
+                    <a href="#" class="smooth tag" title="">electric </a>
+                    <a href="#" class="smooth tag" title="">cameras </a>
+                    <a href="#" class="smooth tag" title="">cakes </a>
+                    <a href="#" class="smooth tag" title="">birthday </a>
+                    <a href="#" class="smooth tag" title="">annivaersary </a>
+                    <a href="#" class="smooth tag view-all" title="">View all Tags <i class="fa fa-caret-right"></i></a>
+                </div>
+                <div id="custom-tabs" class="tab-pane fade">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RELEATED PRODUCTS -->
+<div class="featured-products releated-products">
+    <div class="container">
+        <h3 class="featured-title">
+            <span>
+                RELEATED <span>PRODUCTS</span>
+            </span>
+        </h3>
+        <div class="featured-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="4" data-items_column1="4" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product7.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product9.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product4.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale blue-left">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //RELEATED PRODUCTS -->
+<!-- UP-SELL PRODUCTS -->
+<div class="featured-products up-sell-products">
+    <div class="container">
+        <h3 class="featured-title">
+            <span>
+                UP-SELL <span>PRODUCTS</span>
+            </span>
+        </h3>
+        <div class="featured-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="4" data-items_column1="4" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product2.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product3.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product4.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale blue-left">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript" src=" ~/js/lightslider/lightslider.js"></script>
+    <script type="text/javascript" src="~/js/quickview/jquery.elevateZoom-3.0.8.min.js"></script>
+    <script src="~/js/slick-slider/slick.js"></script>
+}

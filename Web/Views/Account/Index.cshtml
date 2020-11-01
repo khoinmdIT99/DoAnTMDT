@@ -1,0 +1,167 @@
+﻿@model Domain.Shop.Dto.Customer.CustomerViewModel
+@{ 
+    ViewData["Title"] = "Tài khoản";
+    ViewData["Name"] = "Tài khoản";
+    ViewData["Controller"] = "Tài khoản";
+    ViewData["Action"] = "Thông tin tài khoản";
+}
+<div id="wrapper" class="wrapper-fluid banner-effect-3">
+    <!-- Main Container  -->
+    <div class="my-account">
+        <div class="main-container container">
+
+            <div class="row">
+                <!--Middle Part Start-->
+                <div class="col-md-9" id="content">
+                    <h2 class="title">My Account</h2>
+                    @if (Model.FirstName != null && Model.LastName != null)
+                    {
+                        <p class="lead">Xin chào, <strong>@Model.FirstName @Model.LastName!</strong> - Cập nhật thông tin của bạn.</p>
+                    }
+                    else
+                    {
+                        <p class="lead">Xin chào, <strong> Khách hàng!</strong> - Cập nhật thông tin của bạn.</p>
+                    }
+
+                    <form asp-action="Update" asp-controller="Account" asp-area="" method="post">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <fieldset id="personal-details">
+                                    <legend>Thông tin chi tiết</legend>
+                                    <input type="hidden" asp-for="Id"  />
+                                    <div class="form-group required">
+                                        <label asp-for="FirstName" class="control-label"></label>
+                                        <input type="text" class="form-control" id="input-fullName" asp-for="FirstName">
+                                        <div asp-validation-summary="All"></div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label asp-for="LastName" class="control-label"></label>
+                                        <input type="text" class="form-control" id="input-fullName" asp-for="LastName">
+                                        <div asp-validation-summary="All"></div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label asp-for="PhoneNo" class="control-label">Telephone</label>
+                                        <input type="tel" class="form-control" id="input-telephone" asp-for="PhoneNo">
+                                        <div asp-validation-summary="All"></div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label asp-for="Email" class="control-label">Telephone</label>
+                                        <input type="email" class="form-control" id="input-telephone" asp-for="Email">
+                                        <div asp-validation-summary="All"></div>
+                                    </div>
+                                </fieldset>
+                                <br>
+                            </div>
+                            <div class="col-sm-6">
+                                <fieldset>
+                                    <legend>Change Password</legend>
+                                    <div class="form-group required">
+                                        <label asp-for="OldPassword" class="control-label">Old Password</label>
+                                        <input type="password" class="form-control" asp-for="OldPassword">
+                                        <div asp-validation-summary="All"></div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label asp-for="Password" class="control-label">New Password</label>
+                                        <input type="password" class="form-control" asp-for="Password">
+                                        <div asp-validation-summary="All"></div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label asp-for="ConfirmPassword" class="control-label">New Password Confirm</label>
+                                        <input type="password" class="form-control" id="input-confirm" asp-for="ConfirmPassword">
+                                        <div asp-validation-summary="All"></div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <fieldset id="shipping-address">
+                                    <legend>Shipping Address</legend>
+
+                                    <div class="form-group required">
+                                        <label asp-for="Address" class="control-label"></label>
+                                        <input type="text" class="form-control" id="input-address-1" asp-for="Address">
+                                        <div asp-validation-summary="All"></div>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="form-group required col-sm-6">
+                                            <label asp-for="Province" class="control-label"></label>
+                                            <select class="form-control" id="input-provice" asp-for="Province">
+                                                <option value=""> --- Please Select --- </option>
+                                                @foreach (var item in ViewBag.ListProvince)
+                                                {
+                                                    <option value="@item.Id">@item.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group required col-sm-6">
+                                            <label asp-for="District" class="control-label"></label>
+                                            <select class="form-control" id="input-district" asp-for="District">
+                                                <option value=""> --- Please Select --- </option>
+                                                @if (Model.District != null)
+                                                {
+                                                    foreach (var item in ViewBag.ListDistrict)
+                                                    {
+                                                        <option value="@item.Id" class="districtExist">@item.Name</option>
+                                                    }
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="buttons clearfix">
+                            <div class="pull-right">
+                                <input type="submit" class="btn btn-md btn-primary" value="Cập nhật">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--Middle Part End-->
+
+            </div>
+        </div>
+    </div>
+    <!-- //Main Container -->
+    <div class="back-to-top">
+        <i class="fa fa-angle-up" aria-hidden="true"></i>
+    </div>
+</div>
+@section  Scripts{ 
+    <script>
+        $("#input-provice").change(function () {
+            $.ajax(
+            {
+                type: "GET",
+                url: '@Url.ActionLink("GetDictricts", "Account")',
+                data: {
+                    value: $("#input-provice").val()
+                },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                error: function (result) {
+                  
+                    alert("error");
+                },
+                success: function (result) {
+                    $("#input-district").remove(".districtExist");
+                    if (result != null) {
+                        $.each(result, function (index, value) {
+
+                            $('#input-district').append(`<option value="${value.id}">${value.name}</option>`);
+                        })
+                    }
+                    else {
+					    alert("Không tìm thấy");
+                    }
+                }
+            });
+        })
+    </script>
+}
+
+

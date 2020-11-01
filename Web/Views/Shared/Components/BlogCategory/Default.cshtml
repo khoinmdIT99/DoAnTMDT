@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Domain.Shop.Dto.BlogCategories.BlogCategoryViewModel>
+@foreach (var item in Model)
+{
+    <li>
+        <partial name="_BlogRow" model="item" />
+     </li>
+}

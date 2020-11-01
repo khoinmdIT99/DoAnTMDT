@@ -1,0 +1,87 @@
+﻿@model Domain.Shop.Dto.Order.OrderViewModel
+@{ 
+    ViewData["Title"] = "Order";
+    ViewData["Name"] = "Thanh toán";
+    ViewData["Controller"] = "Thanh Toán";
+    ViewData["Action"] = "Danh sách sản phẩm";
+}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <form asp-action="AddCart" asp-controller="Order" asp-area="" method="post">
+                    <fieldset id="personal-details">
+                        <legend>Thông tin chi tiết</legend>
+                        <input type="hidden" asp-for="CustomerId" />
+                        <div class="form-group required">
+                            <label asp-for="FullName" class="control-label"></label>
+                            <input type="text" class="form-control" id="input-fullName" asp-for="FullName">
+                            <div asp-validation-summary="All"></div>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input type="text" class="form-control" id="input-fullName" asp-for="Address">
+                            <div asp-validation-summary="All"></div>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="District" class="control-label"></label>
+                            <input type="text" class="form-control" id="input-fullName" asp-for="District">
+                            <div asp-validation-summary="All"></div>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="Province" class="control-label"></label>
+                            <input type="text" class="form-control" id="input-fullName" asp-for="Province">
+                            <div asp-validation-summary="All"></div>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="PhoneNo" class="control-label"></label>
+                            <input type="tel" class="form-control" id="input-telephone" asp-for="PhoneNo">
+                            <div asp-validation-summary="All"></div>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input type="email" class="form-control" id="input-telephone" asp-for="Email">
+                            <div asp-validation-summary="All"></div>
+                        </div>
+                    </fieldset>
+                    <br>
+                    <div class="buttons clearfix">
+                        <div class="pull-right">
+                            <a class="btn btn-md btn-primary" asp-action="Index" asp-controller="Account" style=" margin-bottom: 23px;">Cập nhật thông tin</a>
+                           @if (Model.ShoppingCart.cartProducts.Count > 0) {
+                               <input type="submit" class="btn btn-md btn-primary" value="Thanh Toán" style=" margin-bottom: 23px;">
+                           }
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td class="text-left">Product Name</td>
+                                <td class="text-left">Model</td>
+                                <td class="text-left">Quantity</td>
+                                <td class="text-right">Unit Price</td>
+                                <td class="text-right">Total</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ShoppingCart.cartProducts)
+                            {
+                                <tr>
+                                    <td class="text-left"> <a>@item.Product.ProductName</a></td>
+                                    <td class="text-left">@item.Product.ProductTypeName</td>
+                                    <td class="text-left"> @item.Quantity </td>
+                                    <td class="text-right"> @item.Product.Price $</td>
+                                    <td class="text-right">@((item.Quantity * item.Product.Price)) $</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p>Tổng giá tiền : @Model.ShoppingCart.Total $</p>
+                </div>
+            </div>
+        </div>
+    </div>

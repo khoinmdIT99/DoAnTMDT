@@ -1,0 +1,66 @@
+﻿@using Domain.Common
+@using Infrastructure.Web.Models
+@using Infrastructure.Web
+@{
+	UserInfo _user;
+	try
+	{
+		_user = (UserInfo)ViewData["UserInfo"];
+	}
+	catch (Exception)
+	{
+		_user = null;
+	}
+
+	List<CacheMenu> cacheMenus = new List<CacheMenu>();
+	try
+	{
+		cacheMenus = (List<CacheMenu>)ViewData["CacheMenu"];
+	}
+	catch (Exception) { }
+}
+@{
+	ConfigurationCache configurationCache = (ConfigurationCache)Context.RequestServices.GetService(typeof(ConfigurationCache));
+	var config = configurationCache.GetConfiguration();
+	var SiteSetting = config?.SiteSetting ?? new Domain.Application.Dto.Configuration.SiteSettingViewModel();
+}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+	<!-- Brand Logo -->
+	<a href="@Url.ActionLink("Index", "Default")" class="brand-link">
+		<img src="~/dist/img/AdminLTELogo.png" alt="@SiteSetting?.PageTitle Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+		<span class="brand-text font-weight-light">@SiteSetting?.PageTitle</span>
+	</a>
+
+	<!-- Sidebar -->
+	<div class="sidebar">
+		<!-- Sidebar user panel (optional) -->
+		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+			<div class="image">
+				<img src="~/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+			</div>
+			<div class="info">
+				<a href="#" class="d-block">@_user?.FullName</a>
+			</div>
+		</div>
+
+		<!-- Sidebar Menu -->
+		<nav class="mt-2">
+			<ul class="nav nav-pills nav-sidebar nav-flat nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				@{
+					var CurrentController = (string)ViewData["CurrentController"];
+					string SelectedHierarchyCode = cacheMenus.Where(p => p.Controller == CurrentController).Select(p => p.HierarchyCode).FirstOrDefault();
+					CacheMenuViewModel menuViewModel = new CacheMenuViewModel()
+					{
+						HierarchyCode = null,
+						menus = cacheMenus,
+						SelectedHierarchyCode = SelectedHierarchyCode
+					};
+					<partial name="_MenuItem" model="menuViewModel" />
+				}
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+</aside>

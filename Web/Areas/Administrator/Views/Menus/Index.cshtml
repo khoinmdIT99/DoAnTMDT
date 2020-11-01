@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Domain.Application.Dto.Menus.MenuViewModel>
+@section Styles {
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<style type="text/css">
+
+		#table-menus .expanded .collapsed {
+			display: none;
+		}
+
+		#table-menus .collapsed .expanded {
+			display: none;
+		}
+		#table-menus_info { display: none; }
+	</style>
+}
+<!-- Main content -->
+<section class="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h5 class="card-title">Danh sách menu</h5>
+					<div class="card-tools">
+
+						<a href="@Url.ActionLink("Create")" role="button" class="btn bg-gradient-success btn-sm">
+							Thêm mới
+						</a>
+					</div>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body" style="overflow-x: auto;">
+					<table id="table-menus" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th style="width: 30px;"></th>
+								<th>Tên menu</th>
+								<th>Tên hiển thị</th>
+								<th>Danh sách vai trò</th>
+								<th style="width: 80px; "></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<partial name="_TableRow" model="item" />
+							}
+						</tbody>
+					</table>
+					<!-- /.row -->
+				</div>
+			</div>
+			<!-- /.card -->
+		</div>
+		<!-- /.col -->
+	</div>
+</section>
+
+@section Scripts
+{
+
+	<!-- page script -->
+	<script>
+    $(function () {
+		$('#table-menus').DataTable({
+			ordering: false,
+			paging: false,
+			searching: false,
+			fixedColumns: {
+				leftColumns: 0,
+				rightColumns: 4
+			}
+		});
+    });
+    function Delete(id){
+		var r = confirm("Bạn có chắc chắn muốn xóa menu này?");
+        if (r == true) {
+            $.ajax(
+            {
+                type: "POST",
+                url: '@Url.ActionLink("Delete", "Menus")',
+                data: {
+                    id: id
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        window.location.reload();
+                    }
+                    else {
+						alert("Không thể xóa menu này. Vui lòng xóa các menu con trước khi xóa!");
+                    }
+                }
+            });
+        }
+	}
+
+		function Toggle(hierarchyCode) {
+			$("tr[data-hierarchy=" + hierarchyCode + "]").toggleClass("collapsed").toggleClass("expanded");
+			$("#table-menus tbody").each(function () {
+				var hierarchy = $(this).data("child");
+				if (hierarchy) {
+					var parrentRow = $("tr[data-hierarchy=" + hierarchy + "]");
+					if (parrentRow.hasClass("collapsed") || !parrentRow.is(":visible")) {
+						$(this).hide();
+					} else {
+						$(this).show();
+					}
+				}
+			});
+		}
+	</script>
+}

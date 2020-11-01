@@ -1,0 +1,305 @@
+﻿@model Domain.Shop.Dto.Products.ProductViewModel
+@{
+    ViewData["Title"] = "Detail";
+    ViewData["Name"] = "Chi tiết sản phẩm";
+    ViewData["Controller"] = "Trang chủ";
+    ViewData["Action"] = "Chi tiết sản phẩm";
+}
+@section Styles{
+    <link href="~/js/lightslider/lightslider.css" rel="stylesheet">
+    <link href="~/js/slick-slider/slick.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/js/quickview/magnific-popup.css">
+}
+<div class="product-detail-top">
+    <div class="container">
+        <div class="clearfix box">
+            <div class="product-slider-box clearfix">
+                @if (Model.DisplayImages != null && Model.DisplayImages.Count > 0)
+                {
+                    <div class="main-slider-box">
+                        <div class="product-detail-slider popup-gallery">
+                            <div class="item-slider">
+                                <a href="~/imageUpload/@Model.DisplayImages[0]">
+                                    <img id="zoom_05" data-zoom-image="~/imageUpload/@Model.DisplayImages[0]" src="~/imageUpload/@Model.DisplayImages[0]">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-box">
+                        <div class="product-detail-slider-gallery">
+                            @foreach (var item in Model.DisplayImages)
+                            {
+                                <div class="gallery-item">
+                                    <img src="~/imageUpload/@item" width="96" height="96">
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="product-infomation">
+                <div class="product-box">
+                    <h1 class="product-name">@Model.ProductName</h1>
+                    <div class="review-box">
+                        <div class="rating">
+                            <div class="rating-box">
+                                @if (Model.Star != null)
+                                {
+                                    @for (int i = 0; i < Math.Round(Convert.ToDecimal(Model.Star)); i++)
+                                    {
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                    }
+                                    @for (int i = 5; i > Math.Round(Convert.ToDecimal(Model.Star)); i--)
+                                    {
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <a href="#reviews" data-toggle="scroll" class="smooth reviews-button"> 1 Reviews</a>
+                        <a href="#reviews" data-toggle="scroll" class="smooth add-reviews">Add Your Rivew</a>
+                    </div>
+                    <div class="price">
+                        $ @Model.Price
+                    </div>
+                    <div class="product-desc-box" style="display : flex;">
+                        <div style=" padding: 0 8px; border-right: 1px solid #eee">
+                            <h4 class="product-desc-title">Chất liệu</h4>
+                            <p class="product-desc">@Model.MaterialName</p>
+                        </div>
+                        <div style=" padding: 0 8px; border-right: 1px solid #eee">
+                            <h4 class="product-desc-title">Loại sản phẩm</h4>
+                            <p class="product-desc">@Model.ProductTypeName</p>
+                        </div>
+                        <div style=" padding: 0 8px; border-right: 1px solid #eee">
+                            <h4 class="product-desc-title">Danh mục sản phẩm</h4>
+                            <p class="product-desc">@Model.CategoryName</p>
+                        </div>
+                    </div>
+                    <div class="option-group">
+                        <form asp-action="AddToShoppingCartInDetail" asp-controller="Cart" method="post">
+                            <input type="hidden" name="id" asp-for="Id" />
+                            <div class="quantity-control-box">
+                                <label>Qty:</label>
+                                <input type="text" name="quantity" class="input-quantity only-number" value="1">
+                                <span class="quantity-control-btn quantity-add">+</span>
+                                <span class="quantity-control-btn quantity-minus">-</span>
+                            </div>
+                            <div class="button-group">
+                                <button class="add-to-cart smooth" type="submit">
+                                    ADD TO CART
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                   
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-product">
+    <div class="container">
+        <div class="content-product-tab clearfix">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#description" class="smooth">description</a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><a data-toggle="tab" href="#reviews" class="smooth">reviews</a></li>
+                }
+                <li><a data-toggle="tab" href="#product-tags" class="smooth">product tags</a></li>
+                <li><a data-toggle="tab" href="#custom-tabs" class="smooth">custom tabs</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="description" class="tab-pane fade in active">
+                    <p>@Model.Description</p>
+                </div>
+                <div id="reviews" class="tab-pane fade">
+                    <form class="reviews-form" asp-action="Review" asp-controller="Home" asp-area="" method="post">
+                        <h4 class="form-title">Write A Review</h4>
+                        <input type="hidden" name="id" value="@Model.Id" />
+                            <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" name="name" placeholder="Your Name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Review</label>
+                            <textarea placeholder="Your Review" name="review"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">Bad</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="3">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="4">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="5">
+                                <label class="form-check-label" for="inlineRadio3">Good</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="smooth hv-border-inline">CONTINUTE</button>
+                    </form>
+                </div>
+                <div id="product-tags" class="tags-tab tab-pane fade">
+                    @*<a href="#" class="smooth active tag" title="">fashion </a>*@
+                    @foreach (var item in ViewBag.ProductTagDetail)
+                    {
+                        <a href="#" class="smooth tag" title="">@item</a>
+                    }
+                    <a href="#" class="smooth tag view-all" title="">View all Tags <i class="fa fa-caret-right"></i></a>
+                </div>
+                <div id="custom-tabs" class="tab-pane fade">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RELEATED PRODUCTS -->
+<div class="featured-products releated-products">
+    <div class="container">
+        <h3 class="featured-title">
+            <span>
+                RELEATED <span>PRODUCTS</span>
+            </span>
+        </h3>
+        <div class="featured-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="4" data-items_column1="4" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+            @foreach (var item in ViewBag.RelateProduct)
+            {
+                <div class="item">
+                    <div class="product-box">
+                        <div class="product-image">
+                            <a href="detail.html" class="c-img link-product">
+                                @if (item.DisplayImages != null)
+                                {
+                                    <img src="~/imageUpload/@item.DisplayImages[0]" class="img-responsive">
+                                }
+                                else
+                                {
+                                    <img src="#" class="img-responsive" alt="" height="250">
+                                }
+                            </a>
+                            <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <h4 class="product-name"><a asp-action="Detail" asp-controller="Home" class="smooth" title="">@item.ProductName</a></h4>
+                            <div class="price">
+                                @item.Price <span class="price-old">$142.00</span>
+                            </div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    @if (item.Star != null)
+                                    {
+                                        @for (int i = 0; i < Math.Round(Convert.ToDecimal(item.Star)); i++)
+                                        {
+                                            <span class="fa fa-stack">
+                                                <i class="fa fa-star fa-stack-1x"></i>
+                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                            </span>
+                                        }
+                                        @for (int i = 5; i > Math.Round(Convert.ToDecimal(item.Star)); i--)
+                                        {
+                                            <span class="fa fa-stack">
+                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                            </span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <div class="button-group">
+                                <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; " onclick="AddToCart('@item.Id')"> ADD TO CART</a>
+                            </div>
+                        </div>
+                        <span class="label-sale red-right">SALE</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- //RELEATED PRODUCTS -->
+
+@section Scripts{
+    <script type="text/javascript" src=" ~/js/lightslider/lightslider.js"></script>
+    <script type="text/javascript" src="~/js/quickview/jquery.elevateZoom-3.0.8.min.js"></script>
+    <script src="~/js/slick-slider/slick.js"></script>
+}

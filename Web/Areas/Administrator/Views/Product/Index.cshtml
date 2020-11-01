@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Domain.Shop.Dto.Products.ProductViewModel>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Danh sách sản phẩm</h5>
+                    <div class="card-tools">
+
+                        <a href="@Url.ActionLink("Create")" role="button" class="btn bg-gradient-success btn-sm">
+                            Thêm mới
+                        </a>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" style="overflow-x: auto;">
+                    <table id="table-product" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Slug</th>
+                                <th>Product Code</th>
+                                <th>Description</th>
+                                <th>Type Name</th>
+                                <th>Material Name</th>
+                                <th>Category Name</th>
+                                <th>Price Type</th>
+                                <th>Price</th>
+                                <th style="width: 80px;"></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Slug)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ProductCode)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ProductTypeName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.MaterialName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PriceType)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+
+                                <td>
+                                    <div class="btn-group">
+                                        <a role="button" class="btn btn-info" href="@Url.ActionLink("Update", "Product", new { id = item.Id })">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a role="button" class="btn btn-danger" href="#" onclick="Delete('@item.Id')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td><a class="btn btn-primary" href="@Url.ActionLink("Review", "Product", new { id = item.Id })">Đánh giá</a></td>
+                            </tr>
+}
+                        </tbody>
+                    </table>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+@section Scripts
+{
+    <!-- page script -->
+    <script>
+    $(function () {
+        $('#table-product').DataTable({
+			"columnDefs": [
+				{ "orderable": false, "targets": 2 }
+			]
+		});
+    });
+    function Delete(id){
+		var r = confirm("Bạn có chắc chắn muốn xóa Sản phẩm này?");
+        if (r == true) {
+            $.ajax(
+            {
+                type: "POST",
+                url: '@Url.ActionLink("Delete", "Product")',
+                data: {
+                    id: id
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        window.location.reload();
+                    }
+                    else {
+						alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                    }
+                }
+            });
+        }
+    }
+    </script>
+}

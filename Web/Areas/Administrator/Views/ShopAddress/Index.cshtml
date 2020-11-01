@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Domain.Shop.Dto.ShopAddress.ShopAddressViewModel>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Danh sách địa chỉ shop</h5>
+                    <div class="card-tools">
+
+                        <a href="@Url.ActionLink("Create")" role="button" class="btn bg-gradient-success btn-sm">
+                            Thêm mới
+                        </a>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" style="overflow-x: auto;">
+                    <table id="table-shop-address" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Hotline</th>
+                                <th>MainAddress</th>
+                                <th style="width: 80px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Hotline)</td>
+                                @if (item.MainAddress)
+                                {
+                                    <td style="color: green">Yes</td>
+                                }
+                                else
+                                {
+                                    <td style="color: red">No</td>
+                                }
+                                <td>
+                                    <div class="btn-group">
+                                        <a role="button" class="btn btn-info" href="@Url.ActionLink("Update", "ShopAddress", new { id = item.Id })">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a role="button" class="btn btn-danger" href="#" onclick="Delete('@item.Id')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+@section Scripts
+{
+
+    <!-- page script -->
+    <script>
+    $(function () {
+        $('#table-shop-address').DataTable({
+			"columnDefs": [
+				{ "orderable": false, "targets": 2 }
+			]
+		});
+    });
+    function Delete(id){
+		var r = confirm("Bạn có chắc chắn muốn xóa địa chỉ này không ?");
+        if (r == true) {
+            $.ajax(
+            {
+                type: "POST",
+                url: '@Url.ActionLink("Delete", "ShopAddress")',
+                data: {
+                    id: id
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result == true) {
+                        window.location.reload();
+                    }
+                    else {
+						alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                    }
+                }
+            });
+        }
+    }
+    </script>
+}

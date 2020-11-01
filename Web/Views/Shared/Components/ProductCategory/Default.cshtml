@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Domain.Shop.Dto.Category.CategoryViewModel>
+
+@if (Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <label class="choose clearfix">
+            <input type="radio" name="keyword" onclick ="FilterByCategory('@item.CategoryName')">
+            <span class="radio-checked"></span>
+            <p>@item.CategoryName</p>
+        </label>
+    }
+}
+
