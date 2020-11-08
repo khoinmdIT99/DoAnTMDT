@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -11,8 +12,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,12 +41,14 @@ namespace Web
         {
             services.AddControllersWithViews()
                  .AddNewtonsoftJson()
-                 .AddJsonOptions(options =>
+                 .AddJsonOptions(jsonOptions =>
                {
-                   options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                   options.JsonSerializerOptions.WriteIndented = true;
+                   jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
+                   jsonOptions.JsonSerializerOptions.WriteIndented = true;
+                   jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                   jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
                });
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddRazorPages();
             services.AddDbContext<ApplicationDBContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("NpgsqlConection"), b => b.MigrationsAssembly("DatabaseTools"))
@@ -78,9 +83,14 @@ namespace Web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
+                options.Cookie.HttpOnly = true;
                 options.LoginPath = "/Login/Index/";
+                options.LogoutPath = new PathString("/Login/logout");
+                options.AccessDeniedPath = "/Login/Index/";
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                options.SlidingExpiration = false;
+
             });
-           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,7 +104,6 @@ namespace Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
 
             app.UseRouting();
             app.UseAuthentication();

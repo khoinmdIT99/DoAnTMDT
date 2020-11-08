@@ -1,1 +1,19 @@
-﻿
+﻿.payment-div-ok {
+    width: 100%;
+    padding: 10px;
+    border-radius: 13px;
+    background-color: lightgreen;
+    font-weight: bolder;
+    color: black;
+    font-style: oblique;
+}
+
+.payment-div-nok {
+    width: 100%;
+    padding: 10px;
+    border-radius: 13px;
+    background-color: red;
+    font-weight: bolder;
+    color: black;
+    font-style: oblique;
+}

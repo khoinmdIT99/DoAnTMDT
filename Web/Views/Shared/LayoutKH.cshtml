@@ -184,12 +184,7 @@
                             </button>
                         </form>
                     </div>
-                    <div class="header-login">
-                        <ul>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="register.html">Reg</a></li>
-                        </ul>
-                    </div>
+                    @await Component.InvokeAsync("Account")
                     <div class="header-cart cart-res">
                         <a class="icon-cart" href="#">
                             <i class="ti-shopping-cart"></i>
@@ -2203,6 +2198,130 @@
     <script src="~/assets/js/owl.carousel.min.js"></script>
     <script src="~/assets/js/plugins.js"></script>
     <script src="~/assets/js/main.js"></script>
+    <script type="text/javascript" defer="">
+    $(document).ready(function() {
+            function sendPostRequest(url, postData, callback) {
+        $.ajax(url, {
+            type: "POST",
+            dataType: "text",
+            success: callback,
+            error: function (xhr, ajaxOptions, thrownError) {
+                //alert('eerroorr');
+            }
+        });
+    }
+    function validateEmail(email) {
+        var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (!expr.test(email)) {
+            return false;
+        }
+        return true;
+    }
+    function compareLargeStrings(a,b){
+        if (a.length !== b.length) {
+            return false;
+        }
+        return a.localeCompare(b) === 0;
+    }
+
+    $('#crBtn').click(function (e) {
+        var name = $('#crName').val();
+        var email = $('#crEmail').val();
+        var password = $('#crPassword').val();
+        var repassword = $('#crRePassword').val();
+        alert(email);
+        var data = {};
+        data.fullName = name;
+        data.email = email;
+        data.password = password;
+
+        if (name === '' || password === ''|| !compareLargeStrings(password.trim(), repassword.trim())) {
+            e.preventDefault();
+            alert('Kiểm tra lại dữ liệu nhập vào');
+            if (!validateEmail(email)) {
+                e.preventDefault();
+                alert('Vui lòng nhập lại email');
+            }
+        }
+        else {
+            e.preventDefault();
+            $.ajax({
+                type: 'Post',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                url: '@Url.Action("AddUser", "Auth")',
+                success: function (data) {
+                    if (data.includes("thành công")) {
+                        alert(data);
+                        $('#closeModalBtn').click();
+                        location.href = '@Url.Content("~/Home/Index")';
+                    }
+                    else
+                    {
+                        e.preventDefault();
+                        alert(data.Message);
+                    }
+                },
+                error: function () {
+                    alert('Data sending error ...');
+                }
+            });
+
+        }
+    });
+
+    $('#loginBtn').click(function (e) {
+        var email = $('#loginEmail').val();
+        var password = $('#loginPassword').val();
+        var user = {
+            Email: email,
+            Password: password
+        }
+
+        e.preventDefault();
+        $.ajax({
+            type: 'Post',
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/Auth/Login/' + JSON.stringify(user),
+            success: function (result) {
+                if (result.includes("thành công")) {
+                    alert(result);
+                    $('#closeModalBtn').click();
+                    location.href = '@Url.Content("~/Home/Index")';
+                }
+                else
+                {
+                    alert(result);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert('Data sending error ...');
+            }
+        });
+
+    });
+
+    $('#logoutBtn').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: '/Auth/Logout',
+            success: function (result) {
+                alert(result);
+                location.reload();
+            }
+        });
+    });
+
+
+    });
+
+
+    </script>
+    @RenderSection("scripts", required: false)
 </body>
 
 </html>

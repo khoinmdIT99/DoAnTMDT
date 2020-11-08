@@ -8,7 +8,7 @@
 }
 <tr data-hierarchy="@Model.HierarchyCode" class="expanded">
     <td>
-        @if (Model.Childs.Count() > 0)
+        @if (Model.Childs.Any())
         {
             <span onclick="Toggle('@Model.HierarchyCode')" class="toggle-button expanded">
                 <i class="far fa-minus-square"></i>
@@ -19,7 +19,7 @@
         }
     </td>
     <td>@HierarchyPrefix @Model.CategoryName</td>
-    <td>@Model.Slug</td>
+    <td>@Model.Slug </td>
     <td>
         <div class="btn-group">
             <a role="button" class="btn btn-info" href="@Url.ActionLink("Update", "Category", new { id = Model.Id })">

@@ -120,7 +120,7 @@
             var fileLable = $(this).next('.custom-file-label');
             var files = $(this)[0].files;
             if (files.length > 1) {
-                fileLable.html(files.length + ' files selected')
+                fileLable.html(files.length + ' files selected');
             }
             else if (files.length == 1) {
                 fileLable.html(files[0].name);

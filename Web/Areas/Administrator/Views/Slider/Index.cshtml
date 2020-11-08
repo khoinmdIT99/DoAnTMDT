@@ -1,0 +1,63 @@
+﻿@model List<Domain.Shop.Dto.Slider.SliderViewModel>
+@{
+    ViewBag.Title = "$title$";
+
+}
+@section Styles {
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+}
+<div class="card">
+    <div class="card-header">
+        <p>
+            <button onclick="showInPopup('@Url.Action("CreateSlider","Slider",new { Area = "Administrator" },Context.Request.Scheme)','Tạo slider')" class="btn btn-outline-info"><i class="fa fa-plus-square"></i> New client</button>
+        </p>
+    </div>
+    <div class="card-body">
+        <div id="view-list-clients" style="padding-bottom: 100px;">
+            @await Html.PartialAsync("_ViewListSlider", Model)
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="form-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal HTML -->
+<div id="delete-modal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content card">
+            <div class="modal-header card-header">
+                <h4 class="modal-title">Are you sure ?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body card-body">
+                <p>Do you really want to delete this client ? This process cannot be undone.</p>
+            </div>
+            <div class="modal-footer card-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button id="btnDelete" onclick="deleteSlider()" type="button" class="btn btn-danger">Delete</button>
+            </div>
+            <input type="hidden" id="Slider_Id" name="Slider_Id" />
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/dist/js/site.js" asp-append-version="true"></script>
+    <script src="~/assets/js/app.js" asp-append-version="true"></script>
+    <script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <link href="~/assets/js/toastr/toastr.css" rel="stylesheet" />
+    <script src="~/assets/js/toastr/toastr.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+
+}

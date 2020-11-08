@@ -331,7 +331,8 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasMaxLength(50);
 
                     b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("CategoryName")
                         .HasColumnName("CATEGORY_NAME")
@@ -373,8 +374,6 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("CATEGORIES");
                 });
@@ -1088,6 +1087,25 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.ToTable("SHOP_SETTING");
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.Slider", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnName("ID")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("PhotoName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sliders");
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.Tag", b =>
                 {
                     b.Property<string>("Id")
@@ -1140,13 +1158,6 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.HasOne("Domain.Shop.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("Domain.Shop.Entities.Category", b =>
-                {
-                    b.HasOne("Domain.Shop.Entities.Category", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.CustomerFeedback", b =>

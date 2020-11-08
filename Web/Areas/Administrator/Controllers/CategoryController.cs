@@ -9,6 +9,7 @@ using Infrastructure.Common;
 using Infrastructure.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Web.Areas.Administrator.Controllers
@@ -18,17 +19,20 @@ namespace Web.Areas.Administrator.Controllers
     public class CategoryController : BaseController
     {
         private readonly ICategoryRepository _categoryRepository;
+
         public CategoryController(ICategoryRepository categoryRepository)
         {
             this._categoryRepository = categoryRepository;
-       
+
         }
+
         public ViewResult Index()
         {
             IEnumerable<CategoryViewModel> categories = _categoryRepository.GetCategoryViewModels();
             categories = CategoryViewModel.GetTreeMenuViewModels(categories);
             return View(categories);
         }
+
         private void SetComboData(string HierarchyCode = null)
         {
             var categoryQuery = _categoryRepository.All;
@@ -40,28 +44,48 @@ namespace Web.Areas.Administrator.Controllers
             {
                 Text = p.CategoryName,
                 Value = p.HierarchyCode
-            }).ToList(); 
+            }).ToList();
         }
+
+        public async Task<string> FindId(string name)
+        {
+            var categoryQuery = await _categoryRepository.All.ToListAsync();
+            return categoryQuery.FirstOrDefault(x => x.CategoryName == name)?.Id;
+        }
+
         public ViewResult Create()
         {
             SetComboData();
             return View();
         }
         [HttpPost]
-        public ActionResult Create(CategoryViewModel model)
+        public async Task<IActionResult> Create(CategoryViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    
                     if (!_categoryRepository.CheckSlugExist(model.Slug)) {
                         model.Id = Guid.NewGuid().ToString();
                         Category category = new Category();
                         PropertyCopy.Copy(model, category);
+                        category.Id = Guid.NewGuid().ToString();
                         category.HierarchyCode = _categoryRepository.GenerateHierarchyCode(model.ParentHierarchyCode);
-                        _categoryRepository.Add(category);
-                        _categoryRepository.Save(RequestContext);
+                        var listcategory = await _categoryRepository.All.OrderBy(p => p.HierarchyCode).Select(p => new SelectListItem
+                        {
+                            Text = p.CategoryName,
+                            Value = p.HierarchyCode
+                        }).ToListAsync();
+                        category.CategoryId = await FindId(listcategory.FirstOrDefault(x => x.Value == model.ParentHierarchyCode)?.Text);
+                        await _categoryRepository.AddAsync(category);
+                        await _categoryRepository.SaveAsync(RequestContext);
                         return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        SetComboData();
+                        return View();
                     }
                 }
                 catch (Exception )
@@ -70,8 +94,11 @@ namespace Web.Areas.Administrator.Controllers
                     return View();
                 }
             }
-            SetComboData();
-            return View();
+            else
+            {
+                SetComboData();
+                return View();
+            }
         }
         public ActionResult Update(string id)
         {

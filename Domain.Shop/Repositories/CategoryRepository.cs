@@ -12,8 +12,8 @@ namespace Domain.Shop.Repositories
 {
     public class CategoryRepository : Repository<ShopDBContext, Category>, ICategoryRepository
     {
-		private readonly int HierarchyCodeLength = Domain.Common.Consts.Infrastructure.HierarchyCodeLength;
-		private readonly string HierarchyCodeTemplate = Domain.Common.Consts.Infrastructure.HierarchyCodeTemplate;
+		private readonly int _hierarchyCodeLength = Domain.Common.Consts.Infrastructure.HierarchyCodeLength;
+		private readonly string _hierarchyCodeTemplate = Domain.Common.Consts.Infrastructure.HierarchyCodeTemplate;
 		public CategoryRepository(IUnitOfWork<ShopDBContext> unitOfWork) : base(unitOfWork)
         {
 
@@ -33,20 +33,20 @@ namespace Domain.Shop.Repositories
 		{
 			var query = this.All;
 			if (string.IsNullOrEmpty(HierarchyCodeParent))
-				query = query.Where(p => p.HierarchyCode.Length == HierarchyCodeLength);
+				query = query.Where(p => p.HierarchyCode.Length == _hierarchyCodeLength);
 			else
-				query = query.Where(p => p.HierarchyCode.StartsWith(HierarchyCodeParent) && p.HierarchyCode.Length == HierarchyCodeParent.Length + HierarchyCodeLength);
+				query = query.Where(p => p.HierarchyCode.StartsWith(HierarchyCodeParent) && p.HierarchyCode.Length == HierarchyCodeParent.Length + _hierarchyCodeLength);
 			var MaxHierarchyCode = query.OrderByDescending(p => p.HierarchyCode).Select(p => p.HierarchyCode).FirstOrDefault();
 			long MaxHierarchyNumber = 0;
 			if (!string.IsNullOrEmpty(MaxHierarchyCode))
 			{
-				MaxHierarchyCode = MaxHierarchyCode.Substring(MaxHierarchyCode.Length - HierarchyCodeLength);
+				MaxHierarchyCode = MaxHierarchyCode.Substring(MaxHierarchyCode.Length - _hierarchyCodeLength);
 			}
 			if (long.TryParse(MaxHierarchyCode, out MaxHierarchyNumber))
 			{
 				MaxHierarchyNumber++;
 			}
-			return HierarchyCodeParent + string.Format(HierarchyCodeTemplate, MaxHierarchyNumber);
+			return HierarchyCodeParent + string.Format(_hierarchyCodeTemplate, MaxHierarchyNumber);
 		}
 
         public CategoryViewModel GetMenuViewModel(string id)

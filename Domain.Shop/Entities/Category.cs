@@ -27,10 +27,8 @@ namespace Domain.Shop.Entities
         public string Description { get; set; }
         public bool Status { get; set; }
         [Display(Name = "Sub Category")]
-        [ForeignKey("Parent")]
+        [MaxLength(50)]
         public string CategoryId { get; set; }
-        public virtual Category Parent { get; set; }
-        public virtual ICollection<Category> Children { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

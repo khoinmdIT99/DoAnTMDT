@@ -1,0 +1,152 @@
+﻿@model Domain.Shop.Dto.Slider.SliderViewModel
+
+@{ ViewData["Title"] = "CreateClient";
+                Layout = null;
+}
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+                $('#blah').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+    $(document).ready(function () {
+        @*if (@Model.Id != null) {
+                getLastPayedPeriod(@Model.Status);
+                isPaymentOK(@Model.Status);
+            }*@
+
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            readURL(this);
+        });
+    });
+</script>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-7">
+                @if (Model.Id == null)
+                {
+    <h4>New slider</h4> }
+                else
+                {
+    <h4>Edit slider</h4>}
+            </div>
+            <div class="col-md-5">
+                <a asp-action="Index" class="btn btn-light btn-back-to-list"><i class="fa fa-list"></i> Back to List</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card-body">
+        @if (Model.Id == null)
+        {
+            <div></div>
+        }
+        else
+        {
+            @if (Model.Status)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="payment-div-ok">
+                            <span>Hình ảnh đang được đăng lên</span>
+                        </div>
+                    </div>
+                </div><br/>
+            }
+            else if (Model.Status == false)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="payment-div-nok">
+                            <span>Hình ảnh đang khóa</span>
+                        </div>
+                    </div>
+                </div><br/>
+            }
+        }
+
+        <div class="row">
+            <div class="col-md-12">
+                <form id="MyForm" method="post" onsubmit="return JqueryAjaxPost(this);" asp-area="Administrator" asp-controller="Slider" asp-action="AddShop" asp-route-id="@Model.Id" enctype="multipart/form-data" autocomplete="off">
+                    <input asp-for="Id" class="form-control" value="@Model.Id" hidden />
+                    @*<input asp-for="Status" class="form-control" value="@Model.Status" hidden />*@
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row form-group">
+                        <div class="input-group col-md-12">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text bg-white">
+                                    <i class="fa fa-user-circle"></i>
+                                </div>
+                            </div>
+                            <div class="custom-file col-sm-10" style="margin-left: 8px;">
+                                <input asp-for="ProfileImage" class="custom-file-input form-control" style="width: 100%;">
+                                <label class="custom-file-label">Choose file</label>
+                                <label id="file-name"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                    <div class="form-row form-group">
+                        <div class="input-group col-md-12">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text bg-white">
+                                    <i class="fa fa-user-circle"></i>
+                                </div>
+                            </div>
+                            <input type="checkbox" asp-for="@Model.Status" style="width: 50px" class="checkbox form-control">
+                        </div>
+                    </div>
+                    <input asp-for="PhotoName" class="form-control" value="@Model.PhotoName" hidden />
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                                <input type="button" value="Reset" onclick="onReset()" class="btn btn-secondary" />
+                            </div>
+                            @if (Model.Id != null)
+                            {
+                                <div class="col-md-3">
+                                    <input type="button" value="Pay" id="btnPay" class="btn btn-success" onclick="pay(@Model.Id)" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if (Model.Id == null)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group text-center">
+                        <span class="payment-info">Hình ảnh hiển thị : </span><span id="lastPayedPeriod"></span>
+                        <img width="200" height="200" src="~/assets/img/dragdrop.PNG" id="blah" src="#" alt="your image" />
+                    </div>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group text-center">
+                        <span class="payment-info">Hình ảnh update : </span><span id="lastPayedPeriod"></span>
+                        <img width="200" height="200" id="blah" src="~/@Model.PhotoName" alt="your image" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

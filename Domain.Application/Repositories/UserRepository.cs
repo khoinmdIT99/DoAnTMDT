@@ -24,7 +24,7 @@ namespace Domain.Application.Repositories
 
 		public User GetUserByEmail(string Email)
 		{
-			return this.All.Where(user => user.Email == Email).FirstOrDefault();
+			return this.All.FirstOrDefault(user => user.Email == Email);
 		}
 
 

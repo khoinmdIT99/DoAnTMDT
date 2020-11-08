@@ -40,17 +40,23 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="NLog" Version="4.7.5" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.5" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Administrator\Pages\" />
     <Folder Include="Pages\Components\" />
     <Folder Include="Views\Shared\Components\Account\" />
-    <Folder Include="wwwroot\assets\css\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="wwwroot\assets\datatables\css\" />
+    <Folder Include="wwwroot\assets\datatables\images\" />
+    <Folder Include="wwwroot\assets\datatables\js\" />
     <Folder Include="wwwroot\assets\fonts\" />
-    <Folder Include="wwwroot\assets\img\" />
     <Folder Include="wwwroot\assets\img\banner\" />
     <Folder Include="wwwroot\assets\img\bg\" />
     <Folder Include="wwwroot\assets\img\blog\" />
@@ -75,12 +81,16 @@
     <Folder Include="wwwroot\assets\img\quick-view\" />
     <Folder Include="wwwroot\assets\img\slider\" />
     <Folder Include="wwwroot\assets\img\team\" />
-    <Folder Include="wwwroot\assets\js\" />
+    <Folder Include="wwwroot\assets\js\toastr\" />
     <Folder Include="wwwroot\assets\js\vendor\" />
     <Folder Include="wwwroot\imageUpload\" />
+    <Folder Include="wwwroot\images_slider\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\datatables\js\dataTables.bootstrap4.min.js" />
+    <None Include="wwwroot\assets\datatables\js\dataTables.buttons.min.js" />
+    <None Include="wwwroot\assets\datatables\js\jquery.dataTables.min.js" />
     <None Include="wwwroot\assets\fonts\icofont.svg" />
     <None Include="wwwroot\assets\fonts\Pe-icon-7-stroke.svg" />
     <None Include="wwwroot\assets\fonts\themify.svg" />

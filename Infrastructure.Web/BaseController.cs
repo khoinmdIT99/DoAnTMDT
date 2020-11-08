@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Infrastructure.Web
 {
@@ -96,6 +98,22 @@ namespace Infrastructure.Web
             {
                 return null;
             }
+        }
+        public ContentResult JsonDateTime(object result)
+        {
+            var timeConverter = new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" };
+            return Content(JsonConvert.SerializeObject(result, Formatting.Indented, timeConverter));
+        }
+        public ContentResult JsonDate(object result)
+        {
+            var timeConverter = new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd" };
+            return Content(JsonConvert.SerializeObject(result, Formatting.Indented, timeConverter));
+        }
+
+        public ContentResult JsonTime(object result)
+        {
+            var timeConverter = new IsoDateTimeConverter { DateTimeFormat = "HH:mm:ss" };
+            return Content(JsonConvert.SerializeObject(result, Formatting.Indented, timeConverter));
         }
     }
 }

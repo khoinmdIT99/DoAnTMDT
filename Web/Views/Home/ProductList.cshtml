@@ -4,542 +4,707 @@
     ViewData["Name"] = "Trang chủ";
     ViewData["Controller"] = "Trang chủ";
     ViewData["Action"] = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/LayoutKH2.cshtml";
 }
 
-<div class="product-list">
-    <div class="container">
+<div class="shop-page-wrapper shop-page-padding ptb-100">
+    <div class="container-fluid">
         <div class="row">
-            <aside class="col-lg-3 col-md-3 aside-left">
-                <span class="close-aside-left"><i class="fa fa-times" aria-hidden="true"></i></span>
-                <div class="aside-filter">
-                    <h3 class="aside-title">SHOP BY</h3>
-                    <form class="filter-category">
-                        <div class="filter-box">
-                            <h4 class="filter-box-title">CATEGORY</h4>
-                            <div class="fillter-category">
-                                @await Component.InvokeAsync("ProductCategory")
-                            </div>
+            <div class="col-lg-3">
+                <div class="shop-sidebar mr-50">
+                    <div class="sidebar-widget mb-50">
+                        <h3 class="sidebar-title">Search Products</h3>
+                        <div class="sidebar-search">
+                            <form action="#">
+                                <input placeholder="Search Products..." type="text">
+                                <button><i class="ti-search"></i></button>
+                            </form>
                         </div>
-                        <div class="filter-box">
-                            <h4 class="filter-box-title">price</h4>
-                            <fieldset class="filter-price">
-                                <div class="price-wrap">
-                                    <div class="price-container clearfix">
-                                        <div class="price-wrap-1">
-                                            <label for="one">$</label>
-                                            <input id="one">
-                                        </div>
-                                        <div class="price-wrap-2">
-                                            <label for="two">$</label>
-                                            <input id="two">
-                                        </div>
-                                        <button type="button" class="hv-border-inline btn btn-warning" onclick="SearchByPrice()">SEARCH</button>
-                                    </div>
+                    </div>
+                    <div class="sidebar-widget mb-40">
+                        <h3 class="sidebar-title">Filter by Price</h3>
+                        <div class="price_filter">
+                            <div id="slider-range"></div>
+                            <div class="price_slider_amount">
+                                <div class="label-input">
+                                    <label>price : </label>
+                                    <input type="text" id="amount" name="price" placeholder="Add Your Price" />
                                 </div>
-                                <div class="price-field">
-                                    <input type="range" min="0" max="999" value="0" id="lower">
-                                    <input type="range" min="0" max="999" value="999" id="upper">
-                                </div>
-
-                            </fieldset>
-                        </div>
-                    </form>
-                </div>
-            </aside>
-            <div class="col-lg-9 col-md-9">
-                <div class="product-filter-top">
-                    <div class="row">
-                        <div class="col-lg-8 col-sm-8 col-xs-12 form-inline">
-                            <div class="form-group sort-by">
-                                <label class="control-label">Sort-by</label>
-                                <select class="form-control sort">
-                                    <option>Position Asc</option>
-                                    <option>Position Desc</option>
-                                    <option>Name (A - Z)</option>
-                                    <option>Name (Z - A)</option>
-                                    <option>Price (Low > High)</option>
-                                    <option>Price (High > Low)</option>
-                                    <option>Rating (Highest)</option>
-                                    <option>Rating (Lowest)</option>
-                                </select>
-                            </div>
-                            <div class="form-group sort-by">
-                                <label class="control-label">Show</label>
-                                <select class="form-control target">
-                                    <option>16</option>
-                                    <option>10</option>
-                                    <option>25</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-4 col-xs-12">
-                            <div class="sidebar-overlay"></div>
-                            <div class="list-view">
-                                <button type="button" class="sidebar-toggle-btn"><i class="fa fa-align-left" aria-hidden="true"></i>SIDEBAR</button>
-                                <button type="button" id="table-view" class="active">
-                                    <i class="fa fa-table" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" id="list-view">
-                                    <i class="fa fa-list" aria-hidden="true"></i>
-                                </button>
+                                <button type="button">Filter</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="product-list-view">
-                    <div class="row" id="list-product">
-                        @foreach (var item in Model)
-                        {
-                        <div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
-                            <div class="product-box clearfix">
-                                <div class="product-image">
-                                    <a  class="c-img link-product">
-                                        @if (item.DisplayImages.Any())
-                                        {
-                            <img src="~/imageUpload/@item.DisplayImages[0]" class="img-responsive" alt="" height="250"> }
-                        else
-                        {
-                            <img src="#" class="img-responsive" alt="" height="250">}
-                                        </a>
-                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-name"><a asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id" class="smooth" title="">@item.ProductName</a></h4>
-                                        <div class="price">
-                                           $ @item.Price<span class="price-old">$142.00</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="rating-box">
-                                                @if (item.Star != null)
-                                                {
-                                                    @for (int i = 0; i < Math.Round(Convert.ToDecimal(item.Star)); i++)
-                                                    {
-                                                        <span class="fa fa-stack">
-                                                            <i class="fa fa-star fa-stack-1x"></i>
-                                                            <i class="fa fa-star-o fa-stack-1x"></i>
-                                                        </span>
-                                                    }
-                                                    @for (int i = 5; i > Math.Round(Convert.ToDecimal(item.Star)); i--)
-                                                    {
-                                                        <span class="fa fa-stack">
-                                                            <i class="fa fa-star-o fa-stack-1x"></i>
-                                                        </span>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <span class="fa fa-stack">
-                                                        <i class="fa fa-star fa-stack-1x"></i>
-                                                        <i class="fa fa-star-o fa-stack-1x"></i>
-                                                    </span>
-                                                    <span class="fa fa-stack">
-                                                        <i class="fa fa-star fa-stack-1x"></i>
-                                                        <i class="fa fa-star-o fa-stack-1x"></i>
-                                                    </span>
-                                                    <span class="fa fa-stack">
-                                                        <i class="fa fa-star fa-stack-1x"></i>
-                                                        <i class="fa fa-star-o fa-stack-1x"></i>
-                                                    </span>
-                                                    <span class="fa fa-stack">
-                                                        <i class="fa fa-star fa-stack-1x"></i>
-                                                        <i class="fa fa-star-o fa-stack-1x"></i>
-                                                    </span>
-                                                    <span class="fa fa-stack">
-                                                        <i class="fa fa-star-o fa-stack-1x"></i>
-                                                    </span>
-                                                }
-                                            </div>
-                                        </div>
-                                        <div class="product-desc">
-                                            @item.Description
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                        <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; " onclick="AddToCart('@item.Id')"> ADD TO CART</a>
-                                    </div>
-                            </div>
-                        </div>
-                        }
-                    </div>
-                </div>
-                <div class="product-filter-top">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-8 col-xs-12 form-inline">
-                            <div class="form-group sort-by">
-                                <label class="control-label">Sort assby</label>
-                                <select class="form-control">
-                                    <option>Position</option>
-                                    <option>Name (A - Z)</option>
-                                    <option>Name (Z - A)</option>
-                                    <option>Price (Low > High)</option>
-                                    <option>Price (High > Low)</option>
-                                    <option>Rating (Highest)</option>
-                                    <option>Rating (Lowest)</option>
-                                </select>
-                            </div>
-                            <div class="form-group sort-by">
-                                <label class="control-label">Show</label>
-                                <select class="form-control target">
-                                    <option>16</option>
-                                    <option>10</option>
-                                    <option>25</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-4 col-xs-12">
-                            <ul class="pagination">
-                                <li class="active">
-                                    <span>1</span>
-                                </li>
-                                <li>
-                                    <a href="#" class="smooth" title="">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="smooth" title="">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="smooth" title="">>|</a>
-                                </li>
-
+                    <div class="sidebar-widget mb-45">
+                        <h3 class="sidebar-title">Categories</h3>
+                        <div class="sidebar-categories">
+                            <ul>
+                                <li><a href="#">Accessories <span>4</span></a></li>
+                                <li><a href="#">Book <span>9</span></a></li>
+                                <li><a href="#">Clothing <span>5</span> </a></li>
+                                <li><a href="#">Homelife <span>3</span></a></li>
+                                <li><a href="#">Kids & Baby <span>4</span></a></li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar-widget sidebar-overflow mb-45">
+                        <h3 class="sidebar-title">color</h3>
+                        <div class="product-color">
+                            <ul>
+                                <li class="red">b</li>
+                                <li class="pink">p</li>
+                                <li class="blue">b</li>
+                                <li class="sky">b</li>
+                                <li class="green">y</li>
+                                <li class="purple">g</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar-widget mb-40">
+                        <h3 class="sidebar-title">size</h3>
+                        <div class="product-size">
+                            <ul>
+                                <li><a href="#">xl</a></li>
+                                <li><a href="#">m</a></li>
+                                <li><a href="#">l</a></li>
+                                <li><a href="#">ml</a></li>
+                                <li><a href="#">lm</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar-widget mb-40">
+                        <h3 class="sidebar-title">tag</h3>
+                        <div class="product-tags">
+                            <ul>
+                                <li><a href="#">Clothing</a></li>
+                                <li><a href="#">Bag</a></li>
+                                <li><a href="#">Women</a></li>
+                                <li><a href="#">Tie</a></li>
+                                <li><a href="#">Women</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar-widget mb-50">
+                        <h3 class="sidebar-title">Top rated products</h3>
+                        <div class="sidebar-top-rated-all">
+                            <div class="sidebar-top-rated mb-30">
+                                <div class="single-top-rated">
+                                    <div class="top-rated-img">
+                                        <a href="#"><img src="~/assets/img/product/sidebar-product/1.jpg" alt=""></a>
+                                    </div>
+                                    <div class="top-rated-text">
+                                        <h4><a href="#">Flying Drone</a></h4>
+                                        <div class="top-rated-rating">
+                                            <ul>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <span>$140.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar-top-rated mb-30">
+                                <div class="single-top-rated">
+                                    <div class="top-rated-img">
+                                        <a href="#"><img src="~/assets/img/product/sidebar-product/2.jpg" alt=""></a>
+                                    </div>
+                                    <div class="top-rated-text">
+                                        <h4><a href="#">Flying Drone</a></h4>
+                                        <div class="top-rated-rating">
+                                            <ul>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <span>$140.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar-top-rated mb-30">
+                                <div class="single-top-rated">
+                                    <div class="top-rated-img">
+                                        <a href="#"><img src="~/assets/img/product/sidebar-product/3.jpg" alt=""></a>
+                                    </div>
+                                    <div class="top-rated-text">
+                                        <h4><a href="#">Flying Drone</a></h4>
+                                        <div class="top-rated-rating">
+                                            <ul>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <span>$140.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sidebar-top-rated mb-30">
+                                <div class="single-top-rated">
+                                    <div class="top-rated-img">
+                                        <a href="#"><img src="~/assets/img/product/sidebar-product/4.jpg" alt=""></a>
+                                    </div>
+                                    <div class="top-rated-text">
+                                        <h4><a href="#">Flying Drone</a></h4>
+                                        <div class="top-rated-rating">
+                                            <ul>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                                <li><i class="pe-7s-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <span>$140.00</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-9">
+                <div class="shop-product-wrapper res-xl res-xl-btn">
+                    <div class="shop-bar-area">
+                        <div class="shop-bar pb-60">
+                            <div class="shop-found-selector">
+                                <div class="shop-found">
+                                    <p><span>23</span> Product Found of <span>50</span></p>
+                                </div>
+                                <div class="shop-selector">
+                                    <label>Sort By : </label>
+                                    <select name="select">
+                                        <option value="">Default</option>
+                                        <option value="">A to Z</option>
+                                        <option value=""> Z to A</option>
+                                        <option value="">In stock</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="shop-filter-tab">
+                                <div class="shop-tab nav" role=tablist>
+                                    <a class="active" href="#grid-sidebar1" data-toggle="tab" role="tab" aria-selected="false">
+                                        <i class="ti-layout-grid4-alt"></i>
+                                    </a>
+                                    <a href="#grid-sidebar2" data-toggle="tab" role="tab" aria-selected="true">
+                                        <i class="ti-menu"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shop-product-content tab-content">
+                            <div id="grid-sidebar1" class="tab-pane fade active show">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/1.jpg" alt="">
+                                                </a>
+                                                <span>hot</span>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Homme Tapered Smart </a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/2.jpg" alt="">
+                                                </a>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Denim Stonewash</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/3.jpg" alt="">
+                                                </a>
+                                                <span>new</span>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Mini Waffle 5 Pack</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/4.jpg" alt="">
+                                                </a>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Dagger Smart Trousers</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/4.jpg" alt="">
+                                                </a>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Homme Tapered Smart</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/3.jpg" alt="">
+                                                </a>
+                                                <span>sell</span>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Skinny Jeans Terry</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/2.jpg" alt="">
+                                                </a>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Navy Bird Print</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/1.jpg" alt="">
+                                                </a>
+                                                <span>hot</span>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Leg Smart Trousers</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/1.jpg" alt="">
+                                                </a>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Black Faux Suede</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/2.jpg" alt="">
+                                                </a>
+                                                <span>new</span>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Homme Tapered Smart </a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/3.jpg" alt="">
+                                                </a>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Denim Stonewash</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-xl-3">
+                                        <div class="product-wrapper mb-30">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/5.jpg" alt="">
+                                                </a>
+                                                <span>hot</span>
+                                                <div class="product-action">
+                                                    <a class="animate-left" title="Wishlist" href="#">
+                                                        <i class="pe-7s-like"></i>
+                                                    </a>
+                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                        <i class="pe-7s-cart"></i>
+                                                    </a>
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h4><a href="#">Mini Waffle 5 Pack</a></h4>
+                                                <span>$115.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="grid-sidebar2" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
+                                            <div class="product-img list-img-width">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/1.jpg" alt="">
+                                                </a>
+                                                <span>hot</span>
+                                                <div class="product-action-list-style">
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content-list">
+                                                <div class="product-list-info">
+                                                    <h4><a href="#">Dagger Smart Trousers</a></h4>
+                                                    <span>$150.00</span>
+                                                    <p>Lorem ipsum dolor sit amet, mana consectetur adipisicing elit, sed do eiusmod tempor labore. </p>
+                                                </div>
+                                                <div class="product-list-cart-wishlist">
+                                                    <div class="product-list-cart">
+                                                        <a class="btn-hover list-btn-style" href="#">add to cart</a>
+                                                    </div>
+                                                    <div class="product-list-wishlist">
+                                                        <a class="btn-hover list-btn-wishlist" href="#">
+                                                            <i class="pe-7s-like"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
+                                            <div class="product-img list-img-width">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/2.jpg" alt="">
+                                                </a>
+                                                <div class="product-action-list-style">
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content-list">
+                                                <div class="product-list-info">
+                                                    <h4><a href="#">Homme Tapered Smart</a></h4>
+                                                    <span>$180.00</span>
+                                                    <p>Lorem ipsum dolor sit amet, mana consectetur adipisicing elit, sed do eiusmod tempor labore. </p>
+                                                </div>
+                                                <div class="product-list-cart-wishlist">
+                                                    <div class="product-list-cart">
+                                                        <a class="btn-hover list-btn-style" href="#">add to cart</a>
+                                                    </div>
+                                                    <div class="product-list-wishlist">
+                                                        <a class="btn-hover list-btn-wishlist" href="#">
+                                                            <i class="pe-7s-like"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
+                                            <div class="product-img list-img-width">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/3.jpg" alt="">
+                                                </a>
+                                                <div class="product-action-list-style">
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content-list">
+                                                <div class="product-list-info">
+                                                    <h4><a href="#">Skinny Jeans Terry</a></h4>
+                                                    <span>$130.00</span>
+                                                    <p>Lorem ipsum dolor sit amet, mana consectetur adipisicing elit, sed do eiusmod tempor labore. </p>
+                                                </div>
+                                                <div class="product-list-cart-wishlist">
+                                                    <div class="product-list-cart">
+                                                        <a class="btn-hover list-btn-style" href="#">add to cart</a>
+                                                    </div>
+                                                    <div class="product-list-wishlist">
+                                                        <a class="btn-hover list-btn-wishlist" href="#">
+                                                            <i class="pe-7s-like"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
+                                            <div class="product-img list-img-width">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/4.jpg" alt="">
+                                                </a>
+                                                <span>new</span>
+                                                <div class="product-action-list-style">
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content-list">
+                                                <div class="product-list-info">
+                                                    <h4><a href="#">Navy Bird Print</a></h4>
+                                                    <span>$120.00</span>
+                                                    <p>Lorem ipsum dolor sit amet, mana consectetur adipisicing elit, sed do eiusmod tempor labore. </p>
+                                                </div>
+                                                <div class="product-list-cart-wishlist">
+                                                    <div class="product-list-cart">
+                                                        <a class="btn-hover list-btn-style" href="#">add to cart</a>
+                                                    </div>
+                                                    <div class="product-list-wishlist">
+                                                        <a class="btn-hover list-btn-wishlist" href="#">
+                                                            <i class="pe-7s-like"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
+                                            <div class="product-img list-img-width">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/5.jpg" alt="">
+                                                </a>
+                                                <span>hot</span>
+                                                <div class="product-action-list-style">
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content-list">
+                                                <div class="product-list-info">
+                                                    <h4><a href="#">Leg Smart Trousers </a></h4>
+                                                    <span>$170.00</span>
+                                                    <p>Lorem ipsum dolor sit amet, mana consectetur adipisicing elit, sed do eiusmod tempor labore. </p>
+                                                </div>
+                                                <div class="product-list-cart-wishlist">
+                                                    <div class="product-list-cart">
+                                                        <a class="btn-hover list-btn-style" href="#">add to cart</a>
+                                                    </div>
+                                                    <div class="product-list-wishlist">
+                                                        <a class="btn-hover list-btn-wishlist" href="#">
+                                                            <i class="pe-7s-like"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-xl-6">
+                                        <div class="product-wrapper mb-30 single-product-list product-list-right-pr mb-60">
+                                            <div class="product-img list-img-width">
+                                                <a href="#">
+                                                    <img src="~/assets/img/product/fashion-colorful/1.jpg" alt="">
+                                                </a>
+                                                <div class="product-action-list-style">
+                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                        <i class="pe-7s-look"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content-list">
+                                                <div class="product-list-info">
+                                                    <h4><a href="#">Arifo Stylas Dress</a></h4>
+                                                    <span>$190.00</span>
+                                                    <p>Lorem ipsum dolor sit amet, mana consectetur adipisicing elit, sed do eiusmod tempor labore. </p>
+                                                </div>
+                                                <div class="product-list-cart-wishlist">
+                                                    <div class="product-list-cart">
+                                                        <a class="btn-hover list-btn-style" href="#">add to cart</a>
+                                                    </div>
+                                                    <div class="product-list-wishlist">
+                                                        <a class="btn-hover list-btn-wishlist" href="#">
+                                                            <i class="pe-7s-like"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination-style mt-30 text-center">
+                    <ul>
+                        <li><a href="#"><i class="ti-angle-left"></i></a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">...</a></li>
+                        <li><a href="#">19</a></li>
+                        <li class="active"><a href="#"><i class="ti-angle-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
-
-@section Scripts
-{
-
-    <!-- page script -->
-    <script>
-
-        $(".target").change(function () {
-        $.ajax(
-        {
-            type: "GET",
-            url: '@Url.ActionLink("GetProducts", "Home")',
-            data: {
-                value: $(".target").val()
-            },
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            error: function (result) {
-                debugger;
-                alert("error");
-            },
-            success: function (result) {
-
-                $("div").remove(".product-layout");
-                if (result != null) {
-                    $.each(result.data, function (index, value) {
-                        var star = "";
-                        if (value.star != null)
-                        {
-                            for (let i = 0; i < Math.floor(value.star); i++)
-                                {
-                                star += "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                }
-                            for (let i = 5; i > Math.floor(value.star); i--)
-                                {
-                                    star += "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                }
-                            }
-                            else
-                           {
-                            star = "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                        }
-                        
-                        $('#list-product').append(`<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
-                                <div class="product-box clearfix">
-                                    <div class="product-image">
-                                        <a href="detail.html" class="c-img link-product">
-                                                <img src="/imageUpload/${value.displayImages[0]}" class="img-responsive" alt="" height="250">
-                                        </a>
-                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value.productName}</a></h4>
-                                        <div class="price">
-                                            ${value.price} <span class="price-old">$142.00</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="rating-box">
-                                             ${star}
-                                            </div>
-                                        </div>
-                                        <div class="product-desc">
-                                           ${value.description}
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
-                                    </div>
-                                </div>
-                            </div>`);
-                    })
-                }
-                else {
-				    alert("Không tìm thấy");
-                }
-            }
-        });
-        });
-
-        function FilterByCategory(categoryName) {
-
-            $.ajax(
-            {
-                type: "GET",
-                url: '@Url.ActionLink("Filter", "Home")',
-                data: {
-                    CategoryName: categoryName
-                },
-                error: function (result) {
-                    alert("error");
-                },
-                success: function (result) {
-                    $("div").remove(".product-layout");
-                    if (result != null) {
-                        $.each(result.data, function (index, value) {
-                            var star = "";
-                            if (value.star != null) {
-                                for (let i = 0; i < Math.floor(value.star); i++) {
-                                    star += "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                }
-                                for (let i = 5; i > Math.floor(value.star); i--) {
-                                    star += "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                }
-                            }
-                            else {
-                                star = "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                            }
-                            $('#list-product').append(`<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
-                                <div class="product-box clearfix">
-                                    <div class="product-image">
-                                        <a href="detail.html" class="c-img link-product">
-                                                <img src="/imageUpload/${value.displayImages[0]}" class="img-responsive" alt="" height="250">
-                                        </a>
-                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value.productName}</a></h4>
-                                        <div class="price">
-                                            ${value.price} <span class="price-old">$142.00</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="rating-box">
-                                               ${star}
-                                            </div>
-                                        </div>
-                                        <div class="product-desc">
-                                           ${value.description}
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
-
-                                    </div>
-                                </div>
-                            </div>`);
-
-
-                        })
-                    }
-                    else {
-                        alert("Không tìm thấy");
-                    }
-                }
-        });
-
-        }
-        function SearchByPrice() {
-            $.ajax(
-                {
-                    type: "GET",
-                    url: '@Url.ActionLink("SearchByPrice", "Home")',
-                    data: {
-                        min: $("#one").val(),
-                        max: $("#two").val()
-                    },
-                    error: function (result) {
-                        alert("error");
-                    },
-                    success: function (result) {
-                        $("div").remove(".product-layout");
-                        if (result != null) {
-                            $.each(result.data, function (index, value) {
-                                var star = "";
-                                if (value.star != null) {
-                                    for (let i = 0; i < Math.floor(value.star); i++) {
-                                        star += "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                    }
-                                    for (let i = 5; i > Math.floor(value.star); i--) {
-                                        star += "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                    }
-                                }
-                                else {
-                                    star = "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                        "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                }
-                                $('#list-product').append(`<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
-                                <div class="product-box clearfix">
-                                    <div class="product-image">
-                                        <a href="detail.html" class="c-img link-product">
-                                                <img src="/imageUpload/${value.displayImages[0]}" class="img-responsive" alt="" height="250">
-                                        </a>
-                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value.productName}</a></h4>
-                                        <div class="price">
-                                            ${value.price} <span class="price-old">$142.00</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="rating-box">
-                                                 ${star}
-                                            </div>
-                                        </div>
-                                        <div class="product-desc">
-                                           ${value.description}
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
-                                    </div>
-                                </div>
-                            </div>`);
-
-
-                            })
-                        }
-                        else {
-                            alert("Không tìm thấy");
-                        }
-                    }
-                });
-        }
-        $(".sort").change(function () {
-        $.ajax(
-        {
-            type: "GET",
-            url: '@Url.ActionLink("SortProducts", "Home")',
-            data: {
-                value: $(".sort").val()
-            },
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            error: function (result) {
-                debugger;
-                alert("error");
-            },
-            success: function (result) {
-
-                $("div").remove(".product-layout");
-                if (result != null) {
-                    $.each(result.data, function (index, value) {
-                        var star = "";
-                        if (value.star != null) {
-                            for (let i = 0; i < Math.floor(value.star); i++) {
-                                star += "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                            }
-                            for (let i = 5; i > Math.floor(value.star); i--) {
-                                star += "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                            }
-                        }
-                        else {
-                            star = "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                        }
-                        $('#list-product').append(`<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
-                                <div class="product-box clearfix">
-                                    <div class="product-image">
-                                        <a href="detail.html" class="c-img link-product">
-                                                <img src="/imageUpload/${value.displayImages[0]}" class="img-responsive" alt="" height="250">
-                                        </a>
-                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value.productName}</a></h4>
-                                        <div class="price">
-                                            ${value.price} <span class="price-old">$142.00</span>
-                                        </div>
-                                        <div class="rating">
-                                            <div class="rating-box">
-                                             ${star}
-                                            </div>
-                                        </div>
-                                        <div class="product-desc">
-                                           ${value.description}
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
-                                    </div>
-                                </div>
-                            </div>`);
-                    })
-                }
-                else {
-				    alert("Không tìm thấy");
-                }
-            }
-        });
-        });
-         function AddToCart(id) {
-
-            $.ajax(
-            {
-                type: "POST",
-                url: '@Url.ActionLink("AddToShoppingCart", "Cart")',
-                data: {
-                    id: id
-                },
-                error: function (result) {
-                    alert("error");
-                },
-                success: function (result) {
-                    if (result == true) {
-                        alert("Bạn đã thêm vào giỏ hàng !");
-                    }
-                    else {
-						alert("Có lỗi xảy ra, vui lòng thử lại sau!");
-                    }
-                }
-            });
-
-        }
-    </script>
-   
-}

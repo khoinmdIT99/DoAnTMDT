@@ -203,8 +203,18 @@ namespace Web.Controllers
 		#endregion
 		public async Task<RedirectToActionResult> Logout()
         {
-			await HttpContext.SignOutAsync();
-			return RedirectToAction("Index","Home");
+			if (HttpContext.Request.Cookies[SecurityManager._securityToken] != null)
+			{
+				var siteCookies = HttpContext.Request.Cookies.Where(c => c.Key.StartsWith(SecurityManager._securityToken));
+				foreach (var cookie in siteCookies)
+				{
+					Response.Cookies.Delete(cookie.Key);
+				}
+			}
+
+			await HttpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index","Login");
         }
 	}
 }

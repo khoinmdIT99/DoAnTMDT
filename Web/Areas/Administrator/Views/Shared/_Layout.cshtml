@@ -15,6 +15,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@(ViewData["Title"] ?? ViewBag.Title) - @SiteSetting?.PageTitle</title>
     @RenderSection("Styles",required:false)
+    @*<link rel="stylesheet" href="~/assets/css/app.css"/>*@
+    <link rel="stylesheet" href="~/assets/datatables/css/buttons.dataTables.min.css" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -212,7 +214,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- ./wrapper -->
 	<!-- REQUIRED SCRIPTS -->
 	<!-- jQuery -->
-	<script src="~/plugins/jquery/jquery.min.js"></script>
+@*<script src="~/plugins/jquery/jquery.min.js"></script>*@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- Bootstrap 4 -->
 	<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- InputMask -->
@@ -229,11 +232,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	<!-- AdminLTE App -->
+<script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+<!-- AdminLTE App -->
 	<script src="~/dist/js/adminlte.min.js"></script>
 	<script src="~/dist/js/CoreTable.js"></script>
-	<script src="~/dist/js/site.js"></script>
+    <script src="~/dist/js/site.js" asp-append-version="true"></script>
 	<script>
 		var tableItemPerPage = @(SiteSetting?.DefaultPageSize ?? 10);
 		var tableLengthMenu = @(!string.IsNullOrEmpty(SiteSetting?.PageSizeOptions) ? "[" + SiteSetting?.PageSizeOptions + "]" : "null");

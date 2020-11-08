@@ -30,6 +30,7 @@ namespace Shop.Application
         public DbSet<ShopAddress> ShopAddress { get; set; }
         public DbSet<ShopSetting> ShopSetting { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
         public DbSet<ShippingAddress> ShippingAddress { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<District> Districts { get; set; }
@@ -55,6 +56,7 @@ namespace Shop.Application
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IProductReViewRepository, ProductReViewRepository>();
+            services.AddScoped<ISliderRepository, SliderRepository>();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

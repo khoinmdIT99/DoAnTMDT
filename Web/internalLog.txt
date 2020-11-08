@@ -2807,3 +2807,1554 @@
    at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
 2020-11-01 10:36:46.9296 Info Adding target FileTarget(Name=alldata)
 2020-11-01 10:36:47.0194 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 11:30:39.4726 Info Message Template Auto Format enabled
+2020-11-01 11:30:39.6144 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 11:30:39.8378 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 11:30:39.9288 Info Adding target FileTarget(Name=alldata)
+2020-11-01 11:30:40.0299 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 11:36:37.9530 Info Message Template Auto Format enabled
+2020-11-01 11:36:37.9894 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 11:36:38.1748 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 11:36:38.2609 Info Adding target FileTarget(Name=alldata)
+2020-11-01 11:36:38.3652 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 11:38:07.7492 Info Message Template Auto Format enabled
+2020-11-01 11:38:07.7841 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 11:38:07.9437 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 11:38:08.0129 Info Adding target FileTarget(Name=alldata)
+2020-11-01 11:38:08.0906 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 14:18:31.1148 Info Message Template Auto Format enabled
+2020-11-01 14:18:31.1626 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 14:18:31.3818 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 14:18:31.5023 Info Adding target FileTarget(Name=alldata)
+2020-11-01 14:18:31.6387 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 14:38:47.9153 Info Message Template Auto Format enabled
+2020-11-01 14:38:48.1332 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 14:38:48.5724 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 14:38:48.7691 Info Adding target FileTarget(Name=alldata)
+2020-11-01 14:38:49.1586 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 14:45:45.9080 Info Message Template Auto Format enabled
+2020-11-01 14:45:46.0134 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 14:45:46.3770 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 14:45:46.5428 Info Adding target FileTarget(Name=alldata)
+2020-11-01 14:45:46.6940 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 14:48:21.5298 Info Message Template Auto Format enabled
+2020-11-01 14:48:21.5877 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 14:48:21.8143 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 14:48:21.9813 Info Adding target FileTarget(Name=alldata)
+2020-11-01 14:48:22.2133 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 14:51:26.9701 Info Message Template Auto Format enabled
+2020-11-01 14:51:27.0028 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 14:51:27.3080 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 14:51:27.5189 Info Adding target FileTarget(Name=alldata)
+2020-11-01 14:51:27.9081 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 14:55:59.0165 Info Message Template Auto Format enabled
+2020-11-01 14:55:59.0532 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 14:55:59.4768 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 14:55:59.5773 Info Adding target FileTarget(Name=alldata)
+2020-11-01 14:55:59.6644 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 14:58:28.4606 Info Message Template Auto Format enabled
+2020-11-01 14:58:28.4975 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 14:58:28.8782 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 14:58:29.0992 Info Adding target FileTarget(Name=alldata)
+2020-11-01 14:58:29.3323 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:10:45.4197 Info Message Template Auto Format enabled
+2020-11-01 15:10:45.4768 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:10:45.6235 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:10:45.7220 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:10:45.9621 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:11:19.4071 Info Message Template Auto Format enabled
+2020-11-01 15:11:19.4350 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:11:19.5857 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:11:19.6717 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:11:19.7709 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:14:46.8745 Info Message Template Auto Format enabled
+2020-11-01 15:14:46.9110 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:14:47.1043 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:14:47.1969 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:14:47.2931 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:17:11.6544 Info Message Template Auto Format enabled
+2020-11-01 15:17:11.6844 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:17:11.9360 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:17:12.0300 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:17:12.1509 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:18:32.0714 Info Message Template Auto Format enabled
+2020-11-01 15:18:32.2108 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:18:32.5896 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:18:32.8286 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:18:32.9977 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:21:15.0215 Info Message Template Auto Format enabled
+2020-11-01 15:21:15.0888 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:21:15.4540 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:21:15.5678 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:21:15.6789 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:23:27.8384 Info Message Template Auto Format enabled
+2020-11-01 15:23:27.8817 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:23:28.1424 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:23:28.2617 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:23:28.3573 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:35:55.9288 Info Message Template Auto Format enabled
+2020-11-01 15:35:55.9651 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:35:56.1547 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:35:56.2320 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:35:56.3174 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:40:09.3119 Info Message Template Auto Format enabled
+2020-11-01 15:40:09.3537 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:40:09.5184 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:40:09.5989 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:40:09.6953 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:44:28.3811 Info Message Template Auto Format enabled
+2020-11-01 15:44:28.4754 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:44:28.8002 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:44:29.0397 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:44:29.2865 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:49:09.9920 Info Message Template Auto Format enabled
+2020-11-01 15:49:10.0844 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:49:10.2928 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:49:10.3932 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:49:10.5095 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 15:52:51.3014 Info Message Template Auto Format enabled
+2020-11-01 15:52:51.3482 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 15:52:51.5885 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 15:52:51.6879 Info Adding target FileTarget(Name=alldata)
+2020-11-01 15:52:51.8146 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 16:11:31.0811 Info Message Template Auto Format enabled
+2020-11-01 16:11:31.1207 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 16:11:31.3126 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 16:11:31.3817 Info Adding target FileTarget(Name=alldata)
+2020-11-01 16:11:31.4982 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 16:12:56.7380 Info Message Template Auto Format enabled
+2020-11-01 16:12:56.7893 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 16:12:56.9907 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 16:12:57.0762 Info Adding target FileTarget(Name=alldata)
+2020-11-01 16:12:57.1686 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 16:19:48.3990 Info Message Template Auto Format enabled
+2020-11-01 16:19:48.4416 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 16:19:48.7031 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 16:19:48.9344 Info Adding target FileTarget(Name=alldata)
+2020-11-01 16:19:49.0795 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 16:20:20.0432 Info Message Template Auto Format enabled
+2020-11-01 16:20:20.0959 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 16:20:20.2641 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 16:20:20.4256 Info Adding target FileTarget(Name=alldata)
+2020-11-01 16:20:20.5527 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 16:23:10.3691 Info Message Template Auto Format enabled
+2020-11-01 16:23:10.4150 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 16:23:10.7165 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 16:23:10.8516 Info Adding target FileTarget(Name=alldata)
+2020-11-01 16:23:10.9555 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 17:27:20.1363 Info Message Template Auto Format enabled
+2020-11-01 17:27:20.1937 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 17:27:20.4417 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 17:27:20.5298 Info Adding target FileTarget(Name=alldata)
+2020-11-01 17:27:20.6147 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 17:37:52.7136 Info Message Template Auto Format enabled
+2020-11-01 17:37:52.7520 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 17:37:52.9511 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 17:37:53.1338 Info Adding target FileTarget(Name=alldata)
+2020-11-01 17:37:53.2277 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-01 22:57:46.7173 Info Message Template Auto Format enabled
+2020-11-01 22:57:46.7630 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-01 22:57:46.9775 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-01 22:57:47.1065 Info Adding target FileTarget(Name=alldata)
+2020-11-01 22:57:47.2087 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 00:24:44.7575 Info Message Template Auto Format enabled
+2020-11-02 00:24:44.8378 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 00:24:45.3409 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 00:24:45.5912 Info Adding target FileTarget(Name=alldata)
+2020-11-02 00:24:45.8057 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 00:47:53.5603 Info Message Template Auto Format enabled
+2020-11-02 00:47:53.6572 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 00:47:54.1018 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 00:47:54.2152 Info Adding target FileTarget(Name=alldata)
+2020-11-02 00:47:54.3205 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 14:35:37.9782 Info Message Template Auto Format enabled
+2020-11-02 14:35:38.0403 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 14:35:38.3203 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 14:35:38.5049 Info Adding target FileTarget(Name=alldata)
+2020-11-02 14:35:38.6488 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 14:47:00.2696 Info Message Template Auto Format enabled
+2020-11-02 14:47:00.3101 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 14:47:00.5229 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 14:47:00.6195 Info Adding target FileTarget(Name=alldata)
+2020-11-02 14:47:00.7257 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:01:16.8486 Info Message Template Auto Format enabled
+2020-11-02 15:01:16.9100 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:01:17.1156 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:01:17.2055 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:01:17.2970 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:03:57.7818 Info Message Template Auto Format enabled
+2020-11-02 15:03:57.8407 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:03:58.0828 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:03:58.1785 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:03:58.2804 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:14:41.8083 Info Message Template Auto Format enabled
+2020-11-02 15:14:41.8519 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:14:42.0530 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:14:42.2337 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:14:42.3635 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:19:40.7395 Info Message Template Auto Format enabled
+2020-11-02 15:19:40.7792 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:19:40.9672 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:19:41.0847 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:19:41.2760 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:26:49.2261 Info Message Template Auto Format enabled
+2020-11-02 15:26:49.2676 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:26:49.4546 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:26:49.5637 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:26:49.6702 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:28:44.1115 Info Message Template Auto Format enabled
+2020-11-02 15:28:44.1512 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:28:44.4777 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:28:44.6186 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:28:44.7578 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:30:25.5769 Info Message Template Auto Format enabled
+2020-11-02 15:30:25.6140 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:30:25.8892 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:30:26.0034 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:30:26.1212 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:40:07.0304 Info Message Template Auto Format enabled
+2020-11-02 15:40:07.0599 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:40:07.2699 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:40:07.3480 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:40:07.4393 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:48:27.5286 Info Message Template Auto Format enabled
+2020-11-02 15:48:27.5564 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:48:27.7463 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:48:27.8435 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:48:27.9602 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:51:36.3668 Info Message Template Auto Format enabled
+2020-11-02 15:51:36.4140 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:51:36.7319 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:51:36.8986 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:51:37.0615 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 15:54:12.2058 Info Message Template Auto Format enabled
+2020-11-02 15:54:12.2410 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 15:54:12.5979 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 15:54:12.6842 Info Adding target FileTarget(Name=alldata)
+2020-11-02 15:54:12.7835 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:01:12.7150 Info Message Template Auto Format enabled
+2020-11-02 16:01:12.7682 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:01:13.0578 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:01:13.2175 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:01:13.3763 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:04:03.5573 Info Message Template Auto Format enabled
+2020-11-02 16:04:03.6002 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:04:03.8114 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:04:03.9806 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:04:04.0801 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:31:56.9702 Info Message Template Auto Format enabled
+2020-11-02 16:31:57.0207 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:31:57.2175 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:31:57.3312 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:31:57.4512 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:34:28.3735 Info Message Template Auto Format enabled
+2020-11-02 16:34:28.4159 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:34:28.6228 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:34:28.7426 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:34:28.8471 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:35:55.4024 Info Message Template Auto Format enabled
+2020-11-02 16:35:55.4833 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:35:55.7454 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:35:55.9007 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:35:56.0294 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:37:31.4148 Info Message Template Auto Format enabled
+2020-11-02 16:37:31.4436 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:37:31.6048 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:37:31.7143 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:37:31.8603 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:42:21.2269 Info Message Template Auto Format enabled
+2020-11-02 16:42:21.2788 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:42:21.4864 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:42:21.6008 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:42:21.7505 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:44:32.4453 Info Message Template Auto Format enabled
+2020-11-02 16:44:32.4787 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:44:32.6413 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:44:32.7690 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:44:32.9132 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 16:46:22.1604 Info Message Template Auto Format enabled
+2020-11-02 16:46:22.2554 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 16:46:22.4184 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 16:46:22.4788 Info Adding target FileTarget(Name=alldata)
+2020-11-02 16:46:22.5746 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 17:48:19.4185 Info Message Template Auto Format enabled
+2020-11-02 17:48:19.4737 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 17:48:19.8350 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 17:48:20.0200 Info Adding target FileTarget(Name=alldata)
+2020-11-02 17:48:20.1509 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 17:54:51.1755 Info Message Template Auto Format enabled
+2020-11-02 17:54:51.2119 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 17:54:51.4263 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 17:54:51.5499 Info Adding target FileTarget(Name=alldata)
+2020-11-02 17:54:51.6715 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 17:59:01.2036 Info Message Template Auto Format enabled
+2020-11-02 17:59:01.2668 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 17:59:01.5215 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 17:59:01.7252 Info Adding target FileTarget(Name=alldata)
+2020-11-02 17:59:01.9279 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 18:02:27.7854 Info Message Template Auto Format enabled
+2020-11-02 18:02:27.8435 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 18:02:28.0486 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 18:02:28.1554 Info Adding target FileTarget(Name=alldata)
+2020-11-02 18:02:28.2485 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 18:09:43.8940 Info Message Template Auto Format enabled
+2020-11-02 18:09:43.9196 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 18:09:44.0761 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 18:09:44.1304 Info Adding target FileTarget(Name=alldata)
+2020-11-02 18:09:44.1889 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 22:20:45.2703 Info Message Template Auto Format enabled
+2020-11-02 22:20:45.3486 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 22:20:45.5914 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 22:20:45.7315 Info Adding target FileTarget(Name=alldata)
+2020-11-02 22:20:45.8959 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 22:23:14.3988 Info Message Template Auto Format enabled
+2020-11-02 22:23:14.4856 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 22:23:14.8144 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 22:23:15.0273 Info Adding target FileTarget(Name=alldata)
+2020-11-02 22:23:15.3146 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-02 22:33:25.8633 Info Message Template Auto Format enabled
+2020-11-02 22:33:25.9026 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-02 22:33:26.4447 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-02 22:33:26.7045 Info Adding target FileTarget(Name=alldata)
+2020-11-02 22:33:26.9051 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-04 20:18:10.9285 Info Message Template Auto Format enabled
+2020-11-04 20:18:10.9957 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-04 20:18:11.2433 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-04 20:18:11.3799 Info Adding target FileTarget(Name=alldata)
+2020-11-04 20:18:11.4865 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-04 20:33:22.6404 Info Message Template Auto Format enabled
+2020-11-04 20:33:22.6952 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-04 20:33:22.9144 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-04 20:33:23.0105 Info Adding target FileTarget(Name=alldata)
+2020-11-04 20:33:23.1082 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-04 21:03:12.9572 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-04 21:03:12.9785 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-04 21:03:12.9964 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-04 21:03:14.0195 Info Reloading configuration...
+2020-11-04 21:03:14.0444 Info Configuring from an XML element in C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config...
+2020-11-04 21:03:14.0683 Info Message Template Auto Format enabled
+2020-11-04 21:03:14.0858 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-04 21:03:14.1082 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-04 21:03:14.1286 Info Adding target FileTarget(Name=alldata)
+2020-11-04 21:03:14.1562 Info Closing old configuration.
+2020-11-04 21:03:14.2183 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-04 22:40:20.8679 Info Message Template Auto Format enabled
+2020-11-04 22:40:20.9067 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-04 22:40:21.0774 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-04 22:40:21.1673 Info Adding target FileTarget(Name=alldata)
+2020-11-04 22:40:21.2723 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-04 22:46:05.6147 Info Message Template Auto Format enabled
+2020-11-04 22:46:05.6752 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-04 22:46:06.2290 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-04 22:46:06.4113 Info Adding target FileTarget(Name=alldata)
+2020-11-04 22:46:06.5973 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 02:11:57.8525 Info Message Template Auto Format enabled
+2020-11-05 02:11:57.9441 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 02:11:58.1699 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 02:11:58.3953 Info Adding target FileTarget(Name=alldata)
+2020-11-05 02:11:58.5446 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 02:13:25.9570 Info Message Template Auto Format enabled
+2020-11-05 02:13:26.0716 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 02:13:26.3721 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 02:13:26.4592 Info Adding target FileTarget(Name=alldata)
+2020-11-05 02:13:26.5707 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 02:15:06.4586 Info Message Template Auto Format enabled
+2020-11-05 02:15:06.5183 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 02:15:06.7692 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 02:15:06.8765 Info Adding target FileTarget(Name=alldata)
+2020-11-05 02:15:07.0337 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 02:17:29.4724 Info Message Template Auto Format enabled
+2020-11-05 02:17:29.5044 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 02:17:29.6909 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 02:17:29.7792 Info Adding target FileTarget(Name=alldata)
+2020-11-05 02:17:29.8707 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 02:20:55.2812 Info Message Template Auto Format enabled
+2020-11-05 02:20:55.3272 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 02:20:55.5462 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 02:20:55.6798 Info Adding target FileTarget(Name=alldata)
+2020-11-05 02:20:55.8287 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 08:36:20.6171 Info Message Template Auto Format enabled
+2020-11-05 08:36:20.6564 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 08:36:20.7886 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 08:36:20.9323 Info Adding target FileTarget(Name=alldata)
+2020-11-05 08:36:21.0022 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 08:50:22.7445 Info Message Template Auto Format enabled
+2020-11-05 08:50:22.7765 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 08:50:22.9140 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 08:50:22.9868 Info Adding target FileTarget(Name=alldata)
+2020-11-05 08:50:23.0646 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:10:20.8928 Info Message Template Auto Format enabled
+2020-11-05 09:10:20.9229 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:10:21.0293 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:10:21.0851 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:10:21.1577 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:18:34.9475 Info Message Template Auto Format enabled
+2020-11-05 09:18:34.9748 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:18:35.0871 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:18:35.1566 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:18:35.2350 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:23:54.9313 Info Message Template Auto Format enabled
+2020-11-05 09:23:54.9846 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:23:55.1453 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:23:55.2239 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:23:55.3059 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:28:23.3045 Info Message Template Auto Format enabled
+2020-11-05 09:28:23.3365 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:28:23.5300 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:28:23.6649 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:28:23.7847 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:41:09.9683 Info Message Template Auto Format enabled
+2020-11-05 09:41:09.9980 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:41:10.1830 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:41:10.2788 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:41:10.4084 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:44:31.7092 Info Message Template Auto Format enabled
+2020-11-05 09:44:31.7301 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:44:31.9063 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:44:31.9872 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:44:32.0743 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:54:01.8472 Info Message Template Auto Format enabled
+2020-11-05 09:54:01.8693 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:54:02.0010 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:54:02.0578 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:54:02.1294 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 09:58:24.5110 Info Message Template Auto Format enabled
+2020-11-05 09:58:24.5361 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 09:58:24.6652 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 09:58:24.7190 Info Adding target FileTarget(Name=alldata)
+2020-11-05 09:58:24.7833 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 12:01:43.2012 Info Message Template Auto Format enabled
+2020-11-05 12:01:43.2392 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 12:01:43.3983 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 12:01:43.4810 Info Adding target FileTarget(Name=alldata)
+2020-11-05 12:01:43.5662 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 12:07:38.9028 Info Message Template Auto Format enabled
+2020-11-05 12:07:38.9386 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 12:07:39.1123 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 12:07:39.2033 Info Adding target FileTarget(Name=alldata)
+2020-11-05 12:07:39.2860 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 12:20:32.4969 Info Message Template Auto Format enabled
+2020-11-05 12:20:32.5361 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 12:20:32.6936 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 12:20:32.7799 Info Adding target FileTarget(Name=alldata)
+2020-11-05 12:20:32.8883 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 12:26:09.5318 Info Message Template Auto Format enabled
+2020-11-05 12:26:09.5659 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 12:26:09.7305 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 12:26:09.8001 Info Adding target FileTarget(Name=alldata)
+2020-11-05 12:26:09.8984 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 12:32:16.1350 Info Message Template Auto Format enabled
+2020-11-05 12:32:16.1653 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 12:32:16.3166 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 12:32:16.3948 Info Adding target FileTarget(Name=alldata)
+2020-11-05 12:32:16.4669 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 14:46:50.9520 Info Message Template Auto Format enabled
+2020-11-05 14:46:51.1305 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 14:46:51.5133 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 14:46:51.7398 Info Adding target FileTarget(Name=alldata)
+2020-11-05 14:46:51.9447 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 14:53:08.5921 Info Message Template Auto Format enabled
+2020-11-05 14:53:08.6306 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 14:53:08.8818 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 14:53:08.9660 Info Adding target FileTarget(Name=alldata)
+2020-11-05 14:53:09.1059 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 14:59:13.6866 Info Message Template Auto Format enabled
+2020-11-05 14:59:13.7184 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 14:59:13.8959 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 14:59:14.0013 Info Adding target FileTarget(Name=alldata)
+2020-11-05 14:59:14.1417 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:03:35.9314 Info Message Template Auto Format enabled
+2020-11-05 15:03:35.9640 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:03:36.1342 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:03:36.2091 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:03:36.2958 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:05:07.6181 Info Message Template Auto Format enabled
+2020-11-05 15:05:07.6570 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:05:07.8440 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:05:07.9259 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:05:08.0138 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:06:58.7375 Info Message Template Auto Format enabled
+2020-11-05 15:06:58.7700 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:06:58.9328 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:06:59.0002 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:06:59.0802 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:11:52.6793 Info Message Template Auto Format enabled
+2020-11-05 15:11:52.7184 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:11:52.8976 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:11:52.9691 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:11:53.0701 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:19:09.5116 Info Message Template Auto Format enabled
+2020-11-05 15:19:09.5547 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:19:09.7183 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:19:09.7957 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:19:09.8822 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:23:32.2658 Info Message Template Auto Format enabled
+2020-11-05 15:23:32.3090 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:23:32.5144 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:23:32.6097 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:23:32.7154 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:24:59.8884 Info Message Template Auto Format enabled
+2020-11-05 15:24:59.9212 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:25:00.1216 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:25:00.2045 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:25:00.2945 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:25:45.6540 Info Message Template Auto Format enabled
+2020-11-05 15:25:45.7059 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:25:45.9909 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:25:46.1303 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:25:46.2564 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:26:50.9717 Info Message Template Auto Format enabled
+2020-11-05 15:26:51.0169 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:26:51.2190 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:26:51.3407 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:26:51.4528 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:27:50.2452 Info Message Template Auto Format enabled
+2020-11-05 15:27:50.2963 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:27:50.5273 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:27:50.6138 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:27:50.7153 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:29:11.9112 Info Message Template Auto Format enabled
+2020-11-05 15:29:11.9428 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:29:12.1906 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:29:12.2876 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:29:12.3853 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:30:40.1384 Info Message Template Auto Format enabled
+2020-11-05 15:30:40.2202 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:30:40.4833 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:30:40.6069 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:30:40.7077 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:32:16.9659 Info Message Template Auto Format enabled
+2020-11-05 15:32:17.0004 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:32:17.1590 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:32:17.2310 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:32:17.3238 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:36:14.5044 Info Message Template Auto Format enabled
+2020-11-05 15:36:14.5911 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:36:14.8200 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:36:14.9252 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:36:15.0653 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:37:44.0638 Info Message Template Auto Format enabled
+2020-11-05 15:37:44.0990 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:37:44.2600 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:37:44.3173 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:37:44.3817 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:40:10.9986 Info Message Template Auto Format enabled
+2020-11-05 15:40:11.0673 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:40:11.2666 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:40:11.3390 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:40:11.4365 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 15:42:43.5309 Info Message Template Auto Format enabled
+2020-11-05 15:42:43.5658 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 15:42:43.7686 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 15:42:43.8500 Info Adding target FileTarget(Name=alldata)
+2020-11-05 15:42:43.9325 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-05 23:15:43.0781 Info Message Template Auto Format enabled
+2020-11-05 23:15:43.2631 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-05 23:15:44.0299 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-05 23:15:44.5948 Info Adding target FileTarget(Name=alldata)
+2020-11-05 23:15:45.8020 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 01:34:53.9098 Info Message Template Auto Format enabled
+2020-11-06 01:34:53.9523 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 01:34:54.1105 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 01:34:54.1838 Info Adding target FileTarget(Name=alldata)
+2020-11-06 01:34:54.2791 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 01:40:57.4247 Info Message Template Auto Format enabled
+2020-11-06 01:40:57.5308 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 01:40:58.2212 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 01:40:58.6281 Info Adding target FileTarget(Name=alldata)
+2020-11-06 01:40:59.0129 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 01:46:34.6339 Info Message Template Auto Format enabled
+2020-11-06 01:46:34.7183 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 01:46:35.0196 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 01:46:35.2360 Info Adding target FileTarget(Name=alldata)
+2020-11-06 01:46:35.3850 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 01:49:38.8714 Info Message Template Auto Format enabled
+2020-11-06 01:49:38.9397 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 01:49:39.2084 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 01:49:39.3299 Info Adding target FileTarget(Name=alldata)
+2020-11-06 01:49:39.5626 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 01:51:39.9083 Info Message Template Auto Format enabled
+2020-11-06 01:51:39.9796 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 01:51:40.3129 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 01:51:40.4566 Info Adding target FileTarget(Name=alldata)
+2020-11-06 01:51:40.5942 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 02:06:28.2398 Info Message Template Auto Format enabled
+2020-11-06 02:06:28.3022 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 02:06:29.1036 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 02:06:29.3032 Info Adding target FileTarget(Name=alldata)
+2020-11-06 02:06:29.5566 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 02:09:07.0130 Info Message Template Auto Format enabled
+2020-11-06 02:09:07.0784 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 02:09:07.4412 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 02:09:07.6834 Info Adding target FileTarget(Name=alldata)
+2020-11-06 02:09:07.9259 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 02:14:57.4106 Info Message Template Auto Format enabled
+2020-11-06 02:14:57.5327 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 02:14:57.9538 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 02:14:58.1517 Info Adding target FileTarget(Name=alldata)
+2020-11-06 02:14:58.3707 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 02:24:25.8441 Info Message Template Auto Format enabled
+2020-11-06 02:24:25.9044 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 02:24:26.3154 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 02:24:26.6371 Info Adding target FileTarget(Name=alldata)
+2020-11-06 02:24:26.8535 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 02:36:17.8395 Info Message Template Auto Format enabled
+2020-11-06 02:36:17.9425 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 02:36:18.3880 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 02:36:18.6687 Info Adding target FileTarget(Name=alldata)
+2020-11-06 02:36:19.0747 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 02:42:41.8502 Info Message Template Auto Format enabled
+2020-11-06 02:42:41.9313 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 02:42:42.3146 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 02:42:42.5820 Info Adding target FileTarget(Name=alldata)
+2020-11-06 02:42:42.7818 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 08:33:14.5743 Info Message Template Auto Format enabled
+2020-11-06 08:33:14.6111 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 08:33:14.8334 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 08:33:14.9402 Info Adding target FileTarget(Name=alldata)
+2020-11-06 08:33:15.0317 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 08:37:35.0870 Info Message Template Auto Format enabled
+2020-11-06 08:37:35.1298 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 08:37:35.3753 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 08:37:35.5050 Info Adding target FileTarget(Name=alldata)
+2020-11-06 08:37:35.6207 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 08:43:14.7812 Info Message Template Auto Format enabled
+2020-11-06 08:43:14.8119 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 08:43:15.0638 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 08:43:15.1401 Info Adding target FileTarget(Name=alldata)
+2020-11-06 08:43:15.2804 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 08:43:44.2203 Info Message Template Auto Format enabled
+2020-11-06 08:43:44.2530 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 08:43:44.4668 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 08:43:44.6058 Info Adding target FileTarget(Name=alldata)
+2020-11-06 08:43:44.7073 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 08:51:24.7403 Info Message Template Auto Format enabled
+2020-11-06 08:51:24.8048 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 08:51:25.2643 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 08:51:25.5916 Info Adding target FileTarget(Name=alldata)
+2020-11-06 08:51:25.7463 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 08:58:59.1889 Info Message Template Auto Format enabled
+2020-11-06 08:58:59.2226 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 08:58:59.3677 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 08:58:59.4568 Info Adding target FileTarget(Name=alldata)
+2020-11-06 08:58:59.5569 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 09:05:56.8055 Info Message Template Auto Format enabled
+2020-11-06 09:05:56.8362 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 09:05:57.0006 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 09:05:57.0717 Info Adding target FileTarget(Name=alldata)
+2020-11-06 09:05:57.1533 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:41:18.4638 Info Message Template Auto Format enabled
+2020-11-06 13:41:18.5289 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:41:18.7123 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:41:18.8452 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:41:18.9312 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:43:43.0446 Info Message Template Auto Format enabled
+2020-11-06 13:43:43.1021 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:43:43.2867 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:43:43.3883 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:43:43.4751 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:45:31.7047 Info Message Template Auto Format enabled
+2020-11-06 13:45:31.7248 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:45:31.8707 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:45:31.9288 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:45:31.9826 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:48:26.2534 Info Message Template Auto Format enabled
+2020-11-06 13:48:26.2910 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:48:26.4575 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:48:26.5364 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:48:26.6263 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:51:10.1596 Info Message Template Auto Format enabled
+2020-11-06 13:51:10.1868 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:51:10.3539 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:51:10.4219 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:51:10.6305 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:52:34.1572 Info Message Template Auto Format enabled
+2020-11-06 13:52:34.1873 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:52:34.3292 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:52:34.3952 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:52:34.4660 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:53:57.1843 Info Message Template Auto Format enabled
+2020-11-06 13:53:57.3353 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:53:57.6771 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:53:57.8865 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:53:58.0966 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 13:55:44.8702 Info Message Template Auto Format enabled
+2020-11-06 13:55:44.9151 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 13:55:45.3938 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 13:55:45.5620 Info Adding target FileTarget(Name=alldata)
+2020-11-06 13:55:45.7620 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:00:10.9765 Info Message Template Auto Format enabled
+2020-11-06 14:00:11.0004 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:00:11.1314 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:00:11.1889 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:00:11.2554 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:03:56.8677 Info Message Template Auto Format enabled
+2020-11-06 14:03:56.9501 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:03:57.2700 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:03:57.4164 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:03:57.5668 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:05:59.9013 Info Message Template Auto Format enabled
+2020-11-06 14:06:00.2736 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:06:00.5647 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:06:00.6958 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:06:00.8378 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:10:07.9788 Info Message Template Auto Format enabled
+2020-11-06 14:10:08.0168 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:10:08.2061 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:10:08.2808 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:10:08.4003 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:12:50.1117 Info Message Template Auto Format enabled
+2020-11-06 14:12:50.1507 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:12:50.3221 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:12:50.5193 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:12:50.7443 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:21:18.0543 Info Message Template Auto Format enabled
+2020-11-06 14:21:18.0844 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:21:18.2414 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:21:18.3036 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:21:18.3674 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:25:28.6987 Info Message Template Auto Format enabled
+2020-11-06 14:25:28.7328 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:25:28.8813 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:25:28.9677 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:25:29.0650 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:30:40.9177 Info Message Template Auto Format enabled
+2020-11-06 14:30:40.9543 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:30:41.1424 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:30:41.2180 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:30:41.2956 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:32:33.5668 Info Message Template Auto Format enabled
+2020-11-06 14:32:33.5934 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:32:33.7300 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:32:33.7979 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:32:33.8675 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:40:41.9148 Info Message Template Auto Format enabled
+2020-11-06 14:40:41.9462 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:40:42.0993 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:40:42.1619 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:40:42.2266 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:52:09.7173 Info Message Template Auto Format enabled
+2020-11-06 14:52:09.7569 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:52:09.9557 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:52:10.0411 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:52:10.1295 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:55:48.6894 Info Message Template Auto Format enabled
+2020-11-06 14:55:48.7185 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:55:48.8690 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:55:48.9290 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:55:49.0070 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:55:58.3809 Info Message Template Auto Format enabled
+2020-11-06 14:55:58.4512 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:55:58.5992 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:55:58.6589 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:55:58.7253 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-06 14:55:59.4607 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-06 14:55:59.4779 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-06 14:55:59.4930 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-06 14:56:00.5114 Info Reloading configuration...
+2020-11-06 14:56:00.5304 Info Configuring from an XML element in C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config...
+2020-11-06 14:56:00.5438 Info Message Template Auto Format enabled
+2020-11-06 14:56:00.5567 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-06 14:56:00.5731 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-06 14:56:00.5888 Info Adding target FileTarget(Name=alldata)
+2020-11-06 14:56:00.6092 Info Closing old configuration.
+2020-11-06 14:56:00.6673 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:20:07.4600 Info Message Template Auto Format enabled
+2020-11-07 13:20:07.4916 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:20:07.6475 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:20:07.7634 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:20:07.8671 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:37:09.5694 Info Message Template Auto Format enabled
+2020-11-07 13:37:09.5955 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:37:09.7368 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:37:09.7942 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:37:09.8582 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:39:36.1749 Info Message Template Auto Format enabled
+2020-11-07 13:39:36.2122 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:39:36.3797 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:39:36.4443 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:39:36.5291 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:41:39.1834 Info Message Template Auto Format enabled
+2020-11-07 13:41:39.2423 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:41:39.4454 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:41:39.5315 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:41:39.6426 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:42:27.9929 Info Message Template Auto Format enabled
+2020-11-07 13:42:28.0392 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:42:28.2413 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:42:28.3287 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:42:28.4169 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:43:22.0664 Info Message Template Auto Format enabled
+2020-11-07 13:43:22.0952 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:43:22.2500 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:43:22.3161 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:43:22.3875 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:43:54.6844 Info Message Template Auto Format enabled
+2020-11-07 13:43:54.7072 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:43:54.8007 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:43:54.8367 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:43:54.9012 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:46:11.2335 Info Message Template Auto Format enabled
+2020-11-07 13:46:11.3211 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:46:11.5685 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:46:11.7177 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:46:11.9515 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:48:07.7441 Info Message Template Auto Format enabled
+2020-11-07 13:48:07.7649 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:48:07.9035 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:48:07.9534 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:48:08.0280 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:49:47.7646 Info Message Template Auto Format enabled
+2020-11-07 13:49:47.7937 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:49:47.9264 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:49:47.9799 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:49:48.0346 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:50:50.2721 Info Message Template Auto Format enabled
+2020-11-07 13:50:50.2972 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:50:50.4344 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:50:50.4836 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:50:50.5508 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:51:31.1605 Info Message Template Auto Format enabled
+2020-11-07 13:51:31.1821 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:51:31.3213 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:51:31.3800 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:51:31.4532 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:52:37.8213 Info Message Template Auto Format enabled
+2020-11-07 13:52:37.8478 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:52:37.9958 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:52:38.0546 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:52:38.1231 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:53:12.9039 Info Message Template Auto Format enabled
+2020-11-07 13:53:12.9420 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:53:13.1122 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:53:13.1771 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:53:13.2513 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:54:12.2788 Info Message Template Auto Format enabled
+2020-11-07 13:54:12.3238 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:54:12.5175 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:54:12.6042 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:54:12.7549 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:55:21.9915 Info Message Template Auto Format enabled
+2020-11-07 13:55:22.0269 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:55:22.2041 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:55:22.2719 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:55:22.3517 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:56:55.6551 Info Message Template Auto Format enabled
+2020-11-07 13:56:55.6978 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:56:55.8790 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:56:55.9656 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:56:56.0696 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 13:58:36.4088 Info Message Template Auto Format enabled
+2020-11-07 13:58:36.4427 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 13:58:36.6032 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 13:58:36.6716 Info Adding target FileTarget(Name=alldata)
+2020-11-07 13:58:36.7537 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:00:00.6953 Info Message Template Auto Format enabled
+2020-11-07 14:00:00.7324 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:00:00.9283 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:00:01.0165 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:00:01.1421 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:02:49.3758 Info Message Template Auto Format enabled
+2020-11-07 14:02:49.4029 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:02:49.5642 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:02:49.6274 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:02:49.6999 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:05:26.7919 Info Message Template Auto Format enabled
+2020-11-07 14:05:26.8171 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:05:26.9590 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:05:27.0057 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:05:27.0653 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:09:16.4084 Info Message Template Auto Format enabled
+2020-11-07 14:09:16.4332 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:09:16.6785 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:09:16.7335 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:09:16.7952 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:10:05.9776 Info Message Template Auto Format enabled
+2020-11-07 14:10:06.0025 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:10:06.1493 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:10:06.1973 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:10:06.2524 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:10:42.1458 Info Message Template Auto Format enabled
+2020-11-07 14:10:42.1869 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:10:42.3610 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:10:42.4319 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:10:42.5147 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:12:47.8089 Info Message Template Auto Format enabled
+2020-11-07 14:12:47.8317 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:12:47.9762 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:12:48.0304 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:12:48.0905 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:25:23.9563 Info Message Template Auto Format enabled
+2020-11-07 14:25:23.9897 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:25:24.1621 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:25:24.2324 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:25:24.3128 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:36:19.0717 Info Message Template Auto Format enabled
+2020-11-07 14:36:19.1105 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:36:19.2888 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:36:19.3629 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:36:19.4474 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:46:49.3879 Info Message Template Auto Format enabled
+2020-11-07 14:46:49.4235 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:46:49.5935 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:46:49.6624 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:46:49.7458 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:49:40.0105 Info Message Template Auto Format enabled
+2020-11-07 14:49:40.0421 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:49:40.2032 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:49:40.2758 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:49:40.3675 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:50:50.6397 Info Message Template Auto Format enabled
+2020-11-07 14:50:50.6899 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:50:50.8969 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:50:50.9991 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:50:51.1142 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:52:15.4307 Info Message Template Auto Format enabled
+2020-11-07 14:52:15.4666 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:52:15.6157 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:52:15.7835 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:52:15.8766 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:55:30.2730 Info Message Template Auto Format enabled
+2020-11-07 14:55:30.3405 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:55:30.5223 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:55:30.6194 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:55:30.6929 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:57:55.3926 Info Message Template Auto Format enabled
+2020-11-07 14:57:55.4256 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:57:55.5882 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:57:55.6606 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:57:55.7400 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 14:59:05.0648 Info Message Template Auto Format enabled
+2020-11-07 14:59:05.1137 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 14:59:05.3262 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 14:59:05.4182 Info Adding target FileTarget(Name=alldata)
+2020-11-07 14:59:05.5127 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 17:21:16.7634 Info Message Template Auto Format enabled
+2020-11-07 17:21:16.8030 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 17:21:16.9698 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 17:21:17.1062 Info Adding target FileTarget(Name=alldata)
+2020-11-07 17:21:17.2124 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 17:23:54.0278 Info Message Template Auto Format enabled
+2020-11-07 17:23:54.0621 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 17:23:54.1986 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 17:23:54.2752 Info Adding target FileTarget(Name=alldata)
+2020-11-07 17:23:54.3612 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 17:25:54.9654 Info Message Template Auto Format enabled
+2020-11-07 17:25:55.0114 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 17:25:55.1851 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 17:25:55.2472 Info Adding target FileTarget(Name=alldata)
+2020-11-07 17:25:55.3213 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 17:27:11.8020 Info Message Template Auto Format enabled
+2020-11-07 17:27:11.8338 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 17:27:11.9995 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 17:27:12.1232 Info Adding target FileTarget(Name=alldata)
+2020-11-07 17:27:12.2439 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 17:29:34.6095 Info Message Template Auto Format enabled
+2020-11-07 17:29:34.6492 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 17:29:34.8734 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 17:29:35.0013 Info Adding target FileTarget(Name=alldata)
+2020-11-07 17:29:35.1265 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 17:35:59.2995 Info Message Template Auto Format enabled
+2020-11-07 17:35:59.3379 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 17:35:59.5637 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 17:35:59.6860 Info Adding target FileTarget(Name=alldata)
+2020-11-07 17:35:59.9988 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 17:36:35.1105 Info Message Template Auto Format enabled
+2020-11-07 17:36:35.1563 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 17:36:35.3649 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 17:36:35.5220 Info Adding target FileTarget(Name=alldata)
+2020-11-07 17:36:35.6222 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 22:35:57.4800 Info Message Template Auto Format enabled
+2020-11-07 22:35:57.5565 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 22:35:57.8065 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 22:35:57.9624 Info Adding target FileTarget(Name=alldata)
+2020-11-07 22:35:58.1135 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 22:59:27.9821 Info Message Template Auto Format enabled
+2020-11-07 22:59:28.0155 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 22:59:28.2410 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 22:59:28.3699 Info Adding target FileTarget(Name=alldata)
+2020-11-07 22:59:28.5409 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 23:52:44.2309 Info Message Template Auto Format enabled
+2020-11-07 23:52:45.2898 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 23:52:46.6295 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 23:52:47.5397 Info Adding target FileTarget(Name=alldata)
+2020-11-07 23:52:48.2626 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-07 23:59:16.4924 Info Message Template Auto Format enabled
+2020-11-07 23:59:16.6435 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 23:59:17.3243 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 23:59:17.5669 Info Adding target FileTarget(Name=alldata)
+2020-11-07 23:59:18.0576 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 00:26:06.7128 Info Message Template Auto Format enabled
+2020-11-08 00:26:06.9120 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:26:08.1406 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 00:26:08.7017 Info Adding target FileTarget(Name=alldata)
+2020-11-08 00:26:09.1742 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 00:26:18.9054 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-08 00:26:18.9683 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-08 00:26:18.9876 Info Configuration file change detected! Reloading in 1000ms...
+2020-11-08 00:26:20.4699 Info Reloading configuration...
+2020-11-08 00:26:20.7498 Info Configuring from an XML element in C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config...
+2020-11-08 00:26:20.9047 Info Message Template Auto Format enabled
+2020-11-08 00:26:21.0972 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:26:21.2338 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 00:26:21.3887 Info Adding target FileTarget(Name=alldata)
+2020-11-08 00:26:21.4142 Info Closing old configuration.
+2020-11-08 00:26:21.5211 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 00:29:47.5625 Info Message Template Auto Format enabled
+2020-11-08 00:29:47.7454 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:29:48.6599 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 00:29:49.3452 Info Adding target FileTarget(Name=alldata)
+2020-11-08 00:29:50.0088 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 00:48:32.4106 Info Message Template Auto Format enabled
+2020-11-08 00:48:32.4835 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:48:32.9103 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 00:48:33.0651 Info Adding target FileTarget(Name=alldata)
+2020-11-08 00:48:33.2094 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 01:44:59.6544 Info Message Template Auto Format enabled
+2020-11-08 01:44:59.7239 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 01:45:00.2241 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 01:45:00.6377 Info Adding target FileTarget(Name=alldata)
+2020-11-08 01:45:00.9278 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 01:56:06.6255 Info Message Template Auto Format enabled
+2020-11-08 01:56:07.1560 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 01:56:08.6412 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 01:56:09.4394 Info Adding target FileTarget(Name=alldata)
+2020-11-08 01:56:10.5261 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 02:00:51.0606 Info Message Template Auto Format enabled
+2020-11-08 02:00:51.1122 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 02:00:51.4161 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 02:00:51.5792 Info Adding target FileTarget(Name=alldata)
+2020-11-08 02:00:51.7954 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 02:00:57.8825 Info Message Template Auto Format enabled
+2020-11-08 02:00:57.9296 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 02:00:58.0972 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 02:00:58.1916 Info Adding target FileTarget(Name=alldata)
+2020-11-08 02:00:58.3939 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 02:02:53.3629 Info Message Template Auto Format enabled
+2020-11-08 02:02:53.6341 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 02:02:54.2864 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 02:02:54.7663 Info Adding target FileTarget(Name=alldata)
+2020-11-08 02:02:55.1831 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 02:10:06.9115 Info Message Template Auto Format enabled
+2020-11-08 02:10:07.0727 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 02:10:07.5154 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 02:10:07.6975 Info Adding target FileTarget(Name=alldata)
+2020-11-08 02:10:07.9255 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 07:57:38.9139 Info Message Template Auto Format enabled
+2020-11-08 07:57:38.9519 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 07:57:39.1543 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 07:57:39.2740 Info Adding target FileTarget(Name=alldata)
+2020-11-08 07:57:39.3626 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 08:16:31.2910 Info Message Template Auto Format enabled
+2020-11-08 08:16:31.3311 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 08:16:31.5051 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 08:16:31.5812 Info Adding target FileTarget(Name=alldata)
+2020-11-08 08:16:31.6611 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 08:18:03.4837 Info Message Template Auto Format enabled
+2020-11-08 08:18:03.5075 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 08:18:03.6666 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 08:18:03.7209 Info Adding target FileTarget(Name=alldata)
+2020-11-08 08:18:03.7846 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 08:20:37.7193 Info Message Template Auto Format enabled
+2020-11-08 08:20:37.7680 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 08:20:38.0472 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 08:20:38.1593 Info Adding target FileTarget(Name=alldata)
+2020-11-08 08:20:38.3022 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 08:22:55.7631 Info Message Template Auto Format enabled
+2020-11-08 08:22:55.8143 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 08:22:56.0626 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 08:22:56.1744 Info Adding target FileTarget(Name=alldata)
+2020-11-08 08:22:56.4989 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 08:40:28.2739 Info Message Template Auto Format enabled
+2020-11-08 08:40:28.3007 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 08:40:28.4641 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 08:40:28.5615 Info Adding target FileTarget(Name=alldata)
+2020-11-08 08:40:28.6854 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 08:58:14.9434 Info Message Template Auto Format enabled
+2020-11-08 08:58:14.9758 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 08:58:15.1412 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 08:58:15.2101 Info Adding target FileTarget(Name=alldata)
+2020-11-08 08:58:15.2902 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 09:01:16.0998 Info Message Template Auto Format enabled
+2020-11-08 09:01:16.1344 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 09:01:16.3827 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 09:01:16.6036 Info Adding target FileTarget(Name=alldata)
+2020-11-08 09:01:16.9017 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 09:03:38.3505 Info Message Template Auto Format enabled
+2020-11-08 09:03:38.4007 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 09:03:38.5741 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 09:03:38.6425 Info Adding target FileTarget(Name=alldata)
+2020-11-08 09:03:38.7215 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 09:05:37.8226 Info Message Template Auto Format enabled
+2020-11-08 09:05:37.8646 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 09:05:38.0386 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 09:05:38.1357 Info Adding target FileTarget(Name=alldata)
+2020-11-08 09:05:38.2831 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 09:10:00.3502 Info Message Template Auto Format enabled
+2020-11-08 09:10:00.3876 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 09:10:00.5800 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 09:10:00.6506 Info Adding target FileTarget(Name=alldata)
+2020-11-08 09:10:00.7439 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 09:10:41.0272 Info Message Template Auto Format enabled
+2020-11-08 09:10:41.0959 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 09:10:41.3701 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 09:10:41.4900 Info Adding target FileTarget(Name=alldata)
+2020-11-08 09:10:41.6712 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 09:12:50.3991 Info Message Template Auto Format enabled
+2020-11-08 09:12:50.4316 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 09:12:50.6178 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 09:12:50.7280 Info Adding target FileTarget(Name=alldata)
+2020-11-08 09:12:50.8143 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 10:27:40.6533 Info Message Template Auto Format enabled
+2020-11-08 10:27:40.6893 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 10:27:40.8452 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 10:27:40.9311 Info Adding target FileTarget(Name=alldata)
+2020-11-08 10:27:41.0285 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 10:31:00.5688 Info Message Template Auto Format enabled
+2020-11-08 10:31:00.6024 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 10:31:00.7849 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 10:31:00.8828 Info Adding target FileTarget(Name=alldata)
+2020-11-08 10:31:00.9631 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
+2020-11-08 10:36:22.3439 Info Message Template Auto Format enabled
+2020-11-08 10:36:22.3769 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 10:36:22.5601 Error Error parsing layout aspnet-application will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-application'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-08 10:36:22.6706 Info Adding target FileTarget(Name=alldata)
+2020-11-08 10:36:22.7539 Info Validating config: TargetNames=alldata, ConfigItems=113, FilePath=C:\Users\PC\Downloads\furnitureShop-master\Web\bin\Debug\netcoreapp3.1\nlog.config
