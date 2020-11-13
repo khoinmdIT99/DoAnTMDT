@@ -1,29 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using Domain.Application;
 using Infrastructure.Common;
 using Infrastructure.Web;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Logging;
 using Shop.Application;
-using Web.Controllers;
-using Web.Models;
 
 namespace Web
 {
@@ -51,13 +41,17 @@ namespace Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddRazorPages();
             services.AddDbContext<ApplicationDBContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("NpgsqlConection"), b => b.MigrationsAssembly("DatabaseTools"))
-            );
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("NpgsqlConection"),
+                    b => b.MigrationsAssembly("DatabaseTools"));
+            }, ServiceLifetime.Transient);
             ApplicationDBContext.ConfigureServices(services);
 
             services.AddDbContext<ShopDBContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("NpgsqlConection"), b => b.MigrationsAssembly("DatabaseTools"))
-            );
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("NpgsqlConection"),
+                    b => b.MigrationsAssembly("DatabaseTools"));
+            }, ServiceLifetime.Transient);
             ShopDBContext.ConfigureServices(services);
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddMemoryCache();
@@ -77,7 +71,7 @@ namespace Web
             });
             services.Configure<CookiePolicyOptions>(options =>
             {
-                options.CheckConsentNeeded = context => false;
+                options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -90,6 +84,11 @@ namespace Web
                 options.ExpireTimeSpan = TimeSpan.FromDays(1);
                 options.SlidingExpiration = false;
 
+            });
+            services.AddLogging(logging =>
+            {
+                logging.AddConsole();
+                logging.AddDebug();
             });
         }
 

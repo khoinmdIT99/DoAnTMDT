@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Web.Models;
 
 namespace Web.Component
@@ -24,53 +26,22 @@ namespace Web.Component
             this._services = services;
             this._productRepository = productRepository;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            string cartId = GetCart(_services);
-            List<CartProductViewModel> cartProductViewModels = new List<CartProductViewModel>();
-
-            foreach (var item in _shoppingCart.GetCartProducts(cartId))
-            {
-                var cartProductViewModel = new CartProductViewModel()
-                {
-                    Id = item.Id,
-                    CartId = item.CartId,
-                    Cart = _cartRepository.GetCartViewModel(item.CartId),
-                    ProductId = item.ProductId,
-                    Product = _productRepository.GetProductViewModelById(item.ProductId),
-                    Price = item.Price,
-                    PriceType = item.PriceType,
-                    Quantity = item.Quantity,
-                    Total = item.Total
-                };
-                cartProductViewModels.Add(cartProductViewModel);
-
-            }
-            var cart = new ShoppingCart()
-            {
-                Id = cartId,
-                cartProducts = cartProductViewModels,
-                Total = _shoppingCart.GetShoppingCartTotal(cartId)
-            };
-
-            var model = new ShoppingCartViewModel()
-            {
-                ShoppingCart = cart,
-            };
-            return View(model);
+            Task<List<CartProductViewModel>> task = new Task<List<CartProductViewModel>>(Excute);
+            task.Start();
+            var cart = await task;
+            return View(cart);
         }
-        public string GetCart(IServiceProvider service)
+        public List<CartProductViewModel> Excute()
         {
-
-            try
+            string session = HttpContext.Session.GetString("AddProducts");
+            List<CartProductViewModel> cart = new List<CartProductViewModel>();
+            if (session != null)
             {
-                HttpRequest cookie = service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
-                return cookie?.Cookies["cardId"];
+                cart = JsonConvert.DeserializeObject<List<CartProductViewModel>>(session);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            return cart;
         }
 
     }

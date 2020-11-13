@@ -37,6 +37,11 @@ namespace Web.Controllers
             return View();
         }
         [AllowAnonymous]
+        public IActionResult Index2()
+        {
+            return View(_productRepository.GetProductViewModels());
+        }
+        [AllowAnonymous]
         public IActionResult ProductList()
         {
             return View(_productRepository.GetProductViewModels());

@@ -40,6 +40,8 @@ namespace Web
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
+                    logging.AddConsole(options => options.IncludeScopes = true);
+                    logging.AddDebug();
                     logging.SetMinimumLevel(LogLevel.Information);
                 })
                 .UseNLog();

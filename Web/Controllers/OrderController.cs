@@ -22,6 +22,7 @@ namespace Web.Controllers
         readonly IServiceProvider _services;
         private readonly IAccountRepository _accountRepository;
         private readonly ICartRepository _cartRepository;
+        const string SessionId = "_Id";
 
         public OrderController(IProductRepository productRepository, IShoppingCartRepository shoppingCart, IServiceProvider services, 
             IAccountRepository accountRepository, ICartRepository cartRepository)
@@ -32,7 +33,12 @@ namespace Web.Controllers
             this._accountRepository = accountRepository;
             this._cartRepository = cartRepository;
         }
-       
+
+        public IActionResult Index()
+        {
+            return Content("Hello");
+        }
+        [AllowAnonymous]
         public IActionResult HomeOrder()
         {
             try
@@ -69,8 +75,8 @@ namespace Web.Controllers
                     //get customer
                     string customerId = SecurityManager.getUserId(cookie.Cookies[SecurityManager._securityToken]);
 
-                    var customer = _accountRepository.GetCustomerViewModel(customerId);
-                    if (customer == null)
+                    var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                    if (HttpContext.Session.GetString(SessionId) == null)
                     {
                         return RedirectToAction("Index", "Home");
                     }

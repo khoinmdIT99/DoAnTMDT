@@ -4,6 +4,7 @@
     ViewData["Name"] = "Giỏ hàng";
     ViewData["Controller"] = "Trang chủ";
     ViewData["Action"] = "Giỏ hàng";
+    Layout = "_Layout1";
 }
 
 <div id="wrapper" class="wrapper-fluid banner-effect-3">
@@ -92,7 +93,7 @@
 
     function Delete(id){
 		var r = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-        if (r == true) {
+        if (r === true) {
             $.ajax(
             {
                 type: "POST",
@@ -104,7 +105,7 @@
                     alert("error");
                 },
                 success: function (result) {
-                    if (result == true) {
+                    if (result === true) {
                         window.location.reload();
                     }
                     else {
@@ -129,7 +130,7 @@
                     alert("error");
                 },
                 success: function (result) {
-                    if (result == true) {
+                    if (result === true) {
                         window.location.reload();
                     }
                     else {

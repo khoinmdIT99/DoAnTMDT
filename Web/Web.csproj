@@ -30,6 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.9" />
@@ -41,6 +43,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="NLog" Version="4.7.5" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
@@ -52,7 +56,6 @@
     <Folder Include="Areas\Administrator\Pages\" />
     <Folder Include="Pages\Components\" />
     <Folder Include="Views\Shared\Components\Account\" />
-    <Folder Include="Views\Home\" />
     <Folder Include="wwwroot\assets\datatables\css\" />
     <Folder Include="wwwroot\assets\datatables\images\" />
     <Folder Include="wwwroot\assets\datatables\js\" />
@@ -85,6 +88,24 @@
     <Folder Include="wwwroot\assets\js\vendor\" />
     <Folder Include="wwwroot\imageUpload\" />
     <Folder Include="wwwroot\images_slider\" />
+    <Folder Include="wwwroot\Test\css\animate\" />
+    <Folder Include="wwwroot\Test\css\bootstrap\css\" />
+    <Folder Include="wwwroot\Test\css\bootstrap\fonts\" />
+    <Folder Include="wwwroot\Test\css\bootstrap\js\" />
+    <Folder Include="wwwroot\Test\css\font-awesome\css\" />
+    <Folder Include="wwwroot\Test\css\font-awesome\fonts\" />
+    <Folder Include="wwwroot\Test\css\font-awesome\less\" />
+    <Folder Include="wwwroot\Test\css\font-awesome\scss\" />
+    <Folder Include="wwwroot\Test\css\footer\" />
+    <Folder Include="wwwroot\Test\css\header\" />
+    <Folder Include="wwwroot\Test\css\images\icon\" />
+    <Folder Include="wwwroot\Test\css\images\styling\blue\" />
+    <Folder Include="wwwroot\Test\css\images\styling\cyan\" />
+    <Folder Include="wwwroot\Test\css\images\styling\default\" />
+    <Folder Include="wwwroot\Test\css\images\styling\green\" />
+    <Folder Include="wwwroot\Test\css\images\styling\orange\" />
+    <Folder Include="wwwroot\Test\css\images\styling\pink\" />
+    <Folder Include="wwwroot\Test\css\images\styling\red\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -108,6 +129,95 @@
     <None Include="wwwroot\assets\js\vendor\modernizr-2.8.3.min.js" />
     <None Include="wwwroot\assets\js\waypoints.min.js" />
     <None Include="wwwroot\assets\mail.php" />
+    <None Include="wwwroot\Test\css\bootstrap\css\bootstrap-theme.css.map" />
+    <None Include="wwwroot\Test\css\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\Test\css\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\Test\css\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\Test\css\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Test\css\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Test\css\bootstrap\js\npm.js" />
+    <None Include="wwwroot\Test\css\font-awesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Test\css\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Test\css\font-awesome\fonts\fontawesome-webfont_cdea90bb.svg" />
+    <None Include="wwwroot\Test\css\font-awesome\fonts\fontawesome-webfont_cdea90bb.woff2" />
+    <None Include="wwwroot\Test\css\font-awesome\less\animated.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\bordered-pulled.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\core.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\fixed-width.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\font-awesome.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\icons.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\larger.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\list.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\mixins.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\path.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\rotated-flipped.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\screen-reader.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\spinning.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\stacked.less" />
+    <None Include="wwwroot\Test\css\font-awesome\less\variables.less" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\font-awesome.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_animated.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_core.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_fixed-width.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_icons.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_larger.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_list.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_mixins.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_path.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_screen-reader.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_spinning.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_stacked.scss" />
+    <None Include="wwwroot\Test\css\font-awesome\scss\_variables.scss" />
+    <None Include="wwwroot\Test\css\header\header2.css.map" />
+    <None Include="wwwroot\Test\css\responsive.css.mine" />
+    <None Include="wwwroot\Test\css\responsive.css.r30" />
+    <None Include="wwwroot\Test\css\responsive.css.r32" />
+    <None Include="wwwroot\Test\js\adminlte.min.js" />
+    <None Include="wwwroot\Test\js\bootstrap-notify.min.js" />
+    <None Include="wwwroot\Test\js\bootstrap.min.js" />
+    <None Include="wwwroot\Test\js\countdown\jquery.countdown.js" />
+    <None Include="wwwroot\Test\js\countdown\jquery.countdown.min.js" />
+    <None Include="wwwroot\Test\js\datetimepicker\bootstrap-datetimepicker.min.js" />
+    <None Include="wwwroot\Test\js\datetimepicker\moment.js" />
+    <None Include="wwwroot\Test\js\dcjqaccordion\jquery.dcjqaccordion.2.8.min.js" />
+    <None Include="wwwroot\Test\js\jquery-1.11.1.min.js" />
+    <None Include="wwwroot\Test\js\jquery-2.2.4.min.js" />
+    <None Include="wwwroot\Test\js\jquery-ui\jquery-ui.min.js" />
+    <None Include="wwwroot\Test\js\jquery.nav.js" />
+    <None Include="wwwroot\Test\js\lightslider\lightslider.js" />
+    <None Include="wwwroot\Test\js\minicolors\jquery.miniColors.min.js" />
+    <None Include="wwwroot\Test\js\modernizr\modernizr-2.6.2.min.js" />
+    <None Include="wwwroot\Test\js\owl-carousel\owl.carousel.js" />
+    <None Include="wwwroot\Test\js\owl-carousel\owl.carousel.min.js" />
+    <None Include="wwwroot\Test\js\quickview\jquery.elevateZoom-3.0.8.min.js" />
+    <None Include="wwwroot\Test\js\quickview\jquery.elevatezoom.js" />
+    <None Include="wwwroot\Test\js\quickview\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\Test\js\site.js" />
+    <None Include="wwwroot\Test\js\slick-slider\slick.js" />
+    <None Include="wwwroot\Test\js\themejs\addtocart.js" />
+    <None Include="wwwroot\Test\js\themejs\application.js" />
+    <None Include="wwwroot\Test\js\themejs\cd1.js" />
+    <None Include="wwwroot\Test\js\themejs\cpanel.js" />
+    <None Include="wwwroot\Test\js\themejs\cslide.js" />
+    <None Include="wwwroot\Test\js\themejs\custom_h2.js" />
+    <None Include="wwwroot\Test\js\themejs\custom_h3.js" />
+    <None Include="wwwroot\Test\js\themejs\fadeimgscroll.js" />
+    <None Include="wwwroot\Test\js\themejs\homepage.js" />
+    <None Include="wwwroot\Test\js\themejs\libs.js" />
+    <None Include="wwwroot\Test\js\themejs\lightslider.js" />
+    <None Include="wwwroot\Test\js\themejs\noui.js" />
+    <None Include="wwwroot\Test\js\themejs\nouislider.js" />
+    <None Include="wwwroot\Test\js\themejs\pathLoader.js" />
+    <None Include="wwwroot\Test\js\themejs\script.js" />
+    <None Include="wwwroot\Test\js\themejs\script1.js" />
+    <None Include="wwwroot\Test\js\themejs\script5.js" />
+    <None Include="wwwroot\Test\js\themejs\slidertop.js" />
+    <None Include="wwwroot\Test\js\themejs\so_megamenu.js" />
+    <None Include="wwwroot\Test\js\themejs\toppanel.js" />
+    <None Include="wwwroot\Test\js\unveil\jquery.unveil.js" />
+    <None Include="wwwroot\Test\js\wowjs\wow.js" />
   </ItemGroup>
 
   <ItemGroup>

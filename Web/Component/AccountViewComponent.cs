@@ -20,7 +20,7 @@ namespace Web.Component
         public IViewComponentResult Invoke()
         {
             ViewBag.Name = HttpContext.Session.GetString(SessionName);
-            ViewBag.Age = HttpContext.Session.GetInt32(SessionId);
+            ViewBag.Age = HttpContext.Session.GetString(SessionId);
             return View("Index");
         }
     }

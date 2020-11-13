@@ -67,21 +67,22 @@ namespace Web.Controllers
                     if (ModelState.IsValid)
                     {
                         var checkpass = false;
-                        using (Md5 = MD5.Create())
-                        {
-                            Encrypt = new EnCryptography();
-                            checkpass = Encrypt.VerifyMd5Hash(Md5, user.Password, loginUser.Password);
-                        }
+                        //using (Md5 = MD5.Create())
+                        //{
+                        //    Encrypt = new EnCryptography();
+                        //    checkpass = Encrypt.VerifyMd5Hash(Md5, user.Password, loginUser.Password);
+                        //}
+                        string passwordHashed = EncryptionHelper.GetHash(user.Password + loginUser.Salt);
+                        checkpass = loginUser.Password == passwordHashed;
                         if (checkpass)
                         {
                             message = "Đăng nhập thành công";
                             HttpContext.Session.SetString(SessionName, loginUser.Email);
                             HttpContext.Session.SetString(SessionId, loginUser.Id);
-
                         }
                         else
                         {
-                            message = "Không tìm thấy Email/Password";
+                            message = passwordHashed;
                         }
                     }
                     else
@@ -107,19 +108,20 @@ namespace Web.Controllers
             if (checkRegister == 0)
             {
                 string hashpass;
-                using (Md5 = MD5.Create())
-                {
-                    Encrypt = new EnCryptography();
-                    hashpass = Encrypt.GetMd5Hash(Md5, item.password);
-                }
-
+                //using (Md5 = MD5.Create())
+                //{
+                //    Encrypt = new EnCryptography();
+                //    hashpass = Encrypt.GetMd5Hash(Md5, item.password);
+                //}
+                string salt = EncryptionHelper.GetSalt();
                 Customer customer = new Customer()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Email = item.email,
-                    Password = hashpass,
+                    Password = EncryptionHelper.GetHash(item.password + salt),
                     FullName = item.fullName,
-                    CreateAt = DateTime.Now
+                    CreateAt = DateTime.Now,
+                    Salt = salt
                 };
 
                 _accountRepository.Add(customer);

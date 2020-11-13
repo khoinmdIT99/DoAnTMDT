@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace Domain.Shop.Entities
@@ -21,6 +22,10 @@ namespace Domain.Shop.Entities
         [MaxLength(255)]
 		[Column("PASSWORD")]
 		public string Password { get; set; }
+        /// <summary>
+        /// Mã salt ngẫu nhiên.
+        /// </summary>
+		public string Salt { get; set; }
 		[MaxLength(255)]
 		[Column("EMAIL")]
 		public string Email { get; set; }
@@ -34,10 +39,10 @@ namespace Domain.Shop.Entities
 		public string District { get; set; }
 		[Column("PROVINCE")]
 		public string Province { get; set; }
-		
+        public virtual List<DiemTichLuy> ListDiemTichLuy { get; set; }
 
 		public virtual ICollection<CustomerFeedback> CustomerFeedbacks { get; set; }
 		public virtual ICollection<ProductReview> ProductReviews { get; set; }
-
-	}
+        public int TongDiemTichLuy() => ListDiemTichLuy?.ToList().Select(d => d.Diem).Sum() ?? 0;
+    }
 }

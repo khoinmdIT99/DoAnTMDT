@@ -435,6 +435,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("PROVINCE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CUSTOMERS");
@@ -539,6 +542,56 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasFilter("[CUSTOMER_FEEDBACK_ID] IS NOT NULL");
 
                     b.ToTable("CUSTOMER_FEEDBACK_IMAGE");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.DiemTichLuy", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreateAt")
+                        .HasColumnName("CREATE_AT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnName("CREATE_BY")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("Diem")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HoadonId")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("IdHoaDon")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdKhachHang")
+                        .HasColumnType("int");
+
+                    b.Property<string>("KhachhangId")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("LastUpdateAt")
+                        .HasColumnName("LAST_UPDATE_AT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasColumnName("LAST_UPDATE_BY")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("ThoiGian")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HoadonId");
+
+                    b.HasIndex("KhachhangId");
+
+                    b.ToTable("DiemTichLuy");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.District", b =>
@@ -682,6 +735,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("ID")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<int>("BasketCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("CategoryId")
                         .HasColumnType("nvarchar(50)");
@@ -1172,6 +1228,17 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.HasOne("Domain.Shop.Entities.CustomerFeedback", null)
                         .WithOne("CustomerFeedbackImage")
                         .HasForeignKey("Domain.Shop.Entities.CustomerFeedbackImage", "CustomerFeedbackId");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.DiemTichLuy", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Cart", "Hoadon")
+                        .WithMany()
+                        .HasForeignKey("HoadonId");
+
+                    b.HasOne("Domain.Shop.Entities.Customer", "Khachhang")
+                        .WithMany("ListDiemTichLuy")
+                        .HasForeignKey("KhachhangId");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.District", b =>

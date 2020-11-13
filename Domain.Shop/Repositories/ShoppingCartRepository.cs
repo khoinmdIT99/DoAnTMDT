@@ -14,18 +14,18 @@ namespace Domain.Shop.Repositories
 {
     public class ShoppingCartRepository : Repository<ShopDBContext, CartProduct>, IShoppingCartRepository
     {
-        public List<CartProduct> cartProducts { get; set; }
+        public List<CartProduct> CartProducts { get; set; }
         public ShoppingCartRepository(IUnitOfWork<ShopDBContext> unitOfWork) : base(unitOfWork)
         {
 
         }
         public void AddToCart(Product product, string cartId)
         {
-            var CartProduct = this.All.SingleOrDefault(
+            var cartProduct = this.All.SingleOrDefault(
                 s => s.ProductId == product.Id && s.CartId == cartId && s.Bought == false);
-            if (CartProduct == null )
+            if (cartProduct == null )
             {
-                Cart cart = DbContext.Carts.ToList().Where(c => c.Id == cartId).FirstOrDefault();
+                Cart cart = DbContext.Carts.ToList().FirstOrDefault(c => c.Id == cartId);
                 if (cart == null)
                 {
                     cart = new Cart()
@@ -34,7 +34,7 @@ namespace Domain.Shop.Repositories
                     };
                     DbContext.Carts.Add(cart);
                 }
-                CartProduct = new CartProduct()
+                cartProduct = new CartProduct()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Product = product,
@@ -42,17 +42,18 @@ namespace Domain.Shop.Repositories
                     CartId = cartId
                 };
 
-                this.Add(CartProduct);
+                this.Add(cartProduct);
             }
             else
             {
-                CartProduct.Quantity++;
+                cartProduct.Quantity++;
             }
+
             this.Save();
         }
-        public void RemoveFromCart(Product product, string CartId)
+        public void RemoveFromCart(Product product, string cartId)
         {
-            var cartProduct = this.All.SingleOrDefault(s => s.ProductId == product.Id && s.CartId == CartId && s.Bought == false);
+            var cartProduct = this.All.SingleOrDefault(s => s.ProductId == product.Id && s.CartId == cartId && s.Bought == false);
 
             if (cartProduct != null)
             {
@@ -72,7 +73,7 @@ namespace Domain.Shop.Repositories
             var cart = this.All.Where(c => c.CartId == cardId && c.Bought == false)
                            .Include(s => s.Product).Include(s => s.Product.ProductType).Include(s => s.Product.ProductImages).Include(s => s.Product.ProductReviews)
                            .ToList();
-            return cartProducts ?? cart;
+            return CartProducts ?? cart;
         }
 
         public List<CartProduct> GetCartProductsBought(string cardId, string customerId)
@@ -93,18 +94,18 @@ namespace Domain.Shop.Repositories
             this.Save();
         }
 
-        public long GetShoppingCartTotal(string CartId)
+        public long GetShoppingCartTotal(string cartId)
         {
-            var total = this.All.Where(c => c.CartId == CartId && c.Bought == false)
+            var total = this.All.Where(c => c.CartId == cartId && c.Bought == false)
                 .Select(c => c.Product.Price * c.Quantity).Sum();
-            return total.Value;
+            return total.GetValueOrDefault();
         }
         public void UpdateQuantityInCart(string id, int quantity, string cartId)
         {
             try
             {
 
-                var model = this.All.Where(s => s.Product.Id == id && s.CartId == cartId && s.Bought == false).FirstOrDefault();
+                var model = this.All.FirstOrDefault(s => s.Product.Id == id && s.CartId == cartId && s.Bought == false);
 
                 if (quantity == 0)
                 {
@@ -113,7 +114,7 @@ namespace Domain.Shop.Repositories
                 }
                 else
                 {
-                    if (model.Quantity != quantity)
+                    if (model != null && model.Quantity != quantity)
                     {
                         model.Quantity = quantity;
                         this.Update(model);
@@ -129,11 +130,11 @@ namespace Domain.Shop.Repositories
 
         public void AddToCartWithQuantity(Product product, string cartId, int quantity)
         {
-            var CartProduct = this.All.SingleOrDefault(
+            var cartProduct = this.All.SingleOrDefault(
                  s => s.ProductId == product.Id && s.CartId == cartId && s.Bought == false);
-            if (CartProduct == null)
+            if (cartProduct == null)
             {
-                Cart cart = DbContext.Carts.ToList().Where(c => c.Id == cartId).FirstOrDefault();
+                Cart cart = DbContext.Carts.ToList().FirstOrDefault(c => c.Id == cartId);
                 if (cart == null)
                 {
                     cart = new Cart()
@@ -142,7 +143,7 @@ namespace Domain.Shop.Repositories
                     };
                     DbContext.Carts.Add(cart);
                 }
-                CartProduct = new CartProduct()
+                cartProduct = new CartProduct()
                 {
                     Id = Guid.NewGuid().ToString(),
                     Product = product,
@@ -150,11 +151,11 @@ namespace Domain.Shop.Repositories
                     CartId = cartId
                 };
 
-                this.Add(CartProduct);
+                Add(cartProduct);
             }
             else
             {
-                CartProduct.Quantity += quantity;
+                cartProduct.Quantity += quantity;
             }
             this.Save();
         }

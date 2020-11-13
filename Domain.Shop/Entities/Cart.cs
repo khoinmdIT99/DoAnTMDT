@@ -46,6 +46,6 @@ namespace Domain.Shop.Entities
 		public string Comments { get; set; }
 		[Column("STATUS")]
 		public int Status { get; set; }
-       
-	}
+		public decimal TongGiaTri => (Totalprice + ShippingFee - Discount);
+    }
 }

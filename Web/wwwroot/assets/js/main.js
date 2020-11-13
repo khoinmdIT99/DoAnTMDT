@@ -14,12 +14,12 @@
     var top_offset = $('.header-area').height() - -60;
     $('.hamburger-menu nav ul').onePageNav({
         currentClass: 'active',
-        scrollOffset: top_offset,
+        scrollOffset: top_offset
     });
     
     
     /*--- clickable menu active ----*/
-    const slinky = $('#menu').slinky()
+    var slinky = $('#menu').slinky();
     /*====== sidebarmenu ======*/
     function sidebarMainmenu() {
         var menuTrigger = $('.clickable-mainmenu-active'),
@@ -57,8 +57,8 @@
             }
         }
     })
-    
-    
+
+
     $('.slider-active-2').owlCarousel({
         loop: true,
         nav: true,
@@ -79,7 +79,7 @@
                 items: 1
             }
         }
-    })
+    });
     
     
     /* arrival active */
@@ -104,7 +104,7 @@
                 items: 5
             }
         }
-    })
+    });
     
     
     /* brand logo active */
@@ -129,7 +129,7 @@
                 items: 6
             }
         }
-    })
+    });
     
     
     /* brand logo active */
@@ -151,7 +151,7 @@
                 items: 7
             }
         }
-    })
+    });
     
     
     /* book list active */
@@ -175,7 +175,7 @@
                 items: 2
             }
         }
-    })
+    });
     
     
     /* testimonials active */
@@ -199,7 +199,7 @@
                 items: 1
             }
         }
-    })
+    });
     
     
     /* testimonials active */
@@ -223,7 +223,7 @@
                 items: 6
             }
         }
-    })
+    });
     /* testimonials active */
     $('.product-fruit-slider').owlCarousel({
         loop: true,
@@ -249,7 +249,7 @@
                 items: 5
             }
         }
-    })
+    });
     
     /* instafeed active */
     $('.instafeed-active').owlCarousel({
@@ -273,7 +273,7 @@
                 items: 5
             }
         }
-    })
+    });
     
     
     /* testimonials active */
@@ -298,7 +298,7 @@
                 items: 4
             }
         }
-    })
+    });
     
     
     /* testimonials active */
@@ -323,7 +323,7 @@
                 items: 3
             }
         }
-    })
+    });
     
     
     /* testimonials active */
@@ -348,7 +348,7 @@
                 items: 3
             }
         }
-    })
+    });
     
     
     /* popular-product-active active */
@@ -374,7 +374,7 @@
                 items: 4
             }
         }
-    })
+    });
     
     
     /* popular-product-active-2 active */
@@ -400,7 +400,7 @@
                 items: 4
             }
         }
-    })
+    });
     
     
     /* trandy-product-active active */
@@ -425,7 +425,7 @@
                 items: 4
             }
         }
-    })
+    });
     
     
     /* feadback-silder-active active */
@@ -450,7 +450,7 @@
                 items: 3
             }
         }
-    })
+    });
     
     
     /*category left menu*/
@@ -503,11 +503,11 @@
     $('.tlt1').textillate({
         loop: true,
         in: {
-            effect: 'fadeInDown',
+            effect: 'fadeInDown'
         },
         out: {
-            effect: 'flip',
-        },
+            effect: 'flip'
+        }
     });
     
     /*--

@@ -32,7 +32,7 @@ namespace Web.Areas.Administrator.Controllers
             this._iSliderRepository = iSliderRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<List<SliderViewModel>> GetLisTask()
         {
             var myClients = await _iSliderRepository.All.Select(w => new SliderViewModel()
             {
@@ -41,17 +41,15 @@ namespace Web.Areas.Administrator.Controllers
                 Status = w.Status
 
             }).ToListAsync();
-            return View(myClients);
+            return myClients;
+        }
+        public async Task<IActionResult> Index()
+        {
+            return View(await GetLisTask());
         }
         public async Task<JsonResult> GetClients()
         {
-            var clients = await _iSliderRepository.All.Select(w => new SliderViewModel()
-            {
-                Id = w.Id,
-                PhotoName = w.PhotoName,
-                Status = w.Status
-
-            }).ToListAsync();
+            var clients = await GetLisTask();
             List<SliderViewModel> cls = new List<SliderViewModel>();
             string renderedImg = string.Empty;
             foreach (var c in clients)
@@ -119,13 +117,7 @@ namespace Web.Areas.Administrator.Controllers
                         _iSliderRepository.Update(data);
                         _iSliderRepository.Save(RequestContext);
                     }
-                    var myClients = await _iSliderRepository.All.Select(w => new SliderViewModel()
-                    {
-                        Id = w.Id,
-                        PhotoName = w.PhotoName,
-                        Status = w.Status
-
-                    }).ToListAsync();
+                    var myClients = await GetLisTask();
                     return Json(new
                     {
                         isValid = true,
@@ -160,13 +152,7 @@ namespace Web.Areas.Administrator.Controllers
         [HttpPost]
         public async Task<JsonResult> DeleteSlider(string id)
         {
-            var myClientsError = await _iSliderRepository.All.Select(w => new SliderViewModel()
-            {
-                Id = w.Id,
-                PhotoName = w.PhotoName,
-                Status = w.Status
-
-            }).ToListAsync();
+            var myClientsError = await GetLisTask();
             try
             {
 
@@ -193,13 +179,7 @@ namespace Web.Areas.Administrator.Controllers
                 }
                 _iSliderRepository.Delete(data);
                 _iSliderRepository.Save(RequestContext);
-                var myClients = await _iSliderRepository.All.Select(w => new SliderViewModel()
-                {
-                    Id = w.Id,
-                    PhotoName = w.PhotoName,
-                    Status = w.Status
-
-                }).ToListAsync();
+                var myClients = await GetLisTask();
                 return Json(new
                 {
                     isDeleted = true,
@@ -210,36 +190,14 @@ namespace Web.Areas.Administrator.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                var myClients = await _iSliderRepository.All.Select(w => new SliderViewModel()
-                {
-                    Id = w.Id,
-                    PhotoName = w.PhotoName,
-                    Status = w.Status
-
-                }).ToListAsync();
                 return Json(new
                 {
                     isDeleted = false,
                     html = Helper
-                        .RenderRazorViewToString(this, "_ViewListSlider", myClients)
+                        .RenderRazorViewToString(this, "_ViewListSlider", myClientsError)
                 });
             }
         }
 
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var data = await _iSliderRepository.All.FirstOrDefaultAsync(p => p.Id == id);
-            if (data == null)
-            {
-                return NotFound();
-            }
-            var staffPosts = await _iSliderRepository.All.ToListAsync();
-            return Json(new { staffPosts });
-        }
     }
 }
