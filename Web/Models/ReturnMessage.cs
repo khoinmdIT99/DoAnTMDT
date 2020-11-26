@@ -15,12 +15,11 @@ namespace Web.Models
             State = 0;
         }
 
-        public void setMessage(string message, int count, CartProductViewModel product)
+        public void setMessage(string message, int count)
         {
             State = 2;
             Count = count;
             Message = message;
-            Product = product;
         }
 
         public void SetErrorMessage(string message)
@@ -29,19 +28,16 @@ namespace Web.Models
             Message = message;
         }
 
-        public void SetSuccessMessage(string message, CartProductViewModel product)
+        public void SetSuccessMessage(string message)
         {
             State = 1;
             Message = message;
-            Product = product;
         }
 
-        public void setMessageFirst(string message, int count, CartProductViewModel product)
+        public void setMessageFirst(string message)
         {
             State = 3;
-            Count = count;
             Message = message;
-            Product = product;
         }
     }
 }

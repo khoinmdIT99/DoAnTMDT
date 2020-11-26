@@ -4,7 +4,7 @@
     ViewData["Name"] = "Giỏ hàng";
     ViewData["Controller"] = "Trang chủ";
     ViewData["Action"] = "Giỏ hàng";
-    Layout = "_Layout1";
+    Layout = "LayoutKH2";
 }
 
 <div id="wrapper" class="wrapper-fluid banner-effect-3">
@@ -30,36 +30,54 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if (Model == null)
+                                {
+                                    <tr>
+                                        <td style="text-align: center; 
+                                       vertical-align: middle;" colspan="6">No item found</td>
+                                    </tr>
+                                }
+                                else if(Model.ShoppingCart.cartProducts.Count == 0)
+                                {
+                                    <tr>
+                                        <td style="text-align: center; 
+                                       vertical-align: middle;" colspan="6">No item found</td>
+                                    </tr>
+                                }
+                                else
+                                {
                                     @foreach (var item in Model.ShoppingCart.cartProducts)
                                     {
-                                            <tr>
-                                                <td class="text-center">
-                                                    @if (@item.Product.DisplayImages.Any())
-                                                    {
-                                                        <a><img src="~/imageUpload/@item.Product.DisplayImages[0]" style="width: 200px; height: 100px; " alt="Spicy jalapeno bacon" title="Spicy jalapeno bacon" class="img-thumbnail"></a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a><img src ="#" style = "width: 200px; height: 100px; " alt = "Spicy jalapeno bacon" title = "Spicy jalapeno bacon" class="img-thumbnail"></a>
-                                                    }
-                                                </td>
-                                                <td class="text-left">
-                                                    <a>@item.Product.ProductName</a><br>
-                                                </td>
-                                                <td class="text-left">@item.Product.ProductTypeName</td>
-                                                <td class="text-left">
-                                                    <div class="input-group btn-block" style="max-width: 200px;">
-                                                        <input type="text" name="quantity[121]" value="@item.Quantity" size="1" class="form-control" id="@item.ProductId">
-                                                        <span class="input-group-btn">
-                                                            <button type="button" data-toggle="tooltip"  onclick="UpDate('@item.ProductId')" title="" class="btn btn-primary" data-original-title="Update"><i class="fa fa-refresh"></i></button>
-                                                            <button type="button" data-toggle="tooltip" onclick="Delete('@item.ProductId')" class="btn btn-danger" data-original-title="Remove"><i class="fa fa-times-circle"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </td>
-                                                <td class="text-right"> @item.Product.Price</td>
-                                                <td class="text-right">@((item.Quantity * item.Product.Price))</td>
-                                            </tr>  
-                                    }
+                                    <tr>
+                                        <td class="text-center">
+                                            @if (@item.Product.DisplayImages.Any())
+                                            {
+                                                <a><img src="~/imageUpload/@item.Product.DisplayImages[0]" style="width: 200px; height: 100px;" alt="Spicy jalapeno bacon" title="Spicy jalapeno bacon" class="img-thumbnail"></a>
+                                            }
+                                            else
+                                            {
+                                                <a><img src="#" style="width: 200px; height: 100px;" alt="Spicy jalapeno bacon" title="Spicy jalapeno bacon" class="img-thumbnail"></a>
+                                            }
+                                        </td>
+                                        <td class="text-left">
+                                            <a>@item.Product.ProductName</a><br>
+                                        </td>
+                                        <td class="text-left">@item.Product.ProductTypeName</td>
+                                        <td class="text-left">
+                                            <div class="input-group btn-block" style="max-width: 200px;">
+                                                <input type="text" name="quantity[121]" value="@item.Quantity" size="1" class="form-control" id="@item.ProductId">
+                                                <span class="input-group-btn">
+                                                    <button type="button" data-toggle="tooltip" onclick="UpDate('@item.ProductId')" title="" class="btn btn-primary" data-original-title="Update"><i class="fa fa-refresh"></i></button>
+                                                    <button type="button" data-toggle="tooltip" onclick="Delete('@item.ProductId')" class="btn btn-danger" data-original-title="Remove"><i class="fa fa-times-circle"></i></button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right"> @item.Product.Price</td>
+                                        <td class="text-right">@((item.Quantity * item.Product.Price))</td>
+                                    </tr>
+                                }
+                                }
+
                                 </tbody>
 
                             </table>

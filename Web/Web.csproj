@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+      <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,9 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="Facebook" Version="7.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
@@ -86,8 +88,8 @@
     <Folder Include="wwwroot\assets\img\team\" />
     <Folder Include="wwwroot\assets\js\toastr\" />
     <Folder Include="wwwroot\assets\js\vendor\" />
-    <Folder Include="wwwroot\imageUpload\" />
     <Folder Include="wwwroot\images_slider\" />
+    <Folder Include="wwwroot\imageUpload\89c5ffc8-883b-4667-ad6b-e223ec798f8d\" />
     <Folder Include="wwwroot\Test\css\animate\" />
     <Folder Include="wwwroot\Test\css\bootstrap\css\" />
     <Folder Include="wwwroot\Test\css\bootstrap\fonts\" />
@@ -106,6 +108,50 @@
     <Folder Include="wwwroot\Test\css\images\styling\orange\" />
     <Folder Include="wwwroot\Test\css\images\styling\pink\" />
     <Folder Include="wwwroot\Test\css\images\styling\red\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\about\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\another\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\banners\another\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\banners\home1\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\banners\home2\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\banners\home3\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\banners\home4\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\banners\home5\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\blog\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\brand\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\category\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\footer\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\header\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\logo\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\portfolio\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\products\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\slider\home1\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\slider\home2\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\slider\home3\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\slider\home4\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\slider\home5\" />
+    <Folder Include="wwwroot\Test\image\catalog\demo\slider\home6\" />
+    <Folder Include="wwwroot\Test\image\catalog\flags\" />
+    <Folder Include="wwwroot\Test\image\catalog\layout\" />
+    <Folder Include="wwwroot\Test\image\catalog\mobile\banner\home2\" />
+    <Folder Include="wwwroot\Test\image\catalog\mobile\banner\home3\" />
+    <Folder Include="wwwroot\Test\image\catalog\mobile\slider\home2\" />
+    <Folder Include="wwwroot\Test\image\catalog\mobile\slider\home3\" />
+    <Folder Include="wwwroot\Test\image\catalog\sociallogin\" />
+    <Folder Include="wwwroot\Test\image\icon\" />
+    <Folder Include="wwwroot\Test\image\logo\" />
+    <Folder Include="wwwroot\Test\image\payment\panasia\bank-images\" />
+    <Folder Include="wwwroot\Test\sass\bourbon\addons\" />
+    <Folder Include="wwwroot\Test\sass\bourbon\css3\" />
+    <Folder Include="wwwroot\Test\sass\bourbon\functions\" />
+    <Folder Include="wwwroot\Test\sass\bourbon\helpers\" />
+    <Folder Include="wwwroot\Test\sass\bourbon\settings\" />
+    <Folder Include="wwwroot\Test\sass\directional\" />
+    <Folder Include="wwwroot\Test\sass\footer\" />
+    <Folder Include="wwwroot\Test\sass\header\" />
+    <Folder Include="wwwroot\Test\sass\layout\" />
+    <Folder Include="wwwroot\Test\sass\responsive\" />
+    <Folder Include="wwwroot\Test\sass\theme\" />
+    <Folder Include="wwwroot\Test\sass\utilities\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -218,6 +264,142 @@
     <None Include="wwwroot\Test\js\themejs\toppanel.js" />
     <None Include="wwwroot\Test\js\unveil\jquery.unveil.js" />
     <None Include="wwwroot\Test\js\wowjs\wow.js" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_border-color.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_border-radius.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_border-style.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_border-width.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_buttons.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_clearfix.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_ellipsis.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_font-stacks.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_hide-text.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_margin.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_padding.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_position.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_prefixer.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_retina-image.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_size.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_text-inputs.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_timing-functions.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_triangle.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\addons\_word-wrap.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_animation.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_appearance.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_backface-visibility.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_background-image.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_background.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_border-image.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_calc.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_columns.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_filter.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_flex-box.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_font-face.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_font-feature-settings.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_hidpi-media-query.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_hyphens.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_image-rendering.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_keyframes.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_linear-gradient.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_perspective.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_placeholder.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_radial-gradient.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_selection.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_text-decoration.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_transform.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_transition.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\css3\_user-select.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_assign-inputs.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_contains-falsy.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_contains.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_is-length.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_is-light.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_is-number.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_is-size.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_modular-scale.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_px-to-em.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_px-to-rem.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_shade.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_strip-units.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_tint.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_transition-property-name.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\functions\_unpack.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_convert-units.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_directional-values.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_font-source-declaration.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_gradient-positions-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_linear-angle-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_linear-gradient-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_linear-positions-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_linear-side-corner-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_radial-arg-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_radial-gradient-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_radial-positions-parser.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_render-gradients.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_shape-size-stripper.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\helpers\_str-to-num.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\settings\_asset-pipeline.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\settings\_prefixer.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\settings\_px-to-em.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\_bourbon-deprecated-upcoming.scss" />
+    <None Include="wwwroot\Test\sass\bourbon\_bourbon.scss" />
+    <None Include="wwwroot\Test\sass\directional\_bootstrap_breakpoints.scss" />
+    <None Include="wwwroot\Test\sass\directional\_directional.scss" />
+    <None Include="wwwroot\Test\sass\directional\_rem.scss" />
+    <None Include="wwwroot\Test\sass\directional\_scut.scss" />
+    <None Include="wwwroot\Test\sass\footer\footer1.scss" />
+    <None Include="wwwroot\Test\sass\footer\footer2.scss" />
+    <None Include="wwwroot\Test\sass\footer\footer3.scss" />
+    <None Include="wwwroot\Test\sass\footer\footer4.scss" />
+    <None Include="wwwroot\Test\sass\footer\footer5.scss" />
+    <None Include="wwwroot\Test\sass\footer\_footer.scss" />
+    <None Include="wwwroot\Test\sass\header\header1.scss" />
+    <None Include="wwwroot\Test\sass\header\header2.scss" />
+    <None Include="wwwroot\Test\sass\header\header3.scss" />
+    <None Include="wwwroot\Test\sass\header\header4.scss" />
+    <None Include="wwwroot\Test\sass\header\header5.scss" />
+    <None Include="wwwroot\Test\sass\header\header6.scss" />
+    <None Include="wwwroot\Test\sass\header\_header.scss" />
+    <None Include="wwwroot\Test\sass\home2.scss" />
+    <None Include="wwwroot\Test\sass\home3.scss" />
+    <None Include="wwwroot\Test\sass\home4.scss" />
+    <None Include="wwwroot\Test\sass\home5.scss" />
+    <None Include="wwwroot\Test\sass\home6.scss" />
+    <None Include="wwwroot\Test\sass\ie9-and-up.scss" />
+    <None Include="wwwroot\Test\sass\layout\_layout1.scss" />
+    <None Include="wwwroot\Test\sass\layout\_layout2.scss" />
+    <None Include="wwwroot\Test\sass\layout\_layout3.scss" />
+    <None Include="wwwroot\Test\sass\layout\_layout4.scss" />
+    <None Include="wwwroot\Test\sass\layout\_layout5.scss" />
+    <None Include="wwwroot\Test\sass\layout\_layout6.scss" />
+    <None Include="wwwroot\Test\sass\responsive.scss" />
+    <None Include="wwwroot\Test\sass\responsive\responsive-1200px-min.scss" />
+    <None Include="wwwroot\Test\sass\responsive\responsive-479px-max.scss" />
+    <None Include="wwwroot\Test\sass\responsive\responsive-767px-max.scss" />
+    <None Include="wwwroot\Test\sass\responsive\responsive-768px-991px.scss" />
+    <None Include="wwwroot\Test\sass\responsive\responsive-992px-1199px.scss" />
+    <None Include="wwwroot\Test\sass\theme.scss" />
+    <None Include="wwwroot\Test\sass\theme\_blog.scss" />
+    <None Include="wwwroot\Test\sass\theme\_bonus_page.scss" />
+    <None Include="wwwroot\Test\sass\theme\_brands_tab.scss" />
+    <None Include="wwwroot\Test\sass\theme\_custommer_opinion.scss" />
+    <None Include="wwwroot\Test\sass\theme\_deals.scss" />
+    <None Include="wwwroot\Test\sass\theme\_garenal.scss" />
+    <None Include="wwwroot\Test\sass\theme\_infomation.scss" />
+    <None Include="wwwroot\Test\sass\theme\_layout.scss" />
+    <None Include="wwwroot\Test\sass\theme\_listing_blog.scss" />
+    <None Include="wwwroot\Test\sass\theme\_login.scss" />
+    <None Include="wwwroot\Test\sass\theme\_mainmenu.scss" />
+    <None Include="wwwroot\Test\sass\theme\_module.scss" />
+    <None Include="wwwroot\Test\sass\theme\_productdetail.scss" />
+    <None Include="wwwroot\Test\sass\theme\_productlist.scss" />
+    <None Include="wwwroot\Test\sass\theme\_sitemap.scss" />
+    <None Include="wwwroot\Test\sass\theme\_system.scss" />
+    <None Include="wwwroot\Test\sass\theme\_typo.scss" />
+    <None Include="wwwroot\Test\sass\utilities\_bootstrap_breakpoints.scss" />
+    <None Include="wwwroot\Test\sass\utilities\_directional.scss" />
+    <None Include="wwwroot\Test\sass\utilities\_rem.scss" />
+    <None Include="wwwroot\Test\sass\utilities\_theme_variables.scss" />
+    <None Include="wwwroot\Test\sass\utilities\_utilities.scss" />
   </ItemGroup>
 
   <ItemGroup>

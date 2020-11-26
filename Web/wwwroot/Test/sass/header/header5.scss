@@ -1,0 +1,280 @@
+/*============HEADER V1 ==================*/
+
+
+//** simple and lightweight mixin library for Sass **
+//-- url : http://bourbon.io/docs ---
+@import 'bourbon/bourbon';
+
+//** Mixins for Rem Font Sizing **
+//-- url : http://hugogiraudel.com/2013/03/18/ultimate-rem-mixin/
+@import 'utilities/rem';
+
+//** Variables for responsive design in bootstrap with sass **
+//-- url : https://gist.github.com/webinfinita/11407836
+@import 'utilities/bootstrap_breakpoints';
+
+//** Makes supporting both left-to-right (LTR) and right-to-left (RTL) easy.**
+//-- url : https://github.com/tysonmatanich/directional-scss
+@import 'utilities/directional';
+
+//Mixins utilities
+@import 'utilities/theme_variables';
+@import 'utilities/utilities';
+
+/*===============================================
+[SASS DIRECTORY ]
+    
+[1] BLOCK HEADER
+[2] BLOCK FOOTER
+    
+==============================================*/
+
+.typeheader-5{
+    //BEGIN HEADER-TOP
+    .menu-label{
+        top: -3px;
+    }
+    .header-top{
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #dddddd;
+        .header-user{
+            text-align: right;
+            .dropdown-menu{
+             left: 0 !important;
+             right: auto;
+         }
+         > ul{
+            font-size: 0;
+            > li{
+                display: inline-block;
+                position: relative;
+                margin-right: 25px;
+                &:last-child{
+                    margin-right: 0;
+                }
+                > .lang-img{
+                    margin: 0 3px 8px 0;
+                    max-width: 16px;
+                }
+                > a{
+                    font-size: 12px;
+                    padding-top: 9px;
+                    display: inline-block;
+                    .dropdown-icon{
+                        margin-left: 5px;
+                    }
+                }
+                ul{
+                    li{
+                        a{
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .header-hotline{
+        padding: 7px 0;
+        .item{
+            padding-left: 25px;
+            a span{
+                font-weight: 700;
+            }
+            background: url(../../image/catalog/demo/header/phone.png)  no-repeat left 0 top -30px;
+        }
+    }
+}
+    // END HEADER-TOP
+
+    //BEGIN HEADER-CENTER
+    .header-center{
+        .border-bottom{
+            border-bottom: 1px solid #e4e4e4;
+        }
+        .logo{
+            width: calc(100% - 25.64% - 30.64%);
+            float: left;
+            padding: 28px 0 29px 0;
+            text-align: center;
+        }
+        .search-form{
+            width: 25.64%;
+            float: left;
+            padding: 29px 14px 29px 0px;
+            .search-form-btn{
+                display: none;
+            }
+            form{
+             position: relative;
+             font-size: 0;
+             .icon{
+                 display: inline-block;
+                 padding-right: 10px;
+                 position: relative;
+                 line-height: 42px;
+                 padding:0 20px;
+                 border: none;
+                 font-size: 14px;
+                 background-color: #f7f7f7;
+                 color: #999999;
+                 &:after{
+                    content: '';
+                    position: absolute;
+                    right: 0px;
+                    width: 1px;
+                    background: #dddddd;
+                    top: 20%;
+                    height: 60%;
+                }
+            }
+            input{
+                font-size: 12px;
+                border: none;
+                height: 42px;
+                width: calc(100% - 53px);
+                vertical-align: top;
+                padding: 0 10px;
+                background-color: #f7f7f7;
+                border-radius: 0;
+            }
+            button[type='submit']{
+                // font-size: 12px;
+                // font-weight: 700;
+                // height: 42px;
+                // min-width: 92px;
+                // background-color: $xanh2;
+                // border: none;
+                // color: #fff;
+                // vertical-align: top;
+                display: none;
+                &.icon{
+                    display: inline-block;
+                    &:hover{
+                        background-color: $color5;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .cart{
+        width: 30.64%;
+        text-align: right;
+        padding: 36px 12px 32px 0;
+        float: left;
+        .live-chat{
+            display: inline-block;
+            padding:0 3rem;
+            margin-right: 2.5rem;
+            position: relative;
+            vertical-align: super;
+            &:before{
+                content: "";
+                position: absolute;
+                right: 0;
+                top: calc(50% - 15px);
+                background-color: #e4e4e4;
+                width: 1px;
+                height: 30px;
+            }
+            a span{
+                font-weight: 700;
+            }
+            background: url(../../image/catalog/demo/header/talk-header.png) no-repeat left 0 top 4px;
+        }
+        .cart-box{
+            position: relative;
+            display: inline-block;
+            .quantity{
+             display: inline-block;
+             position: absolute;
+             top: -15px;
+             right: -10px;
+             background-color: #fafaf8;
+             border: 1px solid #ddd;
+             border-radius: 50%;
+             color: #404040;
+             font-weight: 700;
+             padding: 3px 2px;
+             line-height: 1;
+         }
+     }
+     &:hover{
+        .shopping-cart{
+            top: calc(100% - 30px);
+        }
+    }
+    .shopping-cart{
+        top: calc(100% - 5px);
+        .shopping-cart-checkout{
+            border: 1px solid #ddd;
+            border-top: none;
+            a:hover{
+                background-color: $color5;
+            }
+        }
+    }
+
+}
+}
+    //END HEADER-CENTER
+    //BEGIN HEADER-BOTTOM
+    .header-bottom{
+        background-color:#fff;
+        z-index: 999;
+        padding: 8px 0;
+        .header-bottom-left{
+            width: 82.9%;
+            float: left;
+            ul.megamenu{
+                > li{
+                    &.active > a{
+                        background-color: $color5;
+                        color: #fff;   
+                    }
+                    &.menu-home > a{
+                        background-color: $color5;
+                    }
+                    > a{
+                        font-weight: 700;
+                        padding: 5px 27px 5px 28px;
+                        height: 35px;
+                        &:hover{
+                            background-color: $color5;
+                            color: #fff;
+                        }
+                    }
+                    a, p{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        .header-bottom-right{
+            width: 17.1%;
+            padding-left: 30px;
+            text-align: right;
+            float: left;
+            ul{
+                font-size: 0;
+                li{
+                    display: inline-block;
+                    margin: 0 10px;
+                    a{
+                        font-size: 14px;
+                        color: #b4b4b4;
+                        display: inline-block;
+                        line-height: 35px;
+                        &:hover{
+                            color: $color5;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //END HEADER-BOTTOM
+
+
+}

@@ -50,6 +50,56 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+        
+        #lightbox .modal-content {
+            width: auto;
+            display: inline-block;
+            text-align: center;
+        }
+
+        #lightbox .close {
+            opacity: 1;
+            color: rgb(255, 255, 255);
+            background-color: rgb(25, 25, 25);
+            padding: 5px 8px;
+            border-radius: 30px;
+            border: 2px solid rgb(255, 255, 255);
+            position: absolute;
+            top: -15px;
+            right: -55px;
+            z-index: 1032;
+        }
+
+        #lightbox {
+            background-color: #000000f0;
+        }
+        .headertext {
+             font-weight: 500;
+         }
+
+        #labelName {
+            font-size: 18px;
+        }
+
+        #labelCode {
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        #labelPrice {
+            font-size: 18px;
+            background: #28a7452b;
+            padding: 2px;
+            border: 1px solid;
+            border-radius: 4px;
+            border-color: #f2f2f2;
+        }
+
+        .textsize {
+            font-size: 14px;
+            padding: 10px;
+            background: beige !important;
+        }
     </style>
 </head>
 <body class="common-here res layout-1">
@@ -153,7 +203,8 @@
                     <div class="cart">
                         <a asp-action="ShoppingCart" asp-controller="Cart" class="smooth cart-box dropdown-toggle" title="" data-toggle="dropdown">
                             <img src="~/images/catalog/demo/header/cart.png" class="cart-image" alt="">
-                            <p class="quantity"><p id="itemCount">0</p> item(s) - $0.00</p>
+                            <p class="quantity"><p id="itemCount">0</p> item(s) </p>
+                            <p class="quantity"><p id="itemPrice">0</p> VND </p>
                             <p class="cart-title">MY CART</p>
                         </a>
                         @await Component.InvokeAsync("CartInLayout")
@@ -496,6 +547,11 @@
 <script>
     $.post("/Cart/ItemControl", function (result) {
         $("#itemCount").text(result);
+    })
+</script>
+<script>
+    $.post("/Cart/PriceControl", function (result) {
+        $("#itemPrice").text(result);
     })
 </script>
     @RenderSection("Scripts", required: false)

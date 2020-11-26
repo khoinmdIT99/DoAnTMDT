@@ -54,8 +54,13 @@ namespace Web.Areas.Administrator.Controllers
             _productImageRepository = productImageRepository;
             _tagRepository = tagRepository;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("ProductCode") != null)
+            {
+                HttpContext.Session.Remove("ProductCode");
+            }
+
             IEnumerable<ProductViewModel> list = _productRepository.GetProductViewModels();
             foreach (var item in list)
             {
@@ -72,11 +77,11 @@ namespace Web.Areas.Administrator.Controllers
             {
                 TempData["WarningCreateCategory"] = WarningCreateCategory;
             }
-            else if (_materialRepository.All.Count() == 0)
+            else if (!_materialRepository.All.Any())
             {
                 TempData["WarningCreateMaterial"] = WarningCreateMaterial;
             }
-            else if (_productTypeRepository.All.Count() == 0)
+            else if (!_productTypeRepository.All.Any())
             {
                 TempData["WarningCreateProductType"] = WarningCreateProductType;
             }
@@ -112,7 +117,15 @@ namespace Web.Areas.Administrator.Controllers
                     priceTypeList.Add(new SelectListItem { Text = Enum.GetName(typeof(PriceType), priceType), Value = priceType.ToString() });
                 }
                 ViewBag.priceType = priceTypeList;
+                if (HttpContext.Session.GetString("ProductCode") == null)
+                {
+                    var productCode = ProductCode.RandomString(25,ProductCode.RandomCharacterGroup.AlphaNumericOnly).ToUpper();
+                    HttpContext.Session.SetString("ProductCode", productCode);
+                }
+
             }
+
+
         }
         private List<string> ProcessUploadedFile(ProductViewModel model)
         {
@@ -133,7 +146,7 @@ namespace Web.Areas.Administrator.Controllers
             }
             return uniqueFileNameList;
         }
-        public ActionResult Create()
+        public IActionResult Create()
         {
             SetComboData();
             if (TempData["WarningCreateCategory"] != null)
@@ -148,21 +161,23 @@ namespace Web.Areas.Administrator.Controllers
             {
                 return RedirectToAction("Create", "ProductType", new { area = "Administrator" });
             }
+
+            ViewBag.ProductCode = HttpContext.Session.GetString("ProductCode");
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(ProductViewModel model)
+        public IActionResult Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var ProductId = Guid.NewGuid().ToString();
+                    var productId = Guid.NewGuid().ToString();
                     List<string> productImageList = ProcessUploadedFile(model);
                     _productRepository.Add(new Product()
                     {
-                        Id = ProductId,
+                        Id = productId,
                         ProductCode = model.ProductCode,
                         ProductName = model.ProductName,
                         Slug = model.Slug,
@@ -182,7 +197,7 @@ namespace Web.Areas.Administrator.Controllers
                             _productImageRepository.Add(new ProductImage()
                             {
                                 Id = Guid.NewGuid().ToString(),
-                                ProductId = ProductId,
+                                ProductId = productId,
                                 Url = image,
                                 CreateAt = DateTime.UtcNow
                             });
@@ -196,12 +211,13 @@ namespace Web.Areas.Administrator.Controllers
                             _productTagRepository.Add(new ProductTag()
                             {
                                 Id = Guid.NewGuid().ToString(),
-                                ProductId = ProductId,
+                                ProductId = productId,
                                 TagId = item
                             });
                         }
                     }
                     _productTagRepository.Save(RequestContext);
+                    HttpContext.Session.Remove("ProductCode");
                 }
                 catch (Exception)
                 {
@@ -271,7 +287,7 @@ namespace Web.Areas.Administrator.Controllers
                             }
                         }
                         _productTagRepository.Save(RequestContext);
-                        if (listProductTag != null && listProductTag.Count > 0)
+                        if (listProductTag.Count > 0)
                         {
                             foreach (var item in listProductTag)
                             {
@@ -284,7 +300,7 @@ namespace Web.Areas.Administrator.Controllers
                     }
                     else
                     {
-                        if (listProductTag != null && listProductTag.Count > 0)
+                        if (listProductTag.Count > 0)
                         {
                             foreach (var tagId in listProductTag)
                             {

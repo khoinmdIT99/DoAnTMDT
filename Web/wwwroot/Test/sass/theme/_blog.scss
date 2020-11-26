@@ -1,0 +1,176 @@
+/*===============================================
+    [SASS DIRECTORY ]
+    
+    [1] SO LATSET BLOG
+    [2] SIMPLE BLOG
+    [3] ARTICLE INFO
+    
+    ==============================================*/
+
+    /*============SO LATSET BLOG ==================*/
+
+    /*============ SIMPLE BLOG ==================*/
+
+//LATEST BLOGS
+.blogs{
+	padding: 4rem 0;
+	.blog-box{
+		&:last-child{
+			.blog-info{
+				padding-top: 2rem;
+			}
+			.blog-image{
+				float: right;
+			}
+		}
+		.blog-image{
+			position: relative;
+			float: left;
+			width: 50%;
+			.post-time{
+				width: 40px;
+				height: 50px;
+				background-color: rgba(0 ,0 ,0 , 0.7);
+				position: absolute;
+				top: 10px;
+				left: 25px;
+				color: #fff;
+				text-align: center;
+				padding-top: 10px;
+				.post-day{
+					display: block;
+					font-size: 16px;
+					font-weight: 700;
+					line-height: 1;
+				}
+				.post-month{
+					display: block;
+					font-size: 10px;
+					font-weight: 700;
+				}
+			}
+		}
+		.blog-info{
+			width: 50%;
+			float: left;
+			padding-left: 3rem;
+			padding-right: 3rem;
+			.blog-title{
+				margin: 0 0 20px 0;
+				text-transform: uppercase;
+				font-weight: 700;
+			}
+			.blog-desc{
+				font-size: 12px;
+				font-weight: 300;
+				line-height: 22px;
+				margin-bottom: 15px;
+			}
+			.read-more{
+				color: $vang;
+				&:hover{color: $red;}
+				i{
+					margin-left: 5px;
+				}
+			}
+		}
+	}
+	.blog-box{
+		.blog-image{ 
+			&:before{
+				content: "\f0d9";
+				font-family: "fontawesome";
+				line-height: 1;
+				color: #f7f7f7;
+				font-size: 25px;
+				position: absolute;
+				top: calc(50% - 12px);
+				z-index: 1;
+				right: 0;
+			}
+		}
+		&:last-child{
+			.blog-image{
+				&:before{
+					content: "\f0da";
+					font-size: 25px;
+					right: auto;
+					left: 0;
+				}
+			}
+		}
+		.blog-info .read-more{
+			color: $vang;
+			&:hover{
+				color: $red;
+			}
+		}
+	}
+	.blog-slider{
+		.owl2-controls{
+			.owl2-nav{
+				> div{
+					position: absolute;
+					width: 35px;
+					height: 35px;
+					background-color:#fff;
+					text-align: center;
+					display: inline-block;
+					line-height: 35px;
+					border: 1px solid $border;
+					z-index: 1;
+					top: -50px;
+					@include smooth(.2s);
+					&:hover{
+						background-color: $vang;
+						color: #fff;
+						border: 1px solid $vang;
+					}
+				}
+				.owl2-prev{
+					left: 0;
+				}
+				.owl2-next{
+					right: 0;
+				}
+			}
+		}
+	}
+}
+//LATEST BLOGS
+@include breakpoint(xxxs){
+	.blogs{
+		padding-bottom: 0;
+		.blog-box{
+			margin-bottom: 25px;
+			&:last-child{
+				.blog-info{
+					padding-top: 0px;
+				}
+			}
+			.blog-image{
+				width: 100%;
+				float: none;
+				margin-bottom: 15px;
+				&:before{
+					content: "\f0d8" !important;
+					bottom: -7px !important;
+					top: auto !important;
+					right: auto !important;
+					left: calc(50% - 7px) !important;
+				}
+			}
+			.blog-info{
+				width: 100%;
+				float: none;
+				.blog-title{
+					margin: 0 0 10px 0;
+				}
+				.blog-desc{
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}
+

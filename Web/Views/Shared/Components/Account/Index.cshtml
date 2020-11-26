@@ -17,21 +17,39 @@
 @{
     @if (userId != null)
     {
-        <div class="header-login">
+        @*<div class="header-login">
             <ul>
                 <li><a id="logoutBtn" class="smooth" title="">Đăng xuất</a></li>
                 <li><a href="#">@userName</a></li>
             </ul>
-        </div>
+        </div>*@
+        <li>
+            <a id="logoutBtn" class="smooth" title="">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                @userName - Đăng xuất
+            </a>
+        </li>
     }
     else
     {
-        <div class="header-login">
+        <li>
+            <a href="#" data-toggle="modal" data-target="#myModalLogin" class="smooth" title="">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                Đăng nhập
+            </a>
+        </li>
+        <li>
+            <a href="#" data-toggle="modal" data-target="#myModalRegister" class="smooth" title="">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                Đăng ký
+            </a>
+        </li>
+        @*<div class="header-login">
             <ul>
                 <li><a href="#" data-toggle="modal" data-target="#exampleCompare" class="smooth" title="">LOGIN</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#exampleCompare1" class="smooth" title="">REG</a></li>
             </ul>
-        </div>
+        </div>*@
     }
 }
 
@@ -100,7 +118,7 @@
         </div>
     </div>
 </div>-->
-<div class="modal fade" id="exampleCompare" tabindex="-1" role="dialog" aria-hidden="true">
+@*<div class="modal fade" id="exampleCompare" tabindex="-1" role="dialog" aria-hidden="true">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span class="pe-7s-close" aria-hidden="true"></span>
     </button>
@@ -154,6 +172,6 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 

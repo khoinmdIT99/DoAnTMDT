@@ -1,0 +1,226 @@
+//BEGIN BRANDS TAB . SCSS
+.brands{
+	padding-bottom: 4rem;
+	.brand-left{
+		width: 23.08%;
+		background-color: #eeeeee;
+		float: left;
+		max-height: 495px;
+		ul.nav{
+			&.nav-tabs{
+				border-bottom: none;
+			}
+			li{
+				width: 100%;
+				position: relative;
+				margin-bottom: 0;
+				&:not(:last-child){
+					border-bottom: 1px solid #dddddd;
+				}
+				&.active{
+					&:before{
+						content: "";
+						border-left: 10px solid #eeeeee;
+						border-top: 9px solid transparent;
+						border-bottom: 9px solid transparent;
+						position: absolute;
+						top: calc(50% - 9px);
+						right: -10px;
+						display: inline-block;
+						z-index: 1;
+					}
+				}
+				&.brand-title-box{
+					padding: 45px 0;
+					font-size: 2rem;
+					background-color: $vang;
+					.brand-title{
+						position: relative;
+						margin:0;
+						>span{
+							color: #fff;
+							border-top: 1px solid #fff;
+							border-bottom: 1px solid #fff;
+							position: relative;
+							&:before{
+								content: "";
+								border-top: 6px solid #fff;
+								border-left: 5px solid transparent; 
+								border-right: 5px solid transparent; 
+								position: absolute;
+								left: calc(50% - 5px);
+								bottom: -6px;
+							}
+							> span{
+								color: #fff;
+							}
+						}
+					}
+				}
+				a{
+					cursor: pointer;
+					margin-right: 0;
+					border: none;
+					padding:0;
+					background-color: #eeeeee;
+					img{
+						max-width: 100%;
+					}
+				}
+			}
+		}
+	}
+	.brand-center{
+		width: calc(100% - 23.08% * 2);
+		float: left;
+		.tab-content{
+			border: none;
+			padding: 0;
+			> div{
+				position: relative;
+				padding: 0;
+			}
+			.brand-info{
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				padding: 90px 100px;
+				.brand-desc{
+					margin: 0 0 40px 0;
+					color: #fff;
+				}
+				.shop-now{
+					display: inline-block;
+					color: #fff;
+					padding: 5px 14px;
+					font-weight: 700;
+					border: 2px solid #fff;
+					&:hover{
+						background-color: $vang;
+					}
+				}
+			}
+		}
+	}
+	.brand-right{
+		ul.nav{
+			li{
+				&.active:before{
+					left: -10px;
+					right: auto;
+					border-right: 10px solid #eeeeee;
+					border-left: none;
+				}
+			}
+		}
+	}
+}
+
+@include breakpoint(md){
+	.brands{
+		.brand-left ul.nav li.brand-title-box{
+			padding: 33px 0;
+		}
+	}
+}
+
+@include breakpoint(sm){
+	.brands{
+		.brand-left{
+			ul.nav{
+				li{
+					&.brand-title-box{
+						padding: 11px 0 10px 0;
+						.brand-title{
+							font-size: 20px;
+						}
+					}
+				}
+			}
+		}
+		.brand-center{
+			.tab-content{
+				.brand-info{
+					padding: 20px;
+					.brand-desc{
+						margin: 0 0 20px 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+@include breakpoint(xs){
+	.brands{
+		.brand-left{
+			ul.nav{
+				li{
+					&.brand-title-box{
+						padding: 0;
+						display: -ms-flexbox;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.brand-title{
+							font-size: 12px;
+						}
+					}
+				}
+			}
+		}
+		.brand-center{
+			.tab-content{
+				.brand-info{
+					padding: 20px;
+					.brand-desc{
+						margin: 0 0 10px 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+@include breakpoint(xxxs){
+	.brands{
+		.brand-left{
+			width: 100%;
+			ul.nav{
+				li{
+					&.active{
+						border: 1px solid #beae59;
+						&:before{
+							content: none;
+						}
+					}
+					&.brand-title-box{
+						display: unset;
+						padding: 24px 0 24px;
+						height: auto;
+						.brand-title{
+							font-size: 18px !important;
+						}
+					}
+				}
+			}
+		}
+		.brand-center{
+			width: 100%;
+			.tab-content{
+				>div {
+					img{
+						height: auto;
+						overflow: hidden;
+					}
+				}
+			}
+		}
+		.brand-right{
+			width: 100%;
+		}
+	}
+}
+//END BRANDS TAB . SCSS

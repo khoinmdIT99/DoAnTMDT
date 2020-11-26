@@ -14,5 +14,8 @@ namespace Domain.Shop.Dto.ProductTypes
         [Required]
         [MaxLength(50)]
         public string TypeName { get; set; }
+        [StringLength(2000, MinimumLength = 2)]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
     }
 }

@@ -1,1 +1,2202 @@
-﻿
+﻿@model IEnumerable<Domain.Shop.Dto.Products.ProductViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["Name"] = "Trang chủ";
+    ViewData["Controller"] = "Trang chủ";
+    ViewData["Action"] = "Danh sách sản phẩm";
+    //Layout = "_Layout1";
+    Layout = "LayoutKH2";
+    var userId = ViewBag.Age;
+    var userName = ViewBag.Name;
+}
+
+<!-- //HOME SLIDER -->
+<!-- DEALS DAY -->
+<div class="deals-days">
+    <div class="container deals-container clearfix">
+        <div class="deals-left">
+            <h4 class="deals-title">
+                Deals Of <span>The Days</span>
+            </h4>
+            <div class="deals-left-desc">
+                <p class="deals-desc">Mauris ut tincidunt nisi, id auctor libero. Etiam aliquet felis et consectetur faucibus. Praesent aliquam, lec tempus consequat, felis quam venenatis ligula</p>
+                <ul class="room nav nav-tabs">
+                    <li class="room-box active">
+                        <a data-toggle="tab" href="#living-room" class="smooth" title="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/room.png" alt="">
+                            <h5 class="room-title">LIVING ROOM</h5>
+                        </a>
+                    </li>
+                    <li class="room-box">
+                        <a data-toggle="tab" href="#kitchen" class="smooth" title="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/room2.png" alt="">
+                            <h5 class="room-title">kitchen</h5>
+                        </a>
+                    </li>
+                    <li class="room-box">
+                        <a data-toggle="tab" href="#work-palce" class="smooth" title="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/room3.png" alt="">
+                            <h5 class="room-title">WORK PLACE</h5>
+                        </a>
+                    </li>
+                    <li class="room-box">
+                        <a data-toggle="tab" href="#wordrobe" class="smooth" title="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/room4.png" alt="">
+                            <h5 class="room-title">WORDROBE</h5>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div id="living-room" class="tab-pane fade in active">
+                <div class="deals-center deals-center-slider">
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/12/15">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="hv-light">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name">
+                                <a href="detail.html" class="smooth" title="">Donec vel venenatis</a>
+                            </h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="label-sale">
+                                NEW!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2020/01/01">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/11/11">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="kitchen" class="tab-pane fade">
+                <div class="deals-center deals-center-slider">
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/12/15">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="hv-light">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name">
+                                <a href="detail.html" class="smooth" title="">Donec vel venenatis</a>
+                            </h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="label-sale">
+                                NEW!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2020/01/01">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/11/11">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="work-palce" class="tab-pane fade">
+                <div class="deals-center deals-center-slider">
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/12/15">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="hv-light">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name">
+                                <a href="detail.html" class="smooth" title="">Donec vel venenatis</a>
+                            </h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="label-sale">
+                                NEW!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2020/01/01">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/11/11">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="wordrobe" class="tab-pane fade">
+                <div class="deals-center deals-center-slider">
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/12/15">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="hv-light">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name">
+                                <a href="detail.html" class="smooth" title="">Donec vel venenatis</a>
+                            </h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <span class="label-sale">
+                                NEW!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2020/01/01">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                    <div class="deals-slider">
+                        <div class="left-group">
+                            <div class="table-countdown" data-countdown="2019/11/11">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="detail.html" class="">
+                                    <img src="~/Test/image/catalog/demo/slider/home1/product.png" alt="">
+                                </a>
+                            </div>
+                            <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                            <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star fa-stack-1x"></i>
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                    <span class="fa fa-stack">
+                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            NEW!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="deals-left deals-right">
+            <h4 class="deals-title">
+                popular <span>product</span>
+            </h4>
+            <div class="deals-right-desc">
+                <div class="deals-box product-info clearfix">
+                    <div class="product-image-right">
+                        <a href="detail.html" class="hv-radial">
+                            <img src="~/Test/image/catalog/demo/products/product35.png" alt="">
+                        </a>
+                    </div>
+                    <div class="box">
+                        <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                        <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="deals-box product-info clearfix">
+                    <div class="product-image-right">
+                        <a href="detail.html" class="hv-radial">
+                            <img src="~/Test/image/catalog/demo/products/product36.png" alt="">
+                        </a>
+                    </div>
+                    <div class="box">
+                        <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                        <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="deals-box product-info clearfix">
+                    <div class="product-image-right">
+                        <a href="detail.html" class="hv-radial">
+                            <img src="~/Test/image/catalog/demo/products/product37.png" alt="">
+                        </a>
+                    </div>
+                    <div class="box">
+                        <h5 class="product-name"><a href="detail.html" class="smooth" title="">Donec vel venenatis</a></h5>
+                        <div class="price">$115.00 <span class="price-old">$142.00</span></div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- //DEALS DAYS -->
+<!-- BANNER -->
+<div class="banner">
+    <div class="container">
+        <div class="row row0">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col0">
+                <a href="#" class="hv-border-inline-bg">
+                    <img src="~/Test/image/catalog/demo/slider/home1/collection.png" class="img-responsive" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col0">
+                <a href="#" class="hv-border-inline-bg">
+                    <img src="~/Test/image/catalog/demo/banners/home1/banner2.png" class="img-responsive" alt="">
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col0">
+                <a href="#" class="hv-border-inline-bg">
+                    <img src="~/Test/image/catalog/demo/banners/home1/banner3.png" class="img-responsive" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //BANNER -->
+
+<div class="featured-products best-seller">
+    <div class="container">
+        <h3 class="featured-title">
+            <span>
+                FEATURED <span>PRODUCTS</span>
+            </span>
+        </h3>
+        <div class="featured-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="4" data-items_column0="4" data-items_column1="4" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="no" data-loop="no" data-hoverpause="yes">
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image so-quickview left-block">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product4.png" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Lorem ipsum dolor sit</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image so-quickview left-block">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product55.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Lorem ipsum dolor sit</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image so-quickview left-block">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product56.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Lorem ipsum dolor sit</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product38.png" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale blue-left">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product51.png" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product52.png" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product2.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product1.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product39.png" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- INFOMATION SHIPPING -->
+<div class="infomation">
+    <div class="container">
+        <div class="infomation-bg">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 box">
+                    <div class="infomation-box">
+                        <div class="infomation-image">
+                            <img src="~/Test/image/catalog/demo/slider/home1/infomation-image.png" class="img-responsive" alt="">
+                        </div>
+                        <div class="infomation-desc">
+                            <h6 class="infomation-title">FREE SHIPPING</h6>
+                            <p class="infomation-detail">Vestibulum dolor purus porta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 box">
+                    <div class="infomation-box">
+                        <div class="infomation-image">
+                            <img src="~/Test/image/catalog/demo/slider/home1/infomation-image2.png" class="img-responsive" alt="">
+                        </div>
+                        <div class="infomation-desc">
+                            <h6 class="infomation-title">MONEY BACK GUARANTEE</h6>
+                            <p class="infomation-detail">Vestibulum dolor purus porta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 box">
+                    <div class="infomation-box">
+                        <div class="infomation-image">
+                            <img src="~/Test/image/catalog/demo/slider/home1/infomation-image3.png" class="img-responsive" alt="">
+                        </div>
+                        <div class="infomation-desc">
+                            <h6 class="infomation-title">24 HOURS SUPPORT</h6>
+                            <p class="infomation-detail">Vestibulum dolor purus porta</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //INFOMATION SHIPPING -->
+<!-- BEST SELLER -->
+<div class="featured-products best-seller">
+    <div class="container">
+        <h3 class="featured-title">
+            <span>
+                BEST <span>SELLER</span>
+            </span>
+        </h3>
+        <div class="featured-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="30" data-items_column00="4" data-items_column0="4" data-items_column1="4" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product5.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product57.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product58.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale red-right">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product7.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <span class="label-sale blue-left">SALE</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product9.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product1.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product53.jpg" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product39.png" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="product-box">
+                    <div class="product-image">
+                        <a href="detail.html" class="c-img link-product">
+                            <img src="~/Test/image/catalog/demo/products/product2.png" class="img-responsive" alt="">
+                        </a>
+                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                        <div class="price">
+                            $115.00 <span class="price-old">$142.00</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                            <i class="fa fa-retweet" aria-hidden="true"></i>
+                        </button>
+                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            ADD TO CART
+                        </button>
+                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- //BEST SELLER -->
+<!-- CUSTOMER OPINION -->
+<div class="customer-opinion">
+    <div class="container">
+        <div class="customer-opinion-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="0" data-items_column00="1" data-items_column0="1" data-items_column1="1" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+            <div class="item clearfix">
+                <div class="customer-avatar">
+                    <img src="~/Test/image/catalog/demo/slider/home1/avatar.png" class="img-responsive" alt="">
+                </div>
+                <div class="opinion">
+                    <p class="opinion-detail">Fusce lorem ante, condimentum in massa, posuere bibendum. Maecenas euismod vulputate eu rhoncus. Pellentesque commodo posuere maximus. Phasellus pellentesque pellentesque facilisis.</p>
+                    <p class="customer-name"><span>JOHN DOE - Designer</span></p>
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="customer-avatar">
+                    <img src="~/Test/image/catalog/demo/slider/home1/avatar.png" class="img-responsive" alt="">
+                </div>
+                <div class="opinion">
+                    <p class="opinion-detail">Fusce lorem ante, condimentum in massa, posuere bibendum. Maecenas euismod vulputate eu rhoncus. Pellentesque commodo posuere maximus. Phasellus pellentesque pellentesque facilisis.</p>
+                    <p class="customer-name"><span>JOHN DOE - Designer</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //CUSTOMER OPINION -->
+<!-- CATEGORIES -->
+<div class="categories">
+    <div class="container">
+        <div class="row row5">
+            <div class="col-lg-4 col-md-4 col-sm-4 col5 col-left">
+                <div class="sub-category">
+                    <img src="~/Test/image/catalog/demo/slider/home1/category1.jpg" class="img-responsive" alt="">
+                    <div class="list-sub-category">
+                        <h5 class="sub-title"><span>DINING ROOM</span></h5>
+                        <ul>
+                            <li>
+                                <a href="#" class="smooth" title="">Large Coffee Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Small Coffee Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Coffee Table sets</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Console Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Set Of Tables</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sub-category another-category">
+                    <img src="~/Test/image/catalog/demo/slider/home1/category3.png" class="img-responsive" alt="">
+                    <div class="list-sub-category">
+                        <h5 class="sub-title"><span>KITCHEN ROOM</span></h5>
+                        <ul>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Console Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Set Of Tables</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col5 col-center">
+                <div class="hot-category text-center">
+                    <h4 class="hot-title"><span>HOT <span>CATEGORIES</span></span></h4>
+                    <p class="hot-category-desc">Duis euismod eu nibh at pharetra. Vivamus placerat ac metus et placerat. Nulla molestie massa id est posuere, maximus hendrerit est rhoncus.</p>
+                    <a href="category.html" class="smooth view-all hv-border-inline">VIEW ALL CATEGORIES</a>
+                </div>
+                <div class="sub-category another-category">
+                    <img src="~/Test/image/catalog/demo/slider/home1/category4.png" class="img-responsive" alt="">
+                    <div class="list-sub-category">
+                        <h5 class="sub-title"><span>KITCHEN ROOM</span></h5>
+                        <ul>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Console Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Set Of Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Console Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Set Of Tables</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col5 col-right">
+                <div class="sub-category another-category">
+                    <img src="~/Test/image/catalog/demo/slider/home1/category2.png" class="img-responsive" alt="">
+                    <div class="list-sub-category">
+                        <h5 class="sub-title"><span>KITCHEN ROOM</span></h5>
+                        <ul>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Console Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Set Of Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sub-category another-category">
+                    <img src="~/Test/image/catalog/demo/slider/home1/category5.png" class="img-responsive" alt="">
+                    <div class="list-sub-category">
+                        <h5 class="sub-title"><span>KITCHEN ROOM</span></h5>
+                        <ul>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Console Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Set Of Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">End Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Console Tables</a>
+                            </li>
+                            <li>
+                                <a href="#" class="smooth" title="">Set Of Tables</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- //CATEGORIES -->
+<!-- LATEST BLOGS -->
+<div class="blogs">
+    <div class="container">
+        <h3 class="featured-title">
+            <span>
+                LATEST <span>BLOGS</span>
+            </span>
+        </h3>
+        <div class="blog-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="0" data-items_column00="2" data-items_column0="2" data-items_column1="2" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="no" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
+            <div class="blog-slider-item">
+                <div class="blog-box clearfix">
+                    <div class="blog-image">
+                        <a href="detail-blog.html" class="hv-light-v2">
+                            <img src="~/Test/image/catalog/demo/slider/home1/blog1.png" class="img-responsive" alt="">
+                        </a>
+                        <div class="post-time">
+                            <span class="post-day">05</span>
+                            <span class="post-month">SEP</span>
+                        </div>
+                    </div>
+                    <div class="blog-info">
+                        <h5 class="blog-title"><a href="detail-blog.html" class="smooth" title="">Curabitur lectus Tincidunt</a></h5>
+                        <p class="blog-desc">Aenean vel elit lectus pretium efficitur. Praesent sollicitudin odio eget nunc tincidunt, sed faucibus enim tincidunt.</p>
+                        <a href="detail-blog.html" class="smooth read-more" title="">READ MORE<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="blog-box clearfix">
+                    <div class="blog-image">
+                        <a href="detail-blog.html" class="hv-light-v2">
+                            <img src="~/Test/image/catalog/demo/slider/home1/blog2.png" class="img-responsive" alt="">
+                        </a>
+                        <div class="post-time">
+                            <span class="post-day">05</span>
+                            <span class="post-month">SEP</span>
+                        </div>
+                    </div>
+                    <div class="blog-info">
+                        <h5 class="blog-title"><a href="detail-blog.html" class="smooth" title="">Curabitur lectus Tincidunt</a></h5>
+                        <p class="blog-desc">Aenean vel elit lectus pretium efficitur. Praesent sollicitudin odio eget nunc tincidunt, sed faucibus enim tincidunt.</p>
+                        <a href="detail-blog.html" class="smooth read-more" title="">READ MORE<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-slider-item">
+                <div class="blog-box clearfix">
+                    <div class="blog-image">
+                        <a href="detail-blog.html" class="hv-light-v2">
+                            <img src="~/Test/image/catalog/demo/slider/home1/blog3.png" class="img-responsive" alt="">
+                        </a>
+                        <div class="post-time">
+                            <span class="post-day">05</span>
+                            <span class="post-month">SEP</span>
+                        </div>
+                    </div>
+                    <div class="blog-info">
+                        <h5 class="blog-title"><a href="detail-blog.html" class="smooth" title="">Curabitur lectus Tincidunt</a></h5>
+                        <p class="blog-desc">Aenean vel elit lectus pretium efficitur. Praesent sollicitudin odio eget nunc tincidunt, sed faucibus enim tincidunt.</p>
+                        <a href="detail-blog.html" class="smooth read-more" title="">READ MORE<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="blog-box clearfix">
+                    <div class="blog-image">
+                        <a href="detail-blog.html" class="hv-light-v2">
+                            <img src="~/Test/image/catalog/demo/slider/home1/blog4.png" class="img-responsive" alt="">
+                        </a>
+                        <div class="post-time">
+                            <span class="post-day">05</span>
+                            <span class="post-month">SEP</span>
+                        </div>
+                    </div>
+                    <div class="blog-info">
+                        <h5 class="blog-title"><a href="detail-blog.html" class="smooth" title="">Curabitur lectus Tincidunt</a></h5>
+                        <p class="blog-desc">Aenean vel elit lectus pretium efficitur. Praesent sollicitudin odio eget nunc tincidunt, sed faucibus enim tincidunt.</p>
+                        <a href="detail-blog.html" class="smooth read-more" title="">READ MORE<i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //LATEST BLOGS -->
+<!-- BRAND -->
+<div class="brands">
+    <div class="container">
+        <div class="cleafix">
+            <div class="brand-left">
+                <ul class="nav nav-tabs">
+                    <li class="brand-title-box">
+                        <h3 class="brand-title featured-title">
+                            <span>
+                                FEATURED <span>BRANDS</span>
+                            </span>
+                        </h3>
+                    </li>
+                    <li class="active">
+                        <a data-toggle="tab" href="#brand1">
+                            <img src="~/Test/image/catalog/demo/brand/brand-5.jpg" class="img-responsive" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#brand2">
+                            <img src="~/Test/image/catalog/demo/brand/brand-6.jpg" class="img-responsive" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#brand3">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand1.png" class="img-responsive" alt="">
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="brand-center">
+                <!-- <img src="~/Test/image/catalog/demo/slider/home1/brand-bg.png" class="img-responsive" alt=""> -->
+                <div class="tab-content">
+                    <div id="brand1" class="tab-pane fade in active">
+                        <img src="~/Test/image/catalog/demo/slider/home1/brand-bg.png" class="img-responsive" alt="">
+                        <div class="brand-info">
+                            <p class="brand-desc">Nokia Corporation is a Finnish multinational             communications and information technology company. Nokia is headquartered in Espoo, Uusimaa, in the greater Helsinki metropolitan area.</p>
+                            <a href="#" class="smooth shop-now">SHOP NOW</a>
+                        </div>
+                    </div>
+                    <div id="brand2" class="tab-pane fade">
+                        <a href="#" class="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand-bg2.jpg" class="img-responsive" alt="">
+                        </a>
+                    </div>
+                    <div id="brand3" class="tab-pane fade">
+                        <a href="#" class="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand-bg3.jpg" class="img-responsive" alt="">
+                        </a>
+                    </div>
+                    <div id="brand4" class="tab-pane fade">
+                        <a href="#" class="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand-bg4.jpg" class="img-responsive" alt="">
+                        </a>
+                    </div>
+                    <div id="brand5" class="tab-pane fade">
+                        <a href="#" class="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand-bg-5.jpg" class="img-responsive" alt="">
+                        </a>
+                    </div>
+                    <div id="brand6" class="tab-pane fade">
+                        <a href="#" class="">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand-bg6.jpg" class="img-responsive" alt="">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="brand-left brand-right">
+                <ul class="nav nav-tabs">
+                    <li class="">
+                        <a data-toggle="tab" href="#brand4">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand3.png" class="img-responsive" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#brand5">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand4.png" class="img-responsive" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#brand6">
+                            <img src="~/Test/image/catalog/demo/slider/home1/brand5.png" class="img-responsive" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-login" id="myModalLogin" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Member Login</h4>
+            </div>
+            <div class="modal-body">
+                <div class="login" style="display: block; margin-left: auto; margin-right: auto;">
+                    <div class="login-form-container">
+                        <div class="login-form">
+                            <form>
+                                <p class="hint-text">Sign in with your social media account</p>
+                                <div style="text-align: center;" class="form-group social-btn clearfix">
+                                    <a asp-controller="Auth" asp-action="LoginFacebook" class="btn btn-secondary facebook-btn"><i class="fa fa-facebook"></i> Facebook</a>
+                                </div>
+                                <div class="or-seperator"><b>or</b></div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Tài khoản" id="loginEmail" name="loginEmail" value="" title="Xin vui lòng nhập tên tài khoản" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="loginPassword" class="form-control" name="loginPassword" value="" title="Xin vui lòng nhập mật khẩu" placeholder="Password" type="password" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <button id="loginBtn" class="btn btn-primary btn-lg btn-block login-btn">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="forgot" data-toggle="modal" data-target="#myModalForgot">Forgot Password?</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade modal-login" id="myModalRegister" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Member Register</h4>
+            </div>
+            <div class="modal-body">
+                <div class="login" style="display: block; margin-left: auto; margin-right: auto;">
+                    <div class="login-form-container">
+                        <div class="login-form">
+                            <form class="register-form">
+                                <div class="form-group">
+                                    <input id="crName" class="form-control" type="text" placeholder="Tên" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="crEmail" class="form-control" type="email" placeholder="E-mail address" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="crPassword" class="form-control" type="password" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="crRePassword" class="form-control" type="password" placeholder="Nhập lại password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button id="crBtn" class="btn btn-primary btn-lg btn-block login-btn">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade modal-login" id="myModalForgot" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bạn đã quên mật khẩu?</h4>
+            </div>
+            <div class="modal-body">
+                <div id="throbber" style="display:none;">
+                    <img src="~/busy.gif" />
+                </div>
+                <p>Nhập đỉa chỉ E-Mail tài khoản của bạn. Chọn "Tiếp tục" để mật khẩu sẽ được gửi vào E-mail của bạn.</p>
+                <div class="login-form-container">
+                    <fieldset>
+                        <legend>Địa chỉ E-Mail của bạn</legend>
+
+                        <div class="form-group required">
+                            <label class="col-sm-2 control-label" for="input-email">E-Mail</label>
+                            <div class="col-sm-10">
+                                <input id="forgot-email" type="email" name="email" value="" placeholder="Địa chỉ E-Mail" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button id="forgotBtn" class="btn btn-primary btn-lg btn-block login-btn">Xác nhận</button>
+                        </div>
+                    </fieldset></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts
+{
+    @if (userId == null)
+    {
+        <script>
+            $("#myModalForgot").modal();
+        </script>
+    }
+    <script>
+        $('#forgot').click(function() {
+            $('#myModalLogin').modal('hide');
+        });
+    </script>
+}

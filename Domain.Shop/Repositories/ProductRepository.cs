@@ -9,6 +9,7 @@ using System.Linq;
 using Shop.Application;
 using Infrastructure.Common;
 using Domain.Shop.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Shop.Repositories
 {
@@ -20,7 +21,7 @@ namespace Domain.Shop.Repositories
         }
         public Product GetProductById(string id)
         {
-            return this.All.Where(m => m.Id == id).FirstOrDefault();
+            return All.FirstOrDefault(m => m.Id == id);
         }
         public ProductViewModel GetProductViewModelById(string id)
         {

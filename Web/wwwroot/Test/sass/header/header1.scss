@@ -1,0 +1,297 @@
+/*============HEADER V1 ==================*/
+
+
+//** simple and lightweight mixin library for Sass **
+//-- url : http://bourbon.io/docs ---
+@import 'bourbon/bourbon';
+
+//** Mixins for Rem Font Sizing **
+//-- url : http://hugogiraudel.com/2013/03/18/ultimate-rem-mixin/
+@import 'utilities/rem';
+
+//** Variables for responsive design in bootstrap with sass **
+//-- url : https://gist.github.com/webinfinita/11407836
+@import 'utilities/bootstrap_breakpoints';
+
+//** Makes supporting both left-to-right (LTR) and right-to-left (RTL) easy.**
+//-- url : https://github.com/tysonmatanich/directional-scss
+@import 'utilities/directional';
+
+//Mixins utilities
+@import 'utilities/theme_variables';
+@import 'utilities/utilities';
+
+/*===============================================
+	[SASS DIRECTORY ]
+	
+    [1] BLOCK HEADER
+    [2] BLOCK FOOTER
+	
+    ==============================================*/
+    $vang: #beae59;
+    p{
+        margin: 0;
+    }
+    .typeheader-1{
+        background-color: #eeeeee; 
+        position: relative;
+        margin-bottom: 50px;
+        // HEADER TOP
+        .header-top{
+            border-bottom: 1px solid #dddddd;
+            .header-user{
+               .dropdown-menu{
+                 left: 0 !important;
+                 right: auto;
+             }
+             > ul{
+                font-size: 0;
+                > li{
+                    display: inline-block;
+                    position: relative;
+                    margin-right: 25px;
+                    > .lang-img{
+                        margin: 0 3px 8px 0;
+                        max-width: 16px;
+                    }
+                    > a{
+                        font-size: 12px;
+                        padding-top: 9px;
+                        display: inline-block;
+                        .dropdown-icon{
+                            margin-left: 5px;
+                        }
+                    }
+                    ul{
+                        li{
+                            a{
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .header-hotline{
+            padding: 7px 0;
+            text-align: right;
+            .item{
+                display: inline-block;
+                padding-left: 25px;
+                p{
+                    margin: 0;
+                }
+                a span{
+                    font-weight: 700;
+                }
+                &:first-child{
+                    background: url(../../image/catalog/demo/header/talk-header.png) no-repeat left 0 top 3px;
+                }
+                &:last-child{
+                    margin-left: 35px;
+                    background: url(../../image/catalog/demo/header/phone.png)  no-repeat left 0 top -30px;
+                }
+            }
+        }
+    }
+        // HEADER TOP
+        
+        // HEADER CENTER
+        .header-center{
+            font-size: 0;
+            .logo{
+                width: 17.1%;
+                float: left;
+                display: inline-block;
+                padding: 37px 0;
+            }
+            .search-form{
+                width: 42.7%;
+                display: inline-block;
+                float: left;
+                padding: 37px 20px 37px 50px;
+                .search-form-btn{
+                    display: none;
+                    text-align: center;
+                    padding: 0;
+                }
+                form{
+                 position: relative;
+                 font-size: 0;
+                 .icon{
+                    display: inline-block;
+                    padding-#{$right}: 10px;
+                    position: relative;
+                    line-height: 40px;
+                    padding-#{$left}: 15px;
+                    border: 1px solid #beae59;
+                    font-size: 14px;
+                    border-right: none;
+                    background-color: #fff;
+                    color: #999999;
+                    &:after{
+                        content: '';
+                        position: absolute;
+                        right: 0px;
+                        width: 1px;
+                        background: #dddddd;
+                        top: 20%;
+                        height: 60%;
+                    }
+                }
+                input{
+                    font-size: 12px;
+                    border: none;
+                    height: 42px;
+                    width: 66%;
+                    border-top: 1px solid #beae59;
+                    border-top: 1px solid #beae59;
+                    border-bottom: 1px solid #beae59;
+                    vertical-align: top;
+                    padding: 0 10px;
+                    border-radius: 0;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    &:focus{
+                        outline: none;
+                    }
+                }
+                button[type='submit']{
+                    font-size: 12px;
+                    font-weight: 700;
+                    height: 42px;
+                    min-width: 92px;
+                    background-color: #beae59;
+                    border: none;
+                    color: #fff;
+                    vertical-align: top;
+                }
+            }
+        }
+        .shipping{
+            width: 25.6%;
+            display: flex;
+            float: left;
+            position: relative;
+            color: #999999;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 37px 25px 37px 0;
+            &:before{
+                content: "";
+                position: absolute;
+                left: 30px;
+                width: 1px;
+                height: 80%;
+                top: 10%;
+                background: #dddddd;
+            }
+            img{
+                width: 32px;
+                margin-bottom: 5px;
+                height: 26px;
+                object-fit: contain;
+            }
+            .shipping-info{
+                width: calc(100%-32px);
+                padding-left: 8px;
+                color: #999999;
+                font-size: 12px;
+                .shipping-title{
+                    font-family: "Lobster";
+                    font-size: 18px;
+                    color: #444444;
+                }
+                .shipping-desc{
+                    line-height: 23px;
+                }
+            }
+
+        }
+        .cart{
+            width: calc(100% - 17.1% - 42.7% - 25.6%);
+            display: inline-block;
+            float: left;
+            .cart-box{
+                display: block;
+                padding-top: 15px;
+                background-color: #beae59;
+                text-align: center;
+                color: #fff;
+                font-size: 14px;
+                padding-bottom: 17px;
+                .quantity{
+                    margin-top: 10px;
+                }
+                .cart-title{
+                    font-weight: 700;
+                }
+            }
+            .mobile-cart{
+                display: none;
+            }
+        }
+        // HEADER CENTER
+    }
+    // HEADER BOTTOM
+
+    .header-bottom{
+        background-color: rgba(0, 0, 0, 0.64);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        .header-bottom-left{
+            width: 82.9%;
+            float: left;
+            .megamenu-style-dev{
+                ul.megamenu{
+                    > li {
+                        &.menu-hot-deals{
+                            float: right;
+                        }
+                        > a{
+                            color: #fff;
+                            font-weight: 700;
+                            padding: 13px 20px 11px 21px;
+                            height: 50px;
+                            position: relative;
+                            &:hover{
+                                background-color: #beae59;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .header-bottom-right{
+            width: 17.1%;
+            padding-left: 30px;
+            text-align: center;
+            float: left;
+            ul{
+                background-color: rgba(41, 42, 43, 0.64);
+                font-size: 0;
+                li{
+                    display: inline-block;
+                    margin: 0 10px;
+                    a{
+                        font-size: 14px;
+                        color: #b4b4b4;
+                        display: inline-block;
+                        line-height: 50px;
+                        &:hover{
+                            color: $vang;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // HEADER BOTTOM
+}
+
+
+

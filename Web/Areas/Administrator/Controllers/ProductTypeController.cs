@@ -41,7 +41,8 @@ namespace Web.Areas.Administrator.Controllers
                     _productTypeRepository.Add(new ProductType()
                     {
                         Id = Guid.NewGuid().ToString(),
-                        TypeName = model.TypeName
+                        TypeName = model.TypeName,
+                        Description = model.Description
                     });
                     _productTypeRepository.Save(RequestContext);
                   

@@ -17,6 +17,9 @@ namespace Domain.Shop.Entities
         [Column("TYPE_NAME")]
         [Required]
         public string TypeName { get; set; }
+        [StringLength(2000, MinimumLength = 2)]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
         public virtual  ICollection<Product> Products { get; set; }
     }
 }

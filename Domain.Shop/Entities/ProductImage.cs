@@ -20,5 +20,6 @@ namespace Domain.Shop.Entities
 		[Column("PRODUCT_ID")]
 		[MaxLength(50)]
 		public string ProductId { get; set; }
+        public virtual Product Product { get; set; }
 	}
 }

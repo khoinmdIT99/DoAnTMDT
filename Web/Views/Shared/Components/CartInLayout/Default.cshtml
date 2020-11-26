@@ -22,7 +22,7 @@
                         {
         <img src="#" alt="" width="60" height="60" class="img-responsive">}
                     </a>
-                    <button class="remove-product-cart smooth">
+                    <button class="remove-product-cart smooth remove-cart" data-id="@item.Id">
                         <i class="fa fa-times"></i>
                     </button>
                 </td>
@@ -49,4 +49,3 @@
         <a asp-action="HomeOrder" asp-controller="Order" asp-area="" class="smooth" title="">Mua ngay</a>
     </li>
 </ul>
-

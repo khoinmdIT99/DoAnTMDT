@@ -1,0 +1,228 @@
+/*============HEADER V1 ==================*/
+
+
+//** simple and lightweight mixin library for Sass **
+//-- url : http://bourbon.io/docs ---
+@import 'bourbon/bourbon';
+
+//** Mixins for Rem Font Sizing **
+//-- url : http://hugogiraudel.com/2013/03/18/ultimate-rem-mixin/
+@import 'utilities/rem';
+
+//** Variables for responsive design in bootstrap with sass **
+//-- url : https://gist.github.com/webinfinita/11407836
+@import 'utilities/bootstrap_breakpoints';
+
+//** Makes supporting both left-to-right (LTR) and right-to-left (RTL) easy.**
+//-- url : https://github.com/tysonmatanich/directional-scss
+@import 'utilities/directional';
+
+//Mixins utilities
+@import 'utilities/theme_variables';
+@import 'utilities/utilities';
+
+/*===============================================
+[SASS DIRECTORY ]
+    
+[1] BLOCK HEADER
+[2] BLOCK FOOTER
+    
+==============================================*/
+.layout-6{
+    .typeheader-6{
+        background-color: #f5f5f5;
+        .container{
+            @media (min-width: 1230px){
+                width: 1200px !important;
+            }
+        }
+        .header-top{
+            border-bottom: 1px solid #dddddd;
+            .header-social{
+              background-color: #fff;
+              float: left;
+              margin-right: 30px;
+              padding: 0px 11px 0px 12px;
+              border-left: 1px solid #e9e9e9;
+              border-right: 1px solid #e9e9e9;
+              ul{
+                li{
+                  float: left;
+                  line-height: 50px;
+                  margin: 0 20px;
+                  a{
+                    color: #666;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .header-hotline{
+        font-size: 12px;
+        color: #666666;
+        float: left;
+        padding: 12px 0 11px 0;
+        span{
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #222222;
+        }
+        i{
+            font-size: 14px;
+        }
+    }
+    .header-user{
+        text-align: right;
+        .dropdown-menu{
+           left: 0 !important;
+           right: auto;
+       }
+       > ul{
+        > li{
+            display: inline-block;
+            position: relative;
+            line-height: 50px;
+            &:not(:last-child){
+                margin-right: 25px;
+            }
+            > .lang-img{
+                margin: 0 3px 8px 0;
+                max-width: 16px;
+            }
+            > a{
+                font-size: 12px;
+                display: inline-block;
+                line-height: 1;
+                color: #666666;
+                .dropdown-icon{
+                    margin-left: 3px;
+                }
+            }
+            ul{
+                li{
+                    a{
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+}
+
+.header-center{
+    .logo{
+        text-align: center;
+        background-color: #fff;
+        padding: 46px 0 46px 0;
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
+    }
+    .search-form-cart{
+        width: 77%;
+        float: left;
+        padding: 42px 0 41px 0;
+        .search-form-header{
+            font-size: 0;
+            position: relative;
+            select{
+                background: url(../../image/icon/select.png) no-repeat center right;
+                color: #222;
+                height: 52px;
+                border-top-left-radius: 28px;
+                border-bottom-left-radius: 28px;
+                padding: 0 0 0 30px;
+                border: 3px solid #ddd;
+                width: 170px;
+                font-size: 14px;
+                font-weight: 700;
+                border-right: none;
+                background-color: #fff;
+                vertical-align: top;
+            }
+            input{
+                font-size: 14px;
+                background-color: #fff;
+                height: 52px;
+                padding: 0 0 0 30px;
+                border-top: 3px solid #ddd;
+                border-bottom: 3px solid #ddd;
+                width: calc(100% - 170px - 60px);
+                vertical-align: top;
+                padding-left: 30px;
+                border-left: none;
+                border-right: none;
+                padding-right: 70px;
+                &::placeholder{
+                    color: #666666;
+                }
+            }
+            button{
+                width: 120px;
+                height: 52px;
+                border-radius: 28px;
+                background-color: #000;
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                text-align: center;
+                line-height: 52px;
+                position: absolute;
+                right: 0;
+                top: 0px;
+                outline: none;
+                border: none;
+            }
+        }
+    }
+    .header-cart{
+        float: left;
+        width: 23%;
+        padding-left: 20px;
+        padding: 41px 0 42px 20px;
+        > a{
+            display: block;
+        }
+        .flex-center{
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .quantity{
+            width: 52px;
+            height: 52px;
+            background-color: #fa381d;
+            border-radius: 50%;
+            text-align: center;
+            span{
+                display: block;
+                line-height: 1;
+                font-size: 12px;
+                color: #fff;
+                font-weight: 500;
+                margin: 11px 0 2px 0;
+                &.icon-cart{
+                    font-size: 18px;
+                    margin: 0;
+                }
+            }
+        }
+        .price-box{
+            margin-left: 10px;
+            font-weight: 600;
+            .title-cart{
+                font-size: 14px;
+                color: #333333;
+            }
+            .cart-price{
+                color: #fa381d;
+            }
+        }
+    }
+}
+.header-bottom{
+    background-color: #e5e5e5;
+    height: 50px;
+}
+}
+}

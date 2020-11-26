@@ -10,6 +10,7 @@ namespace Domain.Shop.IRepositories
    public  interface ICartRepository:IRepository<Cart>
    {
         CartViewModel GetCartViewModel(string id);
+        void RemoveFromCart();
         IEnumerable<CartViewModel> GetCartViewModels();
    }
 }

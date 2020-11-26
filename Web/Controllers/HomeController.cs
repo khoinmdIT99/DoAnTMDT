@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Domain.Common.Security;
 using Domain.Shop.Dto.Products;
 using Domain.Shop.Entities;
@@ -9,6 +11,7 @@ using Domain.Shop.IRepositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Web.Models;
 
@@ -17,27 +20,53 @@ namespace Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        const string SessionName = "_Name";
+        const string SessionId = "_Id";
         private readonly IProductRepository _productRepository;
         private readonly IProductTagRepository _productTagRepository;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IShoppingCartRepository _shoppingCart;
         private readonly IProductReViewRepository _productReViewRepository;
-
+        private readonly ICartRepository _cartRepository;
+        public IConfiguration Configuration { get; }
+        public string Result { get; set; }
         public HomeController(IProductRepository productRepository, 
             IProductTagRepository productTagRepository, IServiceProvider serviceProvider,
-            IProductReViewRepository productReViewRepository)
+            IProductReViewRepository productReViewRepository, IShoppingCartRepository shoppingCart, ICartRepository cartRepository, IConfiguration configuration)
         {
             this._productRepository = productRepository;
             this._productTagRepository = productTagRepository;
             this._serviceProvider = serviceProvider;
             this._productReViewRepository = productReViewRepository;
+            _shoppingCart = shoppingCart;
+            _cartRepository = cartRepository;
+            Configuration = configuration;
         }
+        //[AllowAnonymous]
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
+            string session = HttpContext.Session.GetString("AddProducts");
+            ViewData["ReCaptchaKey"] = Configuration.GetSection("GoogleReCaptcha:key").Value;
+            if (session == null)
+            {
+                _shoppingCart.RemoveFromCart();
+                _cartRepository.RemoveFromCart();
+                Response.Cookies.Delete("cardId", new CookieOptions()
+                {
+                    Secure = true,
+                });
+            }
+            ViewBag.Name = HttpContext.Session.GetString(SessionName);
+            ViewBag.Age = HttpContext.Session.GetString(SessionId);
+            return View(_productRepository.GetProductViewModels());
         }
         [AllowAnonymous]
-        public IActionResult Index2()
+        public IActionResult Index3()
         {
             return View(_productRepository.GetProductViewModels());
         }

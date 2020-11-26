@@ -13,6 +13,7 @@ namespace Web.Areas.Administrator.Controllers
 	{
 		public IActionResult Index()
 		{
+            HttpContext.Session.Remove("ProductCode");
 			return View();
 		}
 	}

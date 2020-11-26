@@ -1,0 +1,68 @@
+
+//** simple and lightweight mixin library for Sass **
+//-- url : http://bourbon.io/docs ---
+@import 'bourbon/bourbon';
+
+//** Mixins for Rem Font Sizing **
+//-- url : http://hugogiraudel.com/2013/03/18/ultimate-rem-mixin/
+@import 'utilities/rem';
+
+//** Variables for responsive design in bootstrap with sass **
+//-- url : https://gist.github.com/webinfinita/11407836
+@import 'utilities/bootstrap_breakpoints';
+
+//** Makes supporting both left-to-right (LTR) and right-to-left (RTL) easy.**
+//-- url : https://github.com/tysonmatanich/directional-scss
+@import 'utilities/directional';
+
+//Mixins utilities
+@import 'utilities/theme_variables';
+@import 'utilities/utilities';
+
+/************************************************************************************************
+  FOOTER V3
+  *************************************************************************************************/
+  footer.typefooter-3{
+	//NEWLETTER
+	.newletter .newletter-right .send-letter{
+		.form-box{
+			border: 6px solid $xanh2;
+			button[type='submit']{
+				border-left: 6px solid $xanh2;
+				&:hover{
+					background-color: $xanh2;
+				}
+			}
+		}
+	}
+	//NEWLETTER
+	.footer-box{
+		background: url(../../image/catalog/demo/footer/footer-middle-bg.png);
+	}
+	//FOOTER MIDDLE
+	.footer-middle{
+		div[class^="col-"]:not(:last-child){
+			a{
+				&:hover{
+					color: $xanh2;
+					&:before{
+						color: $xanh2;
+					}
+				}
+			}
+		}
+		.footer-title:before{
+			background: $xanh2;
+		}
+		.footer-middle-right{
+			background-color: rgba(126, 179, 160, 0.5);
+		}
+	}
+	//FOOTER MIDDLE
+	//FOOTER BOTTOM
+	.footer-bottom {
+		.copyright a{color: $xanh2; &:hover{color: $red;}}
+		.footer-bottom-right ul.footer-social li a:hover{background-color: $xanh2;}
+	}
+	//FOOTER BOTTOM
+}

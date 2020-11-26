@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\ShopDB\20201106074901_init10.cs" />
     <Compile Remove="Migrations\ShopDB\20201106074901_init10.Designer.cs" />
+    <Compile Remove="Migrations\ShopDB\20201126022823_newversion11262020.cs" />
+    <Compile Remove="Migrations\ShopDB\20201126022823_newversion11262020.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +41,10 @@
     <Content Update="Data\role.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\ShopDB\" />
   </ItemGroup>
 
 

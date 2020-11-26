@@ -19,6 +19,39 @@ namespace Domain.Shop.Repositories
         {
 
         }
+        public void AddToCartSession(Product product, string cartId,int quantity)
+        {
+            var cartProduct = this.All.FirstOrDefault(
+                s => s.ProductId == product.Id && s.CartId == cartId && s.Bought == false);
+            if (cartProduct == null)
+            {
+                Cart cart = DbContext.Carts.ToList().FirstOrDefault(c => c.Id == cartId);
+                if (cart == null)
+                {
+                    cart = new Cart()
+                    {
+                        Id = cartId
+                    };
+                    DbContext.Carts.Add(cart);
+                }
+                cartProduct = new CartProduct()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Product = product,
+                    Quantity = quantity,
+                    CartId = cartId
+                };
+
+                this.Add(cartProduct);
+
+            }
+            else
+            {
+                cartProduct.Quantity = quantity;
+                this.Update(cartProduct);
+            }
+            this.Save();
+        }
         public void AddToCart(Product product, string cartId)
         {
             var cartProduct = this.All.SingleOrDefault(
@@ -68,6 +101,24 @@ namespace Domain.Shop.Repositories
             }
             this.Save();
         }
+        public void RemoveFromCartSession(Product product, string cartId)
+        {
+            var cartProduct = this.All.SingleOrDefault(s => s.ProductId == product.Id && s.CartId == cartId && s.Bought == false);
+
+            if (cartProduct != null)
+            { 
+                this.Remove(cartProduct);
+            }
+            this.Save();
+        }
+        public void RemoveFromCart()
+        {
+            foreach (var i in All.ToList().Where(s => s.Bought == false))
+            {
+                this.Remove(i);
+            }
+            this.Save();
+        }
         public List<CartProduct> GetCartProducts(string cardId)
         {
             var cart = this.All.Where(c => c.CartId == cardId && c.Bought == false)
@@ -83,9 +134,9 @@ namespace Domain.Shop.Repositories
                            .ToList();
             return cart;
         }
-        public void ClearCart(string CartId)
+        public void ClearCart(string cartId)
         {
-            var cartItems = this.All .Where(cart => cart.CartId == CartId && cart.Bought == false);
+            var cartItems = this.All .Where(cart => cart.CartId == cartId && cart.Bought == false);
             foreach (var item in cartItems)
             {
                 item.Bought = true;

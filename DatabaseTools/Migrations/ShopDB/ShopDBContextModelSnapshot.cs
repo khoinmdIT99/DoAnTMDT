@@ -252,7 +252,9 @@ namespace DatabaseTools.Migrations.ShopDB
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique()
+                        .HasFilter("[CUSTOMER_ID] IS NOT NULL");
 
                     b.HasIndex("ShippingAddressId");
 
@@ -261,8 +263,13 @@ namespace DatabaseTools.Migrations.ShopDB
 
             modelBuilder.Entity("Domain.Shop.Entities.CartProduct", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnName("ID")
+                    b.Property<string>("CartId")
+                        .HasColumnName("CART_ID")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("ProductId")
+                        .HasColumnName("PRODUCT_ID")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -270,17 +277,17 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("BOUGHT")
                         .HasColumnType("bit");
 
-                    b.Property<string>("CartId")
-                        .HasColumnName("CART_ID")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnName("CREATE_AT")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreateBy")
                         .HasColumnName("CREATE_BY")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Id")
+                        .HasColumnName("ID")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -301,11 +308,6 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("PRICE_TYPE")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProductId")
-                        .HasColumnName("PRODUCT_ID")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
                     b.Property<int>("Quantity")
                         .HasColumnName("QUANTITY")
                         .HasColumnType("int");
@@ -314,9 +316,7 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("TOTAL")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
+                    b.HasKey("CartId", "ProductId");
 
                     b.HasIndex("ProductId");
 
@@ -335,6 +335,7 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasMaxLength(50);
 
                     b.Property<string>("CategoryName")
+                        .IsRequired()
                         .HasColumnName("CATEGORY_NAME")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -408,9 +409,10 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasMaxLength(255);
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnName("FULL_NAME")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<DateTime?>("LastUpdateAt")
                         .HasColumnName("LAST_UPDATE_AT")
@@ -422,9 +424,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasMaxLength(50);
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnName("PASSWORD")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
                         .HasColumnName("PHONE_NO")
@@ -708,6 +710,59 @@ namespace DatabaseTools.Migrations.ShopDB
                         });
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.ImportBill", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DiscountValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Payment")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StaffId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SupplierID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImportBills");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.ImportBillDetail", b =>
+                {
+                    b.Property<string>("ImportBillId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ImportBillId", "ProductId");
+
+                    b.ToTable("ImportBillDetails");
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.Material", b =>
                 {
                     b.Property<string>("Id")
@@ -740,6 +795,7 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("int");
 
                     b.Property<string>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("CreateAt")
@@ -765,6 +821,7 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasMaxLength(50);
 
                     b.Property<string>("MaterialId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<long?>("Price")
@@ -788,6 +845,7 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasMaxLength(255);
 
                     b.Property<string>("ProductTypeId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Slug")
@@ -956,6 +1014,10 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.Property<string>("Id")
                         .HasColumnName("ID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(2000)")
+                        .HasMaxLength(2000);
 
                     b.Property<string>("TypeName")
                         .IsRequired()
@@ -1162,6 +1224,183 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.ToTable("Sliders");
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Icn")
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<int>("Money")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.ForgetPassword", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ActiveCode")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<DateTime?>("ActiveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RequestIp")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("RequestTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TemporaryPassword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ForgetPassword");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.SystemInformation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<long?>("AlbumSlide")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BottomAlbum")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BottomMenu")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Copyright")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("FacebookAppId")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("FacebookPage")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("HotLine")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<long?>("LeftArticle1")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LeftArticle2")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("LeftArticle3")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<long?>("MainMenu")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<long?>("RightAlbum")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RightArticle1")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RightArticle2")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RightArticle3")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("RightMenu")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SMTPEmail")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("SMTPName")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("SMTPPassword")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("SiteName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Slogan")
+                        .HasColumnType("nvarchar(250)")
+                        .HasMaxLength(250);
+
+                    b.Property<long?>("TaxiFare")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("WebsiteAddress")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemInformation");
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.Tag", b =>
                 {
                     b.Property<string>("Id")
@@ -1197,8 +1436,8 @@ namespace DatabaseTools.Migrations.ShopDB
             modelBuilder.Entity("Domain.Shop.Entities.Cart", b =>
                 {
                     b.HasOne("Domain.Shop.Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .WithOne("Cart")
+                        .HasForeignKey("Domain.Shop.Entities.Cart", "CustomerId");
 
                     b.HasOne("Domain.Shop.Entities.ShippingAddress", "ShippingAddress")
                         .WithMany()
@@ -1208,12 +1447,16 @@ namespace DatabaseTools.Migrations.ShopDB
             modelBuilder.Entity("Domain.Shop.Entities.CartProduct", b =>
                 {
                     b.HasOne("Domain.Shop.Entities.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartId");
+                        .WithMany("Products")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Shop.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("Carts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.CustomerFeedback", b =>
@@ -1252,22 +1495,29 @@ namespace DatabaseTools.Migrations.ShopDB
                 {
                     b.HasOne("Domain.Shop.Entities.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Shop.Entities.Material", "Material")
                         .WithMany("Products")
-                        .HasForeignKey("MaterialId");
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Shop.Entities.ProductType", "ProductType")
                         .WithMany("Products")
-                        .HasForeignKey("ProductTypeId");
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.ProductImage", b =>
                 {
-                    b.HasOne("Domain.Shop.Entities.Product", null)
+                    b.HasOne("Domain.Shop.Entities.Product", "Product")
                         .WithMany("ProductImages")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.ProductReview", b =>

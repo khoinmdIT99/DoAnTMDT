@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Domain.Shop.Dto.CartProduct;
 using Domain.Shop.Dto.Products;
 using Domain.Shop.Dto.ShoppingCart;
@@ -15,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Web.Models;
 
 namespace Web.Controllers
 {
@@ -43,10 +43,19 @@ namespace Web.Controllers
             {
                 cart = JsonConvert.DeserializeObject<List<CartProductViewModel>>(session);
             }
-            if (cart != null)
+            basketCount = cart?.Sum(item => item.Quantity) ?? 0;
+            return Json(basketCount);
+        }
+        public IActionResult PriceControl()
+        {
+            long basketCount = 0;
+            string session = HttpContext.Session.GetString("AddProducts");
+            List<CartProductViewModel> cart = new List<CartProductViewModel>();
+            if (session != null)
             {
-                basketCount = cart.Count;
+                cart = JsonConvert.DeserializeObject<List<CartProductViewModel>>(session);
             }
+            basketCount = cart?.Sum(item => item.Price * item.Quantity) ?? 0;
             return Json(basketCount);
         }
         public string GetCart(IServiceProvider service)
@@ -58,7 +67,7 @@ namespace Web.Controllers
                 if (cookie != null)
                 {
                     string cartId = cookie.Cookies["cardId"] ?? Guid.NewGuid().ToString();
-                    CookieOptions option = new CookieOptions {Expires = DateTime.Now.AddMonths(1)};
+                    CookieOptions option = new CookieOptions {Expires = DateTime.Now.AddHours(1)};
                     Response.Cookies.Append("cardId", cartId, option);
                     return cartId;
                 }
@@ -75,60 +84,76 @@ namespace Web.Controllers
         }
 
         public ViewResult ShoppingCart() {
+            string session = HttpContext.Session.GetString("AddProducts");
 
-            string cartId = GetCart(_services);
-            var cartProductViewModels = new List<CartProductViewModel>();
-            
-            foreach (var item in _shoppingCart.GetCartProducts(cartId))
+            if (session == null)
             {
-                var cartProductViewModel = new CartProductViewModel() { 
-                    Id = item.Id,
-                    CartId = item.CartId,
-                    Cart = _cartRepository.GetCartViewModel(item.CartId),
-                    ProductId = item.ProductId,
-                    Product = _productRepository.GetProductViewModelById(item.ProductId),
-                    Price = item.Price,
-                    PriceType = item.PriceType,
-                    Quantity = item.Quantity,
-                    Total = item.Total
-                };
-                cartProductViewModels.Add(cartProductViewModel);
-
+                _shoppingCart.RemoveFromCart();
+                _cartRepository.RemoveFromCart();
+                Response.Cookies.Delete("cardId", new CookieOptions()
+                {
+                    Secure = true,
+                });
+                return View();
             }
-            var cart = new ShoppingCart()
+            else
             {
-                Id = cartId,
-                cartProducts = cartProductViewModels,
-                Total = _shoppingCart.GetShoppingCartTotal(cartId)
-            };
-          
-            var model = new ShoppingCartViewModel()
-            {
-                ShoppingCart = cart,
-            };
-            return View(model);
-        }
-        public async Task AddToCartSession(string productId, int? quantity, string cartId)
-        {
+                string cartId = GetCart(_services);
+                var cartProductViewModels = new List<CartProductViewModel>();
 
+                foreach (var item in _shoppingCart.GetCartProducts(cartId))
+                {
+                    var cartProductViewModel = new CartProductViewModel()
+                    {
+                        Id = item.Id,
+                        CartId = item.CartId,
+                        Cart = _cartRepository.GetCartViewModel(item.CartId),
+                        ProductId = item.ProductId,
+                        Product = _productRepository.GetProductViewModelById(item.ProductId),
+                        Price = item.Price,
+                        PriceType = item.PriceType,
+                        Quantity = item.Quantity,
+                        Total = item.Total
+                    };
+                    cartProductViewModels.Add(cartProductViewModel);
+
+                }
+                var cart = new ShoppingCart()
+                {
+                    Id = cartId,
+                    cartProducts = cartProductViewModels,
+                    Total = _shoppingCart.GetShoppingCartTotal(cartId)
+                };
+
+                var model = new ShoppingCartViewModel()
+                {
+                    ShoppingCart = cart,
+                };
+                return View(model);
+            }
+        }
+        public IActionResult ViewProduct(string productId)
+        {
+            var datas = _productRepository.GetProductViewModelById(productId);
+            return Json(datas);
         }
         [HttpPost]
         public async Task<IActionResult> AddToCart(string productId, int? quantity)
         {
             string cartId = GetCart(_services);
+            var returnMessage = new ReturnMessage();
             var product = await _productRepository.All.FirstOrDefaultAsync(d => d.Id == productId);
-            if (product != null)
+            if (product == null)
             {
-                _shoppingCart.AddToCart(product, cartId);
+                returnMessage.SetErrorMessage("Không tìm thấy trong danh sách sản phẩm.");
+                return Json(returnMessage);
             }
-            var dto = new ProductViewModel();
-            PropertyCopy.Copy(product, dto);
+            _shoppingCart.AddToCartSession(product, cartId,quantity.GetValueOrDefault());
+            //var dto = new ProductViewModel();
+            //PropertyCopy.Copy(product, dto);
             var session = HttpContext.Session.Get<List<CartProductViewModel>>("AddProducts");
             if (session != null)
             {
-                //Convert string to list object
-                bool hasChanged = false;
-
                 //Check exist with item product id
                 if (session.Any(x => x.Id == productId))
                 {
@@ -137,38 +162,48 @@ namespace Web.Controllers
                         //Update quantity for product if match product id
                         if (item.Id == productId)
                         {
-                            if (quantity != null) item.Quantity += (int)quantity;
-                            if (product != null) item.Price = product.Price.GetValueOrDefault();
-                            hasChanged = true;
+                            //if (quantity != null) item.Quantity += (int)quantity;
+                            //item.Price = product.Price.GetValueOrDefault();
+                            //hasChanged = true;
+                            if (quantity != null && quantity > 0)
+                            {
+                                item.Quantity = quantity.GetValueOrDefault();
+                                returnMessage.setMessage("Sản phẩm đã có sẵn trong giỏ, bạn có muốn tăng thêm không?",item.Quantity);
+                            }
+                            HttpContext.Session.Set("AddProducts", session);
+                            return Json(returnMessage);
                         }
                     }
                 }
                 else
                 {
                     if (quantity != null)
-                        if (product != null)
-                            session.Add(new CartProductViewModel()
-                            {
-                                Id = product.Id,
-                                Product = _productRepository.GetProductViewModelById(product.Id),
-                                Price = product.Price.GetValueOrDefault(),
-                                Quantity = quantity.Value
-                            });
-                    hasChanged = true;
+                    {
+                        session.Add(new CartProductViewModel()
+                        {
+                            Id = product.Id,
+                            Product = _productRepository.GetProductViewModelById(product.Id),
+                            Price = product.Price.GetValueOrDefault(),
+                            Quantity = quantity.Value
+                        });
+                    }
+                    //hasChanged = true;
+                    returnMessage.SetSuccessMessage("Sản phẩm đã được thêm thành công.");
+                    HttpContext.Session.Set("AddProducts", session);
+                    return Json(returnMessage);
                 }
 
                 //Update back to cart
-                if (hasChanged)
-                {
-                    HttpContext.Session.Set("AddProducts", session);
-                }
+                //if (hasChanged)
+                //{
+                //    HttpContext.Session.Set("AddProducts", session);
+                //}
             }
             else
             {
                 //Add new cart
                 if (quantity != null)
                 {
-                    if (product != null)
                     {
                         var cart = new List<CartProductViewModel>
                         {
@@ -180,8 +215,34 @@ namespace Web.Controllers
                             }
                         };
                         HttpContext.Session.Set("AddProducts", cart);
+                        returnMessage.SetSuccessMessage("Sản phẩm đã được thêm thành công.");
+                        return Json(returnMessage);
                     }
                 }
+                else
+                {
+                    returnMessage.setMessageFirst("Kiểm tra số lượng");
+                    return Json(returnMessage);
+                }
+            }
+            return Json(returnMessage);
+        }
+        public IActionResult RemoveFromCart(string productId)
+        {
+            var cartId = GetCart(_services);
+            var session = HttpContext.Session.Get<List<CartProductViewModel>>("AddProducts");
+            if (session == null) return new EmptyResult();
+            var hasChanged = false;
+            foreach (var item in session.Where(item => item.Id == productId))
+            {
+                session.Remove(item);
+                _shoppingCart.RemoveFromCartSession(_productRepository.All.FirstOrDefault(d => d.Id == item.Id), cartId);
+                hasChanged = true;
+                break;
+            }
+            if (hasChanged)
+            {
+                HttpContext.Session.Set("AddProducts", session);
             }
             return new OkObjectResult(productId);
         }
@@ -208,6 +269,11 @@ namespace Web.Controllers
             try
             {
                 _shoppingCart.RemoveFromCart(_productRepository.All.FirstOrDefault(d => d.Id == id), GetCart(_services));
+                var session = HttpContext.Session.Get<List<CartProductViewModel>>("AddProducts");
+                var cartProduct = session.FirstOrDefault(model => model.Id == id);
+                if (cartProduct != null) 
+                    cartProduct.Quantity--;
+                HttpContext.Session.Set("AddProducts", session);
                 return true;
             }
             catch (Exception)
@@ -221,6 +287,11 @@ namespace Web.Controllers
             try
             {
                 _shoppingCart.UpdateQuantityInCart(id, Convert.ToInt32(quantity),GetCart(_services));
+                var session = HttpContext.Session.Get<List<CartProductViewModel>>("AddProducts");
+                var cartProduct = session.FirstOrDefault(model => model.Id == id);
+                if (cartProduct != null)
+                    cartProduct.Quantity = Convert.ToInt32(quantity);
+                HttpContext.Session.Set("AddProducts", session);
                 return true;
             }
             catch (Exception)

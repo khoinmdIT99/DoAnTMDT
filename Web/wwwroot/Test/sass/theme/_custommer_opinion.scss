@@ -1,0 +1,128 @@
+.customer-opinion{
+	background: url(../image/catalog/demo/slider/home1/customer-bg.png) no-repeat center;
+	background-attachment: fixed;
+	.item{
+		padding: 120px 120px 120px 110px;
+		.customer-avatar{
+			display: inline-block;
+			float: left;
+			img{
+				width: 125px;
+				height: 125px;
+				object-fit: contain;
+				border: 2px solid #dddddd;
+			}
+		}
+		.opinion{
+			background: url(../image/catalog/demo/slider/home1/customer-bg2.png) no-repeat left 35px top 30px;
+			padding-left: 65px;
+			margin-left: 125px;
+			background-color: #000;
+			padding-top: 30px;
+			padding-bottom: 17px;
+			position: relative;
+			&:before{
+				border-style: solid;
+				border-width: 9px;
+				content: "";
+				display: block;
+				border-color: transparent #000 transparent transparent;
+				position: absolute;
+				z-index: 1;
+				left: -18px;
+			}
+			.opinion-detail{
+				color: #cccccc;
+				line-height: 22px;
+				margin: 0 0 10px 0;
+			}
+			.customer-name{
+				color: #fff;
+				margin: 0;
+				span{
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+	.customer-opinion-slider{
+		.owl2-controls{
+			.owl2-nav{
+				div{
+					display: inline-block;
+					width: 35px;
+					height: 35px;
+					text-align: center;
+					line-height: 35px;
+					color: #aeaeae;
+					position: absolute;
+					top: calc(50% - 35px / 2);
+					transition: all .2s ease-in-out;
+					z-index: 999;
+					background-color: rgba(0, 0, 0, 0.3803921568627451);
+					&:hover{
+						background-color: $vang;
+						color: #fff;
+					}
+					&.owl2-prev{
+						left: 15px;
+					}
+					&.owl2-next{
+						right: 15px;
+					}
+				}
+			}
+		}
+	}
+}
+//CUSTOMER OPINION
+@include breakpoint(md){
+	.customer-opinion{
+		background-size: cover;
+		background-attachment: unset;
+		.item .opinion{
+			padding-top: 15px;
+			padding-bottom: 9.5px;
+		}
+	}
+}
+
+@include breakpoint(sm){
+	.customer-opinion{
+		background-size: cover;
+		background-attachment: unset;
+		.item{
+			padding: 40px 60px;
+		}
+		.item .opinion{
+			padding-top: 15px;
+			padding-bottom: 9.5px;
+		}
+	}
+}
+
+@include breakpoint(xs){
+	.customer-opinion{
+		background-size: cover;
+		background-attachment: unset;
+		.item{
+			padding: 30px 55px 30px 55px;
+			.customer-avatar{
+				display: block;
+				float: none;
+			}
+			.opinion{
+				margin-left: 0;
+				padding: 15px 20px;
+				background-size: 12px;
+				background-position-x: 5px;
+				background-position-y: 15px;
+				&:before{
+					left: calc(50% - 9px);
+					transform: rotate(90deg);
+					top: -18px;
+				}
+			}
+		}
+	}
+}

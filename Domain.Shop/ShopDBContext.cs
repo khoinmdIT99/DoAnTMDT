@@ -5,6 +5,7 @@ using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Domain.Shop;
+using Domain.Shop.Entities.SystemManage;
 
 
 namespace Shop.Application
@@ -34,6 +35,11 @@ namespace Shop.Application
         public DbSet<ShippingAddress> ShippingAddress { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<District> Districts { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<ImportBill> ImportBills { get; set; }
+        public DbSet<ImportBillDetail> ImportBillDetails { get; set; }
+        public DbSet<ForgetPassword> ForgetPasswords { get; set; }
+        public DbSet<SystemInformation> SystemInformations { get; set; }
 
         public static void ConfigureServices(IServiceCollection services)
 		{
@@ -57,11 +63,60 @@ namespace Shop.Application
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
             services.AddScoped<IProductReViewRepository, ProductReViewRepository>();
             services.AddScoped<ISliderRepository, SliderRepository>();
+            services.AddScoped<ICustomerRepository,CustomerRepository>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<ISystemInformationRepository, SystemInformationRepository>();
+            services.AddScoped<IForgetPasswordRepository, ForgetPasswordRepository>();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Seed();
+            modelBuilder.Entity<ProductType>()
+                .HasMany(c => c.Products)
+                .WithOne(c => c.ProductType).IsRequired()
+                .HasForeignKey(c => c.ProductTypeId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Material>()
+                .HasMany(c => c.Products)
+                .WithOne(c => c.Material).IsRequired()
+                .HasForeignKey(c => c.MaterialId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Products)
+                .WithOne(c => c.Category).IsRequired()
+                .HasForeignKey(c => c.CategoryId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.ProductImages).WithOne(e => e.Product).HasForeignKey(e => e.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Product>().HasMany(x => x.ProductTags).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
+
+            // Cart
+            modelBuilder.Entity<Cart>()
+                .HasMany(p => p.Products)
+                .WithOne(p => p.Cart)
+                .OnDelete(DeleteBehavior.Cascade);
+            // CartProduct
+            modelBuilder.Entity<CartProduct>()
+                .HasKey(cp => new { cp.CartId, cp.ProductId });
+            modelBuilder.Entity<CartProduct>()
+                .HasOne(cp => cp.Cart)
+                .WithMany(c => c.Products)
+                .HasForeignKey(cp => cp.CartId)
+                .IsRequired();
+            modelBuilder.Entity<CartProduct>()
+                .HasOne(cp => cp.Product)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(cp => cp.ProductId)
+                .IsRequired();
+            // Category
+            modelBuilder.Entity<Category>()
+                .Property(a => a.CategoryName)
+                .IsRequired();
+            // ProductType
+            modelBuilder.Entity<ProductType>()
+                .Property(a => a.TypeName)
+                .IsRequired();
+            modelBuilder.Entity<ImportBillDetail>().HasKey(ba => new { ba.ImportBillId, ba.ProductId });
         }
     }
 

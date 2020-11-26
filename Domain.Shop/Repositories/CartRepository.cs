@@ -16,7 +16,14 @@ namespace Domain.Shop.Repositories
         {
            
         }
-
+        public void RemoveFromCart()
+        {
+            foreach (var i in All.ToList().Where(s => s.Total == 0))
+            {
+                this.Remove(i);
+            }
+            this.Save();
+        }
         public CartViewModel GetCartViewModel(string id)
         {
            return this.All.Where(c => c.Id == id).Select(c => new CartViewModel()

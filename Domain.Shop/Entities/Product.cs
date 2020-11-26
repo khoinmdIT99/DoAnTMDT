@@ -29,7 +29,7 @@ namespace Domain.Shop.Entities
 		[Column("DESCRIPTION")]
 		public string Description { get; set; }
         public int BasketCount { get; set; }
-		public IEnumerable<ProductTag> ProductTags { get; set; }
+        public IEnumerable<ProductTag> ProductTags { get; set; }
 		public string ProductTypeId { get; set; }
 		public virtual ProductType ProductType { get; set; }
 		public string MaterialId { get; set; }
@@ -42,5 +42,6 @@ namespace Domain.Shop.Entities
 		[Column("PRICE")]
 		public long? Price { get; set; }
 		public virtual ICollection<ProductReview> ProductReviews { get; set; }
+        public List<CartProduct> Carts { get; set; }
 	}
 }

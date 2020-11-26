@@ -28,6 +28,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @if(Model == null)
+                        {
+                            <tr>
+                                <td style="text-align: center" colspan="3">No item found</td>
+                            </tr>
+                        }
+                        else
+                        {
                             @foreach (var item in Model)
                             {
 
@@ -36,7 +44,7 @@
                                     <td>@Html.DisplayFor(modelItem => item.Slug)</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a role="button" class="btn btn-info" href="@Url.ActionLink("Update", "Blog", new { id = item.Id })">
+                                            <a role="button" class="btn btn-info" href="@Url.ActionLink("Update", "Blog", new {id = item.Id})">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a role="button" class="btn btn-danger" href="#" onclick="Delete('@item.Id')">
@@ -46,6 +54,8 @@
                                     </td>
                                 </tr>
                             }
+                        }
+                        
                         </tbody>
                     </table>
                     <!-- /.row -->

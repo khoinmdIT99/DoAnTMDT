@@ -1,0 +1,115 @@
+// INFOMATION SHIPPING
+.infomation{
+	.infomation-container{
+		margin-top: -70px;
+		z-index: 3;
+		position: relative;
+	}
+	.infomation-bg{
+		background-color: #49ccf3;
+		.box:nth-child(2){
+			.infomation-box{
+				background-color: #13b5e6;
+				position: relative;
+				&:before{
+					content: '';
+					border-right: 30px solid #13b5e6;
+					border-top: 70px solid transparent;
+					border-bottom: 70px solid transparent;
+					position: absolute;
+					left: -30px;
+					top: 0;
+				}
+				&:after{
+					content: '';
+					border-left: 40px solid #13b5e6;
+					border-top: 70px solid transparent;
+					border-bottom: 70px solid transparent;
+					position: absolute;
+					right: -40px;
+					top: 0;
+				}
+			}
+		}
+		.infomation-box{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #fff;
+			padding: 22px 0;
+			.infomation-image{
+				img{
+					width: 95px;
+					height: 95px;
+					object-fit: contain;
+				}
+			}
+			.infomation-desc{
+				margin-left: 10px;
+				line-height: 18px;
+				.infomation-title{
+					font-size: 16px;
+					font-weight: 700;
+					margin: 0;
+					text-transform: uppercase;
+				}
+				.infomation-detail{
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
+// INFOMATION SHIPPING
+
+@include breakpoint(sm){
+	.infomation{
+		.infomation-bg{
+			.box:nth-child(2){
+				background-color: #13b5e6;
+				.infomation-box{
+					&:before{
+						content: none;
+					}
+					&:after{
+						content: none;
+					}
+				}
+			}
+			.infomation-box{
+				display: block;
+				text-align: center;
+				.infomation-image{
+				}
+				.infomation-desc{
+					margin: 10px 0 0 0;
+				}
+			}
+		}
+	}
+}
+
+@include breakpoint(xs){
+	.infomation{
+		.infomation-bg{
+			.box:nth-child(2){
+				.infomation-box{
+					&:before, &:after{
+						content: none;
+					}
+				}
+			}
+			.infomation-box{
+				justify-content: flex-start;
+				padding: 10px 20px;
+				justify-content: flex-start;
+			}
+		}
+	}
+}
+
+@media (max-width: 991px){
+	.infomation .infomation-bg .infomation-box .infomation-desc .infomation-title{
+		font-size: 14px;
+	}
+}

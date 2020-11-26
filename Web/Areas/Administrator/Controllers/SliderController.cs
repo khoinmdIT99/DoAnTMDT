@@ -11,6 +11,7 @@ using Domain.Shop.Entities;
 using Domain.Shop.IRepositories;
 using Infrastructure.Common;
 using Infrastructure.Web;
+using Infrastructure.Web.HelperTool;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -106,7 +107,7 @@ namespace Web.Areas.Administrator.Controllers
                         var data = await _iSliderRepository.All.FirstOrDefaultAsync(p => p.Id == slider.Id);
                         if (uniqueFileName != null)
                         {
-                            slider.PhotoName = "images_slider   /" + uniqueFileName;
+                            slider.PhotoName = "images_slider/" + uniqueFileName;
                         }
                         if (uniqueFileName == null)
                         {

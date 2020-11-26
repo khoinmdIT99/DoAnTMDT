@@ -1,0 +1,263 @@
+ @include breakpoint(md){
+
+ 	// INDEX1
+ 	header.typeheader-1{
+ 		.header-center{
+ 			.logo{
+ 				width: 100%;
+ 				display: block;
+ 				padding: 10px 0 20px 0;
+ 				text-align: center;
+ 			}
+ 			.search-form{
+ 				width: 50%;
+ 				padding: 0 0 20px 0;
+ 			}
+ 			.shipping{
+ 				width: 25%;
+ 				padding: 0;
+ 				&:before{
+ 					left: 0;
+ 				}
+ 			}
+ 			.cart{
+ 				width: 25%;
+ 				padding: 0 0 20px 30px;
+ 				.cart-box{
+ 					padding: 0px 15px 10px 15px;
+ 					.quantity{
+ 						display: inline-block;
+ 						margin-left: 5px;
+ 					}
+ 					.cart-title{
+ 						display: none;
+ 					}
+ 				}
+ 			}
+ 		}
+ 		.header-bottom {
+ 			.header-bottom-left{
+ 				width: 100%;
+ 			}
+ 			.header-bottom-right{
+ 				display: none;
+ 			}
+ 		}
+ 		.cart{
+ 			.shopping-cart{
+ 				top: calc(100% + 5px);
+ 			}
+ 			&.open .shopping-cart{
+ 				top: calc(100% - 20px);
+ 			}
+ 		}
+ 	}
+
+ 	.layout-1{
+ 		.deals-days{
+ 			height: auto;
+ 			padding-bottom: 3rem;
+ 		}
+ 		.featured-products{
+ 			padding-top: 3rem;
+ 		}
+
+ 		.categories{
+ 			.col-center{
+ 				.hot-category{
+ 					padding: 29px 30px 29px 30px;
+ 				}
+ 			}
+ 		}
+
+
+ 		.banner{
+ 			margin-top: 30px;
+ 		}
+ 	}
+ 	// INDEX1
+
+ 	header.typeheader-2 .block-header {
+ 		.header-center .header-top{
+ 			.header-user > ul > li{
+ 				margin-right: 10px;
+ 			}
+ 			.header-language > ul li.search-form-box .search-form-header{
+ 				input{
+ 					padding: 0 26px 0 18px;
+ 				}
+ 				button{
+ 					padding: 0;
+ 					right: 5px;
+ 				}
+ 			}
+ 		}
+ 		.megamenu-style-dev ul.megamenu > li{
+ 			&.menu-home a{
+ 				max-height: 85.56px;
+ 			}
+ 			> a{
+ 				padding: 13px 8px 11px 7px;
+ 				b.caret{
+ 					display: none;
+ 				}
+ 			}
+ 			&.menu-dinning , &.menu-bedroom, &.menu-blog{
+ 				.sub-menu {
+ 					left: -15%;
+ 					width: 130%;
+ 				}
+ 			}
+ 		}
+ 	}
+ 	.layout-2{
+ 		.latest-news {
+ 			.latest-news-right .news-right-item .news-right-info{
+ 				height: 153px;
+ 			}
+ 			.news-bottom-info{
+ 				height: 136px;
+ 			}
+ 		}
+ 	}
+
+ 	header.typeheader-3{
+ 		.header-top{
+ 			.header-top-left{
+ 				width: 100%;
+ 			}
+ 			.header-top-right{
+ 				display: none;
+ 			}
+ 		}
+ 	}
+
+ 	header.typeheader-4 .header-center{
+ 		ul.megamenu{
+ 			> li:not(:last-child){
+ 				margin-right: 2.1rem;
+ 			}
+ 			>li > a .menu-label{
+ 				right: -15px;
+ 			}
+ 		}
+ 	}
+
+ 	.layout-4{
+ 		.deals-days{
+ 			.deals-left .deals-left-desc{
+ 				padding:30px 20px 66px 20px;
+ 			}
+ 			.deals-right.popular-product .deals-title{
+ 				font-size: 2rem;
+ 			}
+ 		}
+ 		.home-slider-box .popular-product{
+ 			.deals-title{
+ 				padding: 7px;
+ 				text-align: center;
+ 			}
+ 			.deals-right-desc{ 
+ 				padding-bottom: 0;
+ 				.deals-box{
+ 					padding: 10px 10px;
+ 				}
+ 			}
+ 		}
+ 		.category-tab{ 
+ 			.category-title{
+ 				padding: 23px 10px 22px 10px;
+ 			}
+ 			.so-listing-tabs{
+ 				.ltabs-tabs-wrap{
+ 					width: 22%;
+ 					ul.ltabs-tabs{
+ 						height: 426px;
+ 					}
+ 				}
+ 				.ltabs-items-container{
+ 					width: 78%;
+ 				}
+ 			}
+ 		}
+ 	}
+
+ 	header.typeheader-5{
+ 		.header-bottom{
+ 			.header-bottom-left{
+ 				width: 79%;
+ 				ul.megamenu > li > a{
+ 					padding: 5px 20px 5px 20px;
+ 				}
+ 			}
+ 			.header-bottom-right{
+ 				width: 21%;
+ 			}
+ 		}
+ 	}
+
+
+ 	.layout-5{
+ 		.category-tab{ 
+ 			.so-listing-tabs{ 
+ 				.ltabs-tabs-wrap{
+ 					width: 18.1%;
+ 					ul.ltabs-tabs{
+ 						height: 406.5px;
+ 						.ltabs-tab{
+ 							margin: 0 .9rem;
+ 							&.tab-sel span{
+ 								padding: 0 10px 0 13px;
+ 							}
+ 							&:last-child{
+ 								border-bottom: unset;
+ 							}
+ 						}
+ 					}
+ 				}
+ 				.ltabs-items-container{
+ 					width: 67.4%;
+ 				}
+ 			}
+ 			.category-hot-product .hot-product-box{
+ 				padding: 10px;
+ 				.box{
+ 					margin-left: 102px;
+ 				}
+ 			}
+ 			.category-tab-banner img{
+ 				height: 488px;
+ 			}
+ 		}
+
+ 		.brands{
+ 			.brand-left{
+ 				.brand-title{
+ 					padding: 55px 0 55.5px 0;
+ 				}
+ 			}
+ 		}
+ 	}
+
+
+
+ 	//PRODUCT LIST
+ 	.product-list .aside-filter .filter-box {
+ 		button[type='submit']{
+ 			width: 100%;
+ 			margin-top: 1rem;
+ 		}
+ 		.price-wrap-1{
+ 			width: calc(50% - 5px);
+ 			margin-right: 5px;
+ 			display: inline-block;	
+ 		}
+ 		.price-wrap-2{
+ 			width: calc(50% - 5px);
+ 			margin-left: 5px;
+ 			display: inline-block;
+ 			margin-right: 0;	
+ 		}
+ 	}
+
+ }
