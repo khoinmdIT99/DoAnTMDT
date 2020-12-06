@@ -118,13 +118,15 @@ namespace Web.Controllers
                         Id = Guid.NewGuid().ToString(),
                         Email = userName,
                         FullName = middlename + lastname + firstname,
-                        CreateAt = DateTime.Now
+                        CreateAt = DateTime.Now,
+                        Password = StringHelper.stringToSHA512("1")
                     };
-
+                    _accountRepository.Add(customer);
+                    await _accountRepository.SaveAsync();
                     HttpContext.Session.SetString(SessionName, customer.Email);
                     HttpContext.Session.SetString(SessionId, customer.Id);
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index3", "Home");
             }
             else
             {
@@ -180,7 +182,7 @@ namespace Web.Controllers
                         }
                         else
                         {
-                            message = loginUser.Password.ToLower()+"----" +passwordHashed;
+                            message = "Mật khẩu bị sai";
                         }
                     }
                     else
@@ -191,7 +193,7 @@ namespace Web.Controllers
             }
             catch
             {
-                // ignored
+                message = "Hệ thống đang gặp lỗi";
             }
             return new JsonResult(message);
         }
@@ -243,12 +245,12 @@ namespace Web.Controllers
             HttpContext.Session.Clear();
             return new JsonResult("Đăng xuất thành công");
         }
-        [Route("Check")]
-        public async Task<IActionResult> Check()
-        {
-            var a = Base64Hepler.Base64Encode("475wefun");
-            return Content(a);
-        }
+        //[Route("Check")]
+        //public async Task<IActionResult> Check()
+        //{
+        //    var a = Base64Hepler.Base64Encode("475wefun");
+        //    return Content(a);
+        //}
         [Route("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword(string email)
         {

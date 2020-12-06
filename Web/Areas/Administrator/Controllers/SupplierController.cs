@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Web.Areas.Administrator.Controllers
 {
     [Area("Administrator")]
@@ -36,7 +37,7 @@ namespace Web.Areas.Administrator.Controllers
 
         public IActionResult CreateSupplier(int id)
         {
-            var cl = id == 0 ? new Supplier() : _iSupplierRepository.All.FirstOrDefault(x =>x.Id == id);
+            var cl = id == 0 ? new Supplier() : _iSupplierRepository.All.FirstOrDefault(x =>x.IdSupplier == id);
             if (HttpContext.Session.GetString("ICN") == null)
             {
                 var productCode = ProductCode.GenerateRandomNo().ToString();
@@ -54,7 +55,7 @@ namespace Web.Areas.Administrator.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (supplier.Id == 0)
+                    if (supplier.IdSupplier == 0)
                     {
                         _iSupplierRepository.Add(supplier);
                         _iSupplierRepository.Save(RequestContext);
@@ -62,7 +63,7 @@ namespace Web.Areas.Administrator.Controllers
                     }
                     else
                     {
-                        var data = _iSupplierRepository.All.AsNoTracking().ToList().FirstOrDefault(p => p.Id == supplier.Id);
+                        var data = _iSupplierRepository.All.AsNoTracking().ToList().FirstOrDefault(p => p.IdSupplier == supplier.IdSupplier);
                         PropertyCopy.Copy(supplier, data);
                         _iSupplierRepository.Update(supplier);
                         _iSupplierRepository.Save(RequestContext);
@@ -102,7 +103,7 @@ namespace Web.Areas.Administrator.Controllers
 
         public async Task<Supplier> GetSupplierById(int id)
         {
-            return await _iSupplierRepository.All.FirstOrDefaultAsync(p => p.Id == id);
+            return await _iSupplierRepository.All.FirstOrDefaultAsync(p => p.IdSupplier == id);
         }
 
         public async Task<JsonResult> GetSuppliers()

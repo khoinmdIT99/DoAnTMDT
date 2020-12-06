@@ -93,7 +93,7 @@ namespace Web.Areas.Administrator.Controllers
 			{
 				try
 				{
-					Role d = _roleRepository.All.First(s => s.Id == role.Id);
+					Role d = _roleRepository.All.First(s => s.Id == role.id);
 					d.RoleCode = role.RoleCode;
 					d.RoleName = role.RoleName;
 					_roleRepository.Save(RequestContext);

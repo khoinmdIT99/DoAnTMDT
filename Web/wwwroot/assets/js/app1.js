@@ -54,7 +54,7 @@ $(document).ready(function () {
             ],
             "order": [[0, 'desc']],
             "columns": [
-                { "data": "id" },
+                { "data": 'idSupplier' },
                 { "data": "name" },
                 { "data": "icn" },
                 { "data": "phone" },
@@ -70,7 +70,7 @@ $(document).ready(function () {
                     }
                 },
                 {
-                    "data": "id", "render": function (data) {
+                    "data": "idsupplier", "render": function (data) {
                         data = "'" + data + "'";
                         return '<div class="actions-buttons"><a onclick="openInPopUpEdit1(' +
                             data +

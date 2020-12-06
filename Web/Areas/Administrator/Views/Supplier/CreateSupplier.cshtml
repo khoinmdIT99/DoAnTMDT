@@ -8,13 +8,13 @@
     <div class="card-header">
         <div class="row">
             <div class="col-md-7">
-                @if (Model.Id == 0)
+                @if (Model.IdSupplier == 0)
                 {
                     <h4>New supplier</h4>
                 }
                 else
                 {
-            <h4>Edit Supplier</h4>
+                    <h4>Edit Supplier</h4>
                 }
             </div>
             <div class="col-md-5">
@@ -24,7 +24,7 @@
     </div>
     <hr />
     <div class="card-body">
-        @if (Model.Id != 0)
+        @if (Model.IdSupplier != 0)
         {
             <div class="row">
                 <div class="col-md-12">
@@ -46,8 +46,8 @@
         }
         <div class="row">
             <div class="col-md-12">
-                <form id="MyForm1" onsubmit="return JqueryAjaxPost1(this);" asp-controller="Supplier" asp-action="CreateSupplier" asp-route-id="@Model.Id" autocomplete="off">
-                    <input asp-for="Id" class="form-control" value="@Model.Id" hidden/>
+                <form id="MyForm1" onsubmit="return JqueryAjaxPost1(this);" asp-controller="Supplier" asp-action="CreateSupplier" asp-route-id="@Model.IdSupplier" autocomplete="off">
+                    <input asp-for="IdSupplier" class="form-control" value="@Model.IdSupplier" hidden/>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <div class="input-group">

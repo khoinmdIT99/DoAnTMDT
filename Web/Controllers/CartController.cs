@@ -122,6 +122,7 @@ namespace Web.Controllers
                 {
                     Id = cartId,
                     cartProducts = cartProductViewModels,
+                    TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId),
                     Total = _shoppingCart.GetShoppingCartTotal(cartId)
                 };
 
@@ -183,7 +184,7 @@ namespace Web.Controllers
                         {
                             Id = product.Id,
                             Product = _productRepository.GetProductViewModelById(product.Id),
-                            Price = product.Price.GetValueOrDefault(),
+                            Price = product.Price,
                             Quantity = quantity.Value
                         });
                     }
@@ -209,8 +210,9 @@ namespace Web.Controllers
                         {
                             new CartProductViewModel()
                             {
-                                Id = product.Id,Product = _productRepository.GetProductViewModelById(product.Id),
-                                Price = product.Price.GetValueOrDefault(),
+                                Id = product.Id,
+                                Product = _productRepository.GetProductViewModelById(product.Id),
+                                Price = product.Price,
                                 Quantity = quantity.Value
                             }
                         };

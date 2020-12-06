@@ -39,6 +39,7 @@ namespace Domain.Shop.Repositories
                     Id = Guid.NewGuid().ToString(),
                     Product = product,
                     Quantity = quantity,
+                    Price = product.Price,
                     CartId = cartId
                 };
 
@@ -145,7 +146,13 @@ namespace Domain.Shop.Repositories
             this.Save();
         }
 
-        public long GetShoppingCartTotal(string cartId)
+        public int GetShoppingCartTotal(string cartId)
+        {
+            var total = this.All.Where(c => c.CartId == cartId && c.Bought == false)
+                .Select(c => c.Quantity).Sum();
+            return total;
+        }
+        public long GetShoppingCartTotalPrice(string cartId)
         {
             var total = this.All.Where(c => c.CartId == cartId && c.Bought == false)
                 .Select(c => c.Product.Price * c.Quantity).Sum();

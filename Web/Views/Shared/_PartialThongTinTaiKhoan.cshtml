@@ -1,0 +1,126 @@
+﻿@using Domain.Shop.Entities
+@model Domain.Shop.Dto.Order.OrderViewModel
+@{
+    IEnumerable<Province> lstp = ViewBag.province as IEnumerable<Province>;
+    IEnumerable<District> lstd = ViewBag.district as IEnumerable<District>;
+}
+    <form asp-action="AddCart" asp-controller="Order" asp-area="" method="post">
+        <fieldset id="personal-details">
+            <legend>Thông tin chi tiết</legend>
+            <input type="hidden" name="CustomerId" asp-for="CustomerId" />
+            <div class="form-group required">
+                <label asp-for="FullName" class="control-label"></label>
+                <input type="text" class="form-control" name="FullName" asp-for="FullName">
+                <div asp-validation-summary="All"></div>
+            </div>
+            <div class="form-group required">
+                <label asp-for="Address" class="control-label"></label>
+                <input type="text" class="form-control" name="Address" asp-for="Address">
+                <div asp-validation-summary="All"></div>
+            </div>
+            <div class="form-group required">
+                <label asp-for="Province" class="control-label"></label>
+                <select class="province form-control" asp-for="Province"  asp-items="ViewBag.province"></select>
+                <div asp-validation-summary="All"></div>
+            </div>
+            <div class="form-group required">
+                <label asp-for="District" class="control-label"></label>
+                <select class="district form-control" asp-for="District"  asp-items="ViewBag.district"></select>
+                <div asp-validation-summary="All"></div>
+            </div>
+            <div class="form-group required">
+                <label asp-for="PhoneNo" class="control-label"></label>
+                <input type="tel" class="form-control" name="PhoneNo" asp-for="PhoneNo">
+                <div asp-validation-summary="All"></div>
+            </div>
+            <div class="form-group required">
+                <label asp-for="Email" class="control-label"></label>
+                <input type="email" class="form-control" name="Email" asp-for="Email">
+                <div asp-validation-summary="All"></div>
+            </div>
+        </fieldset>
+        <br>
+        <div class="form-group required">
+            <h2>
+                <label class="control-label">HÌNH THỨC THANH TOÁN</label>
+            </h2>
+            @Html.DropDownList("PaymentMethod", new SelectList(ViewBag.PayTypes, "ItemValue", "ItemText"), new { @class = "form-control" })
+        </div>
+        <div class="form-group required">
+            <h2>
+                <label class="control-label">HÌNH THỨC GIAO HÀNG</label>
+            </h2>
+            @Html.DropDownList("ShippingMethod", new SelectList(ViewBag.ShipTypes, "ItemValue", "ItemText"), new { @class = "form-control" })
+        </div>
+        <div class="form-group required">
+            <h2>
+                <label class="control-label">Lời nhắn</label>
+            </h2>
+            <textarea class="form-control" asp-for="Comment" required="" spellcheck="false"></textarea>
+        </div>
+        <br>
+        <div class="buttons clearfix">
+            <div class="pull-right">
+                <a id="btnCapNhat" href="javascript:void(0)" class="btn btn-md btn-primary" style="margin-bottom: 23px;">Cập nhật thông tin</a>
+                @if (Model.ShoppingCart.cartProducts.Count > 0)
+                {
+                    <input type="submit" class="btn btn-md btn-primary" value="Thanh Toán" style="margin-bottom: 23px;">}
+            </div>
+        </div>
+    </form>
+<script>
+        $(document).ready(function () {
+            function refeshThongTinTaiKhoan() {
+                $("#TabThongTinTaiKhoan").html('Loading ...');
+                $.ajax({
+                    url: '/Order/TabThongTinTaiKhoan/',
+                    type: 'POST'
+                }).done(function (ketqua) {
+                    setTimeout(function () {
+                        $("#TabThongTinTaiKhoan").html(ketqua);
+                    }, 500);
+                });
+            }
+            $("#btnCapNhat").click(function (e) {
+                e.preventDefault();
+                var customerId = $("[name='CustomerId']").val();
+                var fullName = $("[name='FullName']").val();
+                var address = $("[name='Address']").val();
+                var district = "";
+                $.each($(".district option:selected"), function () {
+                    district = $(this).val();
+                });
+                var province = "";
+                $.each($(".province option:selected"), function () {
+                    province = $(this).val();
+                });
+                var email = $("[name='Email']").val();
+                var phoneNo = $("[name='PhoneNo']").val();
+                //alert(customerId + fullName + address + district + province + email);
+                var newData = {
+                    "Id": customerId,
+                    "FullName": fullName,
+                    "Address": address,
+                    "District": district,
+                    "Province": province,
+                    "Email": email,
+                    "PhoneNo": phoneNo
+                }
+                $.ajax({
+                    url: '/api/Order/CapNhatNguoiDung/',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(newData),
+                    success: function (data, status) {
+                        alert(data);
+                        refeshThongTinTaiKhoan();
+                    },
+                    error: function (html, status, error) {
+                        console.log('the request is ' + error);
+                    }
+                });
+            });
+        });
+
+
+</script>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DatabaseTools.Migrations.ShopDB
 {
-    public partial class newversion11262020 : Migration
+    public partial class init11302020 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,8 +55,8 @@ namespace DatabaseTools.Migrations.ShopDB
                     LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
                     CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
                     LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    FULL_NAME = table.Column<string>(maxLength: 200, nullable: true),
-                    PASSWORD = table.Column<string>(maxLength: 255, nullable: true),
+                    FULL_NAME = table.Column<string>(maxLength: 50, nullable: false),
+                    PASSWORD = table.Column<string>(nullable: false),
                     Salt = table.Column<string>(nullable: true),
                     EMAIL = table.Column<string>(maxLength: 255, nullable: true),
                     PHONE_NO = table.Column<string>(maxLength: 20, nullable: true),
@@ -74,50 +74,17 @@ namespace DatabaseTools.Migrations.ShopDB
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    AccountId = table.Column<long>(nullable: false),
+                    AccountId = table.Column<string>(nullable: true),
                     RequestTime = table.Column<DateTime>(nullable: false),
                     ActiveCode = table.Column<string>(maxLength: 32, nullable: true),
-                    TemporaryPassword = table.Column<string>(maxLength: 32, nullable: true),
-                    Status = table.Column<byte>(type: "tinyint", nullable: false),
+                    TemporaryPassword = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
                     ActiveTime = table.Column<DateTime>(nullable: true),
                     RequestIp = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ForgetPassword", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImportBillDetails",
-                columns: table => new
-                {
-                    ImportBillId = table.Column<string>(nullable: false),
-                    ProductId = table.Column<string>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
-                    Amount = table.Column<int>(nullable: false),
-                    SupplierId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImportBillDetails", x => new { x.ImportBillId, x.ProductId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImportBills",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
-                    SupplierID = table.Column<int>(nullable: false),
-                    StaffId = table.Column<string>(nullable: true),
-                    TotalValue = table.Column<int>(nullable: false),
-                    DiscountValue = table.Column<int>(nullable: false),
-                    Payment = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImportBills", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,7 +179,7 @@ namespace DatabaseTools.Migrations.ShopDB
                 name: "Suppliers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    IdSupplier = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
                     Icn = table.Column<string>(type: "varchar(10)", nullable: true),
@@ -223,7 +190,7 @@ namespace DatabaseTools.Migrations.ShopDB
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Suppliers", x => x.Id);
+                    table.PrimaryKey("PK_Suppliers", x => x.IdSupplier);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,49 +295,6 @@ namespace DatabaseTools.Migrations.ShopDB
                 });
 
             migrationBuilder.CreateTable(
-                name: "PRODUCTS",
-                columns: table => new
-                {
-                    ID = table.Column<string>(maxLength: 50, nullable: false),
-                    CREATE_AT = table.Column<DateTime>(nullable: true),
-                    LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
-                    CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    SLUG = table.Column<string>(maxLength: 50, nullable: false),
-                    PRODUCT_CODE = table.Column<string>(maxLength: 50, nullable: false),
-                    PRODUCT_NAME = table.Column<string>(maxLength: 255, nullable: false),
-                    DESCRIPTION = table.Column<string>(nullable: true),
-                    BasketCount = table.Column<int>(nullable: false),
-                    ProductTypeId = table.Column<string>(nullable: false),
-                    MaterialId = table.Column<string>(nullable: false),
-                    CategoryId = table.Column<string>(nullable: false),
-                    PRICE_TYPE = table.Column<int>(nullable: true),
-                    PRICE = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PRODUCTS", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_PRODUCTS_CATEGORIES_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "CATEGORIES",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PRODUCTS_MATERIALS_MaterialId",
-                        column: x => x.MaterialId,
-                        principalTable: "MATERIALS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PRODUCTS_PRODUCT_TYPES_ProductTypeId",
-                        column: x => x.ProductTypeId,
-                        principalTable: "PRODUCT_TYPES",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DISTRICT",
                 columns: table => new
                 {
@@ -398,7 +322,7 @@ namespace DatabaseTools.Migrations.ShopDB
                     LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
                     CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
                     LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    CUSTOMER_ID = table.Column<string>(maxLength: 50, nullable: false),
+                    CUSTOMER_ID = table.Column<string>(maxLength: 50, nullable: true),
                     SHIPPING_METHOD = table.Column<int>(nullable: false),
                     PAYMENT_METHOD = table.Column<int>(nullable: false),
                     TOTAL_PRICE = table.Column<long>(nullable: false),
@@ -420,7 +344,7 @@ namespace DatabaseTools.Migrations.ShopDB
                         column: x => x.CUSTOMER_ID,
                         principalTable: "CUSTOMERS",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CARTS_SHIPPING_ADDRESS_SHIPPING_ADDRESS_ID",
                         column: x => x.SHIPPING_ADDRESS_ID,
@@ -453,6 +377,84 @@ namespace DatabaseTools.Migrations.ShopDB
                         principalTable: "SHOP_SETTING",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImportBill",
+                columns: table => new
+                {
+                    IdImport = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Price = table.Column<decimal>(type: "money", nullable: true),
+                    Amount = table.Column<int>(nullable: true),
+                    IdSupplier = table.Column<int>(nullable: true),
+                    SupplierIdSupplier = table.Column<int>(nullable: true),
+                    StaffId = table.Column<string>(nullable: true),
+                    TotalValue = table.Column<decimal>(nullable: false),
+                    DiscountValue = table.Column<int>(nullable: false),
+                    Payment = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImportBill", x => x.IdImport);
+                    table.ForeignKey(
+                        name: "FK_ImportBill_Suppliers_SupplierIdSupplier",
+                        column: x => x.SupplierIdSupplier,
+                        principalTable: "Suppliers",
+                        principalColumn: "IdSupplier",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PRODUCTS",
+                columns: table => new
+                {
+                    ID = table.Column<string>(maxLength: 50, nullable: false),
+                    CREATE_AT = table.Column<DateTime>(nullable: true),
+                    LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
+                    CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
+                    LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
+                    SLUG = table.Column<string>(maxLength: 50, nullable: false),
+                    PRODUCT_CODE = table.Column<string>(maxLength: 50, nullable: false),
+                    PRODUCT_NAME = table.Column<string>(maxLength: 255, nullable: false),
+                    DESCRIPTION = table.Column<string>(nullable: true),
+                    BasketCount = table.Column<int>(nullable: false),
+                    ProductTypeId = table.Column<string>(nullable: false),
+                    MaterialId = table.Column<string>(nullable: false),
+                    CategoryId = table.Column<string>(nullable: false),
+                    IdSupplier = table.Column<int>(nullable: true),
+                    SupplierIdSupplier = table.Column<int>(nullable: true),
+                    PRICE_TYPE = table.Column<int>(nullable: true),
+                    PRICE = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PRODUCTS", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_PRODUCTS_CATEGORIES_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "CATEGORIES",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PRODUCTS_MATERIALS_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "MATERIALS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PRODUCTS_PRODUCT_TYPES_ProductTypeId",
+                        column: x => x.ProductTypeId,
+                        principalTable: "PRODUCT_TYPES",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PRODUCTS_Suppliers_SupplierIdSupplier",
+                        column: x => x.SupplierIdSupplier,
+                        principalTable: "Suppliers",
+                        principalColumn: "IdSupplier",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -507,6 +509,96 @@ namespace DatabaseTools.Migrations.ShopDB
                         principalTable: "CUSTOMER_FEEDBACK",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DiemTichLuy",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CREATE_AT = table.Column<DateTime>(nullable: true),
+                    LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
+                    CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
+                    LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
+                    IdKhachHang = table.Column<int>(nullable: false),
+                    ThoiGian = table.Column<DateTime>(nullable: false),
+                    Diem = table.Column<int>(nullable: false),
+                    IdHoaDon = table.Column<int>(nullable: false),
+                    HoadonId = table.Column<string>(nullable: true),
+                    KhachhangId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiemTichLuy", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DiemTichLuy_CARTS_HoadonId",
+                        column: x => x.HoadonId,
+                        principalTable: "CARTS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DiemTichLuy_CUSTOMERS_KhachhangId",
+                        column: x => x.KhachhangId,
+                        principalTable: "CUSTOMERS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImportBillDetails",
+                columns: table => new
+                {
+                    IdDetailImport = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdImport = table.Column<int>(nullable: true),
+                    IDProduct = table.Column<int>(nullable: true),
+                    Price = table.Column<decimal>(nullable: true),
+                    Amount = table.Column<int>(nullable: true),
+                    ImportBillIdImport = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImportBillDetails", x => x.IdDetailImport);
+                    table.ForeignKey(
+                        name: "FK_ImportBillDetails_ImportBill_ImportBillIdImport",
+                        column: x => x.ImportBillIdImport,
+                        principalTable: "ImportBill",
+                        principalColumn: "IdImport",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CART_PRODUCT",
+                columns: table => new
+                {
+                    CART_ID = table.Column<string>(maxLength: 50, nullable: false),
+                    PRODUCT_ID = table.Column<string>(maxLength: 50, nullable: false),
+                    CREATE_AT = table.Column<DateTime>(nullable: true),
+                    LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
+                    CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
+                    LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
+                    ID = table.Column<string>(maxLength: 50, nullable: true),
+                    PRICE_TYPE = table.Column<int>(nullable: true),
+                    PRICE = table.Column<long>(nullable: true),
+                    QUANTITY = table.Column<int>(nullable: false),
+                    TOTAL = table.Column<long>(nullable: false),
+                    BOUGHT = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CART_PRODUCT", x => new { x.CART_ID, x.PRODUCT_ID });
+                    table.ForeignKey(
+                        name: "FK_CART_PRODUCT_CARTS_CART_ID",
+                        column: x => x.CART_ID,
+                        principalTable: "CARTS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CART_PRODUCT_PRODUCTS_PRODUCT_ID",
+                        column: x => x.PRODUCT_ID,
+                        principalTable: "PRODUCTS",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -595,73 +687,6 @@ namespace DatabaseTools.Migrations.ShopDB
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "CART_PRODUCT",
-                columns: table => new
-                {
-                    CART_ID = table.Column<string>(maxLength: 50, nullable: false),
-                    PRODUCT_ID = table.Column<string>(maxLength: 50, nullable: false),
-                    CREATE_AT = table.Column<DateTime>(nullable: true),
-                    LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
-                    CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    ID = table.Column<string>(maxLength: 50, nullable: true),
-                    PRICE_TYPE = table.Column<int>(nullable: true),
-                    PRICE = table.Column<long>(nullable: true),
-                    QUANTITY = table.Column<int>(nullable: false),
-                    TOTAL = table.Column<long>(nullable: false),
-                    BOUGHT = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CART_PRODUCT", x => new { x.CART_ID, x.PRODUCT_ID });
-                    table.ForeignKey(
-                        name: "FK_CART_PRODUCT_CARTS_CART_ID",
-                        column: x => x.CART_ID,
-                        principalTable: "CARTS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CART_PRODUCT_PRODUCTS_PRODUCT_ID",
-                        column: x => x.PRODUCT_ID,
-                        principalTable: "PRODUCTS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DiemTichLuy",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    CREATE_AT = table.Column<DateTime>(nullable: true),
-                    LAST_UPDATE_AT = table.Column<DateTime>(nullable: true),
-                    CREATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    LAST_UPDATE_BY = table.Column<string>(maxLength: 50, nullable: true),
-                    IdKhachHang = table.Column<int>(nullable: false),
-                    ThoiGian = table.Column<DateTime>(nullable: false),
-                    Diem = table.Column<int>(nullable: false),
-                    IdHoaDon = table.Column<int>(nullable: false),
-                    HoadonId = table.Column<string>(nullable: true),
-                    KhachhangId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DiemTichLuy", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DiemTichLuy_CARTS_HoadonId",
-                        column: x => x.HoadonId,
-                        principalTable: "CARTS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_DiemTichLuy_CUSTOMERS_KhachhangId",
-                        column: x => x.KhachhangId,
-                        principalTable: "CUSTOMERS",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.InsertData(
                 table: "PROVINCE",
                 columns: new[] { "ID", "Name" },
@@ -718,7 +743,8 @@ namespace DatabaseTools.Migrations.ShopDB
                 name: "IX_CARTS_CUSTOMER_ID",
                 table: "CARTS",
                 column: "CUSTOMER_ID",
-                unique: true);
+                unique: true,
+                filter: "[CUSTOMER_ID] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CARTS_SHIPPING_ADDRESS_ID",
@@ -751,6 +777,16 @@ namespace DatabaseTools.Migrations.ShopDB
                 name: "IX_DISTRICT_ProvinceId",
                 table: "DISTRICT",
                 column: "ProvinceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImportBill_SupplierIdSupplier",
+                table: "ImportBill",
+                column: "SupplierIdSupplier");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImportBillDetails_ImportBillIdImport",
+                table: "ImportBillDetails",
+                column: "ImportBillIdImport");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PRODUCT_IMAGE_PRODUCT_ID",
@@ -793,6 +829,11 @@ namespace DatabaseTools.Migrations.ShopDB
                 column: "ProductTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PRODUCTS_SupplierIdSupplier",
+                table: "PRODUCTS",
+                column: "SupplierIdSupplier");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SHOP_ADDRESS_SHOP_SETTING_ID",
                 table: "SHOP_ADDRESS",
                 column: "SHOP_SETTING_ID");
@@ -822,9 +863,6 @@ namespace DatabaseTools.Migrations.ShopDB
                 name: "ImportBillDetails");
 
             migrationBuilder.DropTable(
-                name: "ImportBills");
-
-            migrationBuilder.DropTable(
                 name: "PRODUCT_IMAGE");
 
             migrationBuilder.DropTable(
@@ -840,9 +878,6 @@ namespace DatabaseTools.Migrations.ShopDB
                 name: "Sliders");
 
             migrationBuilder.DropTable(
-                name: "Suppliers");
-
-            migrationBuilder.DropTable(
                 name: "SystemInformation");
 
             migrationBuilder.DropTable(
@@ -856,6 +891,9 @@ namespace DatabaseTools.Migrations.ShopDB
 
             migrationBuilder.DropTable(
                 name: "PROVINCE");
+
+            migrationBuilder.DropTable(
+                name: "ImportBill");
 
             migrationBuilder.DropTable(
                 name: "PRODUCTS");
@@ -883,6 +921,9 @@ namespace DatabaseTools.Migrations.ShopDB
 
             migrationBuilder.DropTable(
                 name: "PRODUCT_TYPES");
+
+            migrationBuilder.DropTable(
+                name: "Suppliers");
         }
     }
 }

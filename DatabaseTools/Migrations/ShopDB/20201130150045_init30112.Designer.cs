@@ -10,8 +10,8 @@ using Shop.Application;
 namespace DatabaseTools.Migrations.ShopDB
 {
     [DbContext(typeof(ShopDBContext))]
-    [Migration("20201126061731_newversion11262020-4")]
-    partial class newversion112620204
+    [Migration("20201130150045_init30112")]
+    partial class init30112
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -714,11 +714,13 @@ namespace DatabaseTools.Migrations.ShopDB
 
             modelBuilder.Entity("Domain.Shop.Entities.ImportBill", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("IdImport")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -726,41 +728,56 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.Property<int>("DiscountValue")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IdSupplier")
+                        .HasColumnType("int");
+
                     b.Property<int>("Payment")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("money");
 
                     b.Property<string>("StaffId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SupplierID")
+                    b.Property<int?>("SupplierIdSupplier")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalValue")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalValue")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdImport");
 
-                    b.ToTable("ImportBills");
+                    b.HasIndex("SupplierIdSupplier");
+
+                    b.ToTable("ImportBill");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.ImportBillDetail", b =>
                 {
-                    b.Property<string>("ImportBillId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("IdDetailImport")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Amount")
+                    b.Property<int?>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
+                    b.Property<int?>("IdImport")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
+                    b.Property<string>("IdProduct")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ImportBillIdImport")
                         .HasColumnType("int");
 
-                    b.HasKey("ImportBillId", "ProductId");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("IdDetailImport");
+
+                    b.HasIndex("ImportBillIdImport");
 
                     b.ToTable("ImportBillDetails");
                 });
@@ -813,6 +830,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("DESCRIPTION")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("IdSupplier")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("LastUpdateAt")
                         .HasColumnName("LAST_UPDATE_AT")
                         .HasColumnType("datetime2");
@@ -856,6 +876,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<int?>("SupplierIdSupplier")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -863,6 +886,8 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.HasIndex("MaterialId");
 
                     b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("SupplierIdSupplier");
 
                     b.ToTable("PRODUCTS");
                 });
@@ -1228,7 +1253,7 @@ namespace DatabaseTools.Migrations.ShopDB
 
             modelBuilder.Entity("Domain.Shop.Entities.Supplier", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdSupplier")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -1252,7 +1277,7 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.Property<string>("Phone")
                         .HasColumnType("varchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdSupplier");
 
                     b.ToTable("Suppliers");
                 });
@@ -1493,6 +1518,20 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasForeignKey("ProvinceId");
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.ImportBill", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Supplier", "Supplier")
+                        .WithMany("ImportBills")
+                        .HasForeignKey("SupplierIdSupplier");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.ImportBillDetail", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.ImportBill", "ImportBill")
+                        .WithMany("DetailImports")
+                        .HasForeignKey("ImportBillIdImport");
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.Product", b =>
                 {
                     b.HasOne("Domain.Shop.Entities.Category", "Category")
@@ -1512,6 +1551,10 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Shop.Entities.Supplier", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierIdSupplier");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.ProductImage", b =>

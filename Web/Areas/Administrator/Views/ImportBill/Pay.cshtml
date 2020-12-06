@@ -1,0 +1,125 @@
+﻿@model Domain.Shop.Entities.ImportBill
+
+@{
+    ViewBag.Title = "title";
+    Layout = null;
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-7">
+                <h4>Thanh toán</h4>
+            </div>
+            <div class="col-md-5">
+                <a asp-action="Index" class="btn btn-light btn-back-to-list"><i class="fa fa-list"></i> Back to List</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card-body">
+        @if (Model.IdImport != 0)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Model.Payment != 0)
+                    {
+                        <div class="payment-div-ok">
+                            <span>Đã thanh toán: @Model.Payment.ToString("N0") VNĐ</span>
+                            <span>Còn nợ: @Model.TienNo.ToString("N0") VNĐ</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="payment-div-nok">
+                            <span>Chưa thanh toán</span>
+                        </div>
+                    }
+
+                </div>
+            </div><br />
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <form id="MyForm2" onsubmit="return JqueryAjaxPost2(this);" asp-controller="ImportBill" asp-action="Pay" asp-route-id="@Model.IdImport" autocomplete="off">
+                    <input asp-for="IdImport" class="form-control" value="@Model.IdImport" hidden />
+                    <input asp-for="StaffId" class="form-control" value="@Model.StaffId" hidden />
+                    <input asp-for="DateCreated" class="form-control" value="@Model.DateCreated" hidden />
+                    <input asp-for="EndDate" class="form-control" value="@Model.EndDate" hidden />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text bg-white">
+                                    <i class="fa fa-at"></i>
+                                </div>
+                            </div>
+                            <input asp-for="IdSupplier" class="form-control" placeholder="Email" value="@Model.IdSupplier" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text bg-white">
+                                    <i class="fa fa-at"></i>
+                                </div>
+                            </div>
+                            <input asp-for="Amount" class="form-control" placeholder="Email" value="@Model.Amount" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text bg-white">
+                                    <i class="fa fa-at"></i>
+                                </div>
+                            </div>
+                            <input asp-for="TotalValue" class="form-control" placeholder="Email" value="@Model.TotalValue" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text bg-white">
+                                    <i class="fa fa-at"></i>
+                                </div>
+                            </div>
+                            <input asp-for="Payment" class="form-control" placeholder="Email" value="@Model.Payment" />
+                        </div>
+                    </div>
+                    <span asp-validation-for="Payment" class="text-danger"></span>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                                <input type="button" value="Reset" onclick="onReset2()" class="btn btn-secondary" />
+                            </div>
+                            @*@if (Model.IdClient != 0)
+                                {
+                                    <div class="col-md-3">
+                                        <input type="button" value="Pay" id="btnPay" class="btn btn-success" onclick="pay(@Model.IdClient)" />
+                                    </div>
+                                }*@
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if (Model.IdImport != 0)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group text-center">
+                        <input id="IdPayment" asp-for="IdImport" class="form-control" value="@Model.IdImport" hidden />
+                        <span class="payment-info">Lần trả gần nhất : </span><span id="lastPayedPeriod"></span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    var bla = $('#IdPayment').val();
+    getLastPayedPeriod(bla.toString());
+</script>
+

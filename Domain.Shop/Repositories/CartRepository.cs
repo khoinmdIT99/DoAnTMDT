@@ -30,9 +30,11 @@ namespace Domain.Shop.Repositories
             {
                 Id = c.Id,
                 CustomerId = c.CustomerId,
+                TotalPrice = c.Totalprice,
                 Total = c.Total,
-               CreateAt = c.CreateAt
-           }).FirstOrDefault();
+               CreateAt = c.CreateAt,
+               TrangThai = c.Status == 1
+            }).FirstOrDefault();
         }
         public IEnumerable<CartViewModel> GetCartViewModels()
         {
@@ -40,8 +42,10 @@ namespace Domain.Shop.Repositories
             {
                 Id = c.Id,
                 CustomerId = c.CustomerId,
+                TotalPrice = c.Totalprice,
                 Total = c.Total,
-                CreateAt = c.CreateAt
+                CreateAt = c.CreateAt,
+                TrangThai = c.Status == 1
             }).ToList();
             return model;
         }

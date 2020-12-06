@@ -14,6 +14,9 @@ namespace Domain.Shop.Dto.Order
         public string PhoneNo { get; set; }
         public string Email { get; set; }
         public ShoppingCart.ShoppingCart ShoppingCart { get; set; }
+        public int ShippingMethod { get; set; }
+        public int PaymentMethod { get; set; }
+        public string Comment { get; set; }
         public int quantity { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Domain.Shop.Entities
 		[Column("SHIPPING_FEE")]
 		public long ShippingFee { get; set; }
 		[Column("TOTAL")]
-		public long Total { get; set; }
+		public int Total { get; set; }
 		[Column("SHIPPING_ADDRESS_ID")]
 		[MaxLength(50)]
 		public string ShippingAddressId { get; set; }

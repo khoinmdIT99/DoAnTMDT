@@ -67,6 +67,9 @@ namespace Shop.Application
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<ISystemInformationRepository, SystemInformationRepository>();
             services.AddScoped<IForgetPasswordRepository, ForgetPasswordRepository>();
+            services.AddScoped<IImportRepository, ImportRepository>();
+            services.AddScoped<IImportDetailRepository, ImportDetailRepository>();
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -116,7 +119,6 @@ namespace Shop.Application
             modelBuilder.Entity<ProductType>()
                 .Property(a => a.TypeName)
                 .IsRequired();
-            modelBuilder.Entity<ImportBillDetail>().HasKey(ba => new { ba.ImportBillId, ba.ProductId });
         }
     }
 

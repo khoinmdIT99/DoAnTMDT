@@ -9,43 +9,44 @@
     </li>
     @foreach (var item in Model)
     {
-<li class="product-item">
-    <table class="table cart-table">
-        <tbody>
-            <tr>
-                <td class="product-item-image">
-                    <a href="detail.html" class="" title="">
-                        @if (item.Product.DisplayImages.Any())
-                        {
-        <img src="~/imageUpload/@item.Product.DisplayImages[0]??#" alt="" width="60" height="60" class="img-responsive"> }
-                        else
-                        {
-        <img src="#" alt="" width="60" height="60" class="img-responsive">}
-                    </a>
-                    <button class="remove-product-cart smooth remove-cart" data-id="@item.Id">
-                        <i class="fa fa-times"></i>
-                    </button>
-                </td>
-                <td class="product-item-name">
-                    <h4 class="product-name">
-                        <a href="detail.html" class="smooth" title="">@item.Product.ProductName</a>
-                    </h4>
-                    <span class="product-item-quantity">@item.Quantity</span>
-                </td>
-                <td class="product-item-price">
-                    <span class="shopping-price">@item.Product.Price</span>
-                </td>
-                @{ total += item.Quantity * item.Product.Price.GetValueOrDefault(); }
-            </tr>
-        </tbody>
-    </table>
-</li>}
+        <li class="product-item">
+            <table class="table cart-table">
+                <tbody>
+                <tr>
+                    <td class="product-item-image">
+                        <a asp-action="ProductDeltail" asp-controller="Home" asp-route-id="@item.Id" class="" title="">
+                            @if (item.Product.DisplayImages.Any())
+                            {
+                                <img src="~/imageUpload/@item.Product.DisplayImages[0]??#" alt="" width="60" height="60" class="img-responsive"> }
+                            else
+                            {
+                                <img src="#" alt="" width="60" height="60" class="img-responsive">}
+                        </a>
+                        <button class="remove-product-cart smooth remove-cart" data-id="@item.Id">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                    <td class="product-item-name">
+                        <h4 class="product-name">
+                            <a asp-action="ProductDeltail" asp-controller="Home" asp-route-id="@item.Id" class="smooth" title="">@item.Product.ProductName</a>
+                        </h4>
+                        <span class="product-item-quantity">@item.Quantity</span>
+                    </td>
+                    <td class="product-item-price">
+                        <span class="shopping-price">@item.Product.Price</span>
+                    </td>
+                    @{ total += item.Quantity * item.Product.Price.GetValueOrDefault(); }
+                </tr>
+                </tbody>
+            </table>
+        </li>}
     <li class="total-price clearfix">
         <label class="total-title">TOTAL:</label>
         <label class="float-right">@total $</label>
     </li>
     <li class="shopping-cart-checkout">
         <a asp-action="ShoppingCart" asp-controller="Cart" asp-area="" class="smooth" title="">Giỏ hàng</a>
-        <a asp-action="HomeOrder" asp-controller="Order" asp-area="" class="smooth" title="">Mua ngay</a>
+        <a class="smooth order-submit" title="">Mua ngay</a>
+        @*asp-action="HomeOrder" asp-controller="Order" asp-area=""*@
     </li>
 </ul>

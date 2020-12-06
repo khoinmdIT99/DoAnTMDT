@@ -50,6 +50,15 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+        .product-list .aside-filter .filter-box .price-wrap-1, .product-list .aside-filter .filter-box .price-wrap-2 {
+            border: 1px solid #ddd;
+            padding: 3px 5px 2px 5px;
+            float: left;
+            margin-right: 10px;
+            min-width: 100px;
+            min-height: 35px;
+            margin-bottom: 10px;
+        }
         .btn:not(:disabled):not(.disabled) {
             cursor: pointer;
         }
@@ -109,9 +118,9 @@
         .form-control {
             display: block;
             width: 100%;
-            height: calc(1.5em + .75rem + 2px);
+            height: 40px;
             padding: .375rem .75rem;
-            font-size: 1rem;
+            font-size: 15px;
             font-weight: 400;
             line-height: 1.5;
             color: #495057;
@@ -219,6 +228,8 @@
     </style>
 </head>
 <body class="commpn-here res layout-1">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=370940757493075&autoLogAppEvents=1" nonce="5Q9A2Zwf"></script>
     <div id="wrapper" class="wrapper-fluid banner-effect-3">
         <header class="typeheader-1">
             <!-- HEADER TOP -->
@@ -247,34 +258,34 @@
                                         </a>
                                     </li>
                                     @*@if(Context.User.Identity.IsAuthenticated)
-                                    {
-                                        <li>
-                                            <a asp-action="Logout" asp-controller="Login" class="smooth" title="">
-                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                Đăng xuất
-                                            </a>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li>
-                                            <a asp-action="Index" asp-controller="Login" class="smooth" title="">
-                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                Đăng nhập
-                                            </a>
-                                        </li>
-                                    }*@
+                                        {
+                                            <li>
+                                                <a asp-action="Logout" asp-controller="Login" class="smooth" title="">
+                                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                    Đăng xuất
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a asp-action="Index" asp-controller="Login" class="smooth" title="">
+                                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                    Đăng nhập
+                                                </a>
+                                            </li>
+                                        }*@
                                     @await Component.InvokeAsync("Account")
-                                    @if(Context.User.Identity.IsAuthenticated && User.Identity.Name == "admin")
+                                    @if (Context.User.Identity.IsAuthenticated && User.Identity.Name == "admin")
                                     {
                                         <li>
-                                            <a  asp-area="Administrator" asp-controller="Default" asp-action="Index" class="smooth" title="">
+                                            <a asp-area="Administrator" asp-controller="Default" asp-action="Index" class="smooth" title="">
                                                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                                 Quản trị
                                             </a>
                                         </li>
                                     }
-                                    </ul>
+                                </ul>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-3">
@@ -1075,11 +1086,11 @@
     </div>
 
     <!-- End Color Scheme
-        ============================================ -->
+    ============================================ -->
     <!-- Include Libs & Plugins
-        ============================================ -->
+    ============================================ -->
     <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="~/Test/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="~/Test/js/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="~/Test/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/so_megamenu.js"></script>
     <script type="text/javascript" src="~/Test/js/owl-carousel/owl.carousel.js"></script>
@@ -1096,54 +1107,83 @@
     <script type="text/javascript" src="~/Test/js/jquery.nav.js"></script>
     <script type="text/javascript" src="~/Test/js/quickview/jquery.magnific-popup.min.js"></script>
     <!-- Theme files
-        ============================================ -->
+    ============================================ -->
     <script type="text/javascript" src="~/Test/js/themejs/application.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/homepage.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/cd1.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/addtocart.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/nouislider.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/script.js"></script>
-<script src="~/js/index.js" asp-append-version="true"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+    <script src="~/js/index.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
-        $.post("/Cart/ItemControl", function (result) {
-            $("#itemCount").text(result);
-        })
+        $.post("/Cart/ItemControl",
+            function (result) {
+                $("#itemCount").text(result);
+            })
     </script>
     <script>
-        $.post("/Cart/PriceControl", function (result) {
-            $("#itemPrice").text(result);
-        })
+        $.post("/Cart/PriceControl",
+            function (result) {
+                $("#itemPrice").text(result);
+            })
     </script>
-<script type="text/javascript" defer="">
+    <script type="text/javascript" defer="">
     $(document).ready(function() {
         function sendPostRequest(url, postData, callback) {
-            $.ajax(url, {
-                type: "POST",
-                dataType: "text",
-                success: callback,
-                error: function (xhr, ajaxOptions, thrownError) {
-                    //alert('eerroorr');
-                }
-            });
+            $.ajax(url,
+                {
+                    type: "POST",
+                    dataType: "text",
+                    success: callback,
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        //alert('eerroorr');
+                    }
+                });
         }
+
         function validateEmail(email) {
-            var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            var expr =
+                /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
             if (!expr.test(email)) {
                 return false;
             }
             return true;
         }
-        function compareLargeStrings(a,b){
+
+        $(".order-submit").on('click',
+            function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "/Order/CheckLogin/",
+                    dataType: 'json',
+                    success: function(result) {
+                        if (result.success === true) {
+                            alert("Chúc quý khách mua hàng vui vẻ !!!!");
+                        } else {
+                            alert(result.message);
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, error) {
+                        alert('Đã xảy ra lỗi khi thực hiện yêu cầu của bạn. Vui lòng kiểm tra và thử lại!');
+                    },
+                    complete: function(result) {
+                        location.href = '@Url.Content("~/Order/HomeOrder")';
+                    }
+                });
+            });
+
+        function compareLargeStrings(a, b) {
             if (a.length !== b.length) {
                 return false;
             }
             return a.localeCompare(b) === 0;
         }
 
-        $('#crBtn').click(function (e) {
+        $('#crBtn').click(function(e) {
             e.preventDefault();
             var name = $('#crName').val();
             var email = $('#crEmail').val();
@@ -1154,42 +1194,50 @@
             data.email = email;
             data.password = password;
 
-            if (name === '' || password === ''|| !compareLargeStrings(password.trim(), repassword.trim())) {
+            if (name === '' || password === '' || !compareLargeStrings(password.trim(), repassword.trim())) {
                 e.preventDefault();
-                alert('Kiểm tra lại dữ liệu nhập vào');
+                Swal.fire('Kiểm tra lại dữ liệu nhập vào', "", "error");
+
                 if (!validateEmail(email)) {
                     e.preventDefault();
-                    alert('Vui lòng nhập lại email');
+                    Swal.fire('Email không hợp lệ', "", "error");
                 }
-            }
-            else {
+            } else {
                 e.preventDefault();
+                $.blockUI({ message: '<h1><img src="~/throbber.gif"/> Just a moment...</h1>' });
+
                 $.ajax({
                     type: 'Post',
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(data),
                     url: '@Url.Action("AddUser", "Auth")',
-                    success: function (data) {
+
+                    success: function(data) {
                         if (data.includes("thành công")) {
-                            alert(data);
+                            $.unblockUI();
+                            Swal.fire(
+                                data,
+                                '',
+                                'success'
+                            );
                             $('#closeModalBtn').click();
                             location.href = '@Url.Content("~/Home/Index")';
-                        }
-                        else
-                        {
+                        } else {
                             e.preventDefault();
-                            alert(data.Message);
+                            $.unblockUI();
+                            Swal.fire(data.Message, "", "error");
                         }
                     },
-                    error: function () {
-                        alert('Data sending error ...');
+                    error: function() {
+                        $.unblockUI();
+                        Swal.fire('Data sending error ...', "", "error");
                     }
                 });
 
             }
         });
         $('#forgotBtn').on("click",
-            function (e) {
+            function(e) {
                 e.preventDefault();
                 var bla = $('#forgot-email').val();
                 var sData = {
@@ -1204,24 +1252,28 @@
                     type: "GET",
                     dataType: "json",
                     cache: false,
-                    success: function (result) {
+                    success: function(result) {
                         $.unblockUI();
-                        alert(result);
+                        Swal.fire(
+                            result,
+                            '',
+                            'success'
+                        );
                     },
-                    error: function (jqXHR, textStatus) {
+                    error: function(jqXHR, textStatus) {
                         $.unblockUI();
-                        alert("Đã xảy ra lỗi.");
+                        Swal.fire('Data sending error ...', "", "error");
                     }
                 });
             });
-        $('#loginBtn').click(function (e) {
+        $('#loginBtn').click(function(e) {
             var email = $('#loginEmail').val();
             var password = $('#loginPassword').val();
             var user = {
                 Email: email,
                 Password: password
             }
-
+            $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
             e.preventDefault();
             $.ajax({
                 type: 'Post',
@@ -1229,33 +1281,43 @@
                 async: false,
                 cache: false,
                 url: '/Auth/Login/' + JSON.stringify(user),
-                success: function (result) {
+                success: function(result) {
                     if (result.includes("thành công")) {
-                        alert(result);
+                        $.unblockUI();
+                        Swal.fire(
+                            result,
+                            '',
+                            'success'
+                        );
                         $('#closeModalBtn').click();
                         location.href = '@Url.Content("~/Home/Index")';
-                    }
-                    else
-                    {
-                        alert(result);
+                    } else {
+                        $.unblockUI();
+                        Swal.fire(result, "", "error");
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
+                    $.unblockUI();
                     console.log(xhr.responseText);
-                    alert('Data sending error ...');
+                    Swal.fire('Data sending error ...', "", "error");
                 }
             });
 
         });
 
-        $('#logoutBtn').click(function (e) {
+        $('#logoutBtn').click(function(e) {
             e.preventDefault();
             $.ajax({
                 type: 'GET',
                 url: '/Auth/Logout',
-                success: function (result) {
-                    alert(result);
+                success: function(result) {
+
                     location.reload();
+                    Swal.fire(
+                        result,
+                        '',
+                        'success'
+                    );
                 }
             });
         });
@@ -1264,7 +1326,7 @@
     });
 
 
-</script>
-@RenderSection("Scripts", required: false)
+    </script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

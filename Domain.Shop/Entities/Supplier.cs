@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,7 +8,7 @@ namespace Domain.Shop.Entities
     public class Supplier
     {
         [Key]
-        public int Id { get; set; }
+        public int IdSupplier { get; set; }
 
         [Required]
         [DisplayName("Name")]
@@ -34,5 +35,7 @@ namespace Domain.Shop.Entities
         /// Nếu &lt; 0 thì cửa hàng của ta đang nợ nhà cung cấp này. Nhớ là supplier.Money == importBill.Payment - importBill.TotalValue
         /// </summary>
         public int Money { get; set; }
+        public virtual ICollection<ImportBill> ImportBills { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -36,7 +36,10 @@ namespace Domain.Shop.Entities
 		public virtual Material Material { get; set; }
 		public string CategoryId { get; set; }
 		public virtual Category Category { get; set; }
-		public List<ProductImage> ProductImages { get; set; }
+        [ForeignKey("Supplier")]
+		public int? IdSupplier { get; set; }
+		public virtual Supplier Supplier { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
 		[Column("PRICE_TYPE")]
 		public int? PriceType { get; set; }
 		[Column("PRICE")]

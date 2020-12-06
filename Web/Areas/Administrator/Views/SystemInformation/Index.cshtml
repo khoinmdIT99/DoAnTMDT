@@ -1,0 +1,111 @@
+﻿@model Domain.Shop.Entities.SystemManage.SystemInformation
+
+@{
+    ViewBag.Title = "title";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable tabbable-custom tabbable-noborder">
+            <div class="tab-content">
+                <div class="tab-pane active fontawesome-demo" id="tab_1_2">
+                    <div class="note note-success">
+                        <h3 class="text-center">Tài khoản SMTP</h3>
+                        <p class="text-center">Đây là tài khoản email dùng để gửi email cho thành viên.</p>
+                    </div>
+                    <form style ="padding: 20px;" class="text-center form-horizontal form-smtp">
+                        <div class="form-body">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SMTPName, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.SMTPName, new { @class = "form-control input-circle" })
+                                    @Html.ValidationMessageFor(model => model.SMTPName)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SMTPEmail, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.SMTPEmail, new { @class = "form-control input-circle-right" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.SMTPEmail)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SMTPPassword, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(model => model.SMTPPassword, new { @class = "form-control input-circle-left", @type = "password" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.SMTPPassword)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="text-center col-md-offset-3 col-md-9">
+                                    <button type="submit" class="btn btn-primary smtp-submit">Ghi nhận</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(".smtp-submit").on('click', function (e) {
+            e.preventDefault();
+            @*//$.blockUI({ message: '<h1><img src="~/throbber.gif"/> Just a moment...</h1>' });
+            var url = '@Url.RouteUrl("SystemInformationSMTP")';*@
+            $.ajax({
+                type: 'POST',
+                url: "/Administrator/SystemInformation/SMTP/",
+                dataType: 'json',
+                data: $('.form-smtp').serialize(),
+                success: function (result) {
+                    if (result.success === true) {
+                        alert("Đã ghi nhận thành công!");
+                    }
+                    else {
+                        alert(result.message);
+                    }
+                },
+                error: function (xhr, ajaxOptions, error) {
+                    alert('Đã xảy ra lỗi khi thực hiện yêu cầu của bạn. Vui lòng kiểm tra và thử lại!');
+                },
+                complete: function (result) {
+                    window.location.reload(true);
+                }
+            });
+        });
+    </script>
+    @*$(document).on('click', '.smtp-submit', function (e) {
+        e.preventDefault();
+        $.blockUI({ message: '<h1><img src="~/throbber.gif"/> Just a moment...</h1>' });
+        var url = '@Url.RouteUrl("SystemInformationSMTP")';
+        $.ajax({
+            type: 'POST',
+            url: "/Administrator/SystemInformation/SMTP/",
+            dataType: 'json',
+            data: $('.form-smtp').serialize(),
+            success: function (result) {
+                if (result.success === true) {
+                    alert("Đã ghi nhận thành công!");
+                }
+                else {
+                    alert(result.message);
+                }
+            },
+            error: function (xhr, ajaxOptions, error) {
+                alert('Đã xảy ra lỗi khi thực hiện yêu cầu của bạn. Vui lòng kiểm tra và thử lại!');
+            },
+            complete: function (result) {
+                $.unblockUI();
+            }
+        });
+        </script>*@
+}

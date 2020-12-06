@@ -70,7 +70,7 @@
                             <div class="form-group">
                                 <label asp-for="Price" class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
-                                    <input asp-for="Price" class="form-control" />
+                                    <input asp-for="Price" class="money form-control" />
                                     <span asp-validation-for="Price" class="text-danger"></span>
                                 </div>
                             </div>
@@ -137,6 +137,10 @@
     </div>
 </section>
 @section Scripts {
+    <script type="text/javascript" src="~/js/simple.money.format.js"></script>
+    <script type="text/javascript">
+        $('.money').simpleMoneyFormat();
+    </script>
     <script type="text/javascript">
         $('.custom-file-input').on("chage", function () {
             var fileLable = $(this).next('.custom-file-label');

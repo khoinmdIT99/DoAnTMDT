@@ -88,9 +88,11 @@ namespace Web.Controllers
                 {
 					return RedirectToAction("Index", "Default", new { Area = "Administrator" });
 				}
-				return RedirectToAction("Index", "Home");
+				//return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Default", new { Area = "Administrator" });
 			}
-			return View("Index");
+			//return View("Index");
+            return RedirectToAction("Index", "Default", new { Area = "Administrator" });
 		}
 		#region Forgot password
 		[HttpGet]

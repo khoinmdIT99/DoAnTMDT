@@ -8,7 +8,7 @@ namespace Domain.Application.Dto.Roles
 {
 	public class RoleViewModel
 	{
-		public string Id { get; set; }
+		public string id { get; set; }
 		[DisplayName("Mã vai trò")]
 		[Required]
 		[MaxLength(50)]

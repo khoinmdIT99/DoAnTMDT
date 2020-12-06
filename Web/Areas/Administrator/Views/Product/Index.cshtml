@@ -44,7 +44,7 @@
                                 <td>@Html.DisplayFor(modelItem => item.MaterialName)</td>
                                 <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
                                 <td>@Html.DisplayFor(modelItem => item.PriceType)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                                <td>@item.Price?.ToString("N0")</td>
 
                                 <td>
                                     <div class="btn-group">
@@ -58,7 +58,7 @@
                                 </td>
                                 <td><a class="btn btn-primary" href="@Url.ActionLink("Review", "Product", new { id = item.Id })">Đánh giá</a></td>
                             </tr>
-}
+                            }
                         </tbody>
                     </table>
                     <!-- /.row -->
@@ -83,7 +83,7 @@
     });
     function Delete(id){
 		var r = confirm("Bạn có chắc chắn muốn xóa Sản phẩm này?");
-        if (r == true) {
+        if (r === true) {
             $.ajax(
             {
                 type: "POST",
@@ -95,7 +95,7 @@
                     alert("error");
                 },
                 success: function (result) {
-                    if (result == true) {
+                    if (result === true) {
                         window.location.reload();
                     }
                     else {

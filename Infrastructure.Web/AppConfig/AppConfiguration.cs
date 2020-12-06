@@ -8,12 +8,12 @@ namespace Infrastructure.Web.AppConfig
 {
     public class AppConfiguration
     {
-        readonly string _connectionString;
-        readonly string _SmtpClientAddressGmail;
-        readonly string _SmtpClientAddressVnUmail;
+        private readonly string _connectionString;
+        private readonly string _SmtpClientAddressGmail;
+        private readonly string _SmtpClientAddressVnUmail;
 
-        readonly string _SmtpClientPortGmail;
-        readonly string _SmtpClientPortVnUmail;
+        private readonly string _SmtpClientPortGmail;
+        private readonly string _SmtpClientPortVnUmail;
         public AppConfiguration()
         {
             var configurationBuilder = new ConfigurationBuilder();

@@ -56,8 +56,12 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administrator\Pages\" />
+    <Folder Include="Areas\Administrator\Views\ImportProduct\" />
+    <Folder Include="Common\" />
+    <Folder Include="Hubs\" />
     <Folder Include="Pages\Components\" />
     <Folder Include="Views\Shared\Components\Account\" />
+    <Folder Include="Areas\Administrator\Views\SystemInformation\" />
     <Folder Include="wwwroot\assets\datatables\css\" />
     <Folder Include="wwwroot\assets\datatables\images\" />
     <Folder Include="wwwroot\assets\datatables\js\" />
@@ -87,9 +91,18 @@
     <Folder Include="wwwroot\assets\img\slider\" />
     <Folder Include="wwwroot\assets\img\team\" />
     <Folder Include="wwwroot\assets\js\toastr\" />
-    <Folder Include="wwwroot\assets\js\vendor\" />
     <Folder Include="wwwroot\images_slider\" />
+    <Folder Include="wwwroot\imageUpload\0a42f48a-ffdf-4932-8b7a-768d214cc30f\" />
+    <Folder Include="wwwroot\imageUpload\4a4b4e08-9bdb-4cfd-b0d3-aafb8c72a626\" />
     <Folder Include="wwwroot\imageUpload\89c5ffc8-883b-4667-ad6b-e223ec798f8d\" />
+    <Folder Include="wwwroot\imageUpload\a7fba306-3582-43c6-ad01-2dc71a162f4a\" />
+    <Folder Include="wwwroot\imageUpload\a8f4efab-e834-4931-b914-e8858ef8cae5\" />
+    <Folder Include="wwwroot\imageUpload\acca21c3-b220-4525-82f5-cfb6dd156585\" />
+    <Folder Include="wwwroot\imageUpload\d7811ba6-b4a4-40ed-87bd-c52fa723163a\" />
+    <Folder Include="wwwroot\imageUpload\e26fecfa-ca0c-4045-86c3-20bcf5c15686\" />
+    <Folder Include="wwwroot\imageUpload\f9bc2f5e-2de0-45ad-9d22-b3771e9964bb\" />
+    <Folder Include="wwwroot\lib\aspnet\signalr\dist\" />
+    <Folder Include="wwwroot\lib\aspnet\signalr\dist\browser\" />
     <Folder Include="wwwroot\Test\css\animate\" />
     <Folder Include="wwwroot\Test\css\bootstrap\css\" />
     <Folder Include="wwwroot\Test\css\bootstrap\fonts\" />
@@ -155,6 +168,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Administrator\Views\ImportProduct\Index.cshtml" />
     <None Include="wwwroot\assets\datatables\js\dataTables.bootstrap4.min.js" />
     <None Include="wwwroot\assets\datatables\js\dataTables.buttons.min.js" />
     <None Include="wwwroot\assets\datatables\js\jquery.dataTables.min.js" />

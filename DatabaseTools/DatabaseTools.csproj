@@ -43,10 +43,6 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\ShopDB\" />
-  </ItemGroup>
-
 
 
 </Project>

@@ -2,83 +2,81 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace Domain.Shop.Entities
 {
     /// <summary>
     /// Hóa đơn nhập hàng.
     /// </summary>
+    [Table("ImportBill")]
     public class ImportBill
     {
-        [NotMapped]
-        private Supplier _supplier;
-
-        /// <summary>
-        /// Mã hóa đơn.
-        /// </summary>
-        [Key]
-        public string Id { get; set; }
-
-        //Unique check is done only in application layer (unique by each store).
-        public string Code { get; set; }
-
-        /// <summary>
-        /// abc.
-        /// </summary>
-        [Display(Name = "Mã nhà cung cấp")]
-        public int SupplierID { get; set; }
-        [NotMapped]
-        public Supplier Supplier
+        public ImportBill()
         {
-            get => _supplier; set
-            {
-                _supplier = value;
-                if (value != null) SupplierID = value.Id; //Để cho khi gán object thì gán luôn cả ID (khóa ngoại).
-            }
+            DetailImports = new HashSet<ImportBillDetail>();
         }
 
+        [Key]
+        public int IdImport { get; set; }
+        public int? Amount { get; set; }
+        public virtual ICollection<ImportBillDetail> DetailImports { get; set; }
+        [ForeignKey("Supplier")]
+        public int? IdSupplier { get; set; }
+        public virtual Supplier Supplier { get; set; }
         public string StaffId { get; set; }
 
         /// <summary>
         /// Tổng giá trị hóa đơn bán.
         /// </summary>
         [Display(Name = "Tổng giá trị")]
-        public int TotalValue { get; set; }
-
-        /// <summary>
-        /// Discount by entering coupon code.
-        /// </summary>
-        [Display(Name = "Lượng % giảm giá")]
-        public int DiscountValue { get; set; }
-
+        public decimal TotalValue { get; set; }
         /// <summary>
         /// Số tiền cửa hàng của mình đã trả cho Supplier.
         /// </summary>
-        public int Payment { get; set; }
-
+        public decimal Payment { get; set; }
+        /// <summary>
+        /// Số tiền cửa hàng của mình nợ cho Supplier.
+        /// </summary>
+        public decimal TienNo { get; set; }
         /// <summary>
         /// Ngày tạo
         /// </summary>
         [Display(Name = "Ngày tạo")]
-        public DateTime DateCreated { get; set; }
-
-
+        public string DateCreated { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         [NotMapped]
-        public virtual ICollection<ImportBillDetail> ImportBillDetails { get; set; }
-
+        public bool IsPaymentOk { get; set; }
         public void RefreshTotalValue()
         {
             TotalValue = GetTotalValue();
+            Amount = GetAmountValue();
+            TienNo = TotalValue;
+            DateCreated = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
+            StartDate = DateTime.Now;
+            Payment = 0;
         }
 
-        public int GetTotalValue()
+        public decimal GetTotalValue()
+        {
+            decimal sum = 0;
+            if (DetailImports != null)
+                foreach (var item in DetailImports)
+                {
+                    if (item != null) sum += item.Amount.GetValueOrDefault() * item.Price.GetValueOrDefault();
+                    else DetailImports.Remove(null);
+                }
+            return sum;
+        }
+        public int GetAmountValue()
         {
             int sum = 0;
-            if (ImportBillDetails != null)
-                foreach (var item in ImportBillDetails)
+            if (DetailImports != null)
+                foreach (var item in DetailImports)
                 {
-                    if (item != null) sum += item.Amount * item.Price;
-                    else ImportBillDetails.Remove(null);
+                    if (item != null) sum += item.Amount.GetValueOrDefault();
+                    else DetailImports.Remove(null);
                 }
             return sum;
         }

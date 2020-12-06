@@ -12,8 +12,8 @@ namespace Domain.Shop.IRepositories
     public interface ISliderRepository : IRepository<Slider>
     {
         Task<SliderViewModel> GetDataByIdAsync(string id);
-        Task CreateDataAsync(Slider slider);
-        Task UpdateDataAsync(Slider slider);
-        Task DeleteDataAsync(string id);
+        //Task CreateDataAsync(Slider slider);
+        //Task UpdateDataAsync(Slider slider);
+        //Task DeleteDataAsync(string id);
     }
 }

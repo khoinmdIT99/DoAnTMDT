@@ -66,7 +66,7 @@ namespace Web.Areas.Administrator.Controllers
                     Total = cartProduct.Total
                 };
                 cartProductViewModels.Add(cartProductViewModel);
-                model.Total += cartProductViewModel.Total;
+                model.TotalPrice += cartProductViewModel.Total;
             }
             model.Products = cartProductViewModels;
             return View(model);

@@ -15,7 +15,8 @@ namespace Domain.Shop.IRepositories
         void RemoveFromCartSession(Product product, string CartId);
         void RemoveFromCart();
         List<CartProduct> GetCartProducts(string cardId);
-        long GetShoppingCartTotal(string CartId);
+        int GetShoppingCartTotal(string CartId);
+        long GetShoppingCartTotalPrice(string CartId);
         void ClearCart(string CartId);
         void UpdateQuantityInCart(string id, int quantity, string cartId);
         List<CartProduct> GetCartProductsBought(string cardId, string customerId);

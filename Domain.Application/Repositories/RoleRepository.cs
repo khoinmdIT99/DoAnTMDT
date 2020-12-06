@@ -24,7 +24,7 @@ namespace Domain.Application.Repositories
 		{
 			return this.All.Select(prop => new RoleViewModel
 			{
-				Id = prop.Id,
+				id = prop.Id,
 				RoleCode = prop.RoleCode,
 				RoleName = prop.RoleName
 			}).ToList();
@@ -34,7 +34,7 @@ namespace Domain.Application.Repositories
 		{
 			return this.All.Where(p => p.Id == Id).Select(prop => new RoleViewModel
 			{
-				Id = prop.Id,
+				id = prop.Id,
 				RoleCode = prop.RoleCode,
 				RoleName = prop.RoleName
 			}).FirstOrDefault();
@@ -43,8 +43,8 @@ namespace Domain.Application.Repositories
 		public Dictionary<string, string> Validate(RoleViewModel model)
 		{
 			var query = this.All;
-			if (!string.IsNullOrEmpty(model.Id))
-				query = query.Where(p => p.Id != model.Id);
+			if (!string.IsNullOrEmpty(model.id))
+				query = query.Where(p => p.Id != model.id);
 			Dictionary<string, string> dicError = new Dictionary<string, string>();
 			if (query.Any(p => p.RoleCode == model.RoleCode))
 			{

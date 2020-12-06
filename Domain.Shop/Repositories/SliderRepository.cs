@@ -35,19 +35,19 @@ namespace Domain.Shop.Repositories
             return item;
         }
 
-        public async Task CreateDataAsync(Slider slider)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task CreateDataAsync(Slider slider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public async Task UpdateDataAsync(Slider slider)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task UpdateDataAsync(Slider slider)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public async Task DeleteDataAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task DeleteDataAsync(string id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
