@@ -252,9 +252,7 @@ namespace DatabaseTools.Migrations.ShopDB
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId")
-                        .IsUnique()
-                        .HasFilter("[CUSTOMER_ID] IS NOT NULL");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("ShippingAddressId");
 
@@ -806,6 +804,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasMaxLength(50);
 
                     b.Property<int>("BasketCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BuyCount")
                         .HasColumnType("int");
 
                     b.Property<string>("CategoryId")
@@ -1420,6 +1421,103 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.ToTable("SystemInformation");
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.ThongBao", b =>
+                {
+                    b.Property<int>("MaThongBao")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("BuyerSeen")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MaDdh")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MaTaiKhoan")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("SellerSeen")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ThoiGian")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MaThongBao");
+
+                    b.HasIndex("MaDdh");
+
+                    b.HasIndex("MaTaiKhoan");
+
+                    b.ToTable("ThongBaos");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.TinNhan", b =>
+                {
+                    b.Property<int>("MaTinNhan")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("BuyerSeen")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MaDdh")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MaTaiKhoan")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("SellerSeen")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ThoiGian")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MaTinNhan");
+
+                    b.HasIndex("MaDdh");
+
+                    b.HasIndex("MaTaiKhoan");
+
+                    b.ToTable("TinNhans");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.TranhChap", b =>
+                {
+                    b.Property<int>("MaTranhChap")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LienHe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaDDH")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ThoiGian")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MaTranhChap");
+
+                    b.HasIndex("MaDDH");
+
+                    b.ToTable("TranhChaps");
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.Tag", b =>
                 {
                     b.Property<string>("Id")
@@ -1455,8 +1553,8 @@ namespace DatabaseTools.Migrations.ShopDB
             modelBuilder.Entity("Domain.Shop.Entities.Cart", b =>
                 {
                     b.HasOne("Domain.Shop.Entities.Customer", "Customer")
-                        .WithOne("Cart")
-                        .HasForeignKey("Domain.Shop.Entities.Cart", "CustomerId");
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("Domain.Shop.Entities.ShippingAddress", "ShippingAddress")
                         .WithMany()
@@ -1521,7 +1619,8 @@ namespace DatabaseTools.Migrations.ShopDB
                 {
                     b.HasOne("Domain.Shop.Entities.ImportBill", "ImportBill")
                         .WithMany("DetailImports")
-                        .HasForeignKey("IdImport");
+                        .HasForeignKey("IdImport")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.Product", b =>
@@ -1590,6 +1689,35 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasForeignKey("ShopSettingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.ThongBao", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Cart", "DonDatHang")
+                        .WithMany()
+                        .HasForeignKey("MaDdh");
+
+                    b.HasOne("Domain.Shop.Entities.Customer", "TaiKhoan")
+                        .WithMany()
+                        .HasForeignKey("MaTaiKhoan");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.TinNhan", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Cart", "DonDatHang")
+                        .WithMany()
+                        .HasForeignKey("MaDdh");
+
+                    b.HasOne("Domain.Shop.Entities.Customer", "TaiKhoan")
+                        .WithMany()
+                        .HasForeignKey("MaTaiKhoan");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.TranhChap", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Cart", "DonDatHang")
+                        .WithMany()
+                        .HasForeignKey("MaDDH");
                 });
 #pragma warning restore 612, 618
         }

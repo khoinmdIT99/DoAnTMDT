@@ -44,8 +44,7 @@ namespace Domain.Shop.Entities
 		public string District { get; set; }
 		[Column("PROVINCE")]
 		public string Province { get; set; }
-        public Cart Cart { get; set; }
-		public virtual List<DiemTichLuy> ListDiemTichLuy { get; set; }
+        public virtual List<DiemTichLuy> ListDiemTichLuy { get; set; }
 
 		public virtual ICollection<CustomerFeedback> CustomerFeedbacks { get; set; }
 		public virtual ICollection<ProductReview> ProductReviews { get; set; }

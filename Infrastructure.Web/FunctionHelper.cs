@@ -23,10 +23,11 @@ namespace Infrastructure.Web
         public static List<SelectListModel> TypePay()
         {
             var list = new List<SelectListModel> {
-                new SelectListModel { ItemValue = "1", ItemText = "Thanh toán qua thẻ"},
+                new SelectListModel { ItemValue = "1", ItemText = "Thanh toán qua Momo"},
                 new SelectListModel { ItemValue = "2", ItemText = "Thanh toán qua Paypal"},
-                new SelectListModel { ItemValue = "3", ItemText = "Thanh toán khi nhận hàng"},
-                new SelectListModel { ItemValue = "4", ItemText = "Thanh toán tại cửa hàng"}
+                new SelectListModel { ItemValue = "3", ItemText = "Thanh toán qua Ngân hàng"},
+                new SelectListModel { ItemValue = "4", ItemText = "Thanh toán khi nhận hàng"},
+                new SelectListModel { ItemValue = "5", ItemText = "Thanh toán tại cửa hàng"}
             };
             return list;
         }

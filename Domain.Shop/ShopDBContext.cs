@@ -40,7 +40,9 @@ namespace Shop.Application
         public DbSet<ImportBillDetail> ImportBillDetails { get; set; }
         public DbSet<ForgetPassword> ForgetPasswords { get; set; }
         public DbSet<SystemInformation> SystemInformations { get; set; }
-
+        public DbSet<ThongBao> ThongBaos { get; set; }
+        public DbSet<TranhChap> TranhChaps { get; set; }
+        public DbSet<TinNhan> TinNhans{ get; set; }
         public static void ConfigureServices(IServiceCollection services)
 		{
             services.AddScoped<IUnitOfWork<ShopDBContext>, ShopUnitOfWork>();
@@ -69,7 +71,11 @@ namespace Shop.Application
             services.AddScoped<IForgetPasswordRepository, ForgetPasswordRepository>();
             services.AddScoped<IImportRepository, ImportRepository>();
             services.AddScoped<IImportDetailRepository, ImportDetailRepository>();
-
+            services.AddScoped<IThongBaoRepository, ThongBaoRepository>();
+            services.AddScoped<ITinNhanRepository, TinNhanRepository>();
+            services.AddScoped<ITranhChapRepository, TranhChapRepository>();
+            services.AddScoped<IUtils, Utils>();
+            services.AddScoped<IVnPayLibrary, VnPayLibrary>();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -92,7 +98,11 @@ namespace Shop.Application
                 .HasMany(e => e.ProductImages).WithOne(e => e.Product).HasForeignKey(e => e.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Product>().HasMany(x => x.ProductTags).WithOne(x => x.Product).HasForeignKey(x => x.ProductId);
-
+            modelBuilder.Entity<ImportBill>()
+                .HasMany<ImportBillDetail>(ib => ib.DetailImports)
+                .WithOne(ibd => ibd.ImportBill)
+                .HasForeignKey(ibd => ibd.IdImport)
+                .OnDelete(DeleteBehavior.Cascade);
             // Cart
             modelBuilder.Entity<Cart>()
                 .HasMany(p => p.Products)

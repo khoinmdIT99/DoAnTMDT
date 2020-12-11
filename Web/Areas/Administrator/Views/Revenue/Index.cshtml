@@ -1,0 +1,59 @@
+﻿<div class="row" style="padding: 20px">
+    <div class="col-md-12">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-edit"></i>
+                    Lựa chọn Doanh Thu
+                </h3>
+            </div>
+            <div class="card-body pad table-responsive">
+                <p>Doanh thu của shop</p>
+                <table class="table table-bordered text-center">
+                    <tbody>
+                        <tr>
+                            <th>Lựa chọn</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="location.href='@Url.Action("byProduct", "Revenue", new { Area = "Administrator" })'" class="btn btn-block btn-outline-primary">byProduct</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="location.href='@Url.Action("byCategory", "Revenue", new { Area = "Administrator" })'" class="btn btn-block btn-outline-secondary">byCategory</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="location.href='@Url.Action("bySupplier", "Revenue", new { Area = "Administrator" })'" class="btn btn-block btn-outline-success">bySupplier</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="location.href='@Url.Action("byCustomer", "Revenue", new { Area = "Administrator" })'" class="btn btn-block btn-outline-info">byCustomer</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="location.href='@Url.Action("byYear", "Revenue", new { Area = "Administrator" })'" class="btn btn-block btn-outline-danger">byYear</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="location.href='@Url.Action("byMonth", "Revenue", new { Area = "Administrator" })'" class="btn btn-block btn-outline-warning">byMonth</button>
+                            </td>
+                    </tr>                        
+                    <tr>
+                        <td>
+                            <button type="button" onclick="location.href='@Url.Action("byQuarter", "Revenue", new { Area = "Administrator" })'" class="btn btn-block btn-outline-warning">byQuarter</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+    <!-- /.col -->
+</div>

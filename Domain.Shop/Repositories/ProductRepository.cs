@@ -28,6 +28,8 @@ namespace Domain.Shop.Repositories
             var model =this.All.Where(m => m.Id == id).Select(m => new ProductViewModel
             {
                 Id = m.Id,
+                BasketCount = m.BasketCount,
+                BuyCount = m.BuyCount,
                 ProductCode = m.ProductCode,
                 ProductName = m.ProductName,
                 Slug = m.Slug,
@@ -55,6 +57,8 @@ namespace Domain.Shop.Repositories
                 model = this.All.Select(m => new ProductViewModel
                 {
                     Id = m.Id,
+                    BasketCount = m.BasketCount,
+                    BuyCount = m.BuyCount,
                     ProductCode = m.ProductCode,
                     ProductName = m.ProductName,
                     Slug = m.Slug,
@@ -76,6 +80,8 @@ namespace Domain.Shop.Repositories
                 model = this.All.Select(m => new ProductViewModel
                 {
                     Id = m.Id,
+                    BasketCount = m.BasketCount,
+                    BuyCount = m.BuyCount,
                     ProductCode = m.ProductCode,
                     ProductName = m.ProductName,
                     Slug = m.Slug,
@@ -103,6 +109,8 @@ namespace Domain.Shop.Repositories
                 model = this.All.Where(p => p.Category.CategoryName == categoryName).Select(m => new ProductViewModel
                 {
                     Id = m.Id,
+                    BasketCount = m.BasketCount,
+                    BuyCount = m.BuyCount,
                     ProductCode = m.ProductCode,
                     ProductName = m.ProductName,
                     Slug = m.Slug,
@@ -135,6 +143,8 @@ namespace Domain.Shop.Repositories
                 model =  this.All.Select(m => new ProductViewModel
                 {
                     Id = m.Id,
+                    BasketCount = m.BasketCount,
+                    BuyCount = m.BuyCount,
                     ProductCode = m.ProductCode,
                     ProductName = m.ProductName,
                     Slug = m.Slug,
@@ -156,6 +166,8 @@ namespace Domain.Shop.Repositories
                 model = this.All.Select(m => new ProductViewModel
                 {
                     Id = m.Id,
+                    BasketCount = m.BasketCount,
+                    BuyCount = m.BuyCount,
                     ProductCode = m.ProductCode,
                     ProductName = m.ProductName,
                     Slug = m.Slug,
@@ -184,6 +196,8 @@ namespace Domain.Shop.Repositories
                 model = this.All.Where(p => p.Price >= min && p.Price <= max).Select(m => new ProductViewModel
                 {
                     Id = m.Id,
+                    BasketCount = m.BasketCount,
+                    BuyCount = m.BuyCount,
                     ProductCode = m.ProductCode,
                     ProductName = m.ProductName,
                     Slug = m.Slug,
@@ -226,12 +240,12 @@ namespace Domain.Shop.Repositories
                         }
                     case "Price (Low > High)":
                         {
-                            model = this.GetProductViewModels().OrderBy(p => p.Price.Value);
+                            model = this.GetProductViewModels().OrderBy(p => p.Price.GetValueOrDefault());
                             break;
                         }
                     case "Price (High > Low)":
                         {
-                            model = this.GetProductViewModels().OrderByDescending(p => p.Price.Value);
+                            model = this.GetProductViewModels().OrderByDescending(p => p.Price.GetValueOrDefault());
                             break;
                         }
                     case "Rating (Highest)":

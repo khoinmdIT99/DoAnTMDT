@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 using Domain.Application;
+using Domain.Shop.Dto;
 using Infrastructure.Common;
 using Infrastructure.Web;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -93,7 +94,14 @@ namespace Web
                 logging.AddConsole();
                 logging.AddDebug();
             });
-            services.AddSignalR();
+            services.AddSignalR(options =>
+            {
+                //https://docs.microsoft.com/en-us/aspnet/core/signalr/configuration?view=aspnetcore-2.2&tabs=dotnet
+                options.EnableDetailedErrors = true;
+                options.KeepAliveInterval = TimeSpan.FromMinutes(1);
+            });
+            services.AddCors();
+            services.Configure<PaypalApiSetting>(Configuration.GetSection("Paypal"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,6 +138,7 @@ namespace Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapHub<NotifyHub>("/NotifyHub");
             });
 
             configurationCache.SetConfiguration();

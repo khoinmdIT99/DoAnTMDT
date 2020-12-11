@@ -18,6 +18,8 @@ namespace Domain.Shop.Dto.Products
 		[Required]
 		[MaxLength(50)]
 		public string ProductCode { get; set; }
+        public int BasketCount { get; set; }
+        public int BuyCount { get; set; }
 		[DisplayName("Tên sản phẩm")]
 		[Required]
 		[MaxLength(255)]

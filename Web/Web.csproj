@@ -57,9 +57,12 @@
   <ItemGroup>
     <Folder Include="Areas\Administrator\Pages\" />
     <Folder Include="Areas\Administrator\Views\ImportProduct\" />
+    <Folder Include="Areas\Administrator\Views\Message\" />
     <Folder Include="Common\" />
-    <Folder Include="Hubs\" />
+    <Folder Include="MomoAPI\" />
+    <Folder Include="nganluonAPI\" />
     <Folder Include="Pages\Components\" />
+    <Folder Include="PaypalHelpers\" />
     <Folder Include="Views\Shared\Components\Account\" />
     <Folder Include="Areas\Administrator\Views\SystemInformation\" />
     <Folder Include="wwwroot\assets\datatables\css\" />
@@ -91,6 +94,18 @@
     <Folder Include="wwwroot\assets\img\slider\" />
     <Folder Include="wwwroot\assets\img\team\" />
     <Folder Include="wwwroot\assets\js\toastr\" />
+    <Folder Include="wwwroot\dist\ColReorder\css\" />
+    <Folder Include="wwwroot\dist\ColReorder\examples\" />
+    <Folder Include="wwwroot\dist\ColReorder\images\" />
+    <Folder Include="wwwroot\dist\ColReorder\js\" />
+    <Folder Include="wwwroot\dist\ColVis\css\" />
+    <Folder Include="wwwroot\dist\ColVis\examples\" />
+    <Folder Include="wwwroot\dist\ColVis\js\" />
+    <Folder Include="wwwroot\dist\TableTools\css\" />
+    <Folder Include="wwwroot\dist\TableTools\examples\" />
+    <Folder Include="wwwroot\dist\TableTools\images\psd\" />
+    <Folder Include="wwwroot\dist\TableTools\js\" />
+    <Folder Include="wwwroot\dist\TableTools\swf\" />
     <Folder Include="wwwroot\images_slider\" />
     <Folder Include="wwwroot\imageUpload\0a42f48a-ffdf-4932-8b7a-768d214cc30f\" />
     <Folder Include="wwwroot\imageUpload\4a4b4e08-9bdb-4cfd-b0d3-aafb8c72a626\" />
@@ -101,6 +116,7 @@
     <Folder Include="wwwroot\imageUpload\d7811ba6-b4a4-40ed-87bd-c52fa723163a\" />
     <Folder Include="wwwroot\imageUpload\e26fecfa-ca0c-4045-86c3-20bcf5c15686\" />
     <Folder Include="wwwroot\imageUpload\f9bc2f5e-2de0-45ad-9d22-b3771e9964bb\" />
+    <Folder Include="wwwroot\js\ChatService\" />
     <Folder Include="wwwroot\lib\aspnet\signalr\dist\" />
     <Folder Include="wwwroot\lib\aspnet\signalr\dist\browser\" />
     <Folder Include="wwwroot\Test\css\animate\" />
@@ -168,7 +184,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Administrator\Views\Inventorymanagement\Index.cshtml" />
     <None Include="Areas\Administrator\Views\ImportProduct\Index.cshtml" />
+    <None Include="Areas\Administrator\Views\Message\Index.cshtml" />
     <None Include="wwwroot\assets\datatables\js\dataTables.bootstrap4.min.js" />
     <None Include="wwwroot\assets\datatables\js\dataTables.buttons.min.js" />
     <None Include="wwwroot\assets\datatables\js\jquery.dataTables.min.js" />
@@ -189,6 +207,23 @@
     <None Include="wwwroot\assets\js\vendor\modernizr-2.8.3.min.js" />
     <None Include="wwwroot\assets\js\waypoints.min.js" />
     <None Include="wwwroot\assets\mail.php" />
+    <None Include="wwwroot\dist\ColReorder\js\dataTables.colReorder.js" />
+    <None Include="wwwroot\dist\ColReorder\js\dataTables.colReorder.min.js" />
+    <None Include="wwwroot\dist\ColReorder\Readme.md" />
+    <None Include="wwwroot\dist\ColVis\js\dataTables.colVis.js" />
+    <None Include="wwwroot\dist\ColVis\js\dataTables.colVis.min.js" />
+    <None Include="wwwroot\dist\ColVis\Readme.md" />
+    <None Include="wwwroot\dist\TableTools\images\psd\collection.psd" />
+    <None Include="wwwroot\dist\TableTools\images\psd\copy document.psd" />
+    <None Include="wwwroot\dist\TableTools\images\psd\file_types.psd" />
+    <None Include="wwwroot\dist\TableTools\images\psd\printer.psd" />
+    <None Include="wwwroot\dist\TableTools\js\dataTables.tableTools.js" />
+    <None Include="wwwroot\dist\TableTools\js\dataTables.tableTools.min.js" />
+    <None Include="wwwroot\dist\TableTools\Readme.md" />
+    <None Include="wwwroot\dist\TableTools\swf\copy_csv_xls.swf" />
+    <None Include="wwwroot\dist\TableTools\swf\copy_csv_xls_pdf.swf" />
+    <None Include="wwwroot\js\ChatService\admin_process_chat.js" />
+    <None Include="wwwroot\js\ChatService\guest_process_chat.js" />
     <None Include="wwwroot\Test\css\bootstrap\css\bootstrap-theme.css.map" />
     <None Include="wwwroot\Test\css\bootstrap\css\bootstrap.css.map" />
     <None Include="wwwroot\Test\css\bootstrap\fonts\glyphicons-halflings-regular.svg" />

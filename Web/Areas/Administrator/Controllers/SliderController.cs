@@ -15,7 +15,9 @@ using Infrastructure.Web.HelperTool;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Web.Hubs;
 
 namespace Web.Areas.Administrator.Controllers
 {
@@ -24,15 +26,20 @@ namespace Web.Areas.Administrator.Controllers
     public class SliderController : BaseController
     {
         private readonly ISliderRepository _iSliderRepository;
-
+        private readonly IHubContext<NotifyHub, INotifyHub> _notifyHub;
         private readonly IWebHostEnvironment _iWebHostEnvironment;
+        private static readonly string Token = Guid.NewGuid().ToString("n");
 
-        public SliderController(IWebHostEnvironment iWebHostEnvironment, ISliderRepository iSliderRepository)
+        public SliderController(IWebHostEnvironment iWebHostEnvironment, ISliderRepository iSliderRepository, IHubContext<NotifyHub, INotifyHub> notifyHub)
         {
             this._iWebHostEnvironment = iWebHostEnvironment;
             this._iSliderRepository = iSliderRepository;
+            _notifyHub = notifyHub;
         }
-
+        public IActionResult Check()
+        {
+            return Content(Token);
+        }
         public async Task<List<SliderViewModel>> GetLisTask()
         {
             var myClients = await _iSliderRepository.All.Select(w => new SliderViewModel()
@@ -62,6 +69,7 @@ namespace Web.Areas.Administrator.Controllers
 
         public IActionResult CreateSlider(string id)
         {
+            ViewBag.Token = Token;
             var cl = id == null ? new SliderViewModel() : _iSliderRepository.GetDataByIdAsync(id).Result;
             return View(cl);
         }
@@ -101,6 +109,7 @@ namespace Web.Areas.Administrator.Controllers
 
                         await _iSliderRepository.AddAsync(data);
                         _iSliderRepository.Save(RequestContext);
+                        await _notifyHub.Clients.All.ReceiveNotification("Someone has added new data", Status.Add);
                     }
                     else
                     {
@@ -117,6 +126,11 @@ namespace Web.Areas.Administrator.Controllers
 
                         _iSliderRepository.Update(data);
                         _iSliderRepository.Save(RequestContext);
+                        await _notifyHub.Clients.All.ReceiveUpdateNotification(
+                            $"Someone has updated this product data, please refresh this page", Token, data.Id);
+                        await _notifyHub.Clients.All.ReceiveNotification(
+                            $"Someone has updated product data, please refresh this page",
+                            Status.Update);
                     }
                     var myClients = await GetLisTask();
                     return Json(new
@@ -180,6 +194,8 @@ namespace Web.Areas.Administrator.Controllers
                 }
                 _iSliderRepository.Delete(data);
                 _iSliderRepository.Save(RequestContext);
+                await _notifyHub.Clients.All.ReceiveDeleteNotification
+                    ($"Someone has deleted this product data, please refresh this page", Token, id);
                 var myClients = await GetLisTask();
                 return Json(new
                 {

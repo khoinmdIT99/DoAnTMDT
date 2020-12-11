@@ -104,59 +104,60 @@
                                     </div>
                                     <div class="product-info">
                                         <input type="hidden" asp-for="@item.Id" id="ProductId" />
+                                        <input type="hidden" asp-for="@item.BasketCount" value="@item.BasketCount" class="ProductCount" />
                                         <h4 class="product-name"><a href="javascript:void(0)" class="aaf" data-id="@item.Id" class="smooth" title="">@item.ProductName</a></h4>
                                         <input type="hidden" asp-for="@item.Price" class="ProductPrice" />
                                         <div class="price pricevnd">
                                             @*<span class="price-old">$142.00</span>*@
-                                    </div>
-                                    <div class="rating">
-                                        <div class="rating-box">
-                                            @if (item.Star != null)
-                                            {
-                                                @for (int i = 0; i < Math.Round(Convert.ToDecimal(item.Star)); i++)
+                                        </div>
+                                        <div class="rating">
+                                            <div class="rating-box">
+                                                @if (item.Star != null)
+                                                {
+                                                    @for (int i = 0; i < Math.Round(Convert.ToDecimal(item.Star)); i++)
+                                                    {
+                                                        <span class="fa fa-stack">
+                                                            <i class="fa fa-star fa-stack-1x"></i>
+                                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                                        </span>
+                                                    }
+                                                    @for (int i = 5; i > Math.Round(Convert.ToDecimal(item.Star)); i--)
+                                                    {
+                                                        <span class="fa fa-stack">
+                                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                                        </span>
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     <span class="fa fa-stack">
                                                         <i class="fa fa-star fa-stack-1x"></i>
                                                         <i class="fa fa-star-o fa-stack-1x"></i>
                                                     </span>
-                                                }
-                                                @for (int i = 5; i > Math.Round(Convert.ToDecimal(item.Star)); i--)
-                                                {
+                                                    <span class="fa fa-stack">
+                                                        <i class="fa fa-star fa-stack-1x"></i>
+                                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                                    </span>
+                                                    <span class="fa fa-stack">
+                                                        <i class="fa fa-star fa-stack-1x"></i>
+                                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                                    </span>
+                                                    <span class="fa fa-stack">
+                                                        <i class="fa fa-star fa-stack-1x"></i>
+                                                        <i class="fa fa-star-o fa-stack-1x"></i>
+                                                    </span>
                                                     <span class="fa fa-stack">
                                                         <i class="fa fa-star-o fa-stack-1x"></i>
                                                     </span>
                                                 }
-                                            }
-                                            else
-                                            {
-                                                <span class="fa fa-stack">
-                                                    <i class="fa fa-star fa-stack-1x"></i>
-                                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                                </span>
-                                                <span class="fa fa-stack">
-                                                    <i class="fa fa-star fa-stack-1x"></i>
-                                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                                </span>
-                                                <span class="fa fa-stack">
-                                                    <i class="fa fa-star fa-stack-1x"></i>
-                                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                                </span>
-                                                <span class="fa fa-stack">
-                                                    <i class="fa fa-star fa-stack-1x"></i>
-                                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                                </span>
-                                                <span class="fa fa-stack">
-                                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                                </span>
-                                            }
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                            @item.Description
                                         </div>
                                     </div>
-                                    <div class="product-desc">
-                                        @item.Description
-                                    </div>
-                                </div>
                                 <div class="button-group">
-                                    <a class="btn btn-warning add-to-cart" data-id="@item.Id" style="color: beige;height: 45px; line-height: 35px; width: 268px;" @*onclick="AddToCart('@item.Id')"*@> ADD TO CART</a>
+                                    <a class="btn btn-warning add-to-cart" data-count="@item.BasketCount" data-id="@item.Id" style="color: beige;height: 45px; line-height: 35px; width: 268px;" @*onclick="AddToCart('@item.Id')"*@> ADD TO CART</a>
                                 </div>
                             </div>
                         </div>
@@ -365,41 +366,44 @@
 
                 $("div").remove(".product-layout");
                 if (result != null) {
-                    $.each(result.data, function (index, value) {
-                        var star = "";
-                        var price = value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
-                        if (value.star != null)
-                        {
-                            for (let i = 0; i < Math.floor(value.star); i++)
-                                {
-                                star += "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                    $.each(result.data,
+                        function(index, value) {
+                            var star = "";
+                            var price = value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                            if (value.star != null) {
+                                for (let i = 0; i < Math.floor(value.star); i++) {
+                                    star +=
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
                                 }
-                            for (let i = 5; i > Math.floor(value.star); i--)
-                                {
-                                    star += "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                for (let i = 5; i > Math.floor(value.star); i--) {
+                                    star +=
+                                        "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
                                 }
+                            } else {
+                                star =
+                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                    "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
                             }
-                            else
-                           {
-                            star = "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                        }
 
-                        $('#list-product').append(`<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                            $('#list-product').append(
+                                `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
                                 <div class="product-box clearfix">
                                     <div class="product-image">
                                         <a href="detail.html" class="c-img link-product">
-                                                <img src="/imageUpload/${value.displayImages[0]}" class="img-responsive" alt="" height="250">
+                                                <img src="/imageUpload/${value.displayImages[0]
+                                }" class="img-responsive" alt="" height="250">
                                         </a>
                                         <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div class="product-info">
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value.productName}</a></h4>
+                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
+                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value
+                                .productName}</a></h4>
                                         <div class="price pricevnd">
                                             ${price}
                                         </div>
@@ -418,7 +422,7 @@
                                     </div>
                                 </div>
                             </div>`);
-                    })
+                        });
                 }
                 else {
 				    alert("Không tìm thấy");
@@ -476,6 +480,7 @@
                                         </a>
                                     </div>
                                     <div class="product-info">
+                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
                                         <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value
                                     .productName}</a></h4>
                                         <div class="price pricevnd">
@@ -557,6 +562,7 @@
                                         </a>
                                     </div>
                                     <div class="product-info">
+                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
                                         <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value
                                         .productName}</a></h4>
                                         <div class="price pricevnd">

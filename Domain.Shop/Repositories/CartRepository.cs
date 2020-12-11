@@ -33,7 +33,9 @@ namespace Domain.Shop.Repositories
                 TotalPrice = c.Totalprice,
                 Total = c.Total,
                CreateAt = c.CreateAt,
-               TrangThai = c.Status == 1
+               PaymentMethod = c.PaymentMethod,
+               ShippingMethod = c.ShippingMethod,
+               Status = c.Status
             }).FirstOrDefault();
         }
         public IEnumerable<CartViewModel> GetCartViewModels()
@@ -44,8 +46,10 @@ namespace Domain.Shop.Repositories
                 CustomerId = c.CustomerId,
                 TotalPrice = c.Totalprice,
                 Total = c.Total,
+                PaymentMethod = c.PaymentMethod,
+                ShippingMethod = c.ShippingMethod,
                 CreateAt = c.CreateAt,
-                TrangThai = c.Status == 1
+                Status = c.Status
             }).ToList();
             return model;
         }

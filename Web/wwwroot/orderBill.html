@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hóa đơn thanh toán</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+<h2>Thông tin đơn hàng mới của khách hàng: {{username}}</h2>
+<p>Người nhận: {{customername}}</p>
+<p>Số điện thoại: {{phone}}</p>
+<p>Email: {{email}}</p>
+<p>Địa chỉ nhận hàng: {{shiptoaddress}}</p>
+<h3>Sản phẩm</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Tổng tiền</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{tblData}}
+    </tbody>
+</table>
+<h3>Thành tiền: {{price}}</h3>
+</body>
+</html>

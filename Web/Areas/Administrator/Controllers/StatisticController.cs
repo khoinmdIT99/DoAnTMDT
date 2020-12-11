@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Shop.Dto;
+using Domain.Shop.IRepositories;
 using Infrastructure.Web;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,9 +15,60 @@ namespace Web.Areas.Administrator.Controllers
     [BaseAuthorization]
     public class StatisticController : BaseController
     {
-        public IActionResult Index()
+        private readonly ICartRepository _iCartRepository;
+        private readonly ICustomerRepository _iCustomerRepository;
+        private readonly IProductRepository _iProductRepository;
+        private readonly ICategoryRepository _iCategoryRepository;
+
+        public StatisticController(ICartRepository iCartRepository, ICustomerRepository iCustomerRepository, IProductRepository iProductRepository, ICategoryRepository iCategoryRepository)
         {
+            _iCartRepository = iCartRepository;
+            _iCustomerRepository = iCustomerRepository;
+            _iProductRepository = iProductRepository;
+            _iCategoryRepository = iCategoryRepository;
+        }
+
+        public ActionResult Index()
+        {
+
+            ViewBag.Orders = _iCartRepository.All.ToList().Where(x => x.CreateAt?.ToString("yyyy-MM-dd")
+            == DateTime.Now.ToString("yyyy-MM-dd") && x.Status == 0).ToList().Count;
+            ViewBag.Users = _iCustomerRepository.All.ToList().Count;
+            ViewBag.Product = _iProductRepository.All.ToList().Count;
+            ViewBag.Category = _iCategoryRepository.All.ToList().Count;
+            try
+            {
+                var list_str = GetListDate(12);
+
+
+                var LeftJoin_ = (from m in list_str
+                                 join o in _iCartRepository.All.Where(x => x.Status == 0).ToList()
+                                 on m equals o.CreateAt?.ToString("yyyy-MM") into joinedDateOrder
+                                 from o in joinedDateOrder.DefaultIfEmpty()
+                                 select new { Date = m, Count = o != null ? o.Totalprice : 0, Status = o != null ? o.Status : -1 })
+                                 .GroupBy(x => x.Date).Select(g => new DataChart { Label = g.Key, Value = g.Sum(x => x.Count).ToString() });
+
+
+                var list_data = LeftJoin_.ToList();
+                ViewBag.DataChart = list_data;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("<b>Lỗi {0}</b>.", e.Message + e.InnerException.Message), false);
+            }
             return View();
+        }
+        public List<string> GetListDate(int count)
+        {
+            var list = new List<String>();
+            // count = 12;
+            var now = DateTime.Now;
+            for (var i = 1; i <= count; i++)
+            {
+                var str = now.AddMonths(-(i)).ToString("yyyy-MM");
+                list.Add(str);
+            }
+            return list;
         }
 
 

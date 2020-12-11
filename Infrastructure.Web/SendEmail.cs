@@ -94,6 +94,7 @@ namespace Infrastructure.Web
                 mail.To.Add(StringHelper.KillChars(receiver));
                 mail.Subject = subject;
                 mail.Body = content;
+                mail.IsBodyHtml = true;
                 mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
                 mail.SubjectEncoding = Encoding.UTF8;
                 mail.BodyEncoding = Encoding.UTF8;

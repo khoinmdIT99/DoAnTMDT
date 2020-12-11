@@ -18,5 +18,6 @@ namespace Domain.Shop.Dto.Order
         public int PaymentMethod { get; set; }
         public string Comment { get; set; }
         public int quantity { get; set; }
+        public int Status { get; set; }
     }
 }

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Domain.Shop.Dto.ReportInfo>
+@{ ViewBag.Title = "Index"; }
+
+<section class="content">
+
+
+    <h2>Doanh số</h2>
+    @if (ViewBag.FlagSearch != null && ViewBag.FlagSearch)
+    {
+
+<form action="" method="get" class="form-inline" onsubmit="return checkvar()">
+
+    <div class="form-group">
+        <select name="status" class="form-control">
+            <option value="0">Đơn hàng chờ xác nhận</option>
+            <option value="-1">Đơn hàng đã xóa</option>
+            <option value="1">Đơn hàng đã duyệt</option>
+            <option value="2">Đơn hàng đã thanh toán</option>
+        </select>
+    </div>
+    <button style="box-shadow: none;" type="submit" class="btn btn-primary btn-large" name=""><i class="fa fa-search"></i> Tìm kiếm</button>
+    <div class="form-group">
+        <input type="text" class="form-control datepk" name="datestart" value="@ViewBag.datestart" placeholder="Từ ngày">
+    </div>
+    -
+    <div class="form-group">
+        <input type="text" class="form-control datepk" name="dateend" value="@ViewBag.dateend" placeholder="Đến ngày">
+    </div>
+</form>
+                <br />}
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Group</th>
+                <th>Số lượng</th>
+                <th>Tổng</th>
+                <th>Giá nhỏ nhất</th>
+                <th>Giá lớn nhất</th>
+                <th>Trung bình</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+<tr>
+    <td>
+        @r.Group
+    </td>
+    <td>@r.Count</td>
+    <td>@Html.FormatValue(r.Sum.ToString("N0"), "{0:c}")</td>
+    <td>@Html.FormatValue(r.Min.ToString("N0"), "{0:c}")</td>
+    <td>@Html.FormatValue(r.Max.ToString("N0"), "{0:c}")</td>
+    <td>@Html.FormatValue(r.Avg.ToString("N0"), "{0:c}")</td>
+</tr>
+       }
+        </tbody>
+    </table>
+
+    <div id="piechart_3d" style="height: 500px;"></div>
+
+</section>
+@section scripts{
+
+    <script>
+    $(document).ready(function () {
+            $('.table').dataTable({
+                "dom": 'RC<"clear">lfrtip'
+                //"dom": 'Rlfrtip'
+            });
+
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $('.datepk').datepicker({
+            format: 'yyyy/mm/dd',
+            // startDate: '-3d'
+        });
+        $(document).ready(function () {
+            var table = $('.table').dataTable();
+            var tt = new $.fn.dataTable.TableTools(table);
+            $(tt.fnContainer()).insertBefore('div.dataTables_wrapper');
+        });
+        function checkvar() {
+            console.log($("[name='datestart']").val());
+            if ($("[name='datestart']").val() !== '' && $("[name='dateend']").val() != '') {
+                if ($("[name='datestart']").val() > $("[name='dateend']").val()) {
+                    alert("Sai ngày chọn");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"], 'language': 'vi-VN' });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Loai', 'Doanh so'],
+                @foreach (var r in Model)
+          {
+              <text>["@r.Group.ToString()", @r.Sum.ToString().Replace(",",".")],</text>
+          }
+            ]);
+
+            var options = {
+                region: 'VN',
+                title: 'Biểu đồ thông tin',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+            chart.draw(data, options);
+        }
+    </script>
+
+}

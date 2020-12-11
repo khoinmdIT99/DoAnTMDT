@@ -50,6 +50,128 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+        .modal-content .modal-header {
+            border-bottom: none;
+            padding-top: 24px;
+            padding-right: 24px;
+            padding-bottom: 0;
+            padding-left: 24px;
+        }
+        .active-rp {
+            background-color: #ff4f57;
+            color: white;
+            border: none;
+        }
+        .rp-tt {
+            padding-bottom: 8px;
+        }
+        .info-txt {
+            padding: 5px 27px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+        .text-rp {
+            border-radius: 3px;
+            border: 1px solid #ddd;
+        }
+        .btn-rp-order, .btn-rp-order-child {
+            align-items: center;
+            border: 1px solid #dddfe2;
+            border-radius: 20px;
+            display: inline-flex;
+            margin-bottom: 8px;
+            margin-right: 8px;
+            padding: 8px 12px;
+            -webkit-user-select: none;
+        }
+        .warning-rp {
+            font-size: 14px;
+            line-height: 16px;
+            border-radius: 3px;
+            border-top: 1px solid #dddfe2;
+            color: #90949c;
+            padding: 12px 16px;
+            border-bottom: 1px solid #dddfe2;
+        }
+        .wrap-btn-rp, .additon-info {
+            padding: 5px 10px 5px 10px;
+        }
+        .db-new-header .search {
+            text-align: center;
+            display: inline-block;
+            position: relative;
+            margin-top: 5px;
+        }
+        .rf {
+            padding-bottom: 10px;
+        }
+        .search {
+            width: 100%;
+            margin-bottom: 0 !important;
+            position: relative;
+        }
+        .db-new-content {
+            min-height: 800px;
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+        .db-new-filters {
+            position: relative;
+            box-sizing: border-box;
+        }
+        .db-new-filters .tabs {
+            border-bottom: 1px #ddd solid;
+            position: relative;
+        }
+        .db-new-filters .tabs li {
+            display: inline-block;
+            margin-left: 11px;
+            -webkit-transition: left .3s;
+            transition: left .3s;
+        }
+        .db-new-header .search input[type=search], .db-new-header .search input[type=text] {
+            background: 0 0;
+            width: 170px;
+            padding: 7px 3px;
+            font-size: 14px;
+            border: 0;
+            float: right;
+            border-bottom: 1px solid #ddd;
+            border-radius: 0;
+            -webkit-transition: border-color .2s,width .2s;
+            transition: border-color .2s,width .2s;
+        }
+        .btn-search {
+            padding: 11px;
+        }
+        .db-new-filters a:hover, .db-new-filters a:focus {
+            color: #ff4f57;
+        }
+        .tab-content>.active {
+            display: block;
+        }
+        .tab-content.fade.in {
+            opacity: 1;
+        }
+        .db-new-header h1 {
+            font-size: 32px;
+            font-weight: 300;
+            line-height: 120%;
+        }
+        .tab-content.db-new-main-table.table tr {
+            background: #ffffff;
+        }
+        .tab-content.db-new-main-table.table > .tab-content.db-new-main-table thead > .tab-content.db-new-main-table tr > .tab-content.db-new-main-table th {
+            width: 150px;
+        }
+        .tab-content.db-new-main-table.table > .tab-content.db-new-main-table thead > .tab-content.db-new-main-table tr > .tab-content.db-new-main-table th {
+            border-bottom: none;
+            color: #ff4f57;
+        }
+        .tab-content.db-new-main-table.table tr {
+            background: #ffffff;
+        }
         .product-list .aside-filter .filter-box .price-wrap-1, .product-list .aside-filter .filter-box .price-wrap-2 {
             border: 1px solid #ddd;
             padding: 3px 5px 2px 5px;
@@ -258,23 +380,23 @@
                                         </a>
                                     </li>
                                     @*@if(Context.User.Identity.IsAuthenticated)
-                                        {
-                                            <li>
-                                                <a asp-action="Logout" asp-controller="Login" class="smooth" title="">
-                                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                    Đăng xuất
-                                                </a>
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li>
-                                                <a asp-action="Index" asp-controller="Login" class="smooth" title="">
-                                                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                    Đăng nhập
-                                                </a>
-                                            </li>
-                                        }*@
+                                    {
+                                        <li>
+                                            <a asp-action="Logout" asp-controller="Login" class="smooth" title="">
+                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                Đăng xuất
+                                            </a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a asp-action="Index" asp-controller="Login" class="smooth" title="">
+                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                Đăng nhập
+                                            </a>
+                                        </li>
+                                    }*@
                                     @await Component.InvokeAsync("Account")
                                     @if (Context.User.Identity.IsAuthenticated && User.Identity.Name == "admin")
                                     {
@@ -419,32 +541,32 @@
                                                                                 </div>
 
                                                                                 <!-- <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="html_width_RTL/index2.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/rtl2.png" alt="">
-                                                                                    </a>
-                                                                                    <a href="html_width_RTL/index2.html" class="smooth" title="">Home Page 2 RTL</a>
-                                                                                </div>
+                                                                                <a href="html_width_RTL/index2.html" class="smooth c-img" title>
+                                                                                    <img src="~/Test/image/catalog/layout/rtl2.png" alt="">
+                                                                                </a>
+                                                                                <a href="html_width_RTL/index2.html" class="smooth" title="">Home Page 2 RTL</a>
+                                                                            </div>
 
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="html_width_RTL/index3.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/rtl3.png" alt="">
-                                                                                    </a>
-                                                                                    <a href="html_width_RTL/index3.html" class="smooth" title="">Home Page 3 RTL</a>
-                                                                                </div>
+                                                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                                                <a href="html_width_RTL/index3.html" class="smooth c-img" title>
+                                                                                    <img src="~/Test/image/catalog/layout/rtl3.png" alt="">
+                                                                                </a>
+                                                                                <a href="html_width_RTL/index3.html" class="smooth" title="">Home Page 3 RTL</a>
+                                                                            </div>
 
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="html_width_RTL/index4.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/rtl4.png" alt="">
-                                                                                    </a>
-                                                                                    <a href="html_width_RTL/index4.html" class="smooth" title="">Home Page 4 RTL</a>
-                                                                                </div>
+                                                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                                                <a href="html_width_RTL/index4.html" class="smooth c-img" title>
+                                                                                    <img src="~/Test/image/catalog/layout/rtl4.png" alt="">
+                                                                                </a>
+                                                                                <a href="html_width_RTL/index4.html" class="smooth" title="">Home Page 4 RTL</a>
+                                                                            </div>
 
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="html_width_RTL/index5.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/rtl5.png" alt="">
-                                                                                    </a>
-                                                                                    <a href="html_width_RTL/index5.html" class="smooth" title="">Home Page 5 RTL</a>
-                                                                                </div> -->
+                                                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                                                <a href="html_width_RTL/index5.html" class="smooth c-img" title>
+                                                                                    <img src="~/Test/image/catalog/layout/rtl5.png" alt="">
+                                                                                </a>
+                                                                                <a href="html_width_RTL/index5.html" class="smooth" title="">Home Page 5 RTL</a>
+                                                                            </div> -->
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1083,13 +1205,16 @@
         <div class="back-to-top">
             <i class="fa fa-angle-up" aria-hidden="true"></i>
         </div>
+    @{@await Html.PartialAsync("_boxChat");}
+    <input type="hidden" id="base_url" value="@Url.RouteUrl(new {controller="/" })" />
     </div>
 
     <!-- End Color Scheme
     ============================================ -->
     <!-- Include Libs & Plugins
     ============================================ -->
-    <!-- Placed at the end of the document so the pages load faster -->
+<!-- Placed at the end of the document so the pages load faster -->
+
     <script type="text/javascript" src="~/Test/js/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="~/Test/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/so_megamenu.js"></script>
@@ -1117,7 +1242,10 @@
     <script src="~/js/index.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="~/lib/aspnet/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/js/ChatService/guest_process_chat.js"></script>
+<script src="~/js/process_box_chat.js"></script>
     <script>
         $.post("/Cart/ItemControl",
             function (result) {
@@ -1130,7 +1258,7 @@
                 $("#itemPrice").text(result);
             })
     </script>
-    <script type="text/javascript" defer="">
+<script type="text/javascript" defer="">
     $(document).ready(function() {
         function sendPostRequest(url, postData, callback) {
             $.ajax(url,
@@ -1324,9 +1452,113 @@
 
 
     });
+</script>
+@*<script type="text/javascript">
+    $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var t = document.getElementById("noti").innerText;
+            $.connection.hub.qs = { 'uid': '@Html.Raw(Session["mataikhoan"])' };
+            var id = @Html.Raw(Session["mataikhoan"]);
+            var chat = $.connection.chatHub;
+            $.connection.hub.start()
+                .done(function () {
+                    console.log('Now connected, connection ID=' + $.connection.hub.id);
+                    chat.server.checkSeenNotification(id);
+                })
+                .fail(function () { console.log('Could not Connect!'); });
+            // Create a function that the hub can call back to display messages.
+            chat.client.addNotification = function (dem,check) {
+                if (t > 0) {
+                    t = t + parseInt(dem);
+                    document.getElementById("noti").innerHTML = t;
+                }
+                else {
+                    t = dem;
+                    document.getElementById("noti").innerHTML = t;
+                }
+                if (check === 1) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Thông báo đơn hàng',
+                        text: 'Đơn hàng của bạn đã được mua vui lòng kiểm tra!'
+                    });
+                }
+                else if (check === 2) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Thông báo đơn hàng',
+                        text: 'Đơn hàng của bạn đã duyệt vui lòng kiểm tra!'
+                    });
+                }
+                else if (check === 3) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Thông báo đơn hàng',
+                        text: 'Đơn hàng của bạn đã bị từ chối vui lòng kiểm tra!'
+                    });
+                }
+                else if (check === 4) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Thông báo đơn hàng',
+                        text: 'Đơn hàng của bạn đã được hoàn thành vui lòng kiểm tra!'
+                    });
+                }
+                else if (check === 5){
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Thông báo đơn hàng',
+                        text: 'Đơn hàng của bạn đã được trả tiền vui lòng kiểm tra!'
+                    });
+                }
+            }
+
+            chat.client.addChatMessage = function (who, message, uid,inRoom) {
+                var audio = new Audio("/assets/ping_tune.wav");
+                var expression = /[-a-zA-Z0-9@@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@@:%_\+.~#?&//=]*)?/gi;
+                var regex = new RegExp(expression);
+                if (message.match(regex)) {
+                    console.log('is link');
+                    $('#discussion').append('<div class="incoming_msg"><div class="incoming_msg_img"><img src="/assets/img/jobs/img-5.jpg"/></div><div class="received_msg"><div class="received_withd_msg width-msg"><strong>' + htmlEncode(who) + '</strong><br /><p>' + '<a href=' + message + '>'
+                        + htmlEncode(message) + '</a> ' + '</div>' + '</div>' + '</div>');
+                } else {
+                    if (uid === id) {
+                        $('#discussion').append('<div class="outgoing_msg"><div class="sent_msg"><div class="received_withd_msg width-msgs"><strong>' + htmlEncode(who)
+                            + '</strong><br /><p> ' + htmlEncode(message) + '</p></div></div>');
+                    } else {
+
+                        $('#discussion').append('<div class="incoming_msg"><div class="incoming_msg_img"><img src="/assets/img/jobs/img-5.jpg"/></div><div class="received_msg"><div class="received_withd_msg width-msg"><strong>' + htmlEncode(who)
+                            + '</strong><br /><p> ' + htmlEncode(message) + '</p></div></div></div>');
+                    audio.play();
+                        chat.server.checkSeenNotification(id);
 
 
-    </script>
+                    }
+                }
+                var lastitem = [message];
+                var itempop = lastitem.pop();
+                document.getElementById("who-write").innerHTML = who + ":";
+
+                document.getElementById("content-msg-ar").innerHTML = itempop;
+
+                $(function () {
+                    $('#message-popup').fadeIn('slow', function () {
+                        $(this).delay(4000).fadeOut('slow');
+                    });
+                });
+                console.log(t);
+                console.log(who);
+
+
+            }
+        });
+        // This optional function html-encodes messages for display in the page.
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+
+</script>*@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
