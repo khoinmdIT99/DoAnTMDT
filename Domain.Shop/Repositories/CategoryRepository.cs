@@ -36,13 +36,13 @@ namespace Domain.Shop.Repositories
 				query = query.Where(p => p.HierarchyCode.Length == _hierarchyCodeLength);
 			else
 				query = query.Where(p => p.HierarchyCode.StartsWith(HierarchyCodeParent) && p.HierarchyCode.Length == HierarchyCodeParent.Length + _hierarchyCodeLength);
-			var MaxHierarchyCode = query.OrderByDescending(p => p.HierarchyCode).Select(p => p.HierarchyCode).FirstOrDefault();
+			var maxHierarchyCode = query.OrderByDescending(p => p.HierarchyCode).Select(p => p.HierarchyCode).FirstOrDefault();
 			long MaxHierarchyNumber = 0;
-			if (!string.IsNullOrEmpty(MaxHierarchyCode))
+			if (!string.IsNullOrEmpty(maxHierarchyCode))
 			{
-				MaxHierarchyCode = MaxHierarchyCode.Substring(MaxHierarchyCode.Length - _hierarchyCodeLength);
+				maxHierarchyCode = maxHierarchyCode.Substring(maxHierarchyCode.Length - _hierarchyCodeLength);
 			}
-			if (long.TryParse(MaxHierarchyCode, out MaxHierarchyNumber))
+			if (long.TryParse(maxHierarchyCode, out MaxHierarchyNumber))
 			{
 				MaxHierarchyNumber++;
 			}
@@ -56,7 +56,8 @@ namespace Domain.Shop.Repositories
 				Id = c.Id,
 				CategoryName = c.CategoryName,
 				Slug = c.Slug,
-				HierarchyCode = c.HierarchyCode
+				HierarchyCode = c.HierarchyCode,
+				NoiThat = c.NoiThat
 			}).FirstOrDefault();
         }
 
@@ -72,7 +73,7 @@ namespace Domain.Shop.Repositories
 
         public bool CheckSlugExist(string slug)
         {
-			if (this.All.Where(c => c.Slug == slug).Any())
+			if (this.All.Any(c => c.Slug == slug))
 			{
 				return true;
 			}

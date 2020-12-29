@@ -1,0 +1,83 @@
+﻿@using Domain.Shop.Entities
+<div class="col-lg-4 col-md-4 col-sm-4 col5 col-left">
+
+    <div class="sub-category">
+        <img src="~/Test/image/catalog/demo/slider/home1/category1.jpg" class="img-responsive" alt="">
+        <div class="list-sub-category">
+            <h5 class="sub-title"><span>@ViewBag.sub1Name</span></h5>
+            <ul>
+                @foreach (var item in (List<Category>) ViewBag.sub1List)
+                {
+                    <li>
+                        <a href="#" class="smooth" title="">@item.CategoryName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="sub-category another-category">
+        <img src="~/Test/image/catalog/demo/slider/home1/category2.jpg" class="img-responsive" alt="">
+        <div class="list-sub-category">
+            <h5 class="sub-title"><span>@ViewBag.sub2Name</span></h5>
+            <ul>
+                @foreach (var item in (List<Category>)ViewBag.sub2List)
+                {
+                    <li>
+                        <a href="#" class="smooth" title="">@item.CategoryName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4 col5 col-center">
+    <div class="hot-category text-center">
+        <h4 class="hot-title"><span>HOT <span>CATEGORIES</span></span></h4>
+        <p class="hot-category-desc">Danh sách loại sản phẩm hấp dẫn</p>
+        <a href="sanpham.html" class="smooth view-all hv-border-inline">VIEW ALL CATEGORIES</a>
+    </div>
+    <div class="sub-category another-category">
+        <img src="~/Test/image/catalog/demo/slider/home1/category3.png" class="img-responsive" alt="">
+        <div class="list-sub-category">
+            <h5 class="sub-title"><span>@ViewBag.HotCategoryName</span></h5>
+            <ul>
+                @foreach (var item in (List<Category>) ViewBag.HotCategoryList)
+                {
+                    <li>
+                        <a href="#" class="smooth" title="">@item.CategoryName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-lg-4 col-md-4 col-sm-4 col5 col-right">
+    <div class="sub-category another-category">
+        <img src="~/Test/image/catalog/demo/slider/home1/category4.jpg" class="img-responsive" alt="">
+        <div class="list-sub-category">
+            <h5 class="sub-title"><span>@ViewBag.sub3Name</span></h5>
+            <ul>
+                @foreach (var item in (List<Category>)ViewBag.sub3List)
+                {
+                    <li>
+                        <a href="#" class="smooth" title="">@item.CategoryName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="sub-category another-category">
+        <img src="~/Test/image/catalog/demo/slider/home1/category5.png" class="img-responsive" alt="">
+        <div class="list-sub-category">
+            <h5 class="sub-title"><span>@ViewBag.sub4Name</span></h5>
+            <ul>
+                @foreach (var item in (List<Category>)ViewBag.sub4List)
+                {
+                    <li>
+                        <a href="#" class="smooth" title="">@item.CategoryName</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

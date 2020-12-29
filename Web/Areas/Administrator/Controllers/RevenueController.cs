@@ -44,7 +44,7 @@ namespace Web.Areas.Administrator.Controllers
             if (!string.IsNullOrEmpty(Request.Query["status"].ToString()))
             {
                 // var a = "abc";
-                model = model.Where(x => x.Cart.Status == int.Parse(Request.Query["status"].ToString()));
+                model = model.Where(x => x.Cart.Status == Request.Query["status"].ToString());
             }
             if (!string.IsNullOrEmpty(Request.Query["datestart"].ToString()))
             {
@@ -87,7 +87,7 @@ namespace Web.Areas.Administrator.Controllers
             if (!string.IsNullOrEmpty(Request.Query["status"].ToString()))
             {
                 // var a = "abc";
-                model = model.Where(x => x.Cart.Status == int.Parse(Request.Query["status"].ToString()));
+                model = model.Where(x => x.Cart.Status == Request.Query["status"].ToString());
             }
             if (!string.IsNullOrEmpty(Request.Query["datestart"].ToString()))
             {
@@ -129,7 +129,7 @@ namespace Web.Areas.Administrator.Controllers
             if (!string.IsNullOrEmpty(Request.Query["status"].ToString()))
             {
                 // var a = "abc";
-                model = model.Where(x => x.Cart.Status == int.Parse(Request.Query["status"].ToString()));
+                model = model.Where(x => x.Cart.Status == Request.Query["status"].ToString());
             }
             if (!string.IsNullOrEmpty(Request.Query["datestart"].ToString()))
             {
@@ -174,7 +174,7 @@ namespace Web.Areas.Administrator.Controllers
             if (!string.IsNullOrEmpty(Request.Query["status"].ToString()))
             {
                 // var a = "abc";
-                model = model.Where(x => x.Cart.Status == int.Parse(Request.Query["status"].ToString()));
+                model = model.Where(x => x.Cart.Status == Request.Query["status"].ToString());
             }
             if (!string.IsNullOrEmpty(Request.Query["datestart"].ToString()))
             {

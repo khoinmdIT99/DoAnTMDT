@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Domain.Common.Security;
+using Domain.Shop.Dto.BlogCategories;
 using Domain.Shop.Dto.Products;
 using Domain.Shop.Entities;
+using Domain.Shop.Enums;
 using Domain.Shop.IRepositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Web.Component;
 using Web.Models;
 
 namespace Web.Controllers
@@ -28,11 +33,14 @@ namespace Web.Controllers
         private readonly IShoppingCartRepository _shoppingCart;
         private readonly IProductReViewRepository _productReViewRepository;
         private readonly ICartRepository _cartRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IBlogCategoryRepository _blogCategoryRepository;
+        private readonly IMemoryCache _cache;
         public IConfiguration Configuration { get; }
         public string Result { get; set; }
         public HomeController(IProductRepository productRepository, 
             IProductTagRepository productTagRepository, IServiceProvider serviceProvider,
-            IProductReViewRepository productReViewRepository, IShoppingCartRepository shoppingCart, ICartRepository cartRepository, IConfiguration configuration)
+            IProductReViewRepository productReViewRepository, IShoppingCartRepository shoppingCart, ICartRepository cartRepository, IConfiguration configuration, ICategoryRepository categoryRepository, IBlogCategoryRepository blogCategoryRepository, IMemoryCache cache)
         {
             this._productRepository = productRepository;
             this._productTagRepository = productTagRepository;
@@ -41,6 +49,9 @@ namespace Web.Controllers
             _shoppingCart = shoppingCart;
             _cartRepository = cartRepository;
             Configuration = configuration;
+            _categoryRepository = categoryRepository;
+            _blogCategoryRepository = blogCategoryRepository;
+            _cache = cache;
         }
         //[AllowAnonymous]
         //public IActionResult Index()
@@ -48,10 +59,12 @@ namespace Web.Controllers
         //    return View();
         //}
         [AllowAnonymous]
-        public IActionResult Index()
+        [Route("", Name = "Index")]
+        [Route("trangchu.html", Name = "TrangChu")]
+        public IActionResult Index(string thongbao = null)
         {
             string session = HttpContext.Session.GetString("AddProducts");
-            ViewData["ReCaptchaKey"] = Configuration.GetSection("GoogleReCaptcha:key").Value;
+            
             if (session == null)
             {
                 _shoppingCart.RemoveFromCart();
@@ -61,23 +74,68 @@ namespace Web.Controllers
                     Secure = true,
                 });
             }
+            if (thongbao != null)
+            {
+                ViewBag.ThongBao = thongbao;
+            }
             ViewBag.Name = HttpContext.Session.GetString(SessionName);
             ViewBag.Age = HttpContext.Session.GetString(SessionId);
-            return View(_productRepository.GetProductViewModels());
+            if (_cache.TryGetValue("CACHE_MASTER_PRODUCT", out List<ProductViewModel> listproductcache))
+            {
+                return View(listproductcache);
+            }
+            MemoryCacheEntryOptions options = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300),
+                SlidingExpiration = TimeSpan.FromSeconds(60),
+                Priority = CacheItemPriority.NeverRemove
+            };
+            IEnumerable<ProductViewModel> list = _productRepository.GetProductViewModels().ToList();
+            foreach (var item in list)
+            {
+                item.PriceType = Enum.GetName(typeof(PriceType), int.Parse(item.PriceType));
+            }
+            _cache.Set("CACHE_MASTER_PRODUCT", list, options);
+            return View(list);
         }
         [AllowAnonymous]
-        public IActionResult Index3()
+        [Route("sanpham.html", Name = "SanPham")]
+        public async Task<IActionResult> Index3()
         {
-            return View(_productRepository.GetProductViewModels());
+            if (_cache.TryGetValue("CACHE_MASTER_PRODUCT", out List<ProductViewModel> cLstProd))
+            {
+                return await Task.Run(() => View(cLstProd.Where(x => x.Actived == true).ToList()));
+            }
+
+            MemoryCacheEntryOptions options = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300),
+                SlidingExpiration = TimeSpan.FromSeconds(60),
+                Priority = CacheItemPriority.NeverRemove
+            };
+            IEnumerable<ProductViewModel> list = _productRepository.GetProductViewModels().ToList();
+            foreach (var item in list)
+            {
+                item.PriceType = Enum.GetName(typeof(PriceType), int.Parse(item.PriceType));
+            }
+            _cache.Set("CACHE_MASTER_PRODUCT", list, options);
+            var listactive = list.Where(x => x.Actived == true).ToList();
+            return await Task.Run(() => View(listactive));
         }
         [AllowAnonymous]
         public IActionResult ProductList()
         {
             return View(_productRepository.GetProductViewModels());
         }
-
         [AllowAnonymous]
-        public ActionResult GetProducts(string value)
+        public IActionResult Check()
+        {
+            IEnumerable<BlogCategoryViewModel> blogCategories = _blogCategoryRepository.GetBlogCategoryViewModels();
+            blogCategories = BlogCategoryViewModel.GetTreeBlogCategoryViewModels(blogCategories);
+            return Json(blogCategories);
+        }
+        [AllowAnonymous]
+        public IActionResult GetProducts(string value)
         {
             try
             {
@@ -100,9 +158,15 @@ namespace Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [AllowAnonymous]
-        public IActionResult ProductDeltail(string id)
+        [Route("sanpham/chitiet/{slug}", Name = "SanPhamChiTiet")]
+        public IActionResult ProductDeltail(string slug)
         {
-            return View(_productRepository.GetProductViewModelById(id));
+            return View(_productRepository.GetProductViewModelBySlug(slug));
+        }
+        [AllowAnonymous]
+        public IActionResult ABC(string slug)
+        {
+            return Content(slug);
         }
         [AllowAnonymous]
         public ActionResult Filter(string categoryName)
@@ -153,31 +217,32 @@ namespace Web.Controllers
             var model = _productRepository.GetProductViewModelById(id);
             return View(model);
         }
-       
-        public ActionResult Review(string id,string name, string review, string inlineRadioOptions)
+        [AllowAnonymous]
+        public async Task<string> Review(string id,string name, string review)
         {
+            string thongbao = "";
             try
             {
-                HttpRequest cookie = _serviceProvider.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
-                if (cookie != null)
+                if (HttpContext.Session.GetString(SessionId) == null)
                 {
-                    string token  = cookie.Cookies[SecurityManager._securityToken];
-                    string customerId = SecurityManager.getUserId(token);
+                    thongbao = "Vui lòng đăng nhập để review";
+                }
+                else
+                {
                     ProductReview productReview = new ProductReview()
                     {
                         Id = Guid.NewGuid().ToString(),
                         Name = name,
                         Review = review,
                         ProductId = id,
-                        Star = Convert.ToInt32(inlineRadioOptions),
-                        CustomerId = customerId,
+                        CustomerId = HttpContext.Session.GetString(SessionId),
                         CreateAt = DateTime.UtcNow
                     };
-                    _productReViewRepository.Add(productReview);
+                    await _productReViewRepository.AddAsync(productReview);
+                    await _productReViewRepository.SaveAsync();
+                    thongbao = "Cảm ơn bạn đã đánh giá sản phẩm";
                 }
-
-                _productReViewRepository.Save();
-                return View();
+                return thongbao;
             }
             catch (Exception)
             {

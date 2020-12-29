@@ -1,0 +1,110 @@
+﻿@model Domain.Shop.Entities.Customer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+
+@{ ViewData["Title"] = "DoiMatKhau"; }
+@section Styles {
+    <link href="~/assets/css/fix.css" rel="stylesheet">
+}
+@if (Model != null)
+{
+<div class="container">
+    <div class="customer_quanly">
+        <div class="cus_left">
+            <h4><span>Tên: </span>@Model.FullName</h4>
+            <hr>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-route="ThongTinTaiKhoan">
+                    <div class="menu_cus_icon" style="background-color: #2fdab8;">
+                        <i class="fa fa-user-o"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Tài Khoản</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-route="DoiMatKhau">
+                    <div class="menu_cus_icon" style="background-color:rgb(255, 193, 7);">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Đổi mật khẩu</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="chuaxuly">
+                    <div class="menu_cus_icon" style="background-color:rgb(255, 87, 34);">
+                        <i class="fa fa-shopping-basket"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Đơn Mua</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="cus_right">
+            <h4>Đổi Mật Khẩu</h4>
+            <hr>
+            <form id="frmChangePassword" method="post" role="form" action="">
+                <div class="cus_tt_canhan">
+                    <label>Mật khẩu hiện tại</label>
+                    <input type="password" id="currentPassword" required oninvalid="this.setCustomValidity('Cần điền vào mật khẩu')" onchange="this.setCustomValidity('')">
+                </div>
+                <div class="cus_tt_canhan">
+                    <label>Mật khẩu mới</label>
+                    <input type="password" id="newPassword" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                </div>
+                <div class="cus_tt_canhan">
+                    <label>Xác nhận mật khẩu mới</label>
+                    <input type="password" id="newPassword2" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                </div>
+                <div class="cus_tt_canhan_button">
+                    <div class="khoang-trong"></div>
+                    <button class="button_luu" id="btnLuu">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- js --> <!--<script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>--> }
+else
+{
+<script>
+        window.location.href = "@Url.Action("Index", "Home")";
+</script>
+}
+@section Scripts
+{
+    <script>
+        $("#frmChangePassword").submit(function (e) {
+            e.preventDefault();
+            let oldpassword = $("#currentPassword").val();
+            let password = $("#newPassword").val();
+            let password2 = $("#newPassword2").val();
+            if (password != password2) {
+                alert("Mật khẩu mới không trùng khớp")
+            }
+            else {
+                $.ajax({
+                    url: "/TaiKhoan/EditPassword",
+                    type: "post",
+                    data: {"matkhaucu": oldpassword, "matkhaumoi": password },
+                    success: function (data) {
+                        if (data == "Mật khẩu cũ không trùng khớp") {
+                            alert(data);
+                        }
+                        else {
+                            alert(data);
+                            location.href = "@Url.Action("ThongTinTaiKhoan", "TaiKhoan")";
+                        }
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                });
+            }
+        });
+    </script>
+}

@@ -25,9 +25,11 @@ namespace Infrastructure.Web
             var list = new List<SelectListModel> {
                 new SelectListModel { ItemValue = "1", ItemText = "Thanh toán qua Momo"},
                 new SelectListModel { ItemValue = "2", ItemText = "Thanh toán qua Paypal"},
-                new SelectListModel { ItemValue = "3", ItemText = "Thanh toán qua Ngân hàng"},
-                new SelectListModel { ItemValue = "4", ItemText = "Thanh toán khi nhận hàng"},
-                new SelectListModel { ItemValue = "5", ItemText = "Thanh toán tại cửa hàng"}
+                new SelectListModel { ItemValue = "3", ItemText = "Thanh toán qua Ngân hàng VNPAY"},
+                new SelectListModel { ItemValue = "4", ItemText = "Thanh toán qua Ngân hàng ONEPAY - Quốc tế"},
+                new SelectListModel { ItemValue = "5", ItemText = "Thanh toán qua Ngân hàng ONEPAY - Nội địa"},
+                new SelectListModel { ItemValue = "6", ItemText = "Thanh toán khi nhận hàng"},
+                new SelectListModel { ItemValue = "7", ItemText = "Thanh toán tại cửa hàng"}
             };
             return list;
         }

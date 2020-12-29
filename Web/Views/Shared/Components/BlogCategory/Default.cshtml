@@ -1,7 +1,15 @@
 ﻿@model IEnumerable<Domain.Shop.Dto.BlogCategories.BlogCategoryViewModel>
 @foreach (var item in Model)
 {
-    <li>
-        <partial name="_BlogRow" model="item" />
-     </li>
+    <div class="col-md-3" style="margin-top: 5px">
+        <div class="column">
+            <div>
+                <ul class="row-list">
+                    <li>
+                        <partial name="_BlogRow" model="@item"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 }

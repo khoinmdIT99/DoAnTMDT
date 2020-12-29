@@ -1,0 +1,125 @@
+﻿@model IOrderedEnumerable<Domain.Shop.Dto.Products.ProductViewModel>
+
+@foreach (var item in Model)
+{
+    <div class="item">
+        <div class="product-box">
+            <div class="product-image">
+                @if (item.DisplayImages.Any())
+                {
+                    <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="c-img link-product">
+                        <img src="~/imageUpload/@item.DisplayImages[0]" height="250" class="img-responsive" alt="">
+                    </a>
+                    <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </a>
+                }
+                else
+                {
+                    <img src="#" class="img-responsive" alt="" height="250">}
+            </div>
+            <div class="product-info">
+                <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a></h4>
+                <div class="price">
+                    @item.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ <span class="price-old">@item.Price.GetValueOrDefault().ToString("N0") VNĐ</span>
+                </div>
+                <div class="rating">
+                    <div class="rating-box">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                    <i class="fa fa-retweet" aria-hidden="true"></i>
+                </button>
+                <a data-count="@item.BasketCount" data-id="@item.Id" class="add-to-cart smooth">
+                    ADD TO CART
+                </a>
+                <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                </button>
+            </div>
+            @if (item.Discount >= 35)
+            {
+                <span class="label-sale red-right">SALE @item.Discount %</span>
+            }
+            else
+            {
+                <span class="label-sale blue-left">SALE @item.Discount %</span>
+            }
+        </div>
+    </div>
+}
+
+@*<div class="item">
+        <div class="product-box">
+            <div class="product-image">
+                <a href="detail.html" class="c-img link-product">
+                    <img src="~/Test/image/catalog/demo/products/product7.jpg" class="img-responsive" alt="">
+                </a>
+                <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="product-info">
+                <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
+                <div class="price">
+                    $115.00 <span class="price-old">$142.00</span>
+                </div>
+                <div class="rating">
+                    <div class="rating-box">
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star fa-stack-1x"></i>
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                        <span class="fa fa-stack">
+                            <i class="fa fa-star-o fa-stack-1x"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                    <i class="fa fa-retweet" aria-hidden="true"></i>
+                </button>
+                <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                    ADD TO CART
+                </button>
+                <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                </button>
+            </div>
+            <span class="label-sale blue-left">SALE</span>
+        </div>
+    </div>*@

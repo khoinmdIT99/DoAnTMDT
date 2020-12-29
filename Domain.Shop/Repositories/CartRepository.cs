@@ -35,7 +35,8 @@ namespace Domain.Shop.Repositories
                CreateAt = c.CreateAt,
                PaymentMethod = c.PaymentMethod,
                ShippingMethod = c.ShippingMethod,
-               Status = c.Status
+               Status = c.Status,
+               Comments = c.Comments
             }).FirstOrDefault();
         }
         public IEnumerable<CartViewModel> GetCartViewModels()
@@ -49,7 +50,8 @@ namespace Domain.Shop.Repositories
                 PaymentMethod = c.PaymentMethod,
                 ShippingMethod = c.ShippingMethod,
                 CreateAt = c.CreateAt,
-                Status = c.Status
+                Status = c.Status,
+                Comments = c.Comments
             }).ToList();
             return model;
         }

@@ -7,6 +7,7 @@ using Domain.Shop.Dto.ProductTypes;
 using Domain.Shop.Entities;
 using Domain.Shop.IRepositories;
 using Infrastructure.Web;
+using Infrastructure.Web.HelperTool;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -42,7 +43,8 @@ namespace Web.Areas.Administrator.Controllers
                     {
                         Id = Guid.NewGuid().ToString(),
                         TypeName = model.TypeName,
-                        Description = model.Description
+                        Description = model.Description,
+                        SeoAlias = TextHelper.ToUnsignString(model.TypeName)
                     });
                     _productTypeRepository.Save(RequestContext);
                   
@@ -94,6 +96,7 @@ namespace Web.Areas.Administrator.Controllers
                 {
                     ProductType d = _productTypeRepository.All.Where(s => s.Id == productType.Id).First();
                     d.TypeName = productType.TypeName;
+                    d.SeoAlias = TextHelper.ToUnsignString(productType.TypeName);
                     _productTypeRepository.Save(RequestContext);   
                 }
                 catch (Exception )

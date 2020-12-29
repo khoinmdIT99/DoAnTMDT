@@ -20,13 +20,14 @@
                                 <th>Ngày mua</th>
                                 <th>Tổng số lượng</th>
                                 <th>Tổng tiền</th>
+                                <th>Tình trạng</th>
                                 <th style="width: 80px;"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-
+ 
                             <tr>
                                 <td>@item.Customer.FirstName.ToString()</td>
                                 <td>@item.Customer.PhoneNo</td>
@@ -34,6 +35,7 @@
                                 <td>@item.CreateAt.ToString()</td>
                                 <td>@item.Total</td>
                                 <td>@item.TotalPrice.ToString("N0") VNĐ</td>
+                                <td>@item.Status</td>
                                 <td>
                                     <div class="btn-group">
                                         <a role="button" class="btn btn-info" href="@Url.ActionLink("Detail", "Order", new { id = item.Id })">
@@ -41,6 +43,9 @@
                                         </a>
                                         <a role="button" class="btn btn-danger" onclick="Delete('@item.Id')">
                                             <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a role="button" class="btn btn-success" href="@Url.ActionLink("Print", "Order", new { id = item.Id })">
+                                            <i class="fas fa-print"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -66,7 +71,7 @@
 	
     function Delete(id){
 		var r = confirm("Bạn có chắc chắn muốn xóa Vật liệu này?");
-        if (r == true) {
+        if (r === true) {
             $.ajax(
             {
                 type: "POST",
@@ -78,7 +83,7 @@
                     alert("error");
                 },
                 success: function (result) {
-                    if (result == true) {
+                    if (result === true) {
                         window.location.reload();
                     }
                     else {

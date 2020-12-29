@@ -33,5 +33,8 @@ namespace Domain.Shop.Entities
 		public long Total { get; set; }
 		[Column("BOUGHT")]
 		public bool Bought { get; set; }
+        public string TinhTrangChiTiet { get; set; }
+        public double? DiemCustomerDanhGia { get; set; }
+        public DateTime? NgayGiao { get; set; }
 	}
 }

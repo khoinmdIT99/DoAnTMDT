@@ -40,6 +40,7 @@ namespace Web.Controllers
         public static IConfiguration AConfiguration;
         const string SessionName = "_Name";
         const string SessionId = "_Id";
+        const string SessionIdQuyen = "_IdQuyen";
         private readonly ILogger<HomeController> _logger;
         public MD5 Md5;
         public static EnCryptography Encrypt;
@@ -47,9 +48,12 @@ namespace Web.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IForgetPasswordRepository _forgetPasswordRepository;
         private readonly ISystemInformationRepository _systemInformationRepository;
+        private readonly IPhanQuyenRepository _phanQuyenRepository;
+        private readonly IQuyenRepository _quyenRepository;
+        private readonly IXacMinhRepository _xacMinhRepository;
         public IConfiguration Configuration { get; }
 
-        public AuthController(ILogger<HomeController> logger, IAccountRepository accountRepository, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IForgetPasswordRepository forgetPasswordRepository, ISystemInformationRepository systemInformationRepository)
+        public AuthController(ILogger<HomeController> logger, IAccountRepository accountRepository, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IForgetPasswordRepository forgetPasswordRepository, ISystemInformationRepository systemInformationRepository, IPhanQuyenRepository phanQuyenRepository, IQuyenRepository quyenRepository, IXacMinhRepository xacMinhRepository)
         {
             _logger = logger;
             _accountRepository = accountRepository;
@@ -57,6 +61,9 @@ namespace Web.Controllers
             _httpContextAccessor = httpContextAccessor;
             _forgetPasswordRepository = forgetPasswordRepository;
             _systemInformationRepository = systemInformationRepository;
+            _phanQuyenRepository = phanQuyenRepository;
+            _quyenRepository = quyenRepository;
+            _xacMinhRepository = xacMinhRepository;
         }
         private Uri RedirectUri
         {
@@ -108,6 +115,9 @@ namespace Web.Controllers
                 var loginUser = await _accountRepository.All.FirstOrDefaultAsync(u => u.Email == email);
                 if (loginUser != null)
                 {
+                    var phanquyenId = _phanQuyenRepository.All
+                        .FirstOrDefaultAsync(x => x.MaTaiKhoan.Equals(loginUser.Id)).Result.MaQuyen;
+                    HttpContext.Session.SetInt32(SessionIdQuyen, phanquyenId);
                     HttpContext.Session.SetString(SessionName, loginUser.Email);
                     HttpContext.Session.SetString(SessionId, loginUser.Id);
                 }
@@ -119,34 +129,32 @@ namespace Web.Controllers
                         Email = userName,
                         FullName = middlename + lastname + firstname,
                         CreateAt = DateTime.Now,
-                        Password = StringHelper.stringToSHA512("1")
+                        Password = StringHelper.stringToSHA512("1"),
+                        TinhTrang = "Không khoá",
+                        Avatar = "avatar1.png"
                     };
                     _accountRepository.Add(customer);
                     await _accountRepository.SaveAsync();
+                    var maquyen = _quyenRepository.All.FirstOrDefaultAsync(x => x.TenQuyen.Equals("Khách hàng")).GetAwaiter().GetResult().MaQuyen;
+                    PhanQuyen phanQuyen = new PhanQuyen()
+                    {
+                        MaQuyen = maquyen,
+                        MaTaiKhoan = customer.Id
+                    };
+                    await _phanQuyenRepository.AddAsync(phanQuyen);
+                    await _phanQuyenRepository.SaveAsync();
+                    HttpContext.Session.SetInt32(SessionIdQuyen, maquyen);
                     HttpContext.Session.SetString(SessionName, customer.Email);
                     HttpContext.Session.SetString(SessionId, customer.Id);
+
                 }
-                return RedirectToAction("Index3", "Home");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
         }
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-        //[Route("demo2/{fullName}")]
-        //public IActionResult Demo2(string fullName)
-        //{
-        //    return new JsonResult("Hello " + fullName);
-        //}
-        //[Route("Login/{email}")]
-        //public IActionResult Login(string email)
-        //{
-        //    return new JsonResult("Hello " + email);
-        //}
         [HttpPost]
         [Route("Login/{userStr}")]
         public async Task<IActionResult> Login(string userStr)
@@ -176,9 +184,20 @@ namespace Web.Controllers
                         checkpass = loginUser.Password.ToLower() == passwordHashed;
                         if (checkpass)
                         {
-                            message = "Đăng nhập thành công";
+                            var phanquyenId = _phanQuyenRepository.All
+                                .FirstOrDefaultAsync(x => x.MaTaiKhoan.Equals(loginUser.Id)).Result.MaQuyen;
+                            if (phanquyenId == 2)
+                            {
+                                message = "Đăng nhập quyền nhân viên bán hàng thành công";
+                            }
+                            else if(phanquyenId == 3)
+                            {
+                                message = "Đăng nhập thành công";
+                            }
+                            HttpContext.Session.SetInt32(SessionIdQuyen, phanquyenId);
                             HttpContext.Session.SetString(SessionName, loginUser.Email);
                             HttpContext.Session.SetString(SessionId, loginUser.Id);
+
                         }
                         else
                         {
@@ -197,6 +216,7 @@ namespace Web.Controllers
             }
             return new JsonResult(message);
         }
+        const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqestuvwxyz0123456789";
         [HttpPost]
         //[Route("AddUser/{thongTinDangKy}")]
         public async Task<IActionResult> AddUser([FromBody] UserItem item)
@@ -214,20 +234,88 @@ namespace Web.Controllers
                 //}
                 //string salt = EncryptionHelper.GetSalt();
                 //Password = EncryptionHelper.GetHash(item.password + salt),
-                    Customer customer = new Customer()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Email = item.email,
-                        Password = StringHelper.stringToSHA512(item.password),
-                        FullName = item.fullName,
-                        CreateAt = DateTime.Now,
-                    };
+                var avatars = new string[] {"avatar1.png", "avatar2.png", "avatar3.png", "avatar4.png"};
+                var index = int.Parse(item.avatar);
+                if (index < 0 || index > avatars.Count() - 1)
+                    index = 0;
 
-                    _accountRepository.Add(customer);
-                    await _accountRepository.SaveAsync();
+                var avatarName = avatars[index];
+                Customer customer = new Customer()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Email = item.email,
+                    Password = StringHelper.stringToSHA512(item.password),
+                    FullName = item.fullName,
+                    CreateAt = DateTime.Now,
+                    Avatar = avatarName,
+                    TinhTrang = "Chưa kích hoạt"
+                };
+                _accountRepository.Add(customer);
+                await _accountRepository.SaveAsync();
+                var quyen = _quyenRepository.All.FirstOrDefault(x => x.TenQuyen.Contains("Khách hàng"));
+                if (quyen != null)
+                {
+                    var maquyen = quyen.MaQuyen;
+                    PhanQuyen phanQuyen = new PhanQuyen()
+                    {
+                        MaQuyen = maquyen,
+                        MaTaiKhoan = customer.Id
+                    };
+                    await _phanQuyenRepository.AddAsync(phanQuyen);
+                    await _phanQuyenRepository.SaveAsync();
+                    HttpContext.Session.SetInt32(SessionIdQuyen, maquyen);
                     HttpContext.Session.SetString(SessionName, customer.Email);
                     HttpContext.Session.SetString(SessionId, customer.Id);
-                    message = "Đăng ký thành công";
+                    try
+                    {
+                        Random random = new Random();
+                        var code = new string(Enumerable.Repeat(Chars, 9)
+                            .Select(s => s[random.Next(s.Length)]).ToArray());
+                        var taikhoan = await _accountRepository.All.FirstOrDefaultAsync(x => x.Email.Contains(item.email));
+                        XacMinh xm = new XacMinh
+                        {
+                            Code = code,
+                            Id_User = taikhoan.Id,
+                            Timer = DateTime.Now
+                        };
+                        await _xacMinhRepository.AddAsync(xm);
+                        await _xacMinhRepository.SaveAsync();
+                        string kichhoat = "Để kích hoạt tài khoản, vui lòng nhấn vào link phía dưới: \n";
+                        var local = HttpContext.Request.Host;
+                        kichhoat += "https://" + local + "/TaiKhoan/Activate?key=" + taikhoan.Id + "&code=" + code;
+                        var client = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential("khoitedu99@gmail.com", "Fizz1999")
+                        };
+
+                        using (var messagee = new MailMessage("khoitedu99@gmail.com", taikhoan.Email)
+                        {
+                            Subject = "Email kích hoạt tài khoản",
+                            Body = kichhoat,
+                            Priority = MailPriority.High,
+                            BodyEncoding = Encoding.UTF8
+                        })
+                        {
+                            await client.SendMailAsync(messagee);
+                        }
+                        message = "Đăng ký thành công. Vui lòng kích hoạt email để mua sản phẩm";
+                    }
+                    catch (Exception)
+                    {
+                        message = "Hệ thống đang gặp lỗi";
+                    }
+
+                    
+                }
+                else
+                {
+                    message = "Hệ thống đang gặp lỗi";
+                }
+
             }
             else
             {
@@ -236,21 +324,17 @@ namespace Web.Controllers
 
             return Json(message);
         }
+
         [Route("Logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
             HttpContext.Session.Remove(SessionName);
             HttpContext.Session.Remove(SessionId);
+            HttpContext.Session.Remove(SessionIdQuyen);
             HttpContext.Session.Clear();
             return new JsonResult("Đăng xuất thành công");
         }
-        //[Route("Check")]
-        //public async Task<IActionResult> Check()
-        //{
-        //    var a = Base64Hepler.Base64Encode("475wefun");
-        //    return Content(a);
-        //}
         [Route("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword(string email)
         {
@@ -417,5 +501,6 @@ namespace Web.Controllers
         public string fullName { get; set; }
         public string email { get; set; }
         public string password { get; set; }
+        public string avatar { get; set; }
     }
 }

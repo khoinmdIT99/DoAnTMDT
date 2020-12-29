@@ -7,6 +7,7 @@ using Domain.Shop.Entities;
 using Domain.Shop.IRepositories;
 using Infrastructure.Common;
 using Infrastructure.Web;
+using Infrastructure.Web.HelperTool;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +73,7 @@ namespace Web.Areas.Administrator.Controllers
                         PropertyCopy.Copy(model, category);
                         category.Id = Guid.NewGuid().ToString();
                         category.HierarchyCode = _categoryRepository.GenerateHierarchyCode(model.ParentHierarchyCode);
+                        category.SeoAlias = TextHelper.ToUnsignString(model.CategoryName);
                         var listcategory = await _categoryRepository.All.OrderBy(p => p.HierarchyCode).Select(p => new SelectListItem
                         {
                             Text = p.CategoryName,
@@ -118,6 +120,7 @@ namespace Web.Areas.Administrator.Controllers
                     if (!_categoryRepository.CheckSlugExist(model.Slug))
                     {
                         Category category = _categoryRepository.Single(p => p.Id == model.Id);
+                        model.SeoAlias = TextHelper.ToUnsignString(category.CategoryName);
                         PropertyCopy.Copy(model, category);
                         string currentHierarchyParent = category.HierarchyCode.Substring(0, category.HierarchyCode.Length - Domain.Common.Consts.Infrastructure.HierarchyCodeLength);
                         if (string.IsNullOrEmpty(model.ParentHierarchyCode) ? !string.IsNullOrEmpty(currentHierarchyParent) : model.ParentHierarchyCode != currentHierarchyParent)
@@ -132,7 +135,15 @@ namespace Web.Areas.Administrator.Controllers
                         }
                         _categoryRepository.Update(category);
                         _categoryRepository.Save(RequestContext);
-                    }       
+                    }
+                    else
+                    {
+                        Category category = _categoryRepository.Single(p => p.Id == model.Id);
+                        model.SeoAlias = TextHelper.ToUnsignString(category.CategoryName);
+                        PropertyCopy.Copy(model, category);
+                        _categoryRepository.Update(category);
+                        _categoryRepository.Save(RequestContext);
+                    }
                 }
                 catch (Exception )
                 {

@@ -1,0 +1,282 @@
+﻿@model List<Web.Component.DealString>
+@using System.Linq;
+@using Domain.Shop.Dto.Products
+
+<div class="deals-left">
+    <h4 class="deals-title">
+        Deals Of <span>Months</span>
+    </h4>
+    <div class="deals-left-desc">
+        <p class="deals-desc">Khuyến mãi thêm trong tháng. Nội thất Sài Thành sẽ luôn đem lại cho quý khách những mức giá tốt nhất Sài Gòn</p>
+        <ul class="room nav nav-tabs">
+        @foreach (var item in Model)
+        {
+            {
+                string classItem = "room-box";
+                if (item == Model.First())
+                {
+                    classItem += " active";
+                }
+                <li class="@classItem">
+                    <a data-toggle="tab" href="@item.href" class="smooth" title="">
+                        <img src="~/Test/image/catalog/demo/slider/home1/room.jpg" alt="">
+                        <h5 style="color: black;font-size: 18px;" class="room-title">SALE @item.ten %</h5>
+                    </a>
+                </li>
+            }
+
+        }
+        </ul>
+    </div>
+</div>
+
+<div class="tab-content">
+    <div id="living-room" class="tab-pane fade in active">
+        <div class="deals-center deals-center-slider">
+            @foreach (var item in (IEnumerable<ProductViewModel>) ViewBag.Deal1)
+            {
+                <div class="deals-slider">
+                    <div class="left-group">
+                        <div class="table-countdown" data-countdown="2019/12/15">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-image">
+                            @if (item.DisplayImages.Any())
+                            {
+                                <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="hv-light">
+                                    <img src="~/imageUpload/@item.DisplayImages[0]" width="370" height="340" alt="">
+                                </a>
+                                <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <img src="#" class="img-responsive" alt="">}
+                        </div>
+                        <h5 class="product-name">
+                            <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a>
+                        </h5>
+                        <div class="price">
+                            @item.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ <span class="price-old">@item.Price.GetValueOrDefault().ToString("N0") VNĐ</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            @Model[0].ten %
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="kitchen" class="tab-pane fade">
+        <div class="deals-center deals-center-slider">
+            @foreach (var item in (IEnumerable<ProductViewModel>) ViewBag.Deal2)
+            {
+                <div class="deals-slider">
+                    <div class="left-group">
+                        <div class="table-countdown" data-countdown="2019/12/15">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-image">
+                            @if (item.DisplayImages.Any())
+                            {
+                                <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="hv-light">
+                                    <img src="~/imageUpload/@item.DisplayImages[0]" width="370" height="340" alt="">
+                                </a>
+                                <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <img src="#" class="img-responsive" alt="" >}
+                        </div>
+                        <h5 class="product-name">
+                            <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a>
+                        </h5>
+                        <div class="price">
+                            @item.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ <span class="price-old">@item.Price.GetValueOrDefault().ToString("N0") VNĐ</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            @Model[1].ten %
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="work-palce" class="tab-pane fade">
+        <div class="deals-center deals-center-slider">
+            @foreach (var item in (IEnumerable<ProductViewModel>) ViewBag.Deal3)
+            {
+                <div class="deals-slider">
+                    <div class="left-group">
+                        <div class="table-countdown" data-countdown="2019/12/15">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-image">
+                            @if (item.DisplayImages.Any())
+                            {
+                                <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="hv-light">
+                                    <img src="~/imageUpload/@item.DisplayImages[0]" width="370" height="340" alt="">
+                                </a>
+                                <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <img src="#" class="img-responsive" alt="">}
+                        </div>
+                        <h5 class="product-name">
+                            <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a>
+                        </h5>
+                        <div class="price">
+                            @item.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ <span class="price-old">@item.Price.GetValueOrDefault().ToString("N0") VNĐ</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            @Model[2].ten %
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="wordrobe" class="tab-pane fade">
+        <div class="deals-center deals-center-slider">
+            @foreach (var item in (IEnumerable<ProductViewModel>) ViewBag.Deal4)
+            {
+                <div class="deals-slider">
+                    <div class="left-group">
+                        <div class="table-countdown" data-countdown="2019/12/15">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-image">
+                            @if (item.DisplayImages.Any())
+                            {
+                                <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="hv-light">
+                                    <img src="~/imageUpload/@item.DisplayImages[0]" width="370" height="340" alt="">
+                                </a>
+                                <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <img src="#" class="img-responsive" alt="" height="250">}
+                        </div>
+                        <h5 class="product-name">
+                            <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a>
+                        </h5>
+                        <div class="price">
+                            @item.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ <span class="price-old">@item.Price.GetValueOrDefault().ToString("N0") VNĐ</span>
+                        </div>
+                        <div class="rating">
+                            <div class="rating-box">
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star fa-stack-1x"></i>
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                                <span class="fa fa-stack">
+                                    <i class="fa fa-star-o fa-stack-1x"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="label-sale">
+                            @Model[3].ten %
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

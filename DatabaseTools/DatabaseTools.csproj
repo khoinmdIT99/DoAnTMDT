@@ -9,6 +9,12 @@
     <Compile Remove="Migrations\ShopDB\20201106074901_init10.Designer.cs" />
     <Compile Remove="Migrations\ShopDB\20201126022823_newversion11262020.cs" />
     <Compile Remove="Migrations\ShopDB\20201126022823_newversion11262020.Designer.cs" />
+    <Compile Remove="Migrations\ShopDB\20201225005727_init12252020.cs" />
+    <Compile Remove="Migrations\ShopDB\20201225005727_init12252020.Designer.cs" />
+    <Compile Remove="Migrations\ShopDB\20201225010103_init122520201.cs" />
+    <Compile Remove="Migrations\ShopDB\20201225010103_init122520201.Designer.cs" />
+    <Compile Remove="Migrations\ShopDB\20201225055528_init122520201.cs" />
+    <Compile Remove="Migrations\ShopDB\20201225055528_init122520201.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

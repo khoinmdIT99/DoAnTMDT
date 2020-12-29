@@ -11,6 +11,7 @@ namespace Domain.Shop.IRepositories
     {
         IEnumerable<ProductViewModel> GetProductViewModels();
         ProductViewModel GetProductViewModelById(string id);
+        ProductViewModel GetProductViewModelBySlug(string slug);
         Product GetProductById(string id);
 
         IEnumerable<ProductViewModel> GetProductViewModelsByOrder(int value);

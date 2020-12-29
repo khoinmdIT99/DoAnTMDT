@@ -7,10 +7,12 @@ using Domain.Application.Entities;
 using Domain.Application.IRepositories;
 using Domain.Common.Security;
 using Domain.Shop.Entities;
+using Domain.Shop.Entities.SystemManage;
 using Domain.Shop.IRepositories;
 using Infrastructure.Common;
 using Infrastructure.Database.DynamicLinq;
 using Infrastructure.Web;
+using Infrastructure.Web.HelperTool;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -29,9 +31,11 @@ namespace Web.Areas.Administrator.Controllers
         readonly UserInfoCache _userInfoCache;
         private readonly IAccountRepository _accountRepository;
         readonly ILogger<UsersController> _logger;
+        private readonly IPhanQuyenRepository _phanQuyenRepository;
+        private readonly IQuyenRepository _quyenRepository;
 		public UsersController(ILogger<UsersController> logger, IUserRepository userRepository,
 			IUserRoleRepository userRoleRepository, IRoleRepository roleRepository, UserInfoCache userInfoCache,
-			IAccountRepository accountRepository)
+			IAccountRepository accountRepository, IPhanQuyenRepository phanQuyenRepository, IQuyenRepository quyenRepository)
 		{
 			_logger = logger;
 			this._userRepository = userRepository;
@@ -39,6 +43,8 @@ namespace Web.Areas.Administrator.Controllers
 			this._roleRepository = roleRepository;
 			this._userInfoCache = userInfoCache;
             this._accountRepository = accountRepository;
+            _phanQuyenRepository = phanQuyenRepository;
+            _quyenRepository = quyenRepository;
         }
 		public ActionResult Index()
 		{
@@ -61,8 +67,8 @@ namespace Web.Areas.Administrator.Controllers
 						continue;
 					switch (column.name)
 					{
-						case "Roles":
-							column.search.field = "Roles.Select(r=>r.RoleId)";
+						case "roles":
+							column.search.field = "roles.Select(r=>r.roleId)";
 							column.search.Operator = FilterOperator.Contains;
 							break;
 						default:
@@ -85,7 +91,7 @@ namespace Web.Areas.Administrator.Controllers
 		}
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(UserViewModel model)
+		public async Task<ActionResult> Create(UserViewModel model)
 		{
 			if (ModelState.IsValid && Validate(model))
 			{
@@ -106,17 +112,35 @@ namespace Web.Areas.Administrator.Controllers
 						}).ToList();
 						_userRoleRepository.Add(addUserRole);
 					}
+                    _userRepository.Save(RequestContext);
 					//add customer
 					Customer customer = new Customer() {
-						Id = model.Id,
-						Email = model.Email
+						Id = Guid.NewGuid().ToString(),
+						FullName = model.FullName,
+                        Email = model.UserName + "@gmail.com",
+						Password = StringHelper.stringToSHA512(model.Password),
+						CreateBy = DateTime.Now.ToShortDateString(),
+						TinhTrang = "Không khoá",
+						Avatar = "avatar1.png"
 					};
+                    await _accountRepository.AddAsync(customer);
+                    await _accountRepository.SaveAsync(RequestContext);
 
-					_accountRepository.Add(customer);
-					_userRepository.Save(RequestContext);
-					_accountRepository.Save(RequestContext);
-					
-					_logger.LogInformation("Create User {0} - ID: {1}", user.UserName, user.Id);
+					var quyen = _quyenRepository.All.FirstOrDefault(x => x.TenQuyen.Contains("Nhân viên"));
+
+					if (quyen != null)
+                    {
+                        var maquyen = quyen.MaQuyen;
+                        PhanQuyen phanQuyen = new PhanQuyen()
+                        {
+                            MaQuyen = maquyen,
+                            MaTaiKhoan = customer.Id
+                        };
+                        await _phanQuyenRepository.AddAsync(phanQuyen);
+                        await _phanQuyenRepository.SaveAsync();
+                    }
+
+                    _logger.LogInformation("Create User {0} - ID: {1}", user.UserName, user.Id);
 					return RedirectToAction("Index");
 				}
 				catch (Exception e)

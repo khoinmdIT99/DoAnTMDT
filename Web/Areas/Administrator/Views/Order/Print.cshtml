@@ -1,0 +1,120 @@
+﻿@model Domain.Shop.Dto.Cart.CartViewModel
+
+@{
+    Layout =null;
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>In đơn hàng @ViewBag.MaDonHang</title>
+    <link rel="stylesheet" href="~/report/style.css" media="all" />
+</head>
+<body>
+    <header class="clearfix">
+        <div id="logo">
+            <img src="~/Nội Thất Sài Thành.png">
+        </div>
+        <div id="company">
+            <h2 class="name">Nội thất Sài Thành</h2>
+            <div>828 Sư Vạn Hạnh P13 Quận 10</div>
+            <div>(08)34 673 896</div>
+            <div class="email"><a>khoitedu99@gmail.com</a></div>
+        </div>  
+    </header>
+    <main>
+
+    <div id="details" class="clearfix">
+        <div id="client">
+            <div class="to">Thông Tin Người Mua Hàng:</div>
+            <h2 class="name">@Model.Customer.FirstName</h2>
+            <div class="phone">@Model.Customer.PhoneNo</div>
+            <div class="address">@Model.Customer.Province, @Model.Customer.District, @Model.Customer.Address</div>
+            <div class="email">@Model.Customer.Email</div>
+        </div>
+        <div id="invoice">
+            <h1>@Model.Id</h1>
+            <div class="date"><b>Ngày Tạo:</b> @Model.CreateAt</div>
+            @if (Model.NgayHoanThanh != null)
+            {
+                <div class="date"><b>Ngày Giao:</b> @Model.NgayHoanThanh</div>
+            }
+        </div>
+    </div>
+
+    @{
+
+        int stt = 1;
+        int stt_merchant = 0;
+        double thanhtien = 0;
+        double tongtienchuaship = 0;
+    }
+
+    <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th class="no">STT</th>
+                <th class="no">Tên Sản Phẩm/Shop</th>
+                <th class="no">Đơn Giá</th>
+                <th class="no">Số Lượng</th>
+                <th class="no">Thành Tiền</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.Products)
+        {
+            <tbody>
+                <tr>
+                    <td class="desc" style="text-align:center">@stt</td>
+                    <td class="desc" style="text-decoration-color:black"><h3>@item.Product.ProductName</h3></td>
+                    <td class="desc" style="text-align:center">@(item.Product.PriceAfter?.ToString("#,###"))đ</td>
+                    <td class="desc" style="text-align:center">@item.Quantity</td>
+                    @{
+                        thanhtien = item.Product.PriceAfter.GetValueOrDefault() * item.Quantity;
+                    }
+                    <td class="desc" style="text-align:right">@thanhtien.ToString("#,###")đ</td>
+                </tr>
+                @{
+                    stt++;
+                    tongtienchuaship = tongtienchuaship + thanhtien;
+                }
+            </tbody>
+
+        }
+        <tfoot>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2" style="text-align:right"><h2>Tổng Tiền:</h2></td>
+                <td colspan="2" style="text-align:right"><h2>@tongtienchuaship.ToString("#,###")đ</h2></td>
+            </tr>
+        </tfoot>
+    </table>
+    <table border="0" cellspacing="0" cellpadding="0">
+
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="thanks">Cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi!</div>
+    <div id="notices">
+        <div>Ghi chú: @Model.Comments</div>
+        <div class="notice">Hãy báo cáo cho đơn vị chúng tôi nếu bạn gặp vấn đề khi giao dịch</div>
+    </div>
+
+    </main>
+<script>
+    window.print()
+</script>
+</body>
+</html>

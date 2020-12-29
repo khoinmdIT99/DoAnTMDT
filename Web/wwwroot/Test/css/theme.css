@@ -1074,18 +1074,18 @@
 /* 4.LARY LOADER
  --------------------------------------- */
 .mfp-iframe-scaler iframe {
-    background: white url(../image/lazy-loader.gif) no-repeat center center;
+    background: white url(/Test/image/lazy-loader.gif) no-repeat center center;
 }
 
 .lazy {
     display: block;
     position: relative;
     overflow: hidden;
-    background: transparent url(../image/lazy-loader.gif) no-repeat center center;
+    background: transparent url(/Test/image/lazy-loader.gif) no-repeat center center;
 }
 
 .loadeding {
-    background: white url(../image/lazy-loader.gif) no-repeat center center;
+    background: white url(/Test/image/lazy-loader.gif) no-repeat center center;
     height: 100%;
     position: absolute;
     z-index: 2;
@@ -1321,18 +1321,18 @@ header.navbar-compact {
 /* 4.LARY LOADER
  --------------------------------------- */
 .mfp-iframe-scaler iframe {
-    background: white url(../image/theme/lazy-loader.gif) no-repeat center center;
+    background: white url(/Test/image/theme/lazy-loader.gif) no-repeat center center;
 }
 
 .lazy {
     display: block;
     position: relative;
     overflow: hidden;
-    background: transparent url(../image/theme/lazy-loader.gif) no-repeat center center;
+    background: transparent url(/Test/image/theme/lazy-loader.gif) no-repeat center center;
 }
 
 .loadeding {
-    background: white url(../image/theme/lazy-loader.gif) no-repeat center center;
+    background: white url(/Test/image/theme/lazy-loader.gif) no-repeat center center;
     height: 100%;
     position: absolute;
     z-index: 2;
@@ -4039,7 +4039,7 @@ div.required .control-label:before {
 .breadcrumbs {
     margin-top: 0px;
     position: relative;
-    background: url(../image/catalog/demo/category/bg-bread.jpg) no-repeat center;
+    background: url(/Test/image/catalog/demo/category/bg-bread.jpg) no-repeat center;
     background-attachment: fixed;
     background-size: cover;
     padding-top: 120px;
@@ -5255,7 +5255,7 @@ body #so_popup_countdown .modal-footer #so_countdown_timer {
     }
 
 #so_popup_countdown .list-cates {
-    background: url(../../image/bg-popupc.jpg) no-repeat;
+    background: url(..//image/bg-popupc.jpg) no-repeat;
     background-size: 100%;
 }
 
@@ -5283,7 +5283,7 @@ body #so_popup_countdown .modal-footer #so_countdown_timer {
                     width: 87px;
                     height: 87px;
                     background-color: #f7e7de;
-                    background-image: url(../../image/icon/css_sprites.png);
+                    background-image: url(/Test/image/icon/css_sprites.png);
                     background-repeat: no-repeat;
                     border-radius: 50%;
                     display: block;
@@ -5609,7 +5609,7 @@ body .mfp-close-btn-in .mfp-close {
 }
 
 .customer-opinion {
-    background: url(../image/catalog/demo/slider/home1/customer-bg.png) no-repeat center;
+    background: url(/Test/image/catalog/demo/slider/home1/tranh1.png) no-repeat center;
     background-attachment: fixed;
 }
 
@@ -5627,10 +5627,11 @@ body .mfp-close-btn-in .mfp-close {
                 height: 125px;
                 object-fit: contain;
                 border: 2px solid #ddd;
+                border-radius: 50%;
             }
 
         .customer-opinion .item .opinion {
-            background: url(../image/catalog/demo/slider/home1/customer-bg2.png) no-repeat left 35px top 30px;
+            background: url(/Test/image/catalog/demo/slider/home1/customer-bg2.png) no-repeat left 35px top 30px;
             padding-left: 65px;
             margin-left: 125px;
             background-color: #000;
@@ -7678,13 +7679,12 @@ table.table-bordered thead > * {
         left: 10px;
         right: auto;
     }
-
-        .label-sale.blue-left:before {
-            top: 100%;
-            right: -3.5px;
-            transform: rotate(60deg);
-            left: auto;
-        }
+.label-sale.blue-left:before {
+    top: 100%;
+    right: -3.5px;
+    transform: rotate(60deg);
+    left: auto;
+}
 
     .label-sale.blue-right {
         right: 10px;
@@ -7709,7 +7709,13 @@ table.table-bordered thead > * {
         display: inline-block;
         font-weight: 400;
     }
-
+.price-old {
+    color: #999;
+    font-size: 12px;
+    text-decoration: line-through;
+    display: inline-block;
+    font-weight: 400;
+}
 .product-box {
     text-align: center;
     border: 1px solid #ddd;
@@ -7737,7 +7743,6 @@ table.table-bordered thead > * {
         }
 
         .product-box .product-image .c-img img {
-            height: auto;
             width: 100%;
             object-fit: cover;
         }
@@ -7782,7 +7787,10 @@ table.table-bordered thead > * {
         text-transform: uppercase;
         line-height: 22px;
     }
-
+    .mfp-iframe-scaler img {
+        width: 100%;
+        height: 100%;
+    }
     .product-box .price {
         text-align: center;
     }
@@ -7807,7 +7815,19 @@ table.table-bordered thead > * {
                 color: #fff;
                 background-color: #beae59;
             }
+.product-box .button-group a {
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    border: none;
+    vertical-align: top;
+    background-color: #fff;
+}
 
+.product-box .button-group a:hover {
+    color: #fff;
+    background-color: #beae59;
+}
         .product-box .button-group .wishlist-btn {
             width: 19.5%;
             font-size: 13px;
@@ -7819,6 +7839,10 @@ table.table-bordered thead > * {
             font-size: 12px;
             color: #beae59;
             font-weight: 700;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            padding-left: 25px;
+            padding-right: 25px;
         }
 
     .product-box .label-sale.red-right:before {
@@ -8592,18 +8616,21 @@ table.table-bordered thead > * {
 .mfp-iframe-scaler iframe {
     background: #fff !important;
 }
-
-.mfp-zoom-out-cur .mfp-image-holder .mfp-close {
-    display: inline-block;
-    width: auto;
-    text-align: center;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    height: auto;
-    line-height: 1;
+.mfp-wrap img {
+    width: 100%;
+    height: 100%;
 }
+    .mfp-zoom-out-cur .mfp-image-holder .mfp-close {
+        display: inline-block;
+        width: auto;
+        text-align: center;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        height: auto;
+        line-height: 1;
+    }
 
 body .mfp-close-btn-in .mfp-close {
     width: 40px;
@@ -9012,7 +9039,16 @@ body .mfp-close-btn-in .mfp-close {
             border: none;
             font-size: 14px;
         }
-
+.content-product .content-product-tab .reviews-form button[type='button'] {
+    display: block;
+    float: right;
+    width: 100px;
+    height: 40px;
+    background-color: #beae59;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+}
         .content-product .content-product-tab .tags-tab .tag {
             padding: 2.5px 22px 2px 21.5px;
             background-color: #beae59;
@@ -9609,7 +9645,7 @@ body .mfp-close-btn-in .mfp-close {
 
         .listing-blog .listing-blog-item.listing-blog-no-image .blog-item-desc-box .blog-item-info .blog-item-desc {
             padding-left: 3.6rem;
-            background: url(../image/catalog/demo/blog/blog-desc-bg.png) no-repeat top 4px left 0;
+            background: url(/Test/image/catalog/demo/blog/blog-desc-bg.png) no-repeat top 4px left 0;
         }
 
             .listing-blog .listing-blog-item.listing-blog-no-image .blog-item-desc-box .blog-item-info .blog-item-desc .author {
@@ -9683,7 +9719,7 @@ body .mfp-close-btn-in .mfp-close {
     }
 
     .listing-blog-2-column .listing-blog-item.listing-blog-no-image .blog-item-desc-box .blog-item-info .blog-item-desc {
-        background: url(../image/catalog/demo/blog/blog-desc-bg2.png) no-repeat top 4px left 0;
+        background: url(/Test/image/catalog/demo/blog/blog-desc-bg2.png) no-repeat top 4px left 0;
     }
 
 .listing-blog-2-column ul.pagination {
@@ -10374,7 +10410,7 @@ header ul.menu-normal > li ul {
                 position: absolute;
                 width: 6px;
                 height: 6px;
-                background: url(../image/catalog/demo/header/header-normal-bg.png) no-repeat;
+                background: url(/Test/image/catalog/demo/header/header-normal-bg.png) no-repeat;
                 top: calc(50% - 3px);
                 left: 3rem;
             }
@@ -10385,7 +10421,7 @@ header ul.menu-normal > li ul {
             }
 
                 header ul.menu-normal > li ul li a:hover:before {
-                    background: url(../image/catalog/demo/header/header-normal-bg-hover.png) no-repeat;
+                    background: url(/Test/image/catalog/demo/header/header-normal-bg-hover.png) no-repeat;
                 }
 
 header ul.menu-normal > li:hover > ul {

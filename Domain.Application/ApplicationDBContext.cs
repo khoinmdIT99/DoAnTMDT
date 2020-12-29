@@ -38,6 +38,7 @@ namespace Domain.Application
             services.AddScoped<IMailSettingRepository, MailSettingRepository>();
             services.AddScoped<ISSOSettingRepository, SSOSettingRepository>();
             services.AddScoped<AuthService>();
+
         }
     }
 

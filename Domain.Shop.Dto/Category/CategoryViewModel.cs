@@ -17,10 +17,19 @@ namespace Domain.Shop.Dto.Category
         [MaxLength(255)]
         [DisplayName("Tên danh mục")]
 		public string CategoryName { get; set; }
-        public string HierarchyCode { get; set; }
+        public string NoiThat { get; set; }
+		public string HierarchyCode { get; set; }
         [DisplayName("Menu cha")]
         public string ParentHierarchyCode { get; set; }
-        public IEnumerable<CategoryViewModel> Childs { get; set; }
+        [StringLength(255)]
+        public string SeoAlias { set; get; }
+
+        [StringLength(255)]
+        public string SeoKeywords { set; get; }
+
+        [StringLength(255)]
+        public string SeoDescription { set; get; }
+		public IEnumerable<CategoryViewModel> Childs { get; set; }
 		public static IEnumerable<CategoryViewModel> GetTreeMenuViewModels(IEnumerable<CategoryViewModel> categories, string HierarchyCode = null)
 		{
 			var result = new List<CategoryViewModel>();

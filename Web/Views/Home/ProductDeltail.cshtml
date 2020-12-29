@@ -1,8 +1,8 @@
 ﻿@model Domain.Shop.Dto.Products.ProductViewModel
-@{
-    ViewData["Title"] = "Product Detail";
-    Layout = "LayoutKH2";
-}
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@{ ViewData["Title"] = "Product Detail";
+    Layout = "LayoutKH2"; }
 @section Styles{
     <link href="~/Test/js/lightslider/lightslider.css" rel="stylesheet">
     <link href="~/Test/js/slick-slider/slick.css" rel="stylesheet">
@@ -14,46 +14,26 @@
             <div class="product-slider-box clearfix">
                 @if (Model.DisplayImages != null && Model.DisplayImages.Count > 0)
                 {
-                    <div class="main-slider-box">
-                        <div class="product-detail-slider popup-gallery">
-                            <div class="item-slider">
-                                <a href="~/imageUpload/@Model.DisplayImages[0]">
-                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
-                                </a>
-                            </div>
-                            <div class="item-slider">
-                                <a href="~/imageUpload/@Model.DisplayImages[0]">
-                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
-                                </a>
-                            </div>
-                            <div class="item-slider">
-                                <a href="~/imageUpload/@Model.DisplayImages[0]">
-                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
-                                </a>
-                            </div>
-                            <div class="item-slider">
-                                <a href="~/imageUpload/@Model.DisplayImages[0]">
-                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
-                                </a>
-                            </div>
-                            <div class="item-slider">
-                                <a href="~/imageUpload/@Model.DisplayImages[0]">
-                                    <img id="zoom_05" data-zoom-image="~/images/catalog/demo/products/product34-large.jpg" src="~/imageUpload/@Model.DisplayImages[0]">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+    <div class="main-slider-box">
+        <div class="product-detail-slider popup-gallery">
+            @foreach (var item in Model.DisplayImages)
+            {
+<div class="item-slider">
+    <a href="~/imageUpload/@item">
+        <img id="zoom_05" data-zoom-image="~/imageUpload/@item" src="~/imageUpload/@item">
+    </a>
+</div>}
+        </div>
+    </div>
                     <div class="gallery-box">
                         <div class="product-detail-slider-gallery">
                             @for (int i = 1; i < Model.DisplayImages.Count; i++)
                             {
-                                <div class="gallery-item">
-                                    <img src="~/imageUpload/@Model.DisplayImages[i]">
-                                </div>
-                            }
+            <div class="gallery-item">
+                <img src="~/imageUpload/@Model.DisplayImages[i]">
+            </div>}
                         </div>
-                    </div>
-                }
+                    </div>}
             </div>
             <div class="product-infomation">
                 <div class="product-box">
@@ -86,7 +66,7 @@
                         <a href="#reviews" data-toggle="scroll" class="smooth add-reviews">Add Your Rivew</a>
                     </div>
                     <div class="price">
-                        $@Model.Price
+                        @Model.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ
                     </div>
                     <div class="product-desc-box">
                         <h4 class="product-desc-title">Chất liệu</h4>
@@ -108,15 +88,10 @@
                             <span class="quantity-control-btn quantity-minus">-</span>
                         </div>
                         <div class="button-group">
-                            <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
+                            <button style="padding: 0px;" class="add-to-cart detail smooth" data-count="@Model.BasketCount" data-id="@Model.Id">
                                 ADD TO CART
                             </button>
-                            <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                                <i class="fa fa-retweet" aria-hidden="true"></i>
-                            </button>
-                            <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                            </button>
+                            <input id="txt_name" type="hidden" value="69">
                         </div>
                     </div>
                     <div class="share-box">
@@ -135,10 +110,10 @@
     <div class="container">
         <div class="content-product-tab clearfix">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#description" class="smooth">description</a></li>
-                <li><a data-toggle="tab" href="#reviews" class="smooth">reviews</a></li>
-                <li><a data-toggle="tab" href="#product-tags" class="smooth">product tags</a></li>
-                <li><a data-toggle="tab" href="#custom-tabs" class="smooth">custom tabs</a></li>
+                <li class="active"><a data-toggle="tab" href="#description" class="smooth">Mô tả</a></li>
+                <li><a data-toggle="tab" href="#reviews" class="smooth">Đánh giá</a></li>
+                <li><a data-toggle="tab" href="#product-tags" class="smooth">Tags</a></li>
+                <li><a data-toggle="tab" href="#custom-tabs" class="smooth">Khuyến mãi</a></li>
             </ul>
 
             <div class="tab-content">
@@ -147,36 +122,17 @@
                 </div>
                 <div id="reviews" class="tab-pane fade">
                     <form class="reviews-form">
+                        <input type="hidden" id="txtid" value="@Model.Id"/>
                         <h4 class="form-title">Write A Review</h4>
                         <div class="form-group">
-                            <label>Your Name</label>
-                            <input type="text" name="" placeholder="Your Name" class="form-control">
+                            <label>Tên</label>
+                            <input style="font-size: 14px;" id="txt_review_name" type="text" name="" placeholder="Tên của bạn" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Your Review</label>
-                            <textarea placeholder="Your Review"></textarea>
+                            <label>Đánh giá</label>
+                            <textarea style="font-size: 14px;" id="txt_review_text" placeholder="Đánh giá của bạn"></textarea>
                         </div>
-                        <div class="form-group">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label" for="inlineRadio1">Bad</label>
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                <label class="form-check-label" for="inlineRadio3">Good</label>
-                            </div>
-                        </div>
-                        <button type="submit" class="smooth hv-border-inline">CONTINUTE</button>
+                        <button type="button" id="btnReview" class="smooth hv-border-inline">CONTINUTE</button>
                     </form>
                 </div>
                 <div id="product-tags" class="tags-tab tab-pane fade">
@@ -193,20 +149,16 @@
                 </div>
                 <div id="custom-tabs" class="tab-pane fade">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Giảm giá : @Model.Discount %
                     </p>
+                    @if (Model.ExtraDiscount.GetValueOrDefault() != 0)
+                    {
+        <p>
+            Giảm giá thêm trong mùa: @Model.ExtraDiscount %
+        </p>}
+                    @{ double tongcong = Model.Discount.GetValueOrDefault() + Model.ExtraDiscount.GetValueOrDefault(); }
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Tổng cộng mức giảm giá : @tongcong % so với mức giá sản phẩm ban đầu: @Model.Price.GetValueOrDefault().ToString("N0") VNĐ
                     </p>
                 </div>
             </div>
@@ -766,7 +718,68 @@
     </div>
 </div>
 @section Scripts{
-    <script type="text/javascript" src=" ~/Test/js/lightslider/lightslider.js"></script>
+    @*<script type="text/javascript" src=" ~/Test/js/lightslider/lightslider.js"></script>*@
     <script type="text/javascript" src="~/Test/js/quickview/jquery.elevateZoom-3.0.8.min.js"></script>
-    <script src="~/Test/js/slick-slider/slick.js"></script>
+    <script src="~/Test/js/slick-slider/slick.js">
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#btnReview").click(function (e) {
+                e.preventDefault();
+                var name = $("#txt_review_name").val();
+                var text = $("#txt_review_text").val();
+                var id = $("#txtid").val();
+                if (name === null || text === null) {
+                    alert("Thiếu dữ liệu");
+                }
+                else {
+                    $.ajax({
+                        url: "/Home/Review",
+                        type: "post",
+                        data: { "id": id, "name": name, "review": text },
+                        success: function(data) {
+                            if (data === "Vui lòng đăng nhập để review") {
+                                alert(data);
+                            } else {
+                                alert(data);
+                                location.href = "@Url.Action("Index", "Home")";
+                            }
+                        },
+                        error: function(data) {
+                            alert("Error: " + data);
+                        }
+                    });
+                }
+            });
+        });
+        @*$("#btnReview").click(function(e) {
+            e.preventDefault();
+            var id = @Context.Session.GetString("_Id");
+            var name = $("#txt_review_name").val();
+            var text = $("#txt_review_text").val();
+            alert(id);
+            if (id === null) {
+                alert("Lỗi đăng nhập");
+            } else if (name === null || text === null) {
+                alert("Thiếu dữ liệu");
+            } else {
+                $.ajax({
+                    url: "/Home/Review",
+                    type: "post",
+                    data: { "id": id, "name": name, "review": text },
+                    success: function(data) {
+                        if (data === "Vui lòng đăng nhập để review") {
+                            alert(data);
+                        } else {
+                            alert(data);
+                            location.href = "@Url.Action("Index", "Home")";
+                        }
+                    },
+                    error: function(data) {
+                        alert("Error: " + data);
+                    }
+                });
+            }
+        });*@
+    </script>
 }

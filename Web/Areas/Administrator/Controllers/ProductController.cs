@@ -10,10 +10,13 @@ using Domain.Shop.Enums;
 using Domain.Shop.IRepositories;
 using Infrastructure.Common;
 using Infrastructure.Web;
+using Infrastructure.Web.HelperTool;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 
 namespace Web.Areas.Administrator.Controllers
@@ -36,11 +39,12 @@ namespace Web.Areas.Administrator.Controllers
         private readonly IProductImageRepository _productImageRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _config;
+        private readonly IMemoryCache _cache;
         public ProductController(IProductRepository productRepository, IProductTypeRepository productTypeRepository,
             IMaterialRepository materialRepository, ICategoryRepository categoryRepository,
             IWebHostEnvironment webHostEnvironment, IConfiguration config, IProductImageRepository productImageRepository,
             ITagRepository tagRepository, IProductTagRepository productTagRepository,
-            IAccountRepository accountRepository, IProductReViewRepository productReViewRepository)
+            IAccountRepository accountRepository, IProductReViewRepository productReViewRepository, IMemoryCache cache)
         {
             _config = config;
             _webHostEnvironment = webHostEnvironment;
@@ -51,22 +55,33 @@ namespace Web.Areas.Administrator.Controllers
             _productTagRepository = productTagRepository;
             this._accountRepository = accountRepository;
             this._productReViewRepository = productReViewRepository;
+            _cache = cache;
             _productImageRepository = productImageRepository;
             _tagRepository = tagRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("ProductCode") != null)
             {
                 HttpContext.Session.Remove("ProductCode");
             }
-
-            IEnumerable<ProductViewModel> list = _productRepository.GetProductViewModels();
+            if (_cache.TryGetValue("CACHE_MASTER_PRODUCT", out List<ProductViewModel> listproductcache))
+            {
+                return View(listproductcache);
+            }
+            MemoryCacheEntryOptions options = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300),
+                SlidingExpiration = TimeSpan.FromSeconds(60),
+                Priority = CacheItemPriority.NeverRemove
+            };
+            IEnumerable<ProductViewModel> list = _productRepository.GetProductViewModels().ToList();
             foreach (var item in list)
             {
                 item.PriceType = Enum.GetName(typeof(PriceType), int.Parse(item.PriceType));
             }
-            return View(list);
+            _cache.Set("CACHE_MASTER_PRODUCT", list, options);
+            return await Task.Run(() => View(list));
         }
         private void SetComboData()
         {
@@ -146,7 +161,7 @@ namespace Web.Areas.Administrator.Controllers
             }
             return uniqueFileNameList;
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             SetComboData();
             if (TempData["WarningCreateCategory"] != null)
@@ -163,11 +178,11 @@ namespace Web.Areas.Administrator.Controllers
             }
 
             ViewBag.ProductCode = HttpContext.Session.GetString("ProductCode");
-            return View();
+            return await Task.Run(() => View());
         }
 
         [HttpPost]
-        public IActionResult Create(ProductViewModel model)
+        public async Task<IActionResult> Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -175,7 +190,7 @@ namespace Web.Areas.Administrator.Controllers
                 {
                     var productId = Guid.NewGuid().ToString();
                     List<string> productImageList = ProcessUploadedFile(model);
-                    _productRepository.Add(new Product()
+                    await _productRepository.AddAsync(new Product
                     {
                         Id = productId,
                         ProductCode = model.ProductCode,
@@ -186,10 +201,19 @@ namespace Web.Areas.Administrator.Controllers
                         MaterialId = model.MaterialId,
                         CategoryId = model.CategoryId,
                         PriceType = int.Parse(model.PriceType),
-                        Price = model.Price
+                        Price = model.Price,
+                        IsFeatured = model.IsFeatured,
+                        IsNew = model.IsNew,
+                        Actived = model.Actived,
+                        Discount = model.Discount,
+                        ExtraDiscount = model.ExtraDiscount,
+                        SeoAlias = TextHelper.ToUnsignString(model.ProductName),
+                        PriceAfter = Math.Round((double)((1 - model.Discount / 100 - model.ExtraDiscount / 100) * model.Price.GetValueOrDefault()), 1,
+                            MidpointRounding.AwayFromZero)
                     });
-                    _productRepository.Save(RequestContext);
 
+                    await _productRepository.SaveAsync(RequestContext);
+                    _cache.Remove("CACHE_MASTER_PRODUCT");
                     if (productImageList != null && productImageList.Count > 0)
                     {
                         foreach (var image in productImageList)
@@ -217,36 +241,53 @@ namespace Web.Areas.Administrator.Controllers
                         }
                     }
                     _productTagRepository.Save(RequestContext);
-                    HttpContext.Session.Remove("ProductCode");
                 }
                 catch (Exception)
                 {
                     SetComboData();
+                    ViewBag.ProductCode = HttpContext.Session.GetString("ProductCode");
                     return View();
                 }
+                HttpContext.Session.Remove("ProductCode");
                 return RedirectToAction("Index");
             }
             SetComboData();
+            ViewBag.ProductCode = HttpContext.Session.GetString("ProductCode");
             return View();
         }
 
-        public ActionResult Update(string id)
+        public async Task<IActionResult> Update(string id)
         {
             var model = _productRepository.GetProductViewModelById(id);
-            SetComboData();
-            ViewBag.checkedTag = _productTagRepository.GetProductTagViewModelsByProductId(id).Select(s => s.TagId).ToList();
-            if (model == null)
+            if (_cache.TryGetValue("CACHE_MASTER_PRODUCT", out List<ProductViewModel> c_lstProd))
             {
-
-                return View();
+                SetComboData();
+                ViewBag.checkedTag = _productTagRepository.GetProductTagViewModelsByProductId(id).Select(s => s.TagId).ToList();
+                if (c_lstProd == null)
+                {
+                    return await Task.Run(() => View());
+                }
+                else
+                {
+                    return await Task.Run(() => View(model));
+                }
             }
             else
             {
-                return View(model);
+                SetComboData();
+                ViewBag.checkedTag = _productTagRepository.GetProductTagViewModelsByProductId(id).Select(s => s.TagId).ToList();
+                if (model == null)
+                {
+                    return await Task.Run(() => View());
+                }
+                else
+                {
+                    return await Task.Run(() => View(model));
+                }
             }
         }
         [HttpPost]
-        public ActionResult Update(ProductViewModel model)
+        public async Task<IActionResult> Update(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -255,13 +296,18 @@ namespace Web.Areas.Administrator.Controllers
                     List<string> productImageList = ProcessUploadedFile(model);
                     var product = _productRepository.GetProductById(model.Id);
                     PropertyCopy.Copy(model, product);
-                    _productRepository.Update(product);
-                    _productRepository.Save(RequestContext);
+                    product.PriceAfter = Math.Round((double)((1 - (model.Discount + model.ExtraDiscount) / 100) *
+                                                              model.Price.GetValueOrDefault()), 1, MidpointRounding.AwayFromZero);
+                    product.SeoAlias = TextHelper.ToUnsignString(model.ProductName);
+
+                    _productRepository.UpdateAsync(product);
+                    await _productRepository.SaveAsync(RequestContext);
+                    _cache.Remove("CACHE_MASTER_PRODUCT");
                     if (productImageList != null && productImageList.Count > 0)
                     {
                         foreach (var image in productImageList)
                         {
-                            _productImageRepository.Add(new ProductImage()
+                            await _productImageRepository.AddAsync(new ProductImage()
                             {
                                 Id = Guid.NewGuid().ToString(),
                                 ProductId = model.Id,
@@ -269,7 +315,7 @@ namespace Web.Areas.Administrator.Controllers
                                 CreateAt = DateTime.UtcNow
                             });
                         }
-                        _productImageRepository.Save(RequestContext);
+                        await _productImageRepository.SaveAsync(RequestContext);
                     }
                     var listProductTag = _productTagRepository.GetProductTagViewModelsByProductId(model.Id).Select(s => s.TagId).ToList();
                     if (model.TagList != null && model.TagList.Count > 0)
@@ -278,7 +324,7 @@ namespace Web.Areas.Administrator.Controllers
                         {
                             if (!listProductTag.Contains(item))
                             {
-                                _productTagRepository.Add(new ProductTag()
+                                await _productTagRepository.AddAsync(new ProductTag()
                                 {
                                     Id = Guid.NewGuid().ToString(),
                                     ProductId = model.Id,
@@ -286,7 +332,7 @@ namespace Web.Areas.Administrator.Controllers
                                 });
                             }
                         }
-                        _productTagRepository.Save(RequestContext);
+                        await _productTagRepository.SaveAsync(RequestContext);
                         if (listProductTag.Count > 0)
                         {
                             foreach (var item in listProductTag)
@@ -321,29 +367,57 @@ namespace Web.Areas.Administrator.Controllers
             return View();
         }
         [HttpPost]
-        public bool Delete(string id)
+        public async Task<bool> Delete(string id)
         {
             try
             {
-                Product product = _productRepository.Get(id);
-                var productImageList = _productImageRepository.All.Where(x => x.ProductId == id).ToList();
-                var productTag = _productTagRepository.GetProductTagViewModelsByProductId(id).Select(s => s.TagName).ToList();
-                if (productImageList != null && productImageList.Count > 0)
+                if (_cache.TryGetValue("CACHE_MASTER_PRODUCT", out List<ProductViewModel> c_lstProd))
                 {
-                    foreach (var image in productImageList)
+                    var m_Product = c_lstProd.Find(p => p.Id == id);
+                    Product product = _productRepository.Get(m_Product.Id);
+                    var productImageList = await _productImageRepository.All.Where(x => x.ProductId == id).ToListAsync();
+                    var productTag = _productTagRepository.GetProductTagViewModelsByProductId(id).Select(s => s.TagName).ToList();
+                    if (productImageList != null && productImageList.Count > 0)
                     {
-                        DeleteImageAndFolder(image.Id, image.Url.Split("\\")[0]);
+                        foreach (var image in productImageList)
+                        {
+                            DeleteImageAndFolder(image.Id, image.Url.Split("\\")[0]);
+                        }
                     }
+                    if (productTag.Count > 0)
+                    {
+                        foreach (var item in productTag)
+                        {
+                            DeleteProductTag(id, item);
+                        }
+                    }
+                    _productRepository.Delete(product);
+                    await _productRepository.SaveAsync(RequestContext);
+                    _cache.Remove("CACHE_MASTER_PRODUCT");
                 }
-                if (productTag != null && productTag.Count > 0)
+                else
                 {
-                    foreach (var item in productTag)
+                    Product product = _productRepository.Get(id);
+                    var productImageList = await _productImageRepository.All.Where(x => x.ProductId == id).ToListAsync();
+                    var productTag = _productTagRepository.GetProductTagViewModelsByProductId(id).Select(s => s.TagName).ToList();
+                    if (productImageList != null && productImageList.Count > 0)
                     {
-                        DeleteProductTag(id, item);
+                        foreach (var image in productImageList)
+                        {
+                            DeleteImageAndFolder(image.Id, image.Url.Split("\\")[0]);
+                        }
                     }
+                    if (productTag.Count > 0)
+                    {
+                        foreach (var item in productTag)
+                        {
+                            DeleteProductTag(id, item);
+                        }
+                    }
+                    _productRepository.Delete(product);
+                    await _productRepository.SaveAsync(RequestContext);
+                    _cache.Remove("CACHE_MASTER_PRODUCT");
                 }
-                _productRepository.Delete(product);
-                _productRepository.Save(RequestContext);
                 return true;
             }
             catch (Exception )
@@ -393,7 +467,7 @@ namespace Web.Areas.Administrator.Controllers
             string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "imageUpload");
             Directory.Delete(Path.Combine(uploadsFolder, folderName), true);
         }
-        public ActionResult Review(string id)
+        public IActionResult Review(string id)
         {
             var model = _productReViewRepository.GetProductReviewViewModels(id);
             foreach (var item in model)

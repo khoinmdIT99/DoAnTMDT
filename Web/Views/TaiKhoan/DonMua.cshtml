@@ -1,0 +1,285 @@
+﻿@using Domain.Shop.Entities
+@model IEnumerable<Domain.Shop.Entities.Cart>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{ ViewData["Title"] = "DonMua"; }
+@section Styles {
+    <link href="~/assets/css/fix.css" rel="stylesheet">
+    <style>
+        .trangthai-dahuy {
+            border-color: red !important;
+        }
+
+        .trangthai-dahuy i {
+            color: red !important;
+        }
+    </style>
+}
+@if (Model != null)
+{
+<div class="container">
+    <div class="customer_quanly">
+        <div class="cus_left">
+            <h4><span>Tên: </span>@ViewBag.TaiKhoan.FullName</h4>
+            <hr>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-route="ThongTinTaiKhoan">
+                    <div class="menu_cus_icon" style="background-color: #2fdab8;">
+                        <i class="fa fa-user-o"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Tài Khoản</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-route="DoiMatKhau">
+                    <div class="menu_cus_icon" style="background-color:rgb(255, 193, 7);">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Đổi mật khẩu</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="chuaxuly">
+                    <div class="menu_cus_icon" style="background-color:rgb(255, 87, 34);">
+                        <i class="fa fa-shopping-basket"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Đơn Mua</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="cus_right">
+            <div class="ql_donhang">
+                <div class="goback">
+                    <a href="customer-donmua.html">
+                        <i class="fa fa-angle-left"></i>
+                        TRỞ LẠI
+                    </a>
+                </div>
+                <div class="ct_don">
+                    @if (ViewBag.Host.ToString().Contains("DonMuadanggiao.html") || ViewBag.Host.ToString().Contains("DonMuadangxuly.html") || ViewBag.Host.ToString().Contains("DonMuadaxuly.html") || ViewBag.Host.ToString().Contains("DonMuadahuy.html"))
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai">
+                    <i class="fa fa-file-text-o"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đã Đặt</h5>
+        </a>
+    </div> }
+                    else
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai trangthai_color">
+                    <i class="fa fa-file-text-o"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đã Đặt</h5>
+        </a>
+    </div>}
+                    @if (ViewBag.Host.ToString().Contains("DonMuadanggiao.html"))
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="danggiao">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai trangthai_color">
+                    <i class="fa fa-motorcycle"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đang Giao</h5>
+        </a>
+    </div> }
+                    else
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="danggiao">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai">
+                    <i class="fa fa-motorcycle"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đang Giao</h5>
+        </a>
+    </div>}
+                    @if (ViewBag.Host.ToString().Contains("DonMuadaxuly.html"))
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="daxuly">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai trangthai_color">
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đã Xử Lý</h5>
+        </a>
+    </div> }
+                    else
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="daxuly">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai">
+                    <i class="fa fa-star"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đã Xử Lý</h5>
+        </a>
+    </div>}
+
+                    @if (ViewBag.Host.ToString().Contains("DonMuadahuy.html"))
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="dahuy">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai trangthai-dahuy">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đã Huỷ</h5>
+        </a>
+    </div> }
+                    else
+                    {
+    <div class="trangthai_donmua">
+        <a asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="dahuy">
+            <div class="trangthai_donmua_ct">
+                <div class="khung_trangthai">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                </div>
+            </div>
+            <h5>Đơn Hàng Đã Huỷ</h5>
+        </a>
+    </div>}
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+<div class="tab1">
+    <div class="form_donhang">
+        <div class="ql_donhang">
+            <div class="tenshop_donhang">
+                <div class="sanpham_giohang">
+                    <a href="#">
+                        <i class="fa fa-bank"></i>
+                        <h5>Mã đơn hàng: @item.Id</h5>
+                    </a>
+                </div>
+                <div class="trangthai_donhang">
+                    @item.Status
+                </div>
+            </div>
+            <hr>
+            @{ string idtaikhoan = "";
+                                    int stt = 1; }
+            @foreach (var it in (List<CartProduct>)ViewBag.ChiTietDonhang)
+            {
+@if (stt > 1)
+{
+    break;
+}
+else
+{
+@if (it.CartId == item.Id)
+{
+<div class="thongtin_donhang">
+    <div class="sanpham_giohang sp_donhang">
+        <div class="hinh_sanpham_giohang hinh_donhang" style="background-image: url(/imageUpload/@it.Product.ProductImages[0].Url.ToString().Replace("\\","//"));"></div>
+        <div class="form_ten_sp_giohang ten_sp_donhang">
+            <h5>
+                @it.Product.ProductName
+            </h5>
+            <h5>Số lượng mua: @it.Quantity</h5>
+        </div>
+        <div class="thanhtien_giohang tt_donhang">
+            <h5>@it.Product.PriceAfter.GetValueOrDefault().ToString("#,###") đ</h5>
+            <span class="price-old">@it.Product.Price.GetValueOrDefault().ToString("N0") đ</span>
+        </div>
+    </div>
+</div>stt++;
+                            }}}
+
+            <hr>
+            <div class="button_chitiet_huy_donhang">
+                <div class="chuthich_giaohang">
+                    <p>Khách được huỷ đơn hàng khi nhân viên giao hàng chưa đến lấy hàng</p>
+                </div>
+                <div class="chitiet_dh_right">
+                    <div class="tongtien_thanhtoan">
+                        <h5>Tổng số tiền phải thanh toán: </h5>
+                        @item.Totalprice.ToString("#,###") đ
+                    </div>
+                    <div class="button_ct_huy">
+                        <a asp-controller="TaiKhoan" asp-action="ChiTietDonMua" asp-route-id="@item.Id"><button>Xem Chi Tiết Đơn Hàng</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>                }
+        </div>
+    </div>
+</div> }
+            else
+            {
+<script>
+        window.location.href = "@Url.Action("Index", "Home")";
+</script>}
+@section Scripts
+{
+    <!--Sweet Alert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!--Function-->
+    <script>
+        function AskToCancel(madonhang) {
+            swal({
+                    title: `Bạn có chắc chắn huỷ đơn hàng ${madonhang}?`,
+                    text: "Một khi huỷ, đơn hàng sẽ không không phục được",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        HuyDonHang(madonhang);
+                        swal("Đơn hàng của bạn đã được huỷ!", {
+                                icon: "success",
+                                button: "OK"
+                            })
+                            .then(() => {
+                                window.location.href = "@Url.Action("DonMua", "TaiKhoan")";
+                            });
+                    }
+                });
+        }
+
+        function HuyDonHang(madonhang) {
+            $.ajax({
+                url: "/Customer/TaiKhoan/HuyDonMua",
+                type: "post",
+                data: { "madonhang": madonhang },
+                error: function (data) {
+                    alert("Error: " + data);
+                },
+                async: false
+                //Nhớ xài async hoặc dùng 1 request chứa tất cả dữ liệu, k là bị DDoS
+            });
+        }
+    </script>
+
+    <style>
+        .swal-modal {
+            border: 3px solid #bef4e9;
+        }
+    </style>
+}

@@ -44,7 +44,34 @@ namespace Web.Areas.Administrator.Controllers
             }
             return View(model);
         }
-        public ActionResult Detail(string id)
+        public IActionResult Print(string id)
+        {
+            var model = _cartRepository.GetCartViewModel(id);
+            model.Customer = _accountRepository.GetCustomerViewModel(model.CustomerId);
+            model.Customer.District = _dictrictRepository.GetDictrictViewModel(_accountRepository.GetCustomerViewModel(model.CustomerId).District).Name;
+            model.Customer.Province = _provinceRepository.GetProvinceViewModel(_accountRepository.GetCustomerViewModel(model.CustomerId).Province).Name;
+            List<CartProductViewModel> cartProductViewModels = new List<CartProductViewModel>();
+            foreach (var cartProduct in _shoppingCartRepository.GetCartProductsBought(id, model.CustomerId))
+            {
+                var cartProductViewModel = new CartProductViewModel()
+                {
+                    Id = cartProduct.Id,
+                    CartId = cartProduct.CartId,
+                    Cart = _cartRepository.GetCartViewModel(cartProduct.CartId),
+                    ProductId = cartProduct.ProductId,
+                    Product = _productRepository.GetProductViewModelById(cartProduct.ProductId),
+                    Price = cartProduct.Price,
+                    PriceType = cartProduct.PriceType,
+                    Quantity = cartProduct.Quantity,
+                    Total = cartProduct.Total
+                };
+                cartProductViewModels.Add(cartProductViewModel);
+                model.TotalPrice += cartProductViewModel.Total;
+            }
+            model.Products = cartProductViewModels;
+            return View(model);
+        }
+        public IActionResult Detail(string id)
         {
             var model = _cartRepository.GetCartViewModel(id);
             model.Customer = _accountRepository.GetCustomerViewModel(model.CustomerId);

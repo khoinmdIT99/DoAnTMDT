@@ -1,0 +1,102 @@
+﻿@model Domain.Shop.Entities.Customer
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{ ViewData["Title"] = "ThongTinTaiKhoan";
+    Layout = "~/Views/Shared/_MerchantManagementLayout.cshtml"; }
+
+@if (Model != null)
+{
+<div class="container">
+    <div class="customer_quanly">
+        <div class="cus_left">
+            <h4><span>Tên: </span>@Model.FullName</h4>
+            <hr>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-controller="QuanLyTaiKhoan" asp-action="ThongTinTaiKhoan">
+                    <div class="menu_cus_icon" style="background-color: #2fdab8;">
+                        <i class="fa fa-user-o"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Tài Khoản</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-controller="QuanLyTaiKhoan" asp-action="DoiMatKhau">
+                    <div class="menu_cus_icon" style="background-color:rgb(255, 193, 7);">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Đổi mật khẩu</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="cus_right">
+            <h4>Thông Tin Tài Khoản</h4>
+            <hr>
+            <input id="TkId" type="hidden" value="@Model.Id">
+            <div class="cus_tt_canhan">
+                <label>Email</label>
+                <input type="text" disabled="disabled" value="@Model.Email">
+            </div>
+            <div class="cus_tt_canhan">
+                <label>Tên shop</label>
+                <input type="text" disabled="disabled" value="@Model.FullName">
+            </div>
+            <form id="frmChangeInformation" method="post" role="form" action="">
+                <div class="cus_tt_canhan">
+                    <label>Số điện thoại</label>
+                    <input type="tel" value="@Model.PhoneNo" id="txtSuaDienThoai" pattern=".{10,12}" required oninvalid="this.setCustomValidity('Số điện thoại chứa 10 - 12 ký tự')" onchange="this.setCustomValidity('')">
+                </div>
+                <div class="cus_tt_canhan_button">
+                    <div class="khoang-trong"></div>
+                    <button class="button_luu">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 
+}
+else
+{
+<script>
+        window.location.href = "@Url.Action("Index", "QuanLy")";
+</script>
+}
+@section Scripts
+{
+    <script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>
+    <script>
+        let oldsdt = "";
+        $(document).ready(function () {
+            oldsdt = $("#txtSuaDienThoai").val();
+        });
+
+        $("#frmChangeInformation").submit(function (e) {
+            e.preventDefault();
+            let sdt = $("#txtSuaDienThoai").val();
+            let id = $("#TkId").val();
+
+            if (sdt == oldsdt) {
+                alert("Thông tin không thay đổi");
+            }
+            else {
+                $.ajax({
+                    url: "/QuanLyTaiKhoan/EditThongTin",
+                    type: "Post",
+                    data: { "id": id, "sdt": sdt },
+                    success: function (data) {
+                        alert(data);
+                        location.href = "@Url.Action("ThongTinTaiKhoan", "QuanLyTaiKhoan")";
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                });
+            }
+        });
+    </script>
+}

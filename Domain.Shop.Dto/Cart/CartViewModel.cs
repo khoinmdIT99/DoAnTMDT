@@ -16,10 +16,9 @@ namespace Domain.Shop.Dto.Cart
         public DateTime? NgayHoanThanh { get; set; }
         public int PaymentMethod { get; set; }
         public int ShippingMethod { get; set; }
-
-        public int Status { get; set; }
+        public string Status { get; set; }
         public List<CartProduct.CartProductViewModel> Products { get; set; }
         public CustomerViewModel Customer { get; set; }
-
+        public string Comments { get; set; }
     }
 }

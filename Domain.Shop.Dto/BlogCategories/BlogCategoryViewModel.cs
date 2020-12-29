@@ -29,33 +29,33 @@ namespace Domain.Shop.Dto.BlogCategories
         public IEnumerable<BlogCategoryViewModel> Childs { get; set; }
         public IEnumerable<BlogCategoryViewModel> Path { get; set; }
 
-        public static IEnumerable<BlogCategoryViewModel> GetTreeBlogCategoryViewModels(IEnumerable<BlogCategoryViewModel> blogCategories, string HierarchyCode = null)
+        public static IEnumerable<BlogCategoryViewModel> GetTreeBlogCategoryViewModels(IEnumerable<BlogCategoryViewModel> blogCategories, string hierarchyCode = null)
         {
             var result = new List<BlogCategoryViewModel>();
-            if (string.IsNullOrEmpty(HierarchyCode))
+            if (string.IsNullOrEmpty(hierarchyCode))
             {
-                result = blogCategories.Where(p => p.HierarchyCode.Length == Domain.Common.Consts.Infrastructure.HierarchyCodeLength)
+                result = blogCategories.Where(p => p.HierarchyCode.Length == Common.Consts.Infrastructure.HierarchyCodeLength)
                     .Select(p => new BlogCategoryViewModel
                     {
                         Id = p.Id,
                         BlogCategoryName = p.BlogCategoryName,
                         Slug = p.Slug,
                         HierarchyCode = p.HierarchyCode,
-                        ParentHierarchyCode = HierarchyCode,
+                        ParentHierarchyCode = hierarchyCode,
                         Childs = GetTreeBlogCategoryViewModels(blogCategories, p.HierarchyCode),
                         Path = blogCategories.Where(s => p.HierarchyCode.StartsWith(s.HierarchyCode)).OrderBy(s => s.HierarchyCode)
                     }).ToList();
             }
             else
             {
-                result = blogCategories.Where(p => p.HierarchyCode.StartsWith(HierarchyCode) && p.HierarchyCode.Length - HierarchyCode.Length == Domain.Common.Consts.Infrastructure.HierarchyCodeLength)
+                result = blogCategories.Where(p => p.HierarchyCode.StartsWith(hierarchyCode) && p.HierarchyCode.Length - hierarchyCode.Length == Domain.Common.Consts.Infrastructure.HierarchyCodeLength)
                     .Select(p => new BlogCategoryViewModel
                     {
                         Id = p.Id,
                         BlogCategoryName = p.BlogCategoryName,
                         Slug = p.Slug,
                         HierarchyCode = p.HierarchyCode,
-                        ParentHierarchyCode = HierarchyCode,
+                        ParentHierarchyCode = hierarchyCode,
                         Childs = GetTreeBlogCategoryViewModels(blogCategories, p.HierarchyCode),
                         Path = blogCategories.Where(s => p.HierarchyCode.StartsWith(s.HierarchyCode)).OrderBy(s => s.HierarchyCode)
                     }).ToList();

@@ -184,7 +184,7 @@ namespace DatabaseTools.Migrations.ShopDB
 
                     b.Property<DateTime?>("CreateAt")
                         .HasColumnName("CREATE_AT")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("CreateBy")
                         .HasColumnName("CREATE_BY")
@@ -230,9 +230,10 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("SHIPPING_METHOD")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<string>("Status")
                         .HasColumnName("STATUS")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<long>("Tax")
                         .HasColumnName("TAX")
@@ -241,6 +242,10 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.Property<int>("TaxPercent")
                         .HasColumnName("TAX_PERCENT")
                         .HasColumnType("int");
+
+                    b.Property<string>("TinhTrangDanhGiaCustomer")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<int>("Total")
                         .HasColumnName("TOTAL")
@@ -253,6 +258,10 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasName("UQ__DonHang__129584AC539A1D8D");
 
                     b.HasIndex("ShippingAddressId");
 
@@ -284,6 +293,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<double?>("DiemCustomerDanhGia")
+                        .HasColumnType("float");
+
                     b.Property<string>("Id")
                         .HasColumnName("ID")
                         .HasColumnType("nvarchar(50)")
@@ -298,6 +310,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<DateTime?>("NgayGiao")
+                        .HasColumnType("datetime");
+
                     b.Property<long?>("Price")
                         .HasColumnName("PRICE")
                         .HasColumnType("bigint");
@@ -309,6 +324,10 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.Property<int>("Quantity")
                         .HasColumnName("QUANTITY")
                         .HasColumnType("int");
+
+                    b.Property<string>("TinhTrangChiTiet")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<long>("Total")
                         .HasColumnName("TOTAL")
@@ -364,6 +383,21 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("NoiThat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
                     b.Property<string>("Slug")
                         .HasColumnName("SLUG")
                         .HasColumnType("nvarchar(50)")
@@ -386,6 +420,9 @@ namespace DatabaseTools.Migrations.ShopDB
 
                     b.Property<string>("Address")
                         .HasColumnName("ADDRESS")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreateAt")
@@ -436,6 +473,21 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("TinhTrang")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -791,6 +843,18 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
                     b.HasKey("Id");
 
                     b.ToTable("MATERIALS");
@@ -802,6 +866,9 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("ID")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<bool?>("Actived")
+                        .HasColumnType("bit");
 
                     b.Property<int>("BasketCount")
                         .HasColumnType("int");
@@ -826,8 +893,23 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("DESCRIPTION")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Discount")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("ExtraDiscount")
+                        .HasColumnType("float");
+
                     b.Property<int?>("IdSupplier")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsFeatured")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsNew")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsSpecial")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastUpdateAt")
                         .HasColumnName("LAST_UPDATE_AT")
@@ -845,6 +927,9 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.Property<long?>("Price")
                         .HasColumnName("PRICE")
                         .HasColumnType("bigint");
+
+                    b.Property<double?>("PriceAfter")
+                        .HasColumnType("float");
 
                     b.Property<int?>("PriceType")
                         .HasColumnName("PRICE_TYPE")
@@ -866,11 +951,26 @@ namespace DatabaseTools.Migrations.ShopDB
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasColumnName("SLUG")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -1038,6 +1138,18 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(2000)")
                         .HasMaxLength(2000);
+
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<string>("TypeName")
                         .IsRequired()
@@ -1275,6 +1387,24 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.ToTable("Suppliers");
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.DanhGia", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double?>("Diem")
+                        .HasColumnType("float");
+
+                    b.Property<string>("IdTaiKhoanDanhGia")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdTaiKhoanDanhGia");
+
+                    b.ToTable("DanhGias");
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.SystemManage.ForgetPassword", b =>
                 {
                     b.Property<string>("Id")
@@ -1307,6 +1437,113 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.HasKey("Id");
 
                     b.ToTable("ForgetPassword");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("FromUserId")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ToRoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FromUserId");
+
+                    b.HasIndex("ToRoomId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.PhanQuyen", b =>
+                {
+                    b.Property<int>("MaQuyen")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaTaiKhoan")
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("MaQuyen", "MaTaiKhoan");
+
+                    b.HasIndex("MaTaiKhoan");
+
+                    b.ToTable("PhanQuyen");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.Quyen", b =>
+                {
+                    b.Property<int>("MaQuyen")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TenQuyen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("MaQuyen");
+
+                    b.ToTable("Quyen");
+
+                    b.HasData(
+                        new
+                        {
+                            MaQuyen = 1,
+                            TenQuyen = "Quản trị"
+                        },
+                        new
+                        {
+                            MaQuyen = 2,
+                            TenQuyen = "Nhân viên"
+                        },
+                        new
+                        {
+                            MaQuyen = 3,
+                            TenQuyen = "Khách hàng"
+                        },
+                        new
+                        {
+                            MaQuyen = 4,
+                            TenQuyen = "Khách hàng thân thiết"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdminId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
+
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.SystemManage.SystemInformation", b =>
@@ -1518,6 +1755,28 @@ namespace DatabaseTools.Migrations.ShopDB
                     b.ToTable("TranhChaps");
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.XacMinh", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Id_User")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timer")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("XacMinhs");
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.Tag", b =>
                 {
                     b.Property<string>("Id")
@@ -1530,6 +1789,18 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnName("NAME")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<string>("SeoAlias")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoDescription")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("SeoKeywords")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 
@@ -1691,6 +1962,50 @@ namespace DatabaseTools.Migrations.ShopDB
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.DanhGia", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Customer", "IdTaiKhoanDanhGiaNavigation")
+                        .WithMany("DanhGiaIdTaiKhoanDanhGiaNavigation")
+                        .HasForeignKey("IdTaiKhoanDanhGia");
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.Message", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Customer", "FromUser")
+                        .WithMany("Messages")
+                        .HasForeignKey("FromUserId");
+
+                    b.HasOne("Domain.Shop.Entities.SystemManage.Room", "ToRoom")
+                        .WithMany("Messages")
+                        .HasForeignKey("ToRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.PhanQuyen", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.SystemManage.Quyen", "Quyen")
+                        .WithMany("PhanQuyens")
+                        .HasForeignKey("MaQuyen")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Shop.Entities.Customer", "TaiKhoan")
+                        .WithMany()
+                        .HasForeignKey("MaTaiKhoan")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Shop.Entities.SystemManage.Room", b =>
+                {
+                    b.HasOne("Domain.Shop.Entities.Customer", "Admin")
+                        .WithMany("Rooms")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Shop.Entities.SystemManage.ThongBao", b =>
                 {
                     b.HasOne("Domain.Shop.Entities.Cart", "DonDatHang")
@@ -1716,7 +2031,7 @@ namespace DatabaseTools.Migrations.ShopDB
             modelBuilder.Entity("Domain.Shop.Entities.SystemManage.TranhChap", b =>
                 {
                     b.HasOne("Domain.Shop.Entities.Cart", "DonDatHang")
-                        .WithMany()
+                        .WithMany("ListTranhChaps")
                         .HasForeignKey("MaDDH");
                 });
 #pragma warning restore 612, 618

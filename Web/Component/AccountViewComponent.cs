@@ -12,6 +12,7 @@ namespace Web.Component
         private readonly IHttpContextAccessor _httpContextAccessor;
         const string SessionName = "_Name";
         const string SessionId = "_Id";
+        const string SessionIdQuyen = "_IdQuyen";
         public AccountViewComponent(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -21,6 +22,7 @@ namespace Web.Component
         {
             ViewBag.Name = HttpContext.Session.GetString(SessionName);
             ViewBag.Age = HttpContext.Session.GetString(SessionId);
+            ViewBag.Quyen = HttpContext.Session.GetString(SessionIdQuyen);
             return View("Index");
         }
     }

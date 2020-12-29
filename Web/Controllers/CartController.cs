@@ -18,7 +18,6 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-   
     public class CartController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -60,7 +59,6 @@ namespace Web.Controllers
         }
         public string GetCart(IServiceProvider service)
         {
-
             try
             {
                 HttpRequest cookie = service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
@@ -82,7 +80,7 @@ namespace Web.Controllers
                 throw;
             }
         }
-
+        [Route("giohang.html", Name = "ShoppingCart")]
         public ViewResult ShoppingCart() {
             string session = HttpContext.Session.GetString("AddProducts");
 
@@ -133,10 +131,10 @@ namespace Web.Controllers
                 return View(model);
             }
         }
-        public IActionResult ViewProduct(string productId)
+        public async Task<IActionResult> ViewProduct(string productId)
         {
-            var datas = _productRepository.GetProductViewModelById(productId);
-            return Json(datas);
+            var model = _productRepository.GetProductViewModelById(productId);
+            return Json(model);
         }
         [HttpPost]
         public async Task<IActionResult> AddToCart(string productId, int? quantity)
@@ -184,7 +182,7 @@ namespace Web.Controllers
                         {
                             Id = product.Id,
                             Product = _productRepository.GetProductViewModelById(product.Id),
-                            Price = product.Price,
+                            Price = (long)product.PriceAfter.GetValueOrDefault(),
                             Quantity = quantity.Value
                         });
                     }
@@ -212,7 +210,7 @@ namespace Web.Controllers
                             {
                                 Id = product.Id,
                                 Product = _productRepository.GetProductViewModelById(product.Id),
-                                Price = product.Price,
+                                Price = (long)product.PriceAfter.GetValueOrDefault(),
                                 Quantity = quantity.Value
                             }
                         };

@@ -1,6 +1,7 @@
 ﻿@{
     var userId = ViewBag.Age;
     var userName = ViewBag.Name;
+    var userIdQuyen = ViewBag.Quyen;
 }
 <style>
 
@@ -24,16 +25,29 @@
             </ul>
         </div>*@
         <li>
+            <a class="smooth" title="">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                @if (userName.ToString().Length > 10)
+                {
+                    userName = userName.ToString().Substring(0, 11) + "...";
+                }
+                else
+                {
+                    userName = userName.ToString();
+                }
+                @userName
+            </a>
             <a id="logoutBtn" class="smooth" title="">
                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                @userName - Đăng xuất
+                Đăng xuất
             </a>
+            <input type="hidden" value="@userIdQuyen"/>
         </li>
     }
     else
     {
         <li>
-            <a href="#" data-toggle="modal" data-target="#myModalLogin" class="smooth" title="">
+            <a href="#" data-toggle="modal" data-target="#myModalLogin" id="btn-dangnhap-modal" class="smooth" title="">
                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 Đăng nhập
             </a>

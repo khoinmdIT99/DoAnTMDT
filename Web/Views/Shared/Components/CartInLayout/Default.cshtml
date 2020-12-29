@@ -14,7 +14,7 @@
                 <tbody>
                 <tr>
                     <td class="product-item-image">
-                        <a asp-action="ProductDeltail" asp-controller="Home" asp-route-id="@item.Id" class="" title="">
+                        <a asp-action="ProductDeltail" asp-controller="Home" asp-route-slug="@item.Product.Slug" class="" title="">
                             @if (item.Product.DisplayImages.Any())
                             {
                                 <img src="~/imageUpload/@item.Product.DisplayImages[0]??#" alt="" width="60" height="60" class="img-responsive"> }
@@ -28,21 +28,21 @@
                     </td>
                     <td class="product-item-name">
                         <h4 class="product-name">
-                            <a asp-action="ProductDeltail" asp-controller="Home" asp-route-id="@item.Id" class="smooth" title="">@item.Product.ProductName</a>
+                            <a asp-action="ProductDeltail" asp-controller="Home" asp-route-slug="@item.Product.Slug" class="smooth" title="">@item.Product.ProductName</a>
                         </h4>
                         <span class="product-item-quantity">@item.Quantity</span>
                     </td>
                     <td class="product-item-price">
-                        <span class="shopping-price">@item.Product.Price</span>
+                        <span class="shopping-price">@item.Product.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ</span>
                     </td>
-                    @{ total += item.Quantity * item.Product.Price.GetValueOrDefault(); }
+                    @{ total += item.Quantity * (long)item.Product.PriceAfter.GetValueOrDefault(); }
                 </tr>
                 </tbody>
             </table>
         </li>}
     <li class="total-price clearfix">
         <label class="total-title">TOTAL:</label>
-        <label class="float-right">@total $</label>
+        <label class="float-right">@total đ</label>
     </li>
     <li class="shopping-cart-checkout">
         <a asp-action="ShoppingCart" asp-controller="Cart" asp-area="" class="smooth" title="">Giỏ hàng</a>

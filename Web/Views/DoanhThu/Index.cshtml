@@ -1,0 +1,58 @@
+﻿
+@{ 
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MerchantManagementLayout.cshtml";
+}
+
+<div class="new_arrivals_agile_w3ls_info menu-qlsp">
+    <div class="container">
+        <div class="doanh_thu">
+            <h2>Doanh Thu</h2>
+            <div class="ngay_thang">
+                Từ
+                <input type="date" id="ngaybatdau">
+                <span>-</span>
+                Đến
+                <input type="date" id="ngayketthuc">
+                <button class="btn btn-primary" type="button" id="btnTim">Tìm</button>
+            </div>
+            <h2 hidden id="title-doanhthu-theongay">Tổng Doanh Thu Theo Ngày</h2>
+            <h1 id="doanhthu-theongay"></h1>
+        </div>
+        <div class="doanh_thu">
+            <h2>Tổng Doanh Thu</h2>
+            <h1 style="padding-top: 15px;">@ViewBag.TongDoanhThu.ToString("#,###") đ</h1>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>
+    <script>
+        $("#btnTim").click(function () {
+            if ($("#ngaybatdau").val() == null || $("#ngaybatdau").val() == "") {
+                alert("Vui lòng nhập ngày bắt đầu");
+                return;
+            }
+            if ($("#ngayketthuc").val() == null || $("#ngayketthuc").val() == "") {
+                alert("Vui lòng nhập ngày kết thúc");
+                return;
+            }
+            var nbd = $("#ngaybatdau").val();
+            var nkt = $("#ngayketthuc").val();
+            $.ajax({
+                url: "/DoanhThu/GetTongDoanhThuTheoNgay",
+                type: "post",
+                data: { "nbd": nbd, "nkt": nkt },
+                success: function (data) {
+                    $("#doanhthu-theongay").text(data.toLocaleString('en-EN') + ' đ');
+                    $("#title-doanhthu-theongay").attr('hidden', false);
+                },
+                error: function (data) {
+                    alert("Error: " + data);
+                }
+            });
+        });
+    </script> 
+}
+    

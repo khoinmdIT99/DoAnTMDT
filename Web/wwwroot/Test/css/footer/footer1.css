@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* [2] */
 /* [8] */
 /*===============================================
@@ -251,4 +251,5 @@
  FOOTER DEFFAULT
  *************************************************************************************************/
 .typefooter-1 .footer-box {
-  background: url(../../image/catalog/demo/footer/footer-middle-bg.png); }
+    background: url(../../image/catalog/demo/footer/footer-enlarge.jpg);
+}

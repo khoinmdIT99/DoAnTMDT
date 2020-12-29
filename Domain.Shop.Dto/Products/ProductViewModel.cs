@@ -51,6 +51,25 @@ namespace Domain.Shop.Dto.Products
 		
 		public List<string> DisplayImages { get; set; }
 		public List<string> TagList { get; set; }
+        [Display(Name = "Sản phẩm mới")]
+        public bool? IsNew { get; set; }
 
+        [Display(Name = "Đánh dấu nổi bật")]
+        public bool? IsFeatured { get; set; }
+
+        [Display(Name = "Sản phẩm bán chạy")]
+        public bool? IsSpecial { get; set; }
+
+        [Display(Name = "Kích hoạt sản phẩm")]
+        public bool? Actived { get; set; }
+
+        [Display(Name = "Lượt xem")]
+        public int Views { get; set; }
+        [Display(Name = "Khuyến mãi cộng thêm")]
+        public double? ExtraDiscount { get; set; }
+        [Display(Name = "Giảm giá (%)")]
+        public int? Discount { get; set; }
+        [Display(Name = "Giá bán")]
+        public double? PriceAfter { get; set; }
 	}
 }

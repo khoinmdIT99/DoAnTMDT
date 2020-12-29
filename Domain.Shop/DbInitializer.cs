@@ -1,4 +1,5 @@
 ﻿using Domain.Shop.Entities;
+using Domain.Shop.Entities.SystemManage;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Shop
@@ -7,6 +8,12 @@ namespace Domain.Shop
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Quyen>().HasData(
+                new Quyen() { MaQuyen = 1,TenQuyen = "Quản trị" },
+                new Quyen() { MaQuyen = 2,TenQuyen = "Nhân viên"},
+                new Quyen() { MaQuyen = 3,TenQuyen = "Khách hàng"},
+                new Quyen() { MaQuyen = 4,TenQuyen = "Khách hàng thân thiết"}
+            );
             modelBuilder.Entity<Province>().HasData(
                  new Province()
                  {

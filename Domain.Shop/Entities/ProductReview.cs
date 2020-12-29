@@ -23,8 +23,10 @@ namespace Domain.Shop.Entities
         public int Star { get; set; }
         [Column("APPROVED")]
         public bool Approved { get; set; }
+        [ForeignKey("Product")]
         public string ProductId { get; set; }
         public virtual Product Product { get; set; }
+        [ForeignKey("Customer")]
         public string CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
     }

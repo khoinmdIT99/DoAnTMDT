@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Domain.Common.Security;
 using Domain.Shop.Dto;
 using Domain.Shop.Dto.Cart;
@@ -15,10 +16,12 @@ using Domain.Shop.Entities;
 using Domain.Shop.Entities.SystemManage;
 using Domain.Shop.IRepositories;
 using Infrastructure.Web;
+using Infrastructure.Web.Onepay;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +32,7 @@ using Newtonsoft.Json.Linq;
 using Web.Models;
 using Web.MomoAPI;
 using Web.PaypalHelpers;
+using Web.Services;
 
 namespace Web.Controllers
 {
@@ -46,13 +50,14 @@ namespace Web.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ISystemInformationRepository _systemInformationRepository;
         private readonly IOptions<PaypalApiSetting> paypalSettings;
+        private readonly IActionContextAccessor _accessor;
         private readonly IConfiguration _configuration;
         private readonly IUtils _utils;
         private readonly IVnPayLibrary _vnPayLibrary;
         const string SessionId = "_Id";
 
         public OrderController(IProductRepository productRepository, IShoppingCartRepository shoppingCart, IServiceProvider services, 
-            IAccountRepository accountRepository, ICartRepository cartRepository, IDictrictRepository iDictrictRepository, IProvinceRepository iProvinceRepository, ITranhChapRepository iTranhChapRepository, IWebHostEnvironment webHostEnvironment, ISystemInformationRepository systemInformationRepository, IOptions<PaypalApiSetting> paypalSettings, IConfiguration configuration, IUtils utils, IVnPayLibrary vnPayLibrary)
+            IAccountRepository accountRepository, ICartRepository cartRepository, IDictrictRepository iDictrictRepository, IProvinceRepository iProvinceRepository, ITranhChapRepository iTranhChapRepository, IWebHostEnvironment webHostEnvironment, ISystemInformationRepository systemInformationRepository, IOptions<PaypalApiSetting> paypalSettings, IConfiguration configuration, IUtils utils, IVnPayLibrary vnPayLibrary, IActionContextAccessor accessor)
         {
             this._productRepository = productRepository;
             this._shoppingCart = shoppingCart;
@@ -68,6 +73,7 @@ namespace Web.Controllers
             this._configuration = configuration;
             _utils = utils;
             _vnPayLibrary = vnPayLibrary;
+            _accessor = accessor;
         }
         [AllowAnonymous]
         public IActionResult CheckCurrency()
@@ -186,11 +192,18 @@ namespace Web.Controllers
         {
             var customer =
                 await _accountRepository.All.FirstOrDefaultAsync(x => x.Id == HttpContext.Session.GetString(SessionId));
-            if(customer != null)
-                return Json(new { success = true });
+            if (customer != null )
+            {
+                if (customer.TinhTrang.Equals("Chưa kích hoạt") || customer.TinhTrang == null)
+                {
+                    return Json(new { success = false, message = "Vui lòng kích hoạt Email tài khoản để mua hàng" });
+                }
+                return Json(new { success = true ,message= customer.TinhTrang });
+            }
             return Json(new { success = false, message = "Vui lòng đăng nhập để mua hàng" });
         }
         [AllowAnonymous]
+        [Route("DonHang.html", Name = "DonHang")]
         public IActionResult HomeOrder()
         {
             try
@@ -231,12 +244,12 @@ namespace Web.Controllers
                     var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
                     if (HttpContext.Session.GetString(SessionId) == null)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new { thongbao = "Vui lòng đăng nhập để thanh toán" });
                     }
 
                     if (customer == null)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new { thongbao = "Vui lòng đăng nhập để thanh toán" });
                     }
                     var model = new OrderViewModel()
                     {
@@ -288,7 +301,7 @@ namespace Web.Controllers
                 string returnUrl = momoInfo.returnUrl;
                 string notifyurl = momoInfo.notifyurl;
 
-                string amount = "25000000";
+                string amount = _shoppingCart.GetShoppingCartTotalPrice(cartId).ToString();
                 string orderid = Guid.NewGuid().ToString();
                 string requestId = Guid.NewGuid().ToString();
                 string extraData = "";
@@ -369,6 +382,16 @@ namespace Web.Controllers
 
                     return Redirect(paymentUrl);
                 }
+                else if (model.PaymentMethod == 4)
+                {
+                    HttpContext.Session.Set("Order", model);
+                    return RedirectToAction("OnePay");
+                }
+                else if (model.PaymentMethod == 5)
+                {
+                    HttpContext.Session.Set("Order", model);
+                    return RedirectToAction("OnePayvn");
+                }
                 else
                 {
                     List<CartProductViewModel> cartProductViewModels = new List<CartProductViewModel>();
@@ -407,8 +430,9 @@ namespace Web.Controllers
                         PhoneNo = customer.PhoneNo,
                         Email = customer.Email,
                         ShoppingCart = cart,
-                        Status = 0
+                        Status = "Chưa xử lý"
                     };
+                    model.Status = "Chưa xử lý";
                     var kq = await SaveOrder(model);
                     ViewBag.KQ = !kq ? "Hệ thống gặp lỗi tuy nhiên đơn hàng của bạn vẫn được nhận" : "Đơn hàng của bạn đã đặt thành công.Hệ thống sẽ liên hệ với bạn sớm";
                     _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
@@ -419,6 +443,341 @@ namespace Web.Controllers
             catch (Exception)
             {
                 throw;
+            }
+        }
+        [AllowAnonymous]
+        public IActionResult Onepay()
+        {
+            HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
+            string cartId = cookie.Cookies["cardId"];
+            List<CartProductViewModel> cartProductViewModels = new List<CartProductViewModel>();
+
+            foreach (var item in _shoppingCart.GetCartProducts(cartId))
+            {
+                var cartProductViewModel = new CartProductViewModel()
+                {
+                    Id = item.Id,
+                    CartId = item.CartId,
+                    Cart = _cartRepository.GetCartViewModel(item.CartId),
+                    ProductId = item.ProductId,
+                    Product = _productRepository.GetProductViewModelById(item.ProductId),
+                    Price = item.Price,
+                    PriceType = item.PriceType,
+                    Quantity = item.Quantity,
+                    Total = item.Total
+                };
+                cartProductViewModels.Add(cartProductViewModel);
+
+            }
+            var cart = new ShoppingCart()
+            {
+                Id = cartId,
+                cartProducts = cartProductViewModels,
+                Total = _shoppingCart.GetShoppingCartTotal(cartId),
+                TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
+            };
+            var ip = _accessor.ActionContext.HttpContext.Connection.RemoteIpAddress.ToString();
+            string url = RedirectOnepay(RandomString(), (cart.TotalPrice * 100).ToString(), ip);
+            return Redirect(url);
+        }
+        [AllowAnonymous]
+        public IActionResult Onepayvn()
+        {
+            HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
+            string cartId = cookie.Cookies["cardId"];
+            List<CartProductViewModel> cartProductViewModels = new List<CartProductViewModel>();
+
+            foreach (var item in _shoppingCart.GetCartProducts(cartId))
+            {
+                var cartProductViewModel = new CartProductViewModel()
+                {
+                    Id = item.Id,
+                    CartId = item.CartId,
+                    Cart = _cartRepository.GetCartViewModel(item.CartId),
+                    ProductId = item.ProductId,
+                    Product = _productRepository.GetProductViewModelById(item.ProductId),
+                    Price = item.Price,
+                    PriceType = item.PriceType,
+                    Quantity = item.Quantity,
+                    Total = item.Total
+                };
+                cartProductViewModels.Add(cartProductViewModel);
+
+            }
+            var cart = new ShoppingCart()
+            {
+                Id = cartId,
+                cartProducts = cartProductViewModels,
+                Total = _shoppingCart.GetShoppingCartTotal(cartId),
+                TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
+            };
+            var ip = _accessor.ActionContext.HttpContext.Connection.RemoteIpAddress.ToString();
+            string url = RedirectOnepayvn(RandomString(), (cart.TotalPrice * 100).ToString(), ip);
+            return Redirect(url);
+        }
+        /// <summary>
+        /// Sinh ky tu ngau nhien
+        /// </summary>
+        private string RandomString()
+        {
+            var str = new StringBuilder();
+            var random = new Random();
+            for (int i = 0; i <= 5; i++)
+            {
+                var c = Convert.ToChar(Convert.ToInt32(random.Next(65, 68)));
+                str.Append(c);
+            }
+            return str.ToString().ToLower();
+        }
+        public string RedirectOnepayvn(string codeInvoice, string amount, string ip)
+        {
+            // Khoi tao lop thu vien
+            VPCRequest conn = new VPCRequest(OnepayPropertyNoiDia.URL_ONEPAY_TEST);
+            conn.SetSecureSecret(OnepayPropertyNoiDia.HASH_CODE);
+
+            // Gan cac thong so de truyen sang cong thanh toan onepay
+            conn.AddDigitalOrderField("AgainLink", OnepayPropertyNoiDia.AGAIN_LINK);
+            conn.AddDigitalOrderField("Title", "Nội thất sài thành");
+            conn.AddDigitalOrderField("vpc_Locale", OnepayPropertyNoiDia.PAYGATE_LANGUAGE);
+            conn.AddDigitalOrderField("vpc_Version", OnepayPropertyNoiDia.VERSION);
+            conn.AddDigitalOrderField("vpc_Command", OnepayPropertyNoiDia.COMMAND);
+            conn.AddDigitalOrderField("vpc_Merchant", OnepayPropertyNoiDia.MERCHANT_ID);
+            conn.AddDigitalOrderField("vpc_AccessCode", OnepayPropertyNoiDia.ACCESS_CODE);
+            conn.AddDigitalOrderField("vpc_MerchTxnRef", RandomString());
+            conn.AddDigitalOrderField("vpc_Currency", "VND");
+            conn.AddDigitalOrderField("vpc_OrderInfo", codeInvoice);
+            conn.AddDigitalOrderField("vpc_Amount", amount);
+            conn.AddDigitalOrderField("vpc_ReturnURL", Url.Action("OnepayResponsevn", "Order", null, Request.Scheme, null));
+
+            // Thong tin them ve khach hang. De trong neu khong co thong tin
+            conn.AddDigitalOrderField("vpc_SHIP_Street01", "");
+            conn.AddDigitalOrderField("vpc_SHIP_Provice", "");
+            conn.AddDigitalOrderField("vpc_SHIP_City", "");
+            conn.AddDigitalOrderField("vpc_SHIP_Country", "");
+            conn.AddDigitalOrderField("vpc_Customer_Phone", "");
+            conn.AddDigitalOrderField("vpc_Customer_Email", "");
+            conn.AddDigitalOrderField("vpc_Customer_Id", "");
+            conn.AddDigitalOrderField("vpc_TicketNo", ip);
+
+            string url = conn.Create3PartyQueryString();
+            return url;
+        }
+        /// <summary>
+        /// Redirect den onepay
+        /// </summary>
+        public string RedirectOnepay(string codeInvoice, string amount, string ip)
+        {
+            // Khoi tao lop thu vien
+            VPCRequest conn = new VPCRequest(OnepayProperty.URL_ONEPAY_TEST);
+            conn.SetSecureSecret(OnepayProperty.HASH_CODE);
+
+            // Gan cac thong so de truyen sang cong thanh toan onepay
+            conn.AddDigitalOrderField("AgainLink", OnepayProperty.AGAIN_LINK);
+            conn.AddDigitalOrderField("Title", "Nội thất sài thành");
+            conn.AddDigitalOrderField("vpc_Locale", OnepayProperty.PAYGATE_LANGUAGE);
+            conn.AddDigitalOrderField("vpc_Version", OnepayProperty.VERSION);
+            conn.AddDigitalOrderField("vpc_Command", OnepayProperty.COMMAND);
+            conn.AddDigitalOrderField("vpc_Merchant", OnepayProperty.MERCHANT_ID);
+            conn.AddDigitalOrderField("vpc_AccessCode", OnepayProperty.ACCESS_CODE);
+            conn.AddDigitalOrderField("vpc_MerchTxnRef", RandomString());
+            conn.AddDigitalOrderField("vpc_OrderInfo", codeInvoice);
+            conn.AddDigitalOrderField("vpc_Amount", amount);
+            conn.AddDigitalOrderField("vpc_ReturnURL", Url.Action("OnepayResponse", "Order", null, Request.Scheme, null));
+
+            // Thong tin them ve khach hang. De trong neu khong co thong tin
+            conn.AddDigitalOrderField("vpc_SHIP_Street01", "");
+            conn.AddDigitalOrderField("vpc_SHIP_Provice", "");
+            conn.AddDigitalOrderField("vpc_SHIP_City", "");
+            conn.AddDigitalOrderField("vpc_SHIP_Country", "");
+            conn.AddDigitalOrderField("vpc_Customer_Phone", "");
+            conn.AddDigitalOrderField("vpc_Customer_Email", "");
+            conn.AddDigitalOrderField("vpc_Customer_Id", "");
+            conn.AddDigitalOrderField("vpc_TicketNo", ip);
+
+            string url = conn.Create3PartyQueryString();
+            return url;
+        }
+        [AllowAnonymous]
+        public async Task<IActionResult> OnepayResponse()
+        {
+            string hashvalidateResult = "";
+
+            // Khoi tao lop thu vien
+            VPCRequest conn = new VPCRequest(OnepayProperty.URL_ONEPAY_TEST);
+            conn.SetSecureSecret(OnepayProperty.HASH_CODE);
+
+            // Xu ly tham so tra ve va du lieu ma hoa
+            string a = "https://" + Request.Host.ToString() + "/Order/Onepay" + Request.QueryString.ToString();
+            hashvalidateResult = conn.Process3PartyResponse(HttpUtility.ParseQueryString(new Uri(a).Query));
+
+            // Lay tham so tra ve tu cong thanh toan
+            string vpc_TxnResponseCode = conn.GetResultField("vpc_TxnResponseCode");
+            string amount = conn.GetResultField("vpc_Amount");
+            string localed = conn.GetResultField("vpc_Locale");
+            string command = conn.GetResultField("vpc_Command");
+            string version = conn.GetResultField("vpc_Version");
+            string cardType = conn.GetResultField("vpc_Card");
+            string orderInfo = conn.GetResultField("vpc_OrderInfo");
+            string merchantID = conn.GetResultField("vpc_Merchant");
+            string authorizeID = conn.GetResultField("vpc_AuthorizeId");
+            string merchTxnRef = conn.GetResultField("vpc_MerchTxnRef");
+            string transactionNo = conn.GetResultField("vpc_TransactionNo");
+            string acqResponseCode = conn.GetResultField("vpc_AcqResponseCode");
+            string txnResponseCode = vpc_TxnResponseCode;
+            string message = conn.GetResultField("vpc_Message");
+
+            // Kiem tra 2 tham so tra ve quan trong nhat
+            if (hashvalidateResult == "CORRECTED" && txnResponseCode.Trim() == "0")
+            {
+
+                var session = HttpContext.Session.Get<OrderViewModel>("Order");
+                session.Status = "Chưa xử lý";
+                await SaveOrder(session);
+                HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
+                string cartId = cookie.Cookies["cardId"];
+                List<CartProductViewModel> cartProductViewModels = new List<CartProductViewModel>();
+
+                foreach (var item in _shoppingCart.GetCartProducts(cartId))
+                {
+                    var cartProductViewModel = new CartProductViewModel()
+                    {
+                        Id = item.Id,
+                        CartId = item.CartId,
+                        Cart = _cartRepository.GetCartViewModel(item.CartId),
+                        ProductId = item.ProductId,
+                        Product = _productRepository.GetProductViewModelById(item.ProductId),
+                        Price = item.Price,
+                        PriceType = item.PriceType,
+                        Quantity = item.Quantity,
+                        Total = item.Total
+                    };
+                    cartProductViewModels.Add(cartProductViewModel);
+
+                }
+                var cart = new ShoppingCart()
+                {
+                    Id = cartId,
+                    cartProducts = cartProductViewModels,
+                    Total = _shoppingCart.GetShoppingCartTotal(cartId),
+                    TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
+                };
+                var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                var orderViewModel = new OrderViewModel()
+                {
+                    CustomerId = customer.Id,
+                    FullName = customer.FirstName + " " + customer.LastName,
+                    Address = customer.Address,
+                    District = customer.District,
+                    Province = customer.Province,
+                    PhoneNo = customer.PhoneNo,
+                    Email = customer.Email,
+                    ShoppingCart = cart,
+                    Status = "Chưa xử lý"
+                };
+                _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
+                HttpContext.Session.Remove("AddProducts");
+                HttpContext.Session.Remove("Order");
+                ViewBag.TinhTrang = "Chưa xử lý";
+                return View("PaySuccess", orderViewModel);
+                //return View("PaySuccess");
+            }
+            else
+            {
+                return RedirectToAction("HomeOrder", "Order");
+                //return Content("PayUnSuccess");
+            }
+        }
+        [AllowAnonymous]
+        public async Task<IActionResult> OnepayResponsevn()
+        {
+            string hashvalidateResult = "";
+
+            // Khoi tao lop thu vien
+            VPCRequest conn = new VPCRequest(OnepayPropertyNoiDia.URL_ONEPAY_TEST);
+            conn.SetSecureSecret(OnepayPropertyNoiDia.HASH_CODE);
+
+            // Xu ly tham so tra ve va du lieu ma hoa
+            string a = "https://" + Request.Host.ToString() + "/Onepay/Onepayvn" + Request.QueryString.ToString();
+            hashvalidateResult = conn.Process3PartyResponse(HttpUtility.ParseQueryString(new Uri(a).Query));
+
+            // Lay tham so tra ve tu cong thanh toan
+            string vpc_TxnResponseCode = conn.GetResultField("vpc_TxnResponseCode");
+            string amount = conn.GetResultField("vpc_Amount");
+            string localed = conn.GetResultField("vpc_Locale");
+            string command = conn.GetResultField("vpc_Command");
+            string version = conn.GetResultField("vpc_Version");
+            string cardType = conn.GetResultField("vpc_Card");
+            string orderInfo = conn.GetResultField("vpc_OrderInfo");
+            string merchantID = conn.GetResultField("vpc_Merchant");
+            string authorizeID = conn.GetResultField("vpc_AuthorizeId");
+            string merchTxnRef = conn.GetResultField("vpc_MerchTxnRef");
+            string transactionNo = conn.GetResultField("vpc_TransactionNo");
+            string acqResponseCode = conn.GetResultField("vpc_AcqResponseCode");
+            string txnResponseCode = vpc_TxnResponseCode;
+            string message = conn.GetResultField("vpc_Message");
+
+            // Kiem tra 2 tham so tra ve quan trong nhat
+            if (hashvalidateResult == "CORRECTED" && txnResponseCode.Trim() == "0")
+            {
+
+                var session = HttpContext.Session.Get<OrderViewModel>("Order");
+                session.Status = "Chưa xử lý";
+                await SaveOrder(session);
+                HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
+                string cartId = cookie.Cookies["cardId"];
+                List<CartProductViewModel> cartProductViewModels = new List<CartProductViewModel>();
+
+                foreach (var item in _shoppingCart.GetCartProducts(cartId))
+                {
+                    var cartProductViewModel = new CartProductViewModel()
+                    {
+                        Id = item.Id,
+                        CartId = item.CartId,
+                        Cart = _cartRepository.GetCartViewModel(item.CartId),
+                        ProductId = item.ProductId,
+                        Product = _productRepository.GetProductViewModelById(item.ProductId),
+                        Price = item.Price,
+                        PriceType = item.PriceType,
+                        Quantity = item.Quantity,
+                        Total = item.Total
+                    };
+                    cartProductViewModels.Add(cartProductViewModel);
+
+                }
+                var cart = new ShoppingCart()
+                {
+                    Id = cartId,
+                    cartProducts = cartProductViewModels,
+                    Total = _shoppingCart.GetShoppingCartTotal(cartId),
+                    TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
+                };
+                var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                var orderViewModel = new OrderViewModel()
+                {
+                    CustomerId = customer.Id,
+                    FullName = customer.FirstName + " " + customer.LastName,
+                    Address = customer.Address,
+                    District = customer.District,
+                    Province = customer.Province,
+                    PhoneNo = customer.PhoneNo,
+                    Email = customer.Email,
+                    ShoppingCart = cart,
+                    Status = "Chưa xử lý"
+                };
+                _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
+                HttpContext.Session.Remove("AddProducts");
+                HttpContext.Session.Remove("Order");
+                ViewBag.TinhTrang = "Chưa xử lý";
+                return View("PaySuccess", orderViewModel);
+                //return View("PaySuccess");
+            }
+            else if (hashvalidateResult == "INVALIDATED" && txnResponseCode.Trim() == "0")
+            {
+                return Content("PayPending");
+            }
+            else
+            {
+                return Content("PayUnSuccess");
             }
         }
         [AllowAnonymous]
@@ -462,6 +821,7 @@ namespace Web.Controllers
                     if (vnp_ResponseCode == "00")
                     {
                         var session = HttpContext.Session.Get<OrderViewModel>("Order");
+                        session.Status = "Chờ lấy hàng";
                         await SaveOrder(session);
                         HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
                         string cartId = cookie.Cookies["cardId"];
@@ -502,11 +862,12 @@ namespace Web.Controllers
                             PhoneNo = customer.PhoneNo,
                             Email = customer.Email,
                             ShoppingCart = cart,
-                            Status = 1
+                            Status = "Chưa xử lý"
                         };
-                        if (cookie != null) _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
+                        _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
                         HttpContext.Session.Remove("AddProducts");
                         HttpContext.Session.Remove("Order");
+                        ViewBag.TinhTrang = "Chưa xử lý";
                         return View(orderViewModel);
 
                     }
@@ -533,6 +894,7 @@ namespace Web.Controllers
             {
 
                 var session = HttpContext.Session.Get<OrderViewModel>("Order");
+                session.Status = "Chưa xử lý";
                 await SaveOrder(session);
                 HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
                 string cartId = cookie.Cookies["cardId"];
@@ -573,11 +935,12 @@ namespace Web.Controllers
                     PhoneNo = customer.PhoneNo,
                     Email = customer.Email,
                     ShoppingCart = cart,
-                    Status = 1
+                    Status = "Chưa xử lý"
                 };
-                if (cookie != null) _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
+                _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
                 HttpContext.Session.Remove("AddProducts");
                 HttpContext.Session.Remove("Order");
+                ViewBag.TinhTrang = "Chưa xử lý";
                 return View(orderViewModel);
             }
             return RedirectToAction(nameof(HomeOrder));
@@ -590,6 +953,7 @@ namespace Web.Controllers
             var result = await paypalAPI.ExecutePayment(paymentId, PayerID);
             ViewBag.data = result;
             var session = HttpContext.Session.Get<OrderViewModel>("Order");
+            session.Status = "Chưa xử lý";
             await SaveOrder(session);
             HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
             string cartId = cookie.Cookies["cardId"];
@@ -630,11 +994,12 @@ namespace Web.Controllers
                 PhoneNo = customer.PhoneNo,
                 Email = customer.Email,
                 ShoppingCart = cart,
-                Status = 1
+                Status = "Chưa xử lý"
             };
             _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
             HttpContext.Session.Remove("AddProducts");
             HttpContext.Session.Remove("Order");
+            ViewBag.TinhTrang = "Chưa xử lý";
             return View(orderViewModel);
         }
         [AllowAnonymous]
@@ -704,6 +1069,8 @@ namespace Web.Controllers
                 cart.PaymentMethod = model.PaymentMethod;
                 cart.ShippingMethod = model.ShippingMethod;
                 cart.Comments = model.Comment;
+                cart.Status = model.Status;
+                cart.TinhTrangDanhGiaCustomer = "Chưa đánh giá";
                 _cartRepository.UpdateAsync(cart);
                 await _cartRepository.SaveAsync();
                 var detailCart = _shoppingCart.All.Where(x => x.CartId == cartId).ToList();
@@ -712,12 +1079,18 @@ namespace Web.Controllers
                     var sp = _productRepository.All.ToList().Single(n => n.Id == item.ProductId);
                     sp.BasketCount -= item.Quantity;
                     sp.BuyCount += item.Quantity;
+                    item.TinhTrangChiTiet = "Chưa xử lý";
+                    item.DiemCustomerDanhGia = 0;
+                    _shoppingCart.UpdateAsync(item);
+                    await _shoppingCart.SaveAsync();
                 }
+
                 string tblData = "";
+                ViewBag.TinhTrang = "Chưa xử lý";
                 ViewBag.cart = _shoppingCart.All.AsNoTracking().Include(x => x.Product).Where(x => x.CartId == cartId).ToList();
                 ViewBag.name = model.FullName;
                 ViewBag.email = model.Email;
-                ViewBag.address = $"{model.Address} {model.District} {model.Province}";
+                ViewBag.address = $"{model.Address} {_iDictrictRepository.Get(model.District).Name} {_iProvinceRepository.Get(model.Province).Name}";
                 ViewBag.code = model.Comment;
                 ViewBag.phone = model.PhoneNo;
                 ViewBag.PaymenMethod = GetPayList().FirstOrDefault(x => x.ItemValue.Equals(model.PaymentMethod.ToString()))?.ItemText;
@@ -740,7 +1113,9 @@ namespace Web.Controllers
                 }
                 content = content.Replace("{{tblData}}", tblData);
                 content = content.Replace("{{price}}", string.Format("{0:0,0 VNĐ}", totalPrice));
-                bool result2 = await SendEmail.SendAsync(systemInfo.SMTPName, systemInfo.SMTPEmail, systemInfo.SMTPPassword, model.Email, "Hóa đơn thanh toán từ Furnitrue House", content);
+                PdfGenerator generator = new PdfGenerator();
+                var pdf = generator.CreatePdf(model, _shoppingCart.All.AsNoTracking().Include(x => x.Product).Where(x => x.CartId == cartId).ToList(), systemInfo.SMTPEmail);
+                bool result2 = await SendEmail.SendAsync(systemInfo.SMTPName, systemInfo.SMTPEmail, systemInfo.SMTPPassword, model.Email, "Hóa đơn thanh toán từ Furnitrue House", content, pdf);
                 return result2;
             }
             else

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Domain.Shop.Entities.SystemManage;
 
 namespace Domain.Shop.Entities
 {
@@ -45,8 +46,10 @@ namespace Domain.Shop.Entities
 		[Column("COMMENTS")]
 		public string Comments { get; set; }
 		[Column("STATUS")]
-		public int Status { get; set; }
+		public string Status { get; set; }
+        public string TinhTrangDanhGiaCustomer { get; set; }
         public List<CartProduct> Products { get; set; }
 		public decimal TongGiaTri => (Totalprice + ShippingFee - Discount);
-    }
+        public ICollection<TranhChap> ListTranhChaps { get; set; }
+	}
 }

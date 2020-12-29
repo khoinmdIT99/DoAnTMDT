@@ -3,12 +3,12 @@
       
         <a class="smooth" asp-action="GetBlog" asp-route-slug="@Model.Slug" asp-controller="Blog" asp-area="">@Model.BlogCategoryName</a>
         
-        @if (Model.Childs.Count() > 0)
+        @if (Model.Childs.Any())
         {
             <ul>
                     @foreach (var item in Model.Childs)
                     {
-                        <li><partial name="_BlogRow" model="item" /></li>
+                        <li><partial name="_BlogRow" model="@item" /></li>
                         
                     }
 

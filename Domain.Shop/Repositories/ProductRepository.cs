@@ -44,10 +44,49 @@ namespace Domain.Shop.Repositories
                 Price = m.Price,
                 DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
                 Star = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
+                Discount = m.Discount,
+                ExtraDiscount = m.ExtraDiscount,
+                IsNew = m.IsNew,
+                IsFeatured = m.IsFeatured,
+                IsSpecial = m.IsSpecial,
+                Actived = m.Actived,
+                Views = m.Views,
+                PriceAfter = Math.Round((double) ((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
             }).FirstOrDefault();
             return model;
         }
-     
+        public ProductViewModel GetProductViewModelBySlug(string slug)
+        {
+            var model = this.All.Where(m => Equals(m.Slug.ToLower(),slug.ToLower())).Include(m => m.ProductImages).Select(m => new ProductViewModel
+            {
+                Id = m.Id,
+                BasketCount = m.BasketCount,
+                BuyCount = m.BuyCount,
+                ProductCode = m.ProductCode,
+                ProductName = m.ProductName,
+                Slug = m.Slug,
+                Description = m.Description,
+                ProductTypeId = m.ProductTypeId,
+                ProductTypeName = m.ProductType.TypeName,
+                MaterialId = m.MaterialId,
+                MaterialName = m.Material.MaterialName,
+                CategoryId = m.CategoryId,
+                CategoryName = m.Category.CategoryName,
+                PriceType = m.PriceType.ToString(),
+                Price = m.Price,
+                DisplayImages = m.ProductImages.Where(x => x.ProductId == m.Id).OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
+                Star = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
+                Discount = m.Discount,
+                ExtraDiscount = m.ExtraDiscount,
+                IsNew = m.IsNew,
+                IsFeatured = m.IsFeatured,
+                IsSpecial = m.IsSpecial,
+                Actived = m.Actived,
+                Views = m.Views,
+                PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
+            }).FirstOrDefault();
+            return model;
+        }
         public IEnumerable<ProductViewModel> GetProductViewModels()
         {
             IEnumerable<ProductViewModel> model = null;
@@ -72,8 +111,16 @@ namespace Domain.Shop.Repositories
                     PriceType = m.PriceType.ToString(),
                     Price = m.Price,
                     Star  = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
-                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList()
-                }).ToList().GetRange(0, 16).OrderBy(p => p.ProductName).ToList();
+                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
+                    Discount = m.Discount,
+                    ExtraDiscount = m.ExtraDiscount,
+                    IsNew = m.IsNew,
+                    IsFeatured = m.IsFeatured,
+                    IsSpecial = m.IsSpecial,
+                    Actived = m.Actived,
+                    Views = m.Views,
+                    PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
+                }).ToList().OrderBy(p => p.ProductName).ToList();
             }
             catch (Exception)
             {
@@ -95,7 +142,15 @@ namespace Domain.Shop.Repositories
                     PriceType = m.PriceType.ToString(),
                     Price = m.Price,
                     Star = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
-                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList()
+                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
+                    Discount = m.Discount,
+                    ExtraDiscount = m.ExtraDiscount,
+                    IsNew = m.IsNew,
+                    IsFeatured = m.IsFeatured,
+                    IsSpecial = m.IsSpecial,
+                    Actived = m.Actived,
+                    Views = m.Views,
+                    PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList().OrderBy(p => p.ProductName).ToList();
             }
             return model;
@@ -124,7 +179,15 @@ namespace Domain.Shop.Repositories
                     PriceType = m.PriceType.ToString(),
                     Price = m.Price,
                     Star = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
-                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList()
+                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
+                    Discount = m.Discount,
+                    ExtraDiscount = m.ExtraDiscount,
+                    IsNew = m.IsNew,
+                    IsFeatured = m.IsFeatured,
+                    IsSpecial = m.IsSpecial,
+                    Actived = m.Actived,
+                    Views = m.Views,
+                    PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList();
             }
             catch (Exception)
@@ -158,7 +221,15 @@ namespace Domain.Shop.Repositories
                     PriceType = m.PriceType.ToString(),
                     Price = m.Price,
                     Star = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
-                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList()
+                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
+                    Discount = m.Discount,
+                    ExtraDiscount = m.ExtraDiscount,
+                    IsNew = m.IsNew,
+                    IsFeatured = m.IsFeatured,
+                    IsSpecial = m.IsSpecial,
+                    Actived = m.Actived,
+                    Views = m.Views,
+                    PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList().GetRange(0, value).OrderBy(p => p.ProductName).ToList(); 
             }
             catch (Exception)
@@ -181,7 +252,15 @@ namespace Domain.Shop.Repositories
                     PriceType = m.PriceType.ToString(),
                     Price = m.Price,
                     Star = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
-                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList()
+                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
+                    Discount = m.Discount,
+                    ExtraDiscount = m.ExtraDiscount,
+                    IsNew = m.IsNew,
+                    IsFeatured = m.IsFeatured,
+                    IsSpecial = m.IsSpecial,
+                    Actived = m.Actived,
+                    Views = m.Views,
+                    PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList().OrderBy(p => p.ProductName).ToList();
             }
             return model;
@@ -211,7 +290,15 @@ namespace Domain.Shop.Repositories
                     PriceType = m.PriceType.ToString(),
                     Price = m.Price,
                      Star = m.ProductReviews.Where(p => p.ProductId == m.Id).Average(p => p.Star),
-                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList()
+                    DisplayImages = m.ProductImages.OrderBy(s => s.CreateAt).Select(s => s.Url).ToList(),
+                    Discount = m.Discount,
+                    ExtraDiscount = m.ExtraDiscount,
+                    IsNew = m.IsNew,
+                    IsFeatured = m.IsFeatured,
+                    IsSpecial = m.IsSpecial,
+                    Actived = m.Actived,
+                    Views = m.Views,
+                    PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList();
             }
             catch (Exception)
@@ -230,22 +317,22 @@ namespace Domain.Shop.Repositories
                 {
                     case "Position Desc":
                         {
-                            model = this.GetProductViewModels().OrderByDescending(p => p.ProductName);
+                            model = GetProductViewModels().OrderByDescending(p => p.ProductName);
                             break;
                         }
                     case "Name (Z - A)":
                         {
-                            model = this.GetProductViewModels().OrderByDescending(p => p.ProductName);
+                            model = GetProductViewModels().OrderByDescending(p => p.ProductName);
                             break;
                         }
                     case "Price (Low > High)":
                         {
-                            model = this.GetProductViewModels().OrderBy(p => p.Price.GetValueOrDefault());
+                            model = GetProductViewModels().OrderBy(p => p.Price.GetValueOrDefault());
                             break;
                         }
                     case "Price (High > Low)":
                         {
-                            model = this.GetProductViewModels().OrderByDescending(p => p.Price.GetValueOrDefault());
+                            model = GetProductViewModels().OrderByDescending(p => p.Price.GetValueOrDefault());
                             break;
                         }
                     case "Rating (Highest)":
@@ -255,12 +342,12 @@ namespace Domain.Shop.Repositories
                         }
                     case "Rating (Lowest)":
                         {
-                            model = this.GetProductViewModels().OrderBy(p => p.Star);
+                            model = GetProductViewModels().OrderBy(p => p.Star);
                             break;
                         }
                     default:
                         {
-                            model = this.GetProductViewModels().OrderBy(p => p.ProductName);
+                            model = GetProductViewModels().OrderBy(p => p.ProductName);
                             break;
                         }
                        

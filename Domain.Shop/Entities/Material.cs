@@ -19,6 +19,14 @@ namespace Domain.Shop.Entities
         [MaxLength(255)]
         [Column("NOTE")]
         public string Note { get; set; }
+        [StringLength(255)]
+        public string SeoAlias { set; get; }
+
+        [StringLength(255)]
+        public string SeoKeywords { set; get; }
+
+        [StringLength(255)]
+        public string SeoDescription { set; get; }
         public virtual ICollection<Product> Products { get; set; }
     }
 }

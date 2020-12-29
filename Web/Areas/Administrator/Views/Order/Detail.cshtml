@@ -57,8 +57,8 @@
                                                         <td class="text-left"><a>@item.Product.ProductName</a></td>
                                                         <td class="text-left">@item.Product.ProductTypeName</td>
                                                         <td class="text-left"> @item.Quantity</td>
-                                                        <td class="text-right"> @item.Product.Price?.ToString("N0") VNĐ</td>
-                                                        <td class="text-right">@((item.Quantity * item.Product.Price)?.ToString("N0")) VNĐ</td>
+                                                        <td class="text-right"> @item.Product.PriceAfter?.ToString("N0") VNĐ</td>
+                                                        <td class="text-right">@((item.Quantity * item.Product.PriceAfter)?.ToString("N0")) VNĐ</td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -98,26 +98,7 @@
                                             }
                                         </p>
                                         <p>
-                                            @if (Model.Status == 1)
-                                            {
-                                                <span class="orderlabel new-order" >Đơn hàng mới</span> 
-                                            }
-                                            @if (Model.Status == 2)
-                                            {
-                                                <span class="orderlabel pending-order" >Đang xử lý</span> 
-                                            }
-                                            @if (Model.Status == 3)
-                                            {
-                                                <span class="orderlabel complete-order" >Hoàn thành</span> 
-                                            }
-                                            @if (Model.Status == 4)
-                                            {
-                                                <span class="orderlabel paid-order" >Đã thanh toán</span> 
-                                            }
-                                            @if (Model.Status == 5)
-                                            {
-                                                <span class="orderlabel cancel-order" >Yêu cầu hủy</span> 
-                                            }
+                                            @Model.Status
                                         </p>
                                     </div>
                                 </div>

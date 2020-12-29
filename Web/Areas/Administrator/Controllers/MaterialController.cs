@@ -8,6 +8,7 @@ using Domain.Shop.Entities;
 using Domain.Shop.IRepositories;
 using Infrastructure.Common;
 using Infrastructure.Web;
+using Infrastructure.Web.HelperTool;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -45,7 +46,8 @@ namespace Web.Areas.Administrator.Controllers
 					{
 						Id = Guid.NewGuid().ToString(),
 						MaterialName = model.MaterialName,
-						Note = model.Note
+						Note = model.Note,
+						SeoAlias = TextHelper.ToUnsignString(model.MaterialName)
 					});			
 					_materialRepository.Save(RequestContext);
 				}
@@ -79,6 +81,7 @@ namespace Web.Areas.Administrator.Controllers
 				{
 					var material = _materialRepository.GetMaterialById(model.Id);
 					PropertyCopy.Copy(model, material);
+                    material.SeoAlias = TextHelper.ToUnsignString(model.MaterialName);
 					_materialRepository.Update(material);
 					_materialRepository.Save(RequestContext);
 				}

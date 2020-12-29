@@ -1,0 +1,231 @@
+﻿@model IEnumerable<Domain.Shop.Entities.CartProduct>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ ViewData["Title"] = "GetChiTiet";
+                Layout = "~/Views/Shared/_MerchantManagementLayout.cshtml"; }
+
+
+<div class="container-fluid bg_giohang">
+    <div class="container">
+        <div class="form_chuthich">
+            <div class="form_padding_15_30">
+                <div class="ct_donban_part">
+                    <div class="donban_icon">
+                        <i class="fa fa-file-text-o"></i>
+                    </div>
+                    <div class="donban_content">
+                        @ViewBag.TinhTrang
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form_chuthich">
+            <div class="form_padding_15_30">
+                <div class="ct_donban_part">
+                    <div class="donban_icon">
+                        <i class="fa fa-paperclip"></i>
+                    </div>
+                    <div class="donban_content">
+                        ID Đơn Hàng
+                        <h5>@ViewBag.Id</h5>
+                    </div>
+                </div>
+                <div class="ct_donban_part">
+                    <div class="donban_icon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="donban_content">
+                        Ngày giao
+                        <h5>@ViewBag.NgayGiao</h5>
+                    </div>
+                </div>
+                <div class="ct_donban_part">
+                    <div class="donban_icon">
+                        <i class="fa fa-map-marker"></i>
+                    </div>
+                    <div class="donban_content">
+                        Địa chỉ nhận hàng
+                        <h5>@ViewBag.HoTen</h5>
+                        <h5>@ViewBag.DiaChi</h5>
+                    </div>
+                </div>
+                <div class="ct_donban_part">
+                    <div class="donban_icon">
+                        <i class="fa fa-truck"></i>
+                    </div>
+                    <div class="donban_content">
+                        Thông Tin Vận Chuyển
+                        <h5>Giao Hàng Tiết Kiệm</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form_chuthich">
+            <div class="form_padding_15_30">
+                <div class="ct_donban_part">
+                    <div class="donban_icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="donban_content">
+                        @ViewBag.Ten
+                    </div>
+                </div>
+                @if (ViewBag.DanhGia == true)
+                {
+    <div class="ct_donban_part">
+        <div class="donban_icon">
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="donban_content">
+
+            <button class="btn btn-sm btn-danger btnDanhGia" type="button" data-toggle="modal" data-target="#danhgiaModal">Đánh giá</button>
+
+        </div>
+    </div>}
+                @if (ViewBag.DanhGia == false)
+                {
+    <div class="ct_donban_part">
+        <div class="donban_icon">
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="donban_content">
+            <p>Điểm đánh giá: @ViewBag.DiemDanhGia</p>
+        </div>
+    </div>}
+            </div>
+        </div>
+        <div class="form_chuthich">
+            <div class="form_padding_15_30">
+                <div class="ct_donban_part">
+                    <div class="donban_icon">
+                        <i class="fa fa-usd"></i>
+                    </div>
+                    <div class="donban_content">
+                        Thông Tin Thanh Toán
+                    </div>
+                </div>
+                @{
+                    double thanhtien = 0;
+                    double tongtien = 0;
+                }
+                @foreach (var item in Model)
+                {
+                    <div class="ct_thanhtoan">
+                        <div class="ct_tt_thanhtoan ct_tt_thanhtoan_header">
+                            <div class="ct_sanpham_header">Sản phẩm</div>
+                            <div class="dongia_ct">Đơn giá</div>
+                            <div class="soluong_ct">Số lượng</div>
+                            <div class="thanhtien_ct">Thành tiền</div>
+                        </div>
+                        <div class="ct_tt_thanhtoan">
+                            <div class="hinh_sanpham_giohang ct_hinh" style="background-image: url(/Hinh/SanPham/@item.Product.ProductImages[0].Url.ToString().Replace("\\", "//"));"></div>
+                            <div class="form_ten_sp_giohang sanpham_ct">
+                                <h5>
+                                    @item.Product.ProductName
+                                </h5>
+                            </div>
+                            <div>@item.Product.ProductCode</div>
+
+                            @if (item.Product.Discount != 0 && item.Product.Discount != null)
+                            {
+                                double gia = item.Product.Price * (100 - item.Product.Discount - item.Product.ExtraDiscount) / 100 ?? 0;
+                                <div class="dongia_ct"><del>@item.Product.Price.GetValueOrDefault().ToString("#,###") đ</del> @gia.ToString("#,###") đ</div>
+                            }
+                            else
+                            {
+                                <div class="dongia_ct">@item.Price.GetValueOrDefault().ToString("#,###") đ</div>
+                            }
+                            <div class="soluong_ct">x @item.Quantity</div>
+                            @{
+                                thanhtien = item.Price.GetValueOrDefault() * item.Quantity;
+                                tongtien += thanhtien;
+                            }
+                            <div class="thanhtien_ct">@thanhtien.ToString("#,###") đ</div>
+                        </div>
+                    </div>
+                    <hr>
+                }
+                <div class="chitiet_donmua">
+                    <div class="tong_tienhang">
+                        <div class="txt_dathang">
+                            <p>Tổng tiền hàng</p>
+                        </div>
+                        <div class="gia_dathang">
+                            <p>@tongtien.ToString("#,###") đ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="danhgiaModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-width">
+            <form asp-area="Merchant" asp-controller="DonHang" asp-action="MerchantDanhGia" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Đánh Giá</h4>
+                </div>
+                <div class="modal-body">
+                    <h5 id="modal-madonhang">Mã Đơn Hàng: @ViewBag.DonHang.Id</h5>
+                    <input type="text" id="id-donhang-danhgia" name="iddonhang" value="@ViewBag.DonHang.Id" hidden readonly />
+                    <label class="radio_pt_tt">
+                        <div class="danhgia_sao">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <input type="radio" value="5" checked="checked" name="radio_check">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="radio_pt_tt">
+                        <div class="danhgia_sao">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <input type="radio" value="4" name="radio_check">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="radio_pt_tt">
+                        <div class="danhgia_sao">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <input type="radio" value="3" name="radio_check">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="radio_pt_tt">
+                        <div class="danhgia_sao">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <input type="radio" value="2" name="radio_check">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="radio_pt_tt">
+                        <div class="danhgia_sao">
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <input type="radio" value="1" name="radio_check">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+                    <button type="submit" class="btn btn-primary">Gửi Đánh Giá</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- js -->
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>
+}

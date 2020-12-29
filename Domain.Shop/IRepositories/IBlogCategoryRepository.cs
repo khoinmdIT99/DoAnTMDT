@@ -14,7 +14,7 @@ namespace Domain.Shop.IRepositories
         string GenerateHierarchyCode(string HierarchyCodeParent);
 
         bool CanDeleteBlogCategory(string HierarchyCode);
-        public List<BlogCategory> GetChildBlogCategories(string HierarchyCode);
+        List<BlogCategory> GetChildBlogCategories(string HierarchyCode);
 
         bool CheckNewSlug(string Slug);
     }

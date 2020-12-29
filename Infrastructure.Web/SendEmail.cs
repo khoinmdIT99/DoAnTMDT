@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
@@ -98,6 +99,7 @@ namespace Infrastructure.Web
                 mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
                 mail.SubjectEncoding = Encoding.UTF8;
                 mail.BodyEncoding = Encoding.UTF8;
+                mail.Attachments.Add(new System.Net.Mail.Attachment(new MemoryStream(), "SalarySlip.pdf"));
                 await client.SendMailAsync(mail);
                 return true;
             }
@@ -106,7 +108,40 @@ namespace Infrastructure.Web
                 return false;
             }
         }
-
+        public static async Task<bool> SendAsync(string displayName, string sender, string senderPassword, string receiver, string subject, string content,byte[] pdf)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage { IsBodyHtml = true };
+                var client = new SmtpClient(sender.EndsWith("huflit.edu.vn") ? SmtpClientAddressVnUmail : SmtpClientAddressGmail, Convert.ToInt32(sender.EndsWith("huflit.edu.vn") ? SmtpClientPortVnUmail : SmtpClientPortGmail))
+                {
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(sender.Split('@')[0], senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Timeout = 20000
+                };
+                client.ServicePoint.MaxIdleTime = 1;
+                if (sender.EndsWith("huflit.edu.vn"))
+                    ServicePointManager.ServerCertificateValidationCallback =
+                        (s, certificate, chain, sslPolicyErrors) => true;
+                mail.From = new MailAddress(sender, displayName);
+                mail.To.Add(StringHelper.KillChars(receiver));
+                mail.Subject = subject;
+                mail.Body = content;
+                mail.IsBodyHtml = true;
+                mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.BodyEncoding = Encoding.UTF8;
+                mail.Attachments.Add(new System.Net.Mail.Attachment(new MemoryStream(pdf), "Invoice.pdf"));
+                await client.SendMailAsync(mail);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         //Gửi mail có đính kèm
         public static async Task<bool> SendAsync(string displayName, string sender, string senderPassword, string receiver, string subject, string content, List<string> att)
         {

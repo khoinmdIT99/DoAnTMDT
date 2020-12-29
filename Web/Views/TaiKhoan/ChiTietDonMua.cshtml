@@ -1,0 +1,410 @@
+﻿@model Domain.Shop.Entities.Cart
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "DonMua";
+}
+@section Styles {
+    <link href="~/assets/css/fix.css" rel="stylesheet">
+    <style>
+        .trangthai-dahuy {
+            border-color: red !important;
+        }
+
+        .trangthai-dahuy i {
+            color: red !important;
+        }
+    </style>
+}
+@if (Model != null)
+{
+    <div class="container">
+        <div class="customer_quanly">
+            <div class="cus_left">
+                <h4><span>Tên: </span>@ViewBag.TaiKhoan.FullName</h4>
+                <hr>
+                <div class="menu_cus">
+                    <a class="menu_cus_item" asp-route="ThongTinTaiKhoan">
+                        <div class="menu_cus_icon" style="background-color: #2fdab8;">
+                            <i class="fa fa-user-o"></i>
+                        </div>
+                        <div class="menu_cus_content">
+                            <h5>Tài Khoản</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="menu_cus">
+                    <a class="menu_cus_item" asp-route="DoiMatKhau">
+                        <div class="menu_cus_icon" style="background-color:rgb(255, 193, 7);">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        <div class="menu_cus_content">
+                            <h5>Đổi mật khẩu</h5>
+                        </div>
+                    </a>
+                </div>
+                <div class="menu_cus">
+                    <a class="menu_cus_item" asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="chuaxuly">
+                        <div class="menu_cus_icon" style="background-color:rgb(255, 87, 34);">
+                            <i class="fa fa-shopping-basket"></i>
+                        </div>
+                        <div class="menu_cus_content">
+                            <h5>Đơn Mua</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="cus_right">
+                <div class="ql_donhang">
+                    <div class="goback">
+                        <a asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="chuaxuly">
+                            <i class="fa fa-angle-left"></i>
+                            TRỞ LẠI
+                        </a>
+                    </div>
+                    <div class="ct_don">
+                        @if (Context.Request.QueryString.Value.Contains("tinhtrang=danggiao") || Context.Request.QueryString.Value.Contains("tinhtrang=dangxuly") || Context.Request.QueryString.Value.Contains("tinhtrang=daxuly") || Context.Request.QueryString.Value.Contains("tinhtrang=dahuy"))
+                        {
+                            <div class="trangthai_donmua">
+                                <a asp-controller="TaiKhoan" asp-action="DonMua">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai">
+                                            <i class="fa fa-file-text-o"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đã Đặt</h5>
+                                    @*<h6>05-12-2018</h6>*@
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="trangthai_donmua">
+                                <a  asp-controller="TaiKhoan" asp-action="DonMua">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai">
+                                            <i class="fa fa-file-text-o"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đã Đặt</h5>
+                                    @*<h6>05-12-2018</h6>*@
+                                </a>
+                            </div>
+                        }
+                        @if (Context.Request.QueryString.Value.Contains("tinhtrang=danggiao"))
+                        {
+                            <div class="trangthai_donmua">
+                                <a  asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="danggiao">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai trangthai_color">
+                                            <i class="fa fa-motorcycle"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đang Giao</h5>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="trangthai_donmua">
+                                <a  asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="danggiao">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai">
+                                            <i class="fa fa-motorcycle"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đang Giao</h5>
+                                </a>
+                            </div>
+                        }
+                        @if (Context.Request.QueryString.Value.Contains("tinhtrang=daxuly"))
+                        {
+                            <div class="trangthai_donmua">
+                                <a  asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="daxuly">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai trangthai_color">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đã Xử Lý</h5>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="trangthai_donmua">
+                                <a  asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="daxuly">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đã Xử Lý</h5>
+                                </a>
+                            </div>
+                        }
+
+                        @if (Context.Request.QueryString.Value.Contains("tinhtrang=dahuy"))
+                        {
+                            <div class="trangthai_donmua">
+                                <a  asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="dahuy">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai trangthai-dahuy">
+                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đã Huỷ</h5>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="trangthai_donmua">
+                                <a  asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="dahuy">
+                                    <div class="trangthai_donmua_ct">
+                                        <div class="khung_trangthai">
+                                            <i class="fa fa-ban" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <h5>Đơn Hàng Đã Huỷ</h5>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="ql_donhang">
+                    <div class="thongtin_nguoinhan">
+                        <h4>Thông Tin Nhận Hàng (Email: @Model.Customer.Email)</h4>
+                        <h5 style="float:left;">@Model.Customer.FullName (@Model.Customer.PhoneNo) <span>@ViewBag.DiaChi</span></h5>
+                        @if (ViewBag.HuyDonHang == true)
+                        {
+                            <h4 style="float:right;"><span><a href="#" onclick="AskToCancel('@Model.Id')" style="color: red;">Huỷ đơn hàng</a></span></h4>
+                        }
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <div class="ql_donhang">
+                    @{
+                        string idtaikhoan = "";
+                        int stt = 0;
+                        double tongtienchuaship = 0;
+                    }
+                    @foreach (var it in ViewBag.ChiTietDonhang)
+                    {
+                        @if (stt != 0)
+                            {
+                                <hr />
+                            }
+                            <div class="tenshop_donhang">
+                                <div class="sanpham_giohang">
+                                    <a href="#">
+                                        <i class="fa fa-bank"></i>
+                                        <h5>Cửa hàng bán đồ nội thất</h5>
+                                    </a>
+                                </div>
+                                <div class="trangthai_donhang id_donhang">
+                                    @if (it.DiemCustomerDanhGia == 0 && it.TinhTrangChiTiet == "Đã xử lý")
+                                    {
+                                        <input type="text" value="@it.IdSizeSanPhamNavigation.IdSanPhamNavigation.IdTaiKhoan" readonly hidden class="txt-idtaikhoan-danhgia" />
+                                        <h4 style="float:right;"><span><a class="a-danhgia-modal" href="#" data-toggle="modal" data-target="#danhgiaModal" style="color: red;">Đánh giá</a></span></h4>
+                                    }
+                                    @if (it.DiemCustomerDanhGia > 0 && it.TinhTrangChiTiet == "Đã xử lý")
+                                    {
+                                        <h4 style="float:right;"><span><a style="color: red;">Điểm đánh giá: @it.DiemCustomerDanhGia</a></span></h4>
+                                    }
+                                    <span><b>Mã đơn hàng:</b> @Model.Id</span>
+                                </div>
+                            </div>
+                            stt++;
+                        <hr>
+                        <div class="thongtin_donhang">
+                            <div class="sanpham_giohang sp_donhang">
+                                <div class="hinh_sanpham_giohang hinh_donhang" style="background-image: url(/imageUpload/@it.Product.ProductImages[0].Url.ToString().Replace("\\","//"));"></div>
+                                <div class="form_ten_sp_giohang ten_sp_donhang">
+                                    <h5>
+                                        @it.Product.ProductName
+                                    </h5>
+                                    <h5>x @it.Quantity</h5>
+                                </div>
+                                <div class="thanhtien_giohang tt_donhang">
+                                    @{
+                                        var tongtien = @it.Product.Price * @it.Quantity;
+                                    }
+                                    <h5>@tongtien.ToString("#,###") đ</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <hr>
+                    <div class="chitiet_donmua">
+                        <div class="tong_tienhang">
+                            <div class="txt_dathang tien_donmua">
+                                <p>Tổng tiền hàng</p>
+                            </div>
+                            <div class="gia_dathang gia_donmua">
+                                <p>@Model.Totalprice.ToString("#,###") đ</p>
+                            </div>
+                        </div>
+                        <div class="tong_tienhang">
+                            <div class="txt_dathang tien_donmua">
+                                <p>Phí vận chuyển</p>
+                            </div>
+                            <div class="gia_dathang gia_donmua">
+                                <p>Theo phí cod khu vực</p>
+                            </div>
+                        </div>
+                        <div class="tong_tienhang">
+                            <div class="txt_dathang tien_donmua">
+                                <p>Tổng thanh toán</p>
+                            </div>
+                            <div class="gia_dathang gia_donmua">
+                                <p class="gia_tong">@Model.Totalprice.ToString("#,###") đ</p>
+                            </div>
+                        </div>
+                        <div class="tong_tienhang">
+                            <div class="txt_dathang tien_donmua">
+                                <p>Phương thức thanh toán: @ViewBag.PaymenMethod</p>
+                            </div>
+                            <div class="gia_dathang gia_donmua">
+                                <p>Thanh toán khi nhận hàng : @ViewBag.ShippingMethod</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="danhgiaModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-width">
+                <form  asp-controller="TaiKhoan" asp-action="CustomerDanhGia" method="post">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Đánh Giá</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Mã Đơn Hàng @Model.Id</h5>
+                        <h5 id="modal-ten-shop"></h5>
+                        <input type="text" id="id-nmerchant-danhgia" name="idmerchant" value="" hidden readonly />
+                        <input type="text" id="id-donhang-danhgia" name="iddonhang" value="@Model.Id" hidden readonly />
+                        <label class="radio_pt_tt">
+                            <div class="danhgia_sao">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <input type="radio" value="5" checked="checked" name="radio_check">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio_pt_tt">
+                            <div class="danhgia_sao">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <input type="radio" value="4" name="radio_check">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio_pt_tt">
+                            <div class="danhgia_sao">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <input type="radio" value="3" name="radio_check">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio_pt_tt">
+                            <div class="danhgia_sao">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <input type="radio" value="2" name="radio_check">
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio_pt_tt">
+                            <div class="danhgia_sao">
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <input type="radio" value="1" name="radio_check">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+                        <button type="submit" class="btn btn-primary">Gửi Đánh Giá</button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+}
+else
+{
+    <script>
+        window.location.href = "@Url.Action("Index", "Home")";
+    </script>
+}
+@section Scripts
+{
+    <!--Sweet Alert-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!--Function-->
+    <script>
+        function AskToCancel(madonhang) {
+            swal({
+                    title: `Bạn có chắc chắn huỷ đơn hàng ${madonhang}?`,
+                    text: "Một khi huỷ, đơn hàng sẽ không không phục được",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        HuyDonHang(madonhang);
+                        swal("Đơn hàng của bạn đã được huỷ!", {
+                                icon: "success",
+                                button: "OK"
+                            })
+                            .then(() => {
+                                window.location.href = "@Url.Action("DonMua", "TaiKhoan")";
+                            });
+                    }
+                });
+        }
+
+        function HuyDonHang(madonhang) {
+            $.ajax({
+                url: "/TaiKhoan/HuyDonMua",
+                type: "post",
+                data: { "madonhang": madonhang },
+                error: function (data) {
+                    alert("Error: " + data);
+                },
+                async: false
+                //Nhớ xài async hoặc dùng 1 request chứa tất cả dữ liệu, k là bị DDoS
+            });
+        }
+
+        $(".a-danhgia-modal").click(function () {
+            var id = $(this).closest(".id_donhang").find('.txt-idtaikhoan-danhgia').val();
+            var tenshop = $(this).closest('.tenshop_donhang').find('.sanpham_giohang a h5').text();
+            $("#id-nmerchant-danhgia").val(id);
+            $("#modal-ten-shop").text(`Shop ${tenshop}`);
+            console.log($("#id-nmerchant-danhgia").val());
+            console.log(tenshop.trim());
+        });
+    </script>
+
+    <style>
+        .swal-modal {
+            border: 3px solid #bef4e9;
+        }
+    </style>
+}

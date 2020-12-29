@@ -1,0 +1,133 @@
+﻿@model Domain.Shop.Entities.Customer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{ 
+    ViewData["Title"] = "ThongTinTaiKhoan";
+ }
+@section Styles {
+    <link href="~/assets/css/fix.css" rel="stylesheet">
+}
+
+@if (Model != null)
+{
+<div class="container">
+    <div class="customer_quanly">
+        <div class="cus_left">
+            <h4><span>Tên: </span>@Model.FullName</h4>
+            <hr>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-route="ThongTinTaiKhoan">
+                    <div class="menu_cus_icon" style="background-color: #2fdab8;">
+                        <i class="fa fa-user-o"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Tài Khoản</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-route="DoiMatKhau">
+                    <div class="menu_cus_icon" style="background-color:rgb(255, 193, 7);">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Đổi mật khẩu</h5>
+                    </div>
+                </a>
+            </div>
+            <div class="menu_cus">
+                <a class="menu_cus_item" asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="chuaxuly">
+                    <div class="menu_cus_icon" style="background-color:rgb(255, 87, 34);">
+                        <i class="fa fa-shopping-basket"></i>
+                    </div>
+                    <div class="menu_cus_content">
+                        <h5>Đơn Mua</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="cus_right">
+            <h4>Thông Tin Tài Khoản</h4>
+            <hr>
+            <form id="frmChangeInformation" method="post" role="form" action="">
+                <div class="cus_tt_canhan">
+                    <label>Tên</label>
+                    <input type="text" id="txtSuaTen" required value="@Model.FullName" />
+                    @*<h5>@Model.DienThoai</h5>*@
+                </div>
+                <div class="cus_tt_canhan">
+                    <label>Email</label>
+                    <input type="email" id="txtSuaEmail" value="@Model.Email" disabled required oninvalid="this.setCustomValidity('Email không đúng định dạng')" />
+                    @*<h5>@Model.Email</h5>*@
+                    <button type="button" id="btnThayDoiEmail">Thay Đổi</button>
+                </div>
+                <div class="cus_tt_canhan">
+                    <label>Số điện thoại</label>
+                    <input type="text" id="txtSuaDienThoai" value="@Model.PhoneNo" disabled pattern=".{10,12}" required oninvalid="this.setCustomValidity('Số điện thoại chứa 10 - 12 ký tự')" onchange="this.setCustomValidity('')" />
+                    @*<h5>@Model.DienThoai</h5>*@
+                    <button type="button" id="btnThayDoiDienThoai">Thay Đổi</button>
+                </div>
+                <div class="cus_tt_canhan_button">
+                    <div class="khoang-trong"></div>
+                    <button type="submit" class="button_luu">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- js --> @*<script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>*@ }
+            else
+            {
+<script>
+        window.location.href = "@Url.Action("Index", "Home")";
+</script>}
+@section Scripts
+{
+    <script>
+        let oldemail = "";
+        let oldsdt = "";
+        let oldten = "";
+        $(document).ready(function () {
+            oldemail = $("#txtSuaEmail").val();
+            oldsdt = $("#txtSuaDienThoai").val();
+            oldten = $("#txtSuaTen").val();
+        });
+
+        $("#btnThayDoiEmail").click(function () {
+            $("#txtSuaEmail").attr('disabled', false);
+        });
+
+        $("#btnThayDoiDienThoai").click(function () {
+            $("#txtSuaDienThoai").attr('disabled', false);
+        });
+
+        $("#frmChangeInformation").submit(function (e) {
+            e.preventDefault();
+            let email = $("#txtSuaEmail").val();
+            let sdt = $("#txtSuaDienThoai").val();
+            let tendangnhap = $("#txtSuaTen").val();
+            alert(tendangnhap);
+            if (email == oldemail && sdt == oldsdt && tendangnhap == oldten) {
+                alert("Thông tin không thay đổi");
+            }
+            else {
+                $.ajax({
+                    url: "/TaiKhoan/EditThongTin",
+                    type: "post",
+                    data: { "tendangnhap": tendangnhap, "email": email, "sdt": sdt },
+                    success: function (data) {
+                        if (data == "Mật khẩu cũ không trùng khớp") {
+                            alert(data);
+                        }
+                        else {
+                            alert(data);
+                            location.href = "@Url.Action("ThongTinTaiKhoan", "TaiKhoan")";
+                        }
+                    },
+                    error: function (data) {
+                        alert("Error: " + data);
+                    }
+                });
+            }
+        });
+    </script>
+}

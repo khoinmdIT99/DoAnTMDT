@@ -1,0 +1,50 @@
+﻿@model List<Domain.Shop.Dto.Products.ProductViewModel>
+@foreach (var item in Model)
+{
+    <div class="deals-box product-info clearfix">
+        <div class="product-image-right">
+            @if (item.DisplayImages.Any())
+            {
+                <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="hv-radial">
+                    <img src="~/imageUpload/@item.DisplayImages[0]" height="250" class="img-responsive" alt="">
+                </a>
+                <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+            }
+            else
+            {
+                <img src="#" class="img-responsive" alt="" height="250">}
+        </div>
+        <div class="box">
+            <h5 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a></h5>
+            <div class="price">
+                @item.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ <span class="price-old">@item.Price.GetValueOrDefault().ToString("N0") VNĐ</span>
+            </div>
+            <div class="rating">
+                <div class="rating-box">
+                    <span class="fa fa-stack">
+                        <i class="fa fa-star fa-stack-1x"></i>
+                        <i class="fa fa-star-o fa-stack-1x"></i>
+                    </span>
+                    <span class="fa fa-stack">
+                        <i class="fa fa-star fa-stack-1x"></i>
+                        <i class="fa fa-star-o fa-stack-1x"></i>
+                    </span>
+                    <span class="fa fa-stack">
+                        <i class="fa fa-star fa-stack-1x"></i>
+                        <i class="fa fa-star-o fa-stack-1x"></i>
+                    </span>
+                    <span class="fa fa-stack">
+                        <i class="fa fa-star fa-stack-1x"></i>
+                        <i class="fa fa-star-o fa-stack-1x"></i>
+                    </span>
+                    <span class="fa fa-stack">
+                        <i class="fa fa-star-o fa-stack-1x"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

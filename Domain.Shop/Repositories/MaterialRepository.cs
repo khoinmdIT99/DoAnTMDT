@@ -20,12 +20,12 @@ namespace Domain.Shop.Repositories
 
         public Material GetMaterialById(string id)
         {
-            return this.All.Where(m => m.Id == id).FirstOrDefault();
+            return this.All.FirstOrDefault(m => m.Id == id);
         }
 
         public MaterialViewModel GetMaterialViewModelById(string id)
         {
-            var model = this.All.Where(m => m.Id == id).FirstOrDefault();
+            var model = this.All.FirstOrDefault(m => m.Id == id);
             MaterialViewModel viewModel = new MaterialViewModel();
             PropertyCopy.Copy(model, viewModel);
             return viewModel;

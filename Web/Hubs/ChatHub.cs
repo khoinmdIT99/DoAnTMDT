@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Common.Security;
 using Domain.Shop.Dto.ChatService;
 using Domain.Shop.Entities.SystemManage;
 using Domain.Shop.IRepositories;
@@ -17,6 +18,13 @@ namespace Web.Hubs
         static List<UserDetail> ConnectedUsers = new List<UserDetail>();
         static List<MessageDetail> CurrentMessage = new List<MessageDetail>();
         static List<Meeting> ListMeeting = new List<Meeting>();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public ChatHub(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+
 
         public override Task OnConnectedAsync()
         {
@@ -70,6 +78,11 @@ namespace Web.Hubs
             if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
             {
                 ConnectedUsers.Add(new UserDetail { ConnectionId = id, UserName = userName });
+                // send to caller
+
+                // send to all except caller client
+                // Clients.AllExcept(id).onNewUserConnected(id, userName);
+
 
             }
         }
@@ -86,8 +99,14 @@ namespace Web.Hubs
                 }
                 else
                 {
-                    Clients.Caller.SendAsync("processReplaceUserAdmin", "", "Tài khoản này đang đăng nhập...")/*.processReplaceUserAdmin("/admin/quanly","Tài khoản này đang đăng nhập...")*/;
+                    Clients.Caller.SendAsync("processReplaceUserAdmin", "admin/quanly", "Tài khoản này đang đăng nhập...")/*.processReplaceUserAdmin("/admin/quanly","Tài khoản này đang đăng nhập...")*/;
                 }
+
+                // send to caller
+                // Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
+
+                // send to all except caller client
+                // Clients.AllExcept(id).onNewUserConnected(id, userName);
 
             }
             Clients.Client(id).SendAsync("onLoadMessage", ListMeeting)/*.onLoadMessage(ListMeeting)*/;
@@ -114,6 +133,14 @@ namespace Web.Hubs
                     Clients.Caller.SendAsync("guestOnConnected", id, userName)/*.guestOnConnected()*/;
                     var arr_id = ConnectedUsers.Where(x => x.IsAdmin == "0").Select(x => x.ConnectionId).ToArray();
                     Clients.AllExcept(arr_id).SendAsync("onAddGuestInAdmin", id, userName)/*.onAddGuestInAdmin(id, userName)*/;
+                    //Clients.AllExcept()
+                    // Clients.Caller.
+
+                    // send to caller
+                    // Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
+                    // Clients.
+                    // send to all except caller client
+                    // Clients.AllExcept(id).onNewUserConnected(id, userName);
 
                 }
                 return true;

@@ -1,0 +1,57 @@
+.ul-header
+{
+    background: #000;
+}
+
+.li-header {
+    display: block !important;
+    width: 100% !important;
+    padding: 5px !important;
+    border-right: none !important;
+    border-bottom: 1px solid #464444 !important;
+}
+
+.a-header {
+    color: #FFF !important;
+}
+
+.a-header:hover {
+    color: #000 !important;
+}
+
+.img-index {
+    width: 255px !important;
+    height: 220px !important;
+}
+
+.combobox-format {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #777;
+    padding: 0.5em 1em 0.5em 0;
+    border: 0;
+    width: 100%;
+    border-bottom: 1px solid #dcdcdc;
+    background: none;
+    outline: none;
+}
+
+.center-text-td {
+    text-align: center;
+}
+
+.trangthai-dahuy {
+    border-color: red !important;
+}
+
+.trangthai-dahuy i {
+    color: red !important;
+}
+
+.z-index-giohang {
+    z-index: 999 !important;
+}
+
+.margin-frm-donhang {
+    margin: 15px 0px;
+}

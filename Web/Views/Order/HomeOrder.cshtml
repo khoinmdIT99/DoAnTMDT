@@ -30,9 +30,9 @@
                 <td class="text-left"> <a>@item.Product.ProductName</a></td>
                 <td class="text-left">@item.Product.ProductTypeName</td>
                 <td class="text-left"> @item.Quantity </td>
-                <input class="ProductPriceOrder" type="hidden" value="@item.Product.Price" />
+                <input class="ProductPriceOrder" type="hidden" value="@item.Product.PriceAfter.GetValueOrDefault()" />
                 <td class="text-right ProductPriceOrderVn"></td>
-                <input class="TotalProductPriceOrder" type="hidden" value="@((item.Quantity * item.Product.Price))" />
+                <input class="TotalProductPriceOrder" type="hidden" value="@((item.Quantity * item.Product.PriceAfter.GetValueOrDefault()))" />
                 <td class="text-right TotalProductPriceOrderVn"></td>
             </tr>
 }

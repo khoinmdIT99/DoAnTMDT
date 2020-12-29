@@ -20,6 +20,14 @@ namespace Domain.Shop.Entities
         [StringLength(2000, MinimumLength = 2)]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        [StringLength(255)]
+        public string SeoAlias { set; get; }
+
+        [StringLength(255)]
+        public string SeoKeywords { set; get; }
+
+        [StringLength(255)]
+        public string SeoDescription { set; get; }
         public virtual  ICollection<Product> Products { get; set; }
     }
 }

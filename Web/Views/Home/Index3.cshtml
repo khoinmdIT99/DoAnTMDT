@@ -37,8 +37,8 @@
                                     </div>
                                 </div>
                                 <div class="price-field">
-                                    <input type="range" min="0" max="100000000" value="0" id="lower">
-                                    <input type="range" min="0" max="100000000" value="100000000" id="upper">
+                                    <input type="range" min="0" max="500000000" value="0" id="lower">
+                                    <input type="range" min="0" max="500000000" value="500000000" id="upper">
                                 </div>
 
                             </fieldset>
@@ -93,10 +93,14 @@
                             <div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
                                 <div class="product-box clearfix">
                                     <div class="product-image">
-                                        <a class="c-img link-product" href="javascript:void(0)" class="aaf" data-id="@item.Id">
+                                        <a class="c-img link-product aaf" href="javascript:void(0)" data-id="@item.Id">
                                             @if (item.DisplayImages.Any())
                                             {
-                                                <img src="~/imageUpload/@item.DisplayImages[0]" class="img-responsive" alt="" height="250"> }
+                                                <img  src="~/imageUpload/@item.DisplayImages[0]" class="img-responsive" alt="" height="250"> 
+                                                <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                                </a>
+                                            }
                                             else
                                             {
                                                 <img src="#" class="img-responsive" alt="" height="250">}
@@ -105,11 +109,11 @@
                                     <div class="product-info">
                                         <input type="hidden" asp-for="@item.Id" id="ProductId" />
                                         <input type="hidden" asp-for="@item.BasketCount" value="@item.BasketCount" class="ProductCount" />
-                                        <h4 class="product-name"><a href="javascript:void(0)" class="aaf" data-id="@item.Id" class="smooth" title="">@item.ProductName</a></h4>
-                                        <input type="hidden" asp-for="@item.Price" class="ProductPrice" />
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a></h4>
+                                        <input type="hidden" asp-for="@item.PriceAfter" class="ProductPrice" />
                                         <div class="price pricevnd">
-                                            @*<span class="price-old">$142.00</span>*@
                                         </div>
+                                        <span class="price-old">@item.Price?.ToString("N0") VNĐ</span>
                                         <div class="rating">
                                             <div class="rating-box">
                                                 @if (item.Star != null)
@@ -157,7 +161,7 @@
                                         </div>
                                     </div>
                                 <div class="button-group">
-                                    <a class="btn btn-warning add-to-cart" data-count="@item.BasketCount" data-id="@item.Id" style="color: beige;height: 45px; line-height: 35px; width: 268px;" @*onclick="AddToCart('@item.Id')"*@> ADD TO CART</a>
+                                    <a class="btn btn-warning add-to-cart" data-count="@item.BasketCount" data-id="@item.Id" style="height: 45px; line-height: 35px; width: 268px; padding: 5px;" @*onclick="AddToCart('@item.Id')"*@> ADD TO CART</a>
                                 </div>
                             </div>
                         </div>
@@ -282,7 +286,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <a id="viewImg1" href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
-                            <img id="viewImg2" src="" width="250" height="250">
+                            <img id="viewImg2" src="" style="width: 250px; height: 250px;">
                         </a>
 
                     </div>
@@ -299,7 +303,7 @@
                                 <input id="addViewinputCount" type="number" class="form-control text-center " value="1">
                             </div>
                             <div class="col-md-4" style="margin-top:4px;">
-                                <button type="button" class="btn btn-sm btn-success" onclick="AddProductView()">Add to Card</button>
+                                <button type="button" class="btn btn-sm btn-success" onclick="AddProductView()">Add to Cart</button>
                             </div>
                         </div>
 
@@ -310,19 +314,30 @@
                 <div style="padding:30px">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#home">Description</a>
+                            <a class="nav-link active" data-toggle="tab" href="#home">Chi tiết</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#menu1">İnfo</a>
+                            <a class="nav-link active" data-toggle="tab" href="#Discount">Khuyến mãi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#menu1">Review</a>
                         </li>
                     </ul>
 
                     <div class="tab-content textsize">
                         <div id="home" class="container tab-pane active">
-                            <span id="labelDescription"></span>
+                            <div class="summary text">
+                                <span id="labelDescription"></span>
+                            </div>
+                            <a id="imageId" href="#">more</a>
+                        </div>
+                        <div id="Discount" class="container tab-pane">
+                            <span id="labelDiscount"></span><br />
+                            <span id="labelExtraDiscount"></span><br />
+                            <span id="labelPriceStar"></span>
                         </div>
                         <div id="menu1" class="container tab-pane fade">
-                            <span>This Menu1 page description area.</span>
+                            <span>Bình luận nổi bật</span>
                         </div>
 
                     </div>
@@ -344,57 +359,70 @@
 </div>
 @section Scripts
 {
-
+    @*<div class="product-desc">
+        ${value.description}
+    </div>*@
     <!-- page script -->
     <script>
+        $('#imageId').click(function() {
+            var text = $(this).prev('.text');
+            text.toggleClass('summary');
+            if(text.hasClass('summary')) {
+                $(this).text('Read More');
+            } else {
+                $(this).text('Read Less');
+            }
+        });
+    </script>
+    <script>
 
-        $(".target").change(function () {
+    $(".target").change(function () {
         $.ajax(
-        {
-            type: "GET",
-            url: '@Url.ActionLink("GetProducts", "Home")',
-            data: {
-                value: $(".target").val()
-            },
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            error: function (result) {
-                debugger;
-                alert("error");
-            },
-            success: function (result) {
+            {
+                type: "GET",
+                url: '@Url.ActionLink("GetProducts", "Home")',
+                data: {
+                    value: $(".target").val()
+                },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                error: function (result) {
+                    debugger;
+                    alert("error");
+                },
+                success: function (result) {
 
-                $("div").remove(".product-layout");
-                if (result != null) {
-                    $.each(result.data,
-                        function(index, value) {
-                            var star = "";
-                            var price = value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
-                            if (value.star != null) {
-                                for (let i = 0; i < Math.floor(value.star); i++) {
-                                    star +=
-                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                }
-                                for (let i = 5; i > Math.floor(value.star); i--) {
-                                    star +=
+                    $("div").remove(".product-layout");
+                    if (result != null) {
+                        $.each(result.data,
+                            function(index, value) {
+                                var star = "";
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                                if (value.star != null) {
+                                    for (let i = 0; i < Math.floor(value.star); i++) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                    for (let i = 5; i > Math.floor(value.star); i--) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                } else {
+                                    star =
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
                                         "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
                                 }
-                            } else {
-                                star =
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                            }
 
-                            $('#list-product').append(
-                                `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                $('#list-product').append(
+                                    `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
                                 <div class="product-box clearfix">
                                     <div class="product-image">
-                                        <a href="detail.html" class="c-img link-product">
+                                        <a class="c-img link-product aaf" href="javascript:void(0)" data-id="${value.id}">
                                                 <img src="/imageUpload/${value.displayImages[0]
-                                }" class="img-responsive" alt="" height="250">
+                                    }" class="img-responsive" alt="" height="250">
                                         </a>
                                         <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
                                             <i class="fa fa-search" aria-hidden="true"></i>
@@ -402,38 +430,39 @@
                                     </div>
                                     <div class="product-info">
                                         <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value
-                                .productName}</a></h4>
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                    .productName}</a></h4>
                                         <div class="price pricevnd">
-                                            ${price}
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
                                         </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
                                         <div class="rating">
                                             <div class="rating-box">
                                              ${star}
                                             </div>
                                         </div>
                                         <div class="product-desc">
-                                           ${value.description}
+                                            ${value.description}
                                         </div>
                                     </div>
                                     <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
                                     </div>
                                 </div>
                             </div>`);
-                        });
+                            });
+                    }
+                    else {
+                        alert("Không tìm thấy");
+                    }
                 }
-                else {
-				    alert("Không tìm thấy");
-                }
-            }
-        });
-        });
+            });
+    });
 
-        function FilterByCategory(categoryName) {
+    function FilterByCategory(categoryName) {
 
-            $.ajax(
+        $.ajax(
             {
                 type: "GET",
                 url: '@Url.ActionLink("Filter", "Home")',
@@ -449,7 +478,89 @@
                         $.each(result.data,
                             function(index, value) {
                                 var star = "";
-                                var price = value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                                if (value.star != null) {
+                                    for (let i = 0; i < Math.floor(value.star); i++) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                    for (let i = 5; i > Math.floor(value.star); i--) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                } else {
+                                    star =
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                }
+                                $('#list-product').append(
+                                    `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                <div class="product-box clearfix">
+                                    <div class="product-image">
+                                        <a class="c-img link-product aaf" href="javascript:void(0)" data-id="${value.id}">
+                                                <img src="/imageUpload/${value.displayImages[0]
+                                    }" class="img-responsive" alt="" height="250">
+                                        </a>
+                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                        .productName}</a></h4>
+                                        <div class="price pricevnd">
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
+                                        </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
+                                        <div class="rating">
+                                            <div class="rating-box">
+                                               ${star}
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                            ${value.description}
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
+                                    </div>
+                                </div>
+                            </div>`);
+
+
+                            });
+                    }
+                    else {
+                        alert("Không tìm thấy");
+                    }
+                }
+            });
+
+    }
+    function SearchByPrice() {
+        $.ajax(
+            {
+                type: "GET",
+                url: '@Url.ActionLink("SearchByPrice", "Home")',
+                data: {
+                    min: $("#one").val(),
+                    max: $("#two").val()
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    $("div").remove(".product-layout");
+                    if (result != null) {
+                        $.each(result.data,
+                            function(index, value) {
+                                var star = "";
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
                                 if (value.star != null) {
                                     for (let i = 0; i < Math.floor(value.star); i++) {
                                         star +=
@@ -481,14 +592,15 @@
                                     </div>
                                     <div class="product-info">
                                         <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value
-                                    .productName}</a></h4>
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                        .productName}</a></h4>
                                         <div class="price pricevnd">
-                                            ${price}
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
                                         </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
                                         <div class="rating">
                                             <div class="rating-box">
-                                               ${star}
+                                                 ${star}
                                             </div>
                                         </div>
                                         <div class="product-desc">
@@ -496,9 +608,8 @@
                                         </div>
                                     </div>
                                     <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
-
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
                                     </div>
                                 </div>
                             </div>`);
@@ -510,146 +621,66 @@
                         alert("Không tìm thấy");
                     }
                 }
-        });
+            });
+    }
+    $(".sort").change(function () {
+        $.ajax(
+            {
+                type: "GET",
+                url: '@Url.ActionLink("SortProducts", "Home")',
+                data: {
+                    value: $(".sort").val()
+                },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                error: function (result) {
+                    debugger;
+                    alert("error");
+                },
+                success: function (result) {
 
-        }
-        function SearchByPrice() {
-            $.ajax(
-                {
-                    type: "GET",
-                    url: '@Url.ActionLink("SearchByPrice", "Home")',
-                    data: {
-                        min: $("#one").val(),
-                        max: $("#two").val()
-                    },
-                    error: function (result) {
-                        alert("error");
-                    },
-                    success: function (result) {
-                        $("div").remove(".product-layout");
-                        if (result != null) {
-                            $.each(result.data,
-                                function(index, value) {
-                                    var star = "";
-                                    var price = value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
-                                    if (value.star != null) {
-                                        for (let i = 0; i < Math.floor(value.star); i++) {
-                                            star +=
-                                                "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                        }
-                                        for (let i = 5; i > Math.floor(value.star); i--) {
-                                            star +=
-                                                "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                        }
-                                    } else {
-                                        star =
-                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                    $("div").remove(".product-layout");
+                    if (result != null) {
+                        $.each(result.data,
+                            function(index, value) {
+                                var star = "";
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                                if (value.star != null) {
+                                    for (let i = 0; i < Math.floor(value.star); i++) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                    for (let i = 5; i > Math.floor(value.star); i--) {
+                                        star +=
                                             "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
                                     }
-                                    $('#list-product').append(
-                                        `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
-                                <div class="product-box clearfix">
-                                    <div class="product-image">
-                                        <a href="detail.html" class="c-img link-product">
-                                                <img src="/imageUpload/${value.displayImages[0]
-                                        }" class="img-responsive" alt="" height="250">
-                                        </a>
-                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value
-                                        .productName}</a></h4>
-                                        <div class="price pricevnd">
-                                            ${price}
-                                        </div>
-                                        <div class="rating">
-                                            <div class="rating-box">
-                                                 ${star}
-                                            </div>
-                                        </div>
-                                        <div class="product-desc">
-                                           ${value.description}
-                                        </div>
-                                    </div>
-                                    <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
-                                    </div>
-                                </div>
-                            </div>`);
-
-
-                                });
-                        }
-                        else {
-                            alert("Không tìm thấy");
-                        }
-                    }
-                });
-        }
-        $(".sort").change(function () {
-        $.ajax(
-        {
-            type: "GET",
-            url: '@Url.ActionLink("SortProducts", "Home")',
-            data: {
-                value: $(".sort").val()
-            },
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            error: function (result) {
-                debugger;
-                alert("error");
-            },
-            success: function (result) {
-
-                $("div").remove(".product-layout");
-                if (result != null) {
-                    $.each(result.data,
-                        function(index, value) {
-                            var star = "";
-                            var price = value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
-                            if (value.star != null) {
-                                for (let i = 0; i < Math.floor(value.star); i++) {
-                                    star +=
-                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                                }
-                                for (let i = 5; i > Math.floor(value.star); i--) {
-                                    star +=
+                                } else {
+                                    star =
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
                                         "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
                                 }
-                            } else {
-                                star =
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
-                                    "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
-                            }
-                            $('#list-product').append(
-                                `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                $('#list-product').append(
+                                    `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
                                 <div class="product-box clearfix">
                                     <div class="product-image">
                                         <a href="detail.html" class="c-img link-product">
                                                 <img src="/imageUpload/${value.displayImages[0]
-                                }" class="img-responsive" alt="" height="250">
+                                    }" class="img-responsive" alt="" height="250">
                                         </a>
                                         <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div class="product-info">
-                                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">${value
-                                .productName}</a></h4>
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                        .productName}</a></h4>
                                         <div class="price pricevnd">
-                                            ${price}
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
                                         </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
                                         <div class="rating">
                                             <div class="rating-box">
                                              ${star}
@@ -660,22 +691,22 @@
                                         </div>
                                     </div>
                                     <div class="button-group">
-                                       <a class="btn btn-warning" style="height: 45px; line-height: 35px; width: 268px; "
-                                href="/Cart/AddToShoppingCart/${value.id}"> ADD TO CART</a>
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
                                     </div>
                                 </div>
                             </div>`);
-                        });
+                            });
+                    }
+                    else {
+                        alert("Không tìm thấy");
+                    }
                 }
-                else {
-				    alert("Không tìm thấy");
-                }
-            }
-        });
-        });
-         function AddToCart(id) {
+            });
+    });
+    function AddToCart(id) {
 
-            $.ajax(
+        $.ajax(
             {
                 type: "POST",
                 url: '@Url.ActionLink("AddToShoppingCart", "Cart")',
@@ -695,34 +726,34 @@
                 }
             });
 
-        }
-        $(document).ready(function () {
-            $('.ProductPrice').each(function () {
-                var value = $(this).val();
-                $(this).next().text(value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
-            });
+    }
+    $(document).ready(function () {
+        $('.ProductPrice').each(function () {
+            var value = $(this).val();
+            $(this).next().text(value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
         });
+    });
 
-        $("#one").hover(function() {
-            $(this).css('cursor', 'pointer').attr('title', $('#one').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
-        }, function() {
-            $(this).css('cursor','auto');
-        });
-        $("#two").hover(function() {
-            $(this).css('cursor', 'pointer').attr('title', $('#two').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
-        }, function() {
-            $(this).css('cursor','auto');
-        });
-        $("#lower").hover(function() {
-            $(this).css('cursor', 'pointer').attr('title', $('#one').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
-        }, function() {
-            $(this).css('cursor','auto');
-        });
-        $("#upper").hover(function() {
-            $(this).css('cursor', 'pointer').attr('title', $('#two').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
-        }, function() {
-            $(this).css('cursor','auto');
-        });
+    $("#one").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#one').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+    $("#two").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#two').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+    $("#lower").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#one').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+    $("#upper").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#two').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
     </script>
 
 }

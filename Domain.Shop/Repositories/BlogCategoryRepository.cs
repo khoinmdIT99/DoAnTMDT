@@ -12,45 +12,45 @@ namespace Domain.Shop.Repositories
 {
     public class BlogCategoryRepository : Repository<ShopDBContext, BlogCategory>, IBlogCategoryRepository
     {
-        private readonly int HierarchyCodeLength = Domain.Common.Consts.Infrastructure.HierarchyCodeLength;
-        private readonly string HierarchyCodeTemplate = Domain.Common.Consts.Infrastructure.HierarchyCodeTemplate;
+        private readonly int _hierarchyCodeLength = Common.Consts.Infrastructure.HierarchyCodeLength;
+        private readonly string _hierarchyCodeTemplate = Common.Consts.Infrastructure.HierarchyCodeTemplate;
         public BlogCategoryRepository(IUnitOfWork<ShopDBContext> unitOfWork) : base(unitOfWork)
         {
 
         }
-        public bool CanDeleteBlogCategory(string HierarchyCode)
+        public bool CanDeleteBlogCategory(string hierarchyCode)
         {
-            return !this.All.Where(p => p.HierarchyCode.StartsWith(HierarchyCode) && p.HierarchyCode.Length > HierarchyCode.Length).Any();
+            return !this.All.Where(p => p.HierarchyCode.StartsWith(hierarchyCode) && p.HierarchyCode.Length > hierarchyCode.Length).Any();
         }
 
-        public string GenerateHierarchyCode(string HierarchyCodeParent)
+        public string GenerateHierarchyCode(string hierarchyCodeParent)
         {
             var query = this.All;
-            if (string.IsNullOrEmpty(HierarchyCodeParent))
-                query = query.Where(p => p.HierarchyCode.Length == HierarchyCodeLength);
+            if (string.IsNullOrEmpty(hierarchyCodeParent))
+                query = query.Where(p => p.HierarchyCode.Length == _hierarchyCodeLength);
             else
-                query = query.Where(p => p.HierarchyCode.StartsWith(HierarchyCodeParent) && p.HierarchyCode.Length == HierarchyCodeParent.Length + HierarchyCodeLength);
-            var MaxHierarchyCode = query.OrderByDescending(p => p.HierarchyCode).Select(p => p.HierarchyCode).FirstOrDefault();
+                query = query.Where(p => p.HierarchyCode.StartsWith(hierarchyCodeParent) && p.HierarchyCode.Length == hierarchyCodeParent.Length + _hierarchyCodeLength);
+            var maxHierarchyCode = query.OrderByDescending(p => p.HierarchyCode).Select(p => p.HierarchyCode).FirstOrDefault();
             long MaxHierarchyNumber = 0;
-            if (!string.IsNullOrEmpty(MaxHierarchyCode))
+            if (!string.IsNullOrEmpty(maxHierarchyCode))
             {
-                MaxHierarchyCode = MaxHierarchyCode.Substring(MaxHierarchyCode.Length - HierarchyCodeLength);
+                maxHierarchyCode = maxHierarchyCode.Substring(maxHierarchyCode.Length - _hierarchyCodeLength);
             }
-            if (long.TryParse(MaxHierarchyCode, out MaxHierarchyNumber))
+            if (long.TryParse(maxHierarchyCode, out MaxHierarchyNumber))
             {
                 MaxHierarchyNumber++;
             }
-            return HierarchyCodeParent + string.Format(HierarchyCodeTemplate, MaxHierarchyNumber);
+            return hierarchyCodeParent + string.Format(_hierarchyCodeTemplate, MaxHierarchyNumber);
         }
 
-        public List<BlogCategory> GetChildBlogCategories(string HierarchyCode)
+        public List<BlogCategory> GetChildBlogCategories(string hierarchyCode)
         {
-            return this.All.Where(p => p.HierarchyCode.StartsWith(HierarchyCode) && p.HierarchyCode.Length > HierarchyCode.Length).ToList();
+            return this.All.Where(p => p.HierarchyCode.StartsWith(hierarchyCode) && p.HierarchyCode.Length > hierarchyCode.Length).ToList();
         }
 
-        public BlogCategoryViewModel GetBlogCategoryViewModel(string Id)
+        public BlogCategoryViewModel GetBlogCategoryViewModel(string id)
         {
-            return this.All.Where(p => p.Id == Id).Select(p => new BlogCategoryViewModel
+            return this.All.Where(p => p.Id == id).Select(p => new BlogCategoryViewModel
             {
                 Id = p.Id,
                 BlogCategoryName = p.BlogCategoryName,
@@ -61,19 +61,19 @@ namespace Domain.Shop.Repositories
 
         public IEnumerable<BlogCategoryViewModel> GetBlogCategoryViewModels()
         {
-            var BlogCategoryList = this.All.Select(p => new BlogCategoryViewModel
+            var blogCategoryList = this.All.Select(p => new BlogCategoryViewModel
             {
                 Id = p.Id,
                 BlogCategoryName = p.BlogCategoryName,
                 Slug = p.Slug,
                 HierarchyCode = p.HierarchyCode
             }).OrderBy(p => p.HierarchyCode).ToList();
-            return BlogCategoryList;
+            return blogCategoryList;
         }
 
-        public bool CheckNewSlug(string Slug)
+        public bool CheckNewSlug(string slug)
         {
-            var query = this.All.Where(p => p.Slug == Slug).Count();
+            var query = this.All.Count(p => p.Slug == slug);
             if (query > 0) return true;
             else return false;
         }

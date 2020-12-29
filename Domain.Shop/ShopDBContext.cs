@@ -43,6 +43,12 @@ namespace Shop.Application
         public DbSet<ThongBao> ThongBaos { get; set; }
         public DbSet<TranhChap> TranhChaps { get; set; }
         public DbSet<TinNhan> TinNhans{ get; set; }
+        public DbSet<PhanQuyen> PhanQuyens { get; set; }
+        public DbSet<Quyen> Quyens { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<XacMinh> XacMinhs { get; set; }
+        public DbSet<DanhGia> DanhGias { get; set; }
         public static void ConfigureServices(IServiceCollection services)
 		{
             services.AddScoped<IUnitOfWork<ShopDBContext>, ShopUnitOfWork>();
@@ -76,12 +82,37 @@ namespace Shop.Application
             services.AddScoped<ITranhChapRepository, TranhChapRepository>();
             services.AddScoped<IUtils, Utils>();
             services.AddScoped<IVnPayLibrary, VnPayLibrary>();
+            services.AddScoped<IQuyenRepository, QuyenRepository>();
+            services.AddScoped<IPhanQuyenRepository, PhanQuyenRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IXacMinhRepository, XacMinhRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IDanhGiaRepository, DanhGiaRepository>();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Seed();
+            modelBuilder.Entity<Message>().ToTable("Messages");
+
+            modelBuilder.Entity<Message>().Property(s => s.Content).IsRequired().HasMaxLength(500);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(s => s.ToRoom)
+                .WithMany(m => m.Messages)
+                .HasForeignKey(s => s.ToRoomId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Room>().ToTable("Rooms");
+
+            modelBuilder.Entity<Room>().Property(s => s.Name).IsRequired().HasMaxLength(100);
+
+            modelBuilder.Entity<Room>()
+                .HasOne(s => s.Admin)
+                .WithMany(u => u.Rooms)
+                .IsRequired();
+            modelBuilder.Entity<PhanQuyen>()
+                .HasKey(c => new { c.MaQuyen, c.MaTaiKhoan });
             modelBuilder.Entity<ProductType>()
                 .HasMany(c => c.Products)
                 .WithOne(c => c.ProductType).IsRequired()
@@ -129,6 +160,38 @@ namespace Shop.Application
             modelBuilder.Entity<ProductType>()
                 .Property(a => a.TypeName)
                 .IsRequired();
+            modelBuilder.Entity<CartProduct>(entity =>
+            {
+                entity.Property(e => e.NgayGiao).HasColumnType("datetime");
+
+                entity.Property(e => e.TinhTrangChiTiet).HasMaxLength(20);
+            });
+            modelBuilder.Entity<DanhGia>(entity =>
+            {
+                entity.HasOne(d => d.IdTaiKhoanDanhGiaNavigation)
+                    .WithMany(p => p.DanhGiaIdTaiKhoanDanhGiaNavigation)
+                    .HasForeignKey(d => d.IdTaiKhoanDanhGia)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+            modelBuilder.Entity<TranhChap>(entity =>
+            {
+                entity.HasOne(d => d.DonDatHang)
+                    .WithMany(p => p.ListTranhChaps)
+                    .HasForeignKey(d => d.MaDDH)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+            modelBuilder.Entity<Cart>(entity =>
+            {
+                entity.HasIndex(e => e.Id)
+                    .HasName("UQ__DonHang__129584AC539A1D8D")
+                    .IsUnique();
+
+                entity.Property(e => e.CreateAt).HasColumnType("datetime");
+
+                entity.Property(e => e.Status).HasMaxLength(100);
+
+                entity.Property(e => e.TinhTrangDanhGiaCustomer).HasMaxLength(20);
+            });
         }
     }
 

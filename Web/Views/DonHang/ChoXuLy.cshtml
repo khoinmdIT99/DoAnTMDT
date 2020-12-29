@@ -1,0 +1,189 @@
+﻿@using Domain.Shop.Entities
+@model IEnumerable<Domain.Shop.Entities.Cart>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{ 
+    ViewData["Title"] = "ChoXuLy";
+    Layout = "~/Views/Shared/_MerchantManagementLayout.cshtml";
+}
+
+<div class="container">
+    <div class="customer_quanly">
+        <div id="horizontalTab" style="width:100%">
+            <ul class="resp-tabs-list menu" style="width:100%">
+                <a asp-controller="DonHang" asp-action="ChoXuLy"><li style="background-color: #fc636b">Chờ xử lý</li></a>
+                <a asp-controller="DonHang" asp-action="ChoLayHang"><li>Chờ lấy hàng</li></a>
+                <a asp-controller="DonHang" asp-action="DangGiao"><li>Đang giao</li></a>
+                <a asp-controller="DonHang" asp-action="DaGiao"><li>Đã xử lý</li></a>
+                <a asp-controller="DonHang" asp-action="DaHuy"><li>Đã Huỷ</li></a>
+            </ul>
+            <div class="col-md-5 header-middle fix_timkiem_merchant">
+                <form asp-action="Search_XL" asp-controller="DonHang">
+                    <input type="search" name="search" placeholder="Tìm kiếm..." required="">
+                    <input type="submit" value=" ">
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <div class="resp-tabs-container">
+                <!--/tab_one-->
+                @foreach (var item in Model)
+                {
+    <div class="tab1">
+        <div class="form_donhang">
+            <div class="ql_donhang">
+                <div class="tenshop_donhang">
+                    <div class="sanpham_giohang">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <h5>@item.Customer.Email - @item.Customer.FullName</h5>
+                        </a>
+                    </div>
+                    <div class="trangthai_donhang id_donhang">
+                        ID Đơn Hàng @item.Id
+                    </div>
+                    <div class="trangthai_donhang id_donhang">Ngày đặt: @item.CreateAt</div>
+                </div>
+                <hr>
+                @foreach (var ct in (List<CartProduct>) ViewBag.ChiTiet)
+                {
+                    if (ct.CartId == item.Id)
+                    {
+                        <div class="thongtin_donhang">
+                            <div class="sanpham_giohang sp_donhang">
+                                <div class="hinh_sanpham_giohang hinh_donhang" style="background-image: url(/imageUpload/@ct.Product.ProductImages[0].Url.ToString().Replace("\\", "//"))"></div>
+                                <div class="form_ten_sp_giohang ten_sp_donban">
+                                    <h5>
+                                        @ct.Product.ProductName
+                                    </h5>
+                                </div>
+                                <div class="soluong_donban">
+                                    <h5>x @ct.Quantity</h5>
+                                </div>
+                                <div class="donban_right">
+                                    <div class="tongtien_donban">
+                                        đ @ct.Price.GetValueOrDefault().ToString("N0")
+                                        @*<h6>Thanh toán khi nhận hàng</h6>*@
+                                    </div>
+                                    <div class="trangthai_donban">
+                                        @ct.TinhTrangChiTiet
+                                        <h6>Vui lòng xử lý đơn hàng.</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                <hr>
+                <div class="chuthich_donban" style="display: flex;">                                  
+                    <div class="tong_tien_mer">
+                        Tổng tiền hàng: @item.Totalprice.ToString("#,###") đ
+                    </div>
+                    <div class="button_xuly_merchant">
+                        <a asp-controller="DonHang" asp-action="XuLy" asp-route-iddonhang="@item.Id" class="btn btn-info">Tiếp nhận xử lý</a>
+                        <a asp-controller="DonHang" asp-action="GetChiTiet" asp-route-id="@item.Id" class="btn btn-danger btnChiTiet">Chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //quanlysanpham -->
+<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+@section Scripts
+{
+    <!-- js -->
+    <!--<script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>-->
+    <!-- //js -->
+
+    <!--<script src="~/maintemplate/js/modernizr.custom.js"></script>-->
+    <!-- Custom-JavaScript-File-Links -->
+    <!-- cart-js -->
+    <!--<script src="~/maintemplate/js/minicart.min.js"></script>
+    <script>
+        // Mini Cart
+        paypal.minicart.render({
+            action: '#'
+        });
+
+        if (~window.location.search.indexOf('reset=true')) {
+            paypal.minicart.reset();
+        }
+    </script>-->
+
+    <!-- //cart-js -->
+    <!-- script for responsive tabs -->
+    <!--<script src="~/maintemplate/js/easy-responsive-tabs.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true,   // 100% fit in a container
+                closed: 'accordion', // Start closed if in accordion view
+                activate: function (event) { // Callback function if tab is switched
+                    var $tab = $(this);
+                    var $info = $('#tabInfo');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+            $('#verticalTab').easyResponsiveTabs({
+                type: 'vertical',
+                width: 'auto',
+                fit: true
+            });
+        });
+    </script>-->
+    <!-- //script for responsive tabs -->
+    <!-- stats -->
+    <!--<script src="~/maintemplate/js/jquery.waypoints.min.js"></script>
+    <script src="~/maintemplate/js/jquery.countup.js"></script>
+    <script>
+        $('.counter').countUp();
+    </script>-->
+    <!-- //stats -->
+    <!-- start-smoth-scrolling -->
+    <!--<script type="text/javascript" src="~/maintemplate/js/move-top.js"></script>
+    <script type="text/javascript" src="~/maintemplate/js/jquery.easing.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>-->
+    <!-- here stars scrolling icon -->
+    <!--<script type="text/javascript">
+        $(document).ready(function () {
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>-->
+    <!-- //here ends scrolling icon -->
+    <!-- for bootstrap working -->
+    <!--<script type="text/javascript" src="~/maintemplate/js/bootstrap.js"></script>-->
+}
+
+
+
+
+

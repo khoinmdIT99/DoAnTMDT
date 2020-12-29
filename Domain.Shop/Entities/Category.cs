@@ -25,10 +25,19 @@ namespace Domain.Shop.Entities
         [MinLength(2)]
         [MaxLength(1000)]
         public string Description { get; set; }
+        public string NoiThat { get; set; }
         public bool Status { get; set; }
         [Display(Name = "Sub Category")]
         [MaxLength(50)]
         public string CategoryId { get; set; }
+        [StringLength(255)]
+        public string SeoAlias { set; get; }
+
+        [StringLength(255)]
+        public string SeoKeywords { set; get; }
+
+        [StringLength(255)]
+        public string SeoDescription { set; get; }
         public ICollection<Product> Products { get; set; }
     }
 }

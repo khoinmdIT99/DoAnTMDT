@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AutoMapper;
+using Domain.Shop.Dto.Chat;
+using Domain.Shop.Entities;
+using Domain.Shop.Entities.SystemManage;
 using Domain.Shop.IRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections.Features;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Ocsp;
 using Web.Common;
 
 namespace Web.Hubs
@@ -24,226 +31,256 @@ namespace Web.Hubs
                 ? (T)Convert.ChangeType(value.FirstOrDefault(), typeof(T))
                 : default;
     }
-    public class ChatDetailHub
+
+    public class ChatDetailHub : Hub
     {
-        public static ChatHub instance = null;
-        private static readonly ConnectionMapping<string> Connections =
-            new ConnectionMapping<string>();
-        private static int _check = 0;
-        private readonly ICartRepository _iCartRepository;
-        private readonly ITinNhanRepository _iTinNhanRepository;
-        private readonly IProductRepository _iProductRepository;
-        //public void SendChatMessage(string who, string senderName, string message, string maDdh)
-        //{
-        //    var httpContext = Context.GetHttpContext();
-        //    var query = httpContext.Request.Query;
-        //    string uid = query.GetQueryParameterValue<string>("uid");
-        //    TinNhan tn = new TinNhan {MaTaiKhoan = uid, ThoiGian = DateTime.Now, NoiDung = message, MaDdh = maDdh};
-        //    if (CheckUid(uid, maDdh))
-        //        tn.BuyerSeen = true;
-        //    else
-        //        tn.SellerSeen = true;
-        //    _iTinNhanRepository.AddAsync(tn);
-        //    _iTinNhanRepository.SaveAsync();
-        //    foreach (var connectionId in Connections.GetConnections(uid))
-        //    {
-        //        Clients.Client(connectionId).SendAsync(senderName, message, int.Parse(uid), CheckInRoom(uid));
+        public readonly static List<UserViewModel> _Connections = new List<UserViewModel>();
+        public readonly static List<RoomViewModel> _Rooms = new List<RoomViewModel>();
+        private readonly static Dictionary<string, string> _ConnectionsMap = new Dictionary<string, string>();
+        private readonly IMapper _mapper;
+        private readonly IRoomRepository _iRoomRepository;
+        private readonly IMessageRepository _iMessageRepository;
+        private readonly IAccountRepository _iAccountRepository;
+        const string SessionName = "_Name";
 
-        //    }
+        public ChatDetailHub(IMapper mapper, IRoomRepository iRoomRepository, IMessageRepository iMessageRepository, IAccountRepository iAccountRepository)
+        {
+            _mapper = mapper;
+            _iRoomRepository = iRoomRepository;
+            _iMessageRepository = iMessageRepository;
+            _iAccountRepository = iAccountRepository;
+        }
 
-        //    foreach (var connectionId in Connections.GetConnections(who))
-        //    {
+        public async Task SendPrivate(string receiverName, string message)
+        {
+            if (_ConnectionsMap.TryGetValue(receiverName, out string userId))
+            {
+                var sender = _Connections.First(u => u.Email == IdentityName);
 
-        //        Clients.Client(connectionId).SendAsync(senderName, message, int.Parse(uid), CheckInRoom(who));
-        //    }
-        //}
-        //public void CheckSeenNotification(string id)
-        //{
-        //    var httpContext = Context.GetHttpContext();
-        //    var query = httpContext.Request.Query;
-        //    string uid = query.GetQueryParameterValue<string>("uid");
-        //    var maTk = uid;
-        //    int dem = 0;
-        //    var seller = db.SanPhams.Where(a => a.MaTaiKhoan == maTk).ToList();
-        //    var buyer = db.DonDatHangs.Where(a => a.MaTaiKhoan == maTk).ToList();
-        //    if (seller.Count > 0)
-        //    {
-        //        foreach (var item in seller)
-        //        {
-        //            var ddh = db.DonDatHangs.Where(a => a.MaSP == item.MaSP).Distinct().ToList();
-        //            if (ddh.Count > 0)
-        //            {
-        //                foreach (var item2 in ddh)
-        //                {
-        //                    var tinnhan = db.TinNhans.Where(a => a.MaDDH == item2.MaDDH && a.SellerSeen != true).FirstOrDefault();
-        //                    if (tinnhan != null)
-        //                    {
-        //                        dem++;
-        //                        continue;
-        //                    }
-        //                    var thongbao = db.ThongBaos.Where(a => a.MaDDH == item2.MaDDH && a.SellerSeen != true).ToList();
-        //                    foreach (var item3 in thongbao)
-        //                    {
-        //                        if (item3 != null)
-        //                        {
-        //                            dem++;
-        //                            continue;
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    if (buyer.Count > 0)
-        //    {
-        //        foreach (var item in buyer)
-        //        {
-        //            var tinnhan = db.TinNhans.Where(a => a.MaDDH == item.MaDDH && a.BuyerSeen != true).FirstOrDefault();
-        //            if (tinnhan != null)
-        //            {
-        //                dem++;
-        //                continue;
-        //            }
-        //            var thongbao = db.ThongBaos.Where(a => a.MaDDH == item.MaDDH && a.BuyerSeen != true).ToList();
-        //            foreach (var item3 in thongbao)
-        //            {
+                if (!string.IsNullOrEmpty(message.Trim()))
+                {
+                    var messageViewModel = new MessageViewModel()
+                    {
+                        Content = Regex.Replace(message, @"(?i)<(?!img|a|/a|/img).*?>", string.Empty),
+                        From = sender.FullName,
+                        Avatar = sender.Avatar,
+                        To = "",
+                        Timestamp = DateTime.Now.ToLongTimeString()
+                    };
+                    await Clients.Client(userId).SendAsync("newMessage", messageViewModel);
+                    await Clients.Caller.SendAsync("newMessage", messageViewModel);
+                }
+            }
+        }
 
-        //                if (item3 != null)
-        //                {
-        //                    dem++;
-        //                    continue;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    foreach (var connectionId in Connections.GetConnections(id))
-        //    {
-        //        Clients.Client(connectionId).addNotification(dem, _check);
-        //    }
-        //}
-        //private bool CheckUid(string maTk, string madonHang)
-        //{
-        //    var taikhoan = _iCartRepository.All.FirstOrDefault(a => a.Id == madonHang && a.CustomerId == maTk);
-        //    if (taikhoan != null)
-        //        return true;
-        //    return false;
-        //}
-        //private int CheckInRoom(string id)
-        //{
-        //    var maTk = id;
-        //    int dem = 0;
-        //    var seller = db.SanPhams.Where(a => a.MaTaiKhoan == maTk).ToList();
-        //    var buyer = db.DonDatHangs.Where(a => a.MaTaiKhoan == maTk).ToList();
-        //    if (seller.Count > 0)
-        //    {
-        //        foreach (var item in seller)
-        //        {
-        //            var ddh = db.DonDatHangs.Where(a => a.MaSP == item.MaSP).Distinct().ToList();
-        //            if (ddh.Count > 0)
-        //            {
-        //                foreach (var item2 in ddh)
-        //                {
-        //                    var tinnhan = db.TinNhans.Where(a => a.MaDDH == item2.MaDDH && a.SellerSeen != true).FirstOrDefault();
+        public async Task SendToRoom(string roomName, string message)
+        {
+            try
+            {
+                var user = _iAccountRepository.All.FirstOrDefault(u => u.Email == IdentityName);
+                var room = _iRoomRepository.All.FirstOrDefault(r => r.Name == roomName);
 
-        //                    if (tinnhan != null)
-        //                    {
-        //                        dem++;
-        //                        continue;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    if (buyer.Count > 0)
-        //    {
-        //        foreach (var item in buyer)
-        //        {
-        //            var tinnhan = db.TinNhans.Where(a => a.MaDDH == item.MaDDH && a.BuyerSeen != true).FirstOrDefault();
-        //            if (tinnhan != null)
-        //            {
-        //                dem++;
-        //                continue;
-        //            }
-        //        }
-        //    }
-        //    return dem;
-        //}
-        //public void CheckSeen(string id)
-        //{
-        //    string uid = Context.QueryString["uid"];
-        //    var MaTK = int.Parse(id);
-        //    int dem = 0;
-        //    var seller = db.SanPhams.Where(a => a.MaTaiKhoan == MaTK).ToList();
-        //    var buyer = db.DonDatHangs.Where(a => a.MaTaiKhoan == MaTK).ToList();
-        //    if (seller.Count > 0)
-        //    {
-        //        foreach (var item in seller)
-        //        {
-        //            var ddh = db.DonDatHangs.Where(a => a.MaSP == item.MaSP).Distinct().ToList();
-        //            if (ddh.Count > 0)
-        //            {
-        //                foreach (var item2 in ddh)
-        //                {
-        //                    var tinnhan = db.TinNhans.Where(a => a.MaDDH == item2.MaDDH && a.SellerSeen != true).FirstOrDefault();
+                if (!string.IsNullOrEmpty(message.Trim()))
+                {
+                    var msg = new Message()
+                    {
+                        Content = Regex.Replace(message, @"(?i)<(?!img|a|/a|/img).*?>", string.Empty),
+                        FromUser = user,
+                        ToRoom = room,
+                        Timestamp = DateTime.Now
+                    };
+                    await _iMessageRepository.AddAsync(msg);
+                    await _iMessageRepository.SaveAsync();
+                    var messageViewModel = _mapper.Map<Message, MessageViewModel>(msg);
+                    await Clients.Group(roomName).SendAsync("newMessage", messageViewModel);
+                }
+            }
+            catch (Exception)
+            {
+                await Clients.Caller.SendAsync("onError", "Message not send! Message should be 1-500 characters.");
+            }
+        }
 
-        //                    if (tinnhan != null)
-        //                    {
-        //                        dem++;
-        //                        continue;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    if (buyer.Count > 0)
-        //    {
-        //        foreach (var item in buyer)
-        //        {
-        //            var tinnhan = db.TinNhans.Where(a => a.MaDDH == item.MaDDH && a.BuyerSeen != true).FirstOrDefault();
-        //            if (tinnhan != null)
-        //            {
-        //                dem++;
-        //                continue;
-        //            }
-        //        }
-        //    }
-        //    foreach (var connectionId in Connections.GetConnections(uid))
-        //    {
-        //        Clients.Client(connectionId).addNotification(dem);
-        //    }
-        //}
-        //public Task OnConnected()
-        //{
-        //    string name = Context.QueryString["uid"];
-        //    //string name = Context.User.Identity.Name;
-        //    if (instance == null)
-        //        instance = this;
-        //    Connections.Add(name, Context.ConnectionId);
-        //    _check = 0;
-        //    return base.OnConnectedAsync();
-        //}
+        public async Task Join(string roomName)
+        {
+            try
+            {
+                var user = _Connections.FirstOrDefault(u => u.Email == IdentityName);
+                if (user != null && user.CurrentRoom != roomName)
+                {
+                    if (!string.IsNullOrEmpty(user.CurrentRoom))
+                        await Clients.OthersInGroup(user.CurrentRoom).SendAsync("removeUser", user);
 
-        //public Task OnDisconnected(bool stopCalled)
-        //{
-        //    string name = Context.QueryString["uid"];
-        //    //string name = Context.User.Identity.Name;
+                    await Leave(user.CurrentRoom);
+                    await Groups.AddToGroupAsync(Context.ConnectionId, roomName);
+                    user.CurrentRoom = roomName;
+                    await Clients.OthersInGroup(roomName).SendAsync("addUser", user);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Clients.Caller.SendAsync("onError", "You failed to join the chat room!" + ex.Message);
+            }
+        }
 
-        //    Connections.Remove(name, Context.ConnectionId);
+        public async Task Leave(string roomName)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
+        }
 
-        //    return base.OnDisconnectedAsync(stopCalled);
-        //}
+        public async Task CreateRoom(string roomName)
+        {
+            try
+            {
+                Match match = Regex.Match(roomName, @"^\w+( \w+)*$");
+                if (!match.Success)
+                {
+                    await Clients.Caller.SendAsync("onError", "Invalid room name!\nRoom name must contain only letters and numbers.");
+                }
+                else if (roomName.Length < 5 || roomName.Length > 100)
+                {
+                    await Clients.Caller.SendAsync("onError", "Room name must be between 5-100 characters!");
+                }
+                else if (_iRoomRepository.All.Any(r => r.Name == roomName))
+                {
+                    await Clients.Caller.SendAsync("onError", "Another chat room with this name exists");
+                }
+                else
+                {
+                    var user = await _iAccountRepository.All.FirstOrDefaultAsync(u => u.Email == IdentityName);
+                    var room = new Room()
+                    {
+                        Name = roomName,
+                        Admin = user
+                    };
+                    await _iRoomRepository.AddAsync(room);
+                    await _iRoomRepository.SaveAsync();
+                    if (room != null)
+                    {
+                        var roomViewModel = _mapper.Map<Room, RoomViewModel>(room);
+                        _Rooms.Add(roomViewModel);
+                        await Clients.All.SendAsync("addChatRoom", roomViewModel);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Clients.Caller.SendAsync("onError", "Couldn't create chat room: " + ex.Message);
+            }
+        }
 
-        //private Task OnReconnected()
-        //{
-        //    string name = Context.QueryString["uid"];
-        //    //string name = Context.User.Identity.Name;
+        public async Task DeleteRoom(string roomName)
+        {
+            try
+            {
+                var room = _iRoomRepository.All
+                    .Include(r => r.Admin).
+                    FirstOrDefault(r => r.Name == roomName && r.Admin.Email == IdentityName);
+                _iRoomRepository.Delete(room);
+                await _iRoomRepository.SaveAsync();
 
-        //    if (!Connections.GetConnections(name).Contains(Context.ConnectionId))
-        //    {
-        //        Connections.Add(name, Context.ConnectionId);
-        //    }
+                var roomViewModel = _Rooms.First(r => r.Name == roomName);
+                _Rooms.Remove(roomViewModel);
 
-        //    return base.OnReconnected();
-        //}
+                await Clients.Group(roomName).SendAsync("onRoomDeleted",
+                    $"Room {roomName} has been deleted.\nYou are now moved to the Lobby!");
+
+                await Clients.All.SendAsync("removeChatRoom", roomViewModel);
+            }
+            catch (Exception)
+            {
+                await Clients.Caller.SendAsync("onError", "Can't delete this chat room. Only owner can delete this room.");
+            }
+        }
+
+        public IEnumerable<RoomViewModel> GetRooms()
+        {
+            if (_Rooms.Count == 0)
+            {
+                foreach (var room in _iRoomRepository.All)
+                {
+                    var roomViewModel = _mapper.Map<Room, RoomViewModel>(room);
+                    _Rooms.Add(roomViewModel);
+                }
+            }
+            return _Rooms.ToList();
+        }
+
+        public IEnumerable<UserViewModel> GetUsers(string roomName)
+        {
+            return _Connections.Where(u => u.CurrentRoom == roomName).ToList();
+        }
+
+        public IEnumerable<MessageViewModel> GetMessageHistory(string roomName)
+        {
+            var messageHistory = _iMessageRepository.All.Where(m => m.ToRoom.Name == roomName)
+                    .Include(m => m.FromUser)
+                    .Include(m => m.ToRoom)
+                    .OrderByDescending(m => m.Timestamp)
+                    .Take(20)
+                    .AsEnumerable()
+                    .Reverse()
+                    .ToList();
+
+            return _mapper.Map<IEnumerable<Message>, IEnumerable<MessageViewModel>>(messageHistory);
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            try
+            {
+                var user = _iAccountRepository.All.FirstOrDefault(u => u.Email == IdentityName);
+                var userViewModel = _mapper.Map<Customer, UserViewModel>(user);
+                userViewModel.Device = GetDevice();
+                userViewModel.CurrentRoom = "";
+
+                if (_Connections.All(u => u.Email != IdentityName))
+                {
+                    _Connections.Add(userViewModel);
+                    _ConnectionsMap.Add(IdentityName, Context.ConnectionId);
+                }
+
+                if (user != null) Clients.Caller.SendAsync("getProfileInfo", user.Email, user.Avatar);
+                else
+                {
+                    Clients.Caller.SendAsync("onError", "OnConnected:" + "Không tìm thấy account");
+                }
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.SendAsync("onError", "OnConnected:" + ex.Message);
+            }
+            return base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            try
+            {
+                var user = _Connections.First(u => u.Email == IdentityName);
+                _Connections.Remove(user);
+
+                Clients.OthersInGroup(user.CurrentRoom).SendAsync("removeUser", user);
+
+                _ConnectionsMap.Remove(user.Email);
+            }
+            catch (Exception ex)
+            {
+                Clients.Caller.SendAsync("onError", "OnDisconnected: " + ex.Message);
+            }
+
+            return base.OnDisconnectedAsync(exception);
+        }
+
+        private string IdentityName => Context.GetHttpContext().Session.GetString(SessionName);
+
+        private string GetDevice()
+        {
+            var device = Context.GetHttpContext().Request.Headers["Device"].ToString();
+            if (!string.IsNullOrEmpty(device) && (device.Equals("Desktop") || device.Equals("Mobile")))
+                return device;
+
+            return "Web";
+        }
     }
 }

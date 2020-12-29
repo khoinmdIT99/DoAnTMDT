@@ -1,24 +1,26 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Basic page needs
-        ============================================ -->
-    <title>Furnicom - Responsive Furniture & Interior HTML Template</title>
+    ============================================ -->
+    <title>Nội thất Sài Thành - Website chuyên về nội thất</title>
     <meta charset="utf-8">
     <meta name="keywords" content="html template, furniture html template, interior html template, furniture & interior html template, best html template, best furniture template, best furniture theme, furniture theme, theme for furniture" />
     <meta name="description" content="Furnicom is an awesome premium HTML template for any kind of online store, especially for furniture, interior, decoration, design studio and more. Quickly & easily build your website just by some clicks." />
     <meta name="author" content="Smartaddons">
     <meta name="robots" content="index, follow" />
     <!-- Mobile specific metas
-        ============================================ -->
+    ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Itim|Lobster|Montserrat:500|Noto+Serif|Nunito|Patrick+Hand|Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i|Roboto+Slab|Saira" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Favicon
-        ============================================ -->
-    <link rel="shortcut icon" type="image/png" href="~/Test/ico/favicon-16x16.png" />
+    ============================================ -->
+    <link rel="shortcut icon" type="image/png" href="~/favicon.ico" />
     <!-- Libs CSS
-        ============================================ -->
+    ============================================ -->
     <link rel="stylesheet" href="~/Test/css/bootstrap/css/bootstrap.min.css">
     <link href="~/Test/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/Test/js/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
@@ -28,7 +30,8 @@
     <link href="~/Test/js/jquery-ui/jquery-ui.min.css" rel="stylesheet">
     <link href="~/Test/js/minicolors/miniColors.css" rel="stylesheet">
     <!-- Theme CSS
-        ============================================ -->
+    ============================================ -->
+    <link href="~/assets/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
     <link href="~/Test/css/themecss/so_sociallogin.css" rel="stylesheet">
     <link href="~/Test/css/themecss/so_searchpro.css" rel="stylesheet">
     <link href="~/Test/css/themecss/so_megamenu.css" rel="stylesheet">
@@ -43,13 +46,58 @@
     <link href="~/Test/css/quickview/quickview.css" rel="stylesheet">
     @RenderSection("Styles", required: false)
     <!-- Google web fonts
-        ============================================ -->
+    ============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
     <style type="text/css">
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+            font-size: 14px;
         }
+
+        .show-more-text-view-p {
+            cursor: pointer;
+            color: #444;
+            padding: 10px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .summary {
+            width: 700px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* HIDE RADIO */
+        [type=radio] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+            /* IMAGE STYLES */
+            [type=radio] + img {
+                border-radius: 50%;
+                border: 2px solid transparent;
+                padding: 1px;
+                cursor: pointer;
+            }
+
+            /* CHECKED STYLES */
+            [type=radio]:checked + img {
+                border-radius: 50%;
+                border: 2px solid #5dca38;
+                padding: 1px;
+            }
+
+        .form-group label {
+            display: inline-block;
+            margin-bottom: .5rem;
+        }
+
         .modal-content .modal-header {
             border-bottom: none;
             padding-top: 24px;
@@ -57,24 +105,29 @@
             padding-bottom: 0;
             padding-left: 24px;
         }
+
         .active-rp {
             background-color: #ff4f57;
             color: white;
             border: none;
         }
+
         .rp-tt {
             padding-bottom: 8px;
         }
+
         .info-txt {
             padding: 5px 27px;
             border-radius: 3px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
         }
+
         .text-rp {
             border-radius: 3px;
             border: 1px solid #ddd;
         }
+
         .btn-rp-order, .btn-rp-order-child {
             align-items: center;
             border: 1px solid #dddfe2;
@@ -85,6 +138,7 @@
             padding: 8px 12px;
             -webkit-user-select: none;
         }
+
         .warning-rp {
             font-size: 14px;
             line-height: 16px;
@@ -94,42 +148,51 @@
             padding: 12px 16px;
             border-bottom: 1px solid #dddfe2;
         }
+
         .wrap-btn-rp, .additon-info {
             padding: 5px 10px 5px 10px;
         }
+
         .db-new-header .search {
             text-align: center;
             display: inline-block;
             position: relative;
             margin-top: 5px;
         }
+
         .rf {
             padding-bottom: 10px;
         }
+
         .search {
             width: 100%;
             margin-bottom: 0 !important;
             position: relative;
         }
+
         .db-new-content {
             min-height: 800px;
             margin-top: 30px;
             box-sizing: border-box;
         }
+
         .db-new-filters {
             position: relative;
             box-sizing: border-box;
         }
-        .db-new-filters .tabs {
-            border-bottom: 1px #ddd solid;
-            position: relative;
-        }
-        .db-new-filters .tabs li {
-            display: inline-block;
-            margin-left: 11px;
-            -webkit-transition: left .3s;
-            transition: left .3s;
-        }
+
+            .db-new-filters .tabs {
+                border-bottom: 1px #ddd solid;
+                position: relative;
+            }
+
+                .db-new-filters .tabs li {
+                    display: inline-block;
+                    margin-left: 11px;
+                    -webkit-transition: left .3s;
+                    transition: left .3s;
+                }
+
         .db-new-header .search input[type=search], .db-new-header .search input[type=text] {
             background: 0 0;
             width: 170px;
@@ -142,36 +205,46 @@
             -webkit-transition: border-color .2s,width .2s;
             transition: border-color .2s,width .2s;
         }
+
         .btn-search {
             padding: 11px;
         }
+
         .db-new-filters a:hover, .db-new-filters a:focus {
             color: #ff4f57;
         }
-        .tab-content>.active {
+
+        .tab-content > .active {
             display: block;
         }
+
         .tab-content.fade.in {
             opacity: 1;
         }
+
         .db-new-header h1 {
             font-size: 32px;
             font-weight: 300;
             line-height: 120%;
         }
+
         .tab-content.db-new-main-table.table tr {
             background: #ffffff;
         }
+
         .tab-content.db-new-main-table.table > .tab-content.db-new-main-table thead > .tab-content.db-new-main-table tr > .tab-content.db-new-main-table th {
             width: 150px;
         }
+
         .tab-content.db-new-main-table.table > .tab-content.db-new-main-table thead > .tab-content.db-new-main-table tr > .tab-content.db-new-main-table th {
             border-bottom: none;
             color: #ff4f57;
         }
+
         .tab-content.db-new-main-table.table tr {
             background: #ffffff;
         }
+
         .product-list .aside-filter .filter-box .price-wrap-1, .product-list .aside-filter .filter-box .price-wrap-2 {
             border: 1px solid #ddd;
             padding: 3px 5px 2px 5px;
@@ -181,41 +254,48 @@
             min-height: 35px;
             margin-bottom: 10px;
         }
+
         .btn:not(:disabled):not(.disabled) {
             cursor: pointer;
         }
+
         .or-seperator {
             margin-top: 32px;
             text-align: center;
             border-top: 1px solid #e0e0e0;
         }
-        .or-seperator b {
-            color: #666;
-            padding: 0 8px;
-            width: 30px;
-            height: 30px;
-            font-size: 13px;
-            text-align: center;
-            line-height: 26px;
-            background: #fff;
-            display: inline-block;
-            border: 1px solid #e0e0e0;
-            border-radius: 50%;
-            position: relative;
-            top: -15px;
-            z-index: 1;
-        }
+
+            .or-seperator b {
+                color: #666;
+                padding: 0 8px;
+                width: 30px;
+                height: 30px;
+                font-size: 13px;
+                text-align: center;
+                line-height: 26px;
+                background: #fff;
+                display: inline-block;
+                border: 1px solid #e0e0e0;
+                border-radius: 50%;
+                position: relative;
+                top: -15px;
+                z-index: 1;
+            }
+
         .clearfix::after {
             display: block;
             clear: both;
             content: "";
         }
+
         .social-btn .facebook-btn {
             background: #507cc0;
         }
+
         .social-btn .twitter-btn {
             background: red;
         }
+
         .modal-login .btn-primary, .modal-login .btn-primary:active {
             color: #fff;
             border-radius: 4px;
@@ -226,17 +306,21 @@
             border: none;
             margin-top: 45px;
         }
+
         .modal-login .form-control, .modal-login .btn {
             min-height: 40px;
             border-radius: 3px;
         }
+
         .form-group {
             margin-bottom: 1rem;
         }
+
         .modal-login .form-control, .modal-login .btn {
-             min-height: 40px;
-             border-radius: 3px;
-         }
+            min-height: 40px;
+            border-radius: 3px;
+        }
+
         .form-control {
             display: block;
             width: 100%;
@@ -252,6 +336,7 @@
             border-radius: .25rem;
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
+
         .modal-login .modal-footer {
             background: #ecf0f1;
             border-color: #dee4e7;
@@ -260,6 +345,7 @@
             border-radius: 5px;
             font-size: 13px;
         }
+
         .modal-footer {
             display: -ms-flexbox;
             display: flex;
@@ -274,12 +360,15 @@
             border-bottom-right-radius: calc(.3rem - 1px);
             border-bottom-left-radius: calc(.3rem - 1px);
         }
+
         .modal-login .modal-footer a {
             color: #999;
         }
-        .modal-footer>* {
+
+        .modal-footer > * {
             margin: .25rem;
         }
+
         .hint-text {
             text-align: center;
             margin-bottom: 15px;
@@ -298,6 +387,7 @@
             width: 47%;
             text-decoration: none;
         }
+
         #lightbox .modal-content {
             width: auto;
             display: inline-block;
@@ -320,6 +410,7 @@
         #lightbox {
             background-color: #000000f0;
         }
+
         .headertext {
             font-weight: 500;
         }
@@ -329,7 +420,7 @@
         }
 
         #labelCode {
-            font-size: 14px;
+            font-size: 18px;
             font-style: italic;
         }
 
@@ -343,6 +434,7 @@
         }
 
         .textsize {
+            display: flex;
             font-size: 14px;
             padding: 10px;
             background: beige !important;
@@ -362,10 +454,11 @@
                             <div class="header-user">
                                 <ul>
                                     <li>
-                                        <a asp-action="Index" asp-controller="Account" asp-area="" class="smooth" title="">
+                                        <a asp-action="ThongTinTaiKhoan" asp-controller="TaiKhoan" asp-area="" class="smooth" title="">
                                             <i class="fa fa-user" aria-hidden="true"></i>
-                                            Tài khoản
+                                            Tài khoản 
                                         </a>
+                                        <input type="hidden" id="iddangnhap" value="@Context.Session.GetString("_Name")"/>
                                     </li>
                                     <li>
                                         <a asp-action="ShoppingCart" asp-controller="Cart" asp-area="" class="smooth" title="">
@@ -379,24 +472,6 @@
                                             Thanh toán
                                         </a>
                                     </li>
-                                    @*@if(Context.User.Identity.IsAuthenticated)
-                                    {
-                                        <li>
-                                            <a asp-action="Logout" asp-controller="Login" class="smooth" title="">
-                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                Đăng xuất
-                                            </a>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li>
-                                            <a asp-action="Index" asp-controller="Login" class="smooth" title="">
-                                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
-                                                Đăng nhập
-                                            </a>
-                                        </li>
-                                    }*@
                                     @await Component.InvokeAsync("Account")
                                     @if (Context.User.Identity.IsAuthenticated && User.Identity.Name == "admin")
                                     {
@@ -414,7 +489,7 @@
                             <div class="header-hotline">
                                 <div class="item">
                                     <p>
-                                        <a href="#" class="smooth" title="">
+                                        <a href="/Chat" class="smooth" title="">
                                             Start
                                             <span>LIVE CHAT</span>
                                         </a>
@@ -435,8 +510,8 @@
             <div class="header-center">
                 <div class="container">
                     <div class="logo">
-                        <a href="index.html" class="" title="">
-                            <img src="~/Test/image/catalog/demo/logo/logo.png" alt="">
+                        <a href="/trangchu.html" class="" title="">
+                            <img src="~/Test/image/catalog/demo/logo/Nội Thất Sài Thành.jpg" alt="">
                         </a>
                     </div>
                     <div class="search-form">
@@ -492,201 +567,14 @@
                                                                     <i class="fa fa-home"></i>
                                                                 </a>
                                                             </li>
-                                                            <li class="full-width menu-layout with-sub-menu hover">
-                                                                <p class="close-menu smooth"></p>
-                                                                <a href="index.html" class="smooth cleafix" title="">
-                                                                    LAYOUTS
-                                                                    <b class="caret"></b>
-                                                                </a>
-                                                                <div class="sub-menu">
-                                                                    <div class="content">
-                                                                        <div class="row">
 
-                                                                            <div class="html">
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="index.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/home-2.jpg" alt="">
-                                                                                    </a>
-                                                                                    <a href="index.html" class="smooth" title="">Home Page 1</a>
-                                                                                </div>
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="index2.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/home-lyout2.jpg" alt="">
-                                                                                    </a>
-                                                                                    <a href="index2.html" class="smooth" title="">Home Page 2</a>
-                                                                                </div>
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="index3.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/layout-3.jpg" alt="">
-                                                                                    </a>
-                                                                                    <a href="index3.html" class="smooth" title="">Home Page 3</a>
-                                                                                </div>
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="index4.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/layout-4.jpg" alt="">
-                                                                                    </a>
-                                                                                    <a href="index4.html" class="smooth" title="">Home Page 4</a>
-                                                                                </div>
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="index5.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/layout-5.jpg" alt="">
-                                                                                    </a>
-                                                                                    <a href="index5.html" class="smooth" title="">Home Page 5</a>
-                                                                                </div>
-                                                                                <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                    <a href="html_width_RTL/index.html" class="smooth c-img" title>
-                                                                                        <img src="~/Test/image/catalog/layout/rtl.png" alt="">
-                                                                                    </a>
-                                                                                    <a href="html_width_RTL/index.html" class="smooth" title="">Home Page RTL</a>
-                                                                                </div>
+                                                            @await Component.InvokeAsync("Category")
 
-                                                                                <!-- <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                <a href="html_width_RTL/index2.html" class="smooth c-img" title>
-                                                                                    <img src="~/Test/image/catalog/layout/rtl2.png" alt="">
-                                                                                </a>
-                                                                                <a href="html_width_RTL/index2.html" class="smooth" title="">Home Page 2 RTL</a>
-                                                                            </div>
 
-                                                                            <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                <a href="html_width_RTL/index3.html" class="smooth c-img" title>
-                                                                                    <img src="~/Test/image/catalog/layout/rtl3.png" alt="">
-                                                                                </a>
-                                                                                <a href="html_width_RTL/index3.html" class="smooth" title="">Home Page 3 RTL</a>
-                                                                            </div>
-
-                                                                            <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                <a href="html_width_RTL/index4.html" class="smooth c-img" title>
-                                                                                    <img src="~/Test/image/catalog/layout/rtl4.png" alt="">
-                                                                                </a>
-                                                                                <a href="html_width_RTL/index4.html" class="smooth" title="">Home Page 4 RTL</a>
-                                                                            </div>
-
-                                                                            <div class="col-lg-3 col-md-3 col-sm-12">
-                                                                                <a href="html_width_RTL/index5.html" class="smooth c-img" title>
-                                                                                    <img src="~/Test/image/catalog/layout/rtl5.png" alt="">
-                                                                                </a>
-                                                                                <a href="html_width_RTL/index5.html" class="smooth" title="">Home Page 5 RTL</a>
-                                                                            </div> -->
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="full-width menu-bedroom with-sub-menu hover">
-                                                                <p class="close-menu"></p>
-                                                                <a href="category2.html" class="smooth cleafix" title="">
-                                                                    FEATURES
-                                                                    <b class="caret"></b>
-                                                                </a>
-                                                                <div class="sub-menu">
-                                                                    <div class="content">
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12">
-                                                                                <div class="html">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <a href="#" class="smooth title-submenu" title="">listing Pages</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="category.html" class="smooth" title="">Category Page 1</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="category2.html" class="smooth" title="">Category Page 2</a>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <a href="#" class="smooth title-submenu" title="">Product Pages</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="detail.html" class="smooth" title="">
-                                                                                                                Product Detail
-                                                                                                            </a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="detail-sidebar.html" class="smooth" title="">
-                                                                                                                Product Detail Sidebar
-                                                                                                            </a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="detail-sidebar-right.html" class="smooth" title="">
-                                                                                                                Product Detail Sidebar Right
-                                                                                                            </a>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <a href="#" class="smooth title-submenu" title="">Shopping Pages</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="cart.html" class="smooth" title="">Shopping Cart Page</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="checkout.html" class="smooth" title="">Checkout Page</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="compare.html" class="smooth" title="">Compare Page</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="wishlist.html" class="smooth" title="">Wishlist Page</a>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <a href="#" class="smooth title-submenu" title="">MY ACCOUNT PAGES</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="my-account.html" class="smooth" title="">My Account Page</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="login.html" class="smooth" title="">Login Page</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="register.html" class="smooth" title="">Register Page</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="order-history.html" class="smooth" title="">Order History</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="order-infomation.html" class="smooth" title="">Order Infomation</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="product-return.html" class="smooth" title="">Product Returns</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="gift-voucher.html" class="smooth" title="">Gift Voucher</a>
-                                                                                                        </li>
-
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
                                                             <li class="full-width menu-dinning with-sub-menu hover">
                                                                 <p class="close-menu"></p>
                                                                 <a href="#" class="smooth cleafix" title="">
-                                                                    CATEGORY
+                                                                    BLOG
                                                                     <b class="caret"></b>
                                                                 </a>
                                                                 <div class="sub-menu">
@@ -695,236 +583,11 @@
                                                                             <div class="col-sm-12">
                                                                                 <div class="html">
                                                                                     <div class="row">
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <div class="static-menu-image">
-                                                                                                    <img src="~/Test/image/catalog/demo/slider/home1/static-menu-image.jpg" alt="">
-                                                                                                </div>
-                                                                                                <a href="#" class="smooth title-submenu" title="">Living Room</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Large Coffee Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Small Coffee Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Coffee Table sets</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">End Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Console Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Set Of Tables</a>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <div class="static-menu-image">
-                                                                                                    <img src="~/Test/image/catalog/demo/slider/home1/static-menu-image2.jpg" alt="">
-                                                                                                </div>
-                                                                                                <a href="#" class="smooth title-submenu" title="">Bed Room</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">
-                                                                                                                Large Coffee Tables
-                                                                                                                <span class="menu-label menu-label-new">New</span>
-                                                                                                            </a>
-                                                                                                            <ul>
-                                                                                                                <li>
-                                                                                                                    <a href="#" class="smooth" title="">
-                                                                                                                        Large Coffee Tables
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <a href="#" class="smooth" title="">
-                                                                                                                        Small Coffee Tables
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                            </ul>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">
-                                                                                                                Small Coffee Tables
-                                                                                                                <span class="menu-label menu-label-hot">Hot</span>
-                                                                                                            </a>
-                                                                                                            <ul>
-                                                                                                                <li>
-                                                                                                                    <a href="#" class="smooth" title="">
-                                                                                                                        Large Coffee Tables
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <a href="#" class="smooth" title="">
-                                                                                                                        Small Coffee Tables
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <a href="#" class="smooth" title="">
-                                                                                                                        Large Coffee Tables
-                                                                                                                    </a>
-                                                                                                                </li>
-                                                                                                                <li>
-                                                                                                                    <a href="#" class="smooth" title="">
-                                                                                                                        Small Coffee Tables
-                                                                                                                    </a>
-                                                                                                                </li>
+                                                                                        @await Component.InvokeAsync("BlogCategory")
 
-                                                                                                            </ul>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Coffee Table sets</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">End Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Console Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Set Of Tables</a>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <div class="static-menu-image">
-                                                                                                    <img src="~/Test/image/catalog/demo/slider/home1/static-menu-image3.jpg" alt="">
-                                                                                                </div>
-                                                                                                <a href="#" class="smooth title-submenu" title="">Work Place</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Large Coffee Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Small Coffee Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Coffee Table sets</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">End Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Console Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Set Of Tables</a>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-md-3">
-                                                                                            <div class="column">
-                                                                                                <div class="static-menu-image">
-                                                                                                    <img src="~/Test/image/catalog/demo/slider/home1/static-menu-image4.jpg" alt="">
-                                                                                                </div>
-                                                                                                <a href="#" class="smooth title-submenu" title="">Kitchen</a>
-                                                                                                <div>
-                                                                                                    <ul class="row-list">
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Large Coffee Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Small Coffee Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Coffee Table sets</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">End Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Console Tables</a>
-                                                                                                        </li>
-                                                                                                        <li>
-                                                                                                            <a href="#" class="smooth" title="">Set Of Tables</a>
-                                                                                                        </li>
-                                                                                                    </ul>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
 
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="full-width menu-contact with-sub-menu hover">
-                                                                <p class="close-menu"></p>
-                                                                <a href="listing-blog.html" class="smooth cleafix" title="">
-                                                                    BLOG
-                                                                    <b class="caret"> </b>
-                                                                </a>
-                                                                <div class="sub-menu">
-                                                                    <div class="content">
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12">
-
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <a href="listing-blog-2-column.html" class="smooth" title="Listing Blog 2 Column">Masorny Blog 2 Column</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="listing-blog-3-column.html" class="smooth" title="Listing Blog 3 Column">Masorny Blog 2 Column</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="portfolio-2-column.html" class="smooth" title="Portfolio 2 Column">Portfolio 2 Column</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="portfolio-3-column.html" class="smooth" title="Portfolio 3 Column">Portfolio 3 Column</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="portfolio-detail.html" class="smooth" title="Portfolio Detail">Portfolio Detail</a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-
-                                                            <li class="full-width menu-contact with-sub-menu hover">
-                                                                <p class="close-menu"></p>
-                                                                <a href="#" class="smooth cleafix" title="">
-                                                                    PAGES
-                                                                    <b class="caret"> </b>
-                                                                </a>
-                                                                <div class="sub-menu">
-                                                                    <div class="content">
-                                                                        <div class="row">
-                                                                            <div class="col-sm-6">
-                                                                                <ul>
-                                                                                    <li>
-                                                                                        <a href="about-us.html" class="smooth" title="">About Us</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="contact-us.html" class="smooth" title="">Contact Us</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="faq.html" class="smooth" title="">FAQs</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="coming-soon.html" class="smooth" title="">Comming Soon</a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="page404.html" class="smooth" title="">Page 404</a>
-                                                                                    </li>
-                                                                                </ul>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -978,55 +641,7 @@
             <!-- //HEADER BOTTOM -->
         </header>
         <!-- //HEADER CONTAINER -->
-        <!-- HOME SLIDER -->
-        <div class="home-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-items_column00="1" data-margin="0" data-items_column0="1" data-items_column1="1" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="yes" data-pagination="yes" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
-            <div class="item-slider">
-                <a href="#" class="">
-                    <img src="~/Test/image/catalog/demo/slider/home1/home-slider.png" alt="">
-                </a>
-                <div class="slider-info">
-                    <div class="container">
-                        <h3 class="small-title">FURNITURE</h3>
-                        <h4 class="small-desc">Survive The Reality Of Everyday Life</h4>
-                        <h2 class="big-title">COLLECTION</h2>
-                        <div class="text-center">
-                            <a href="#" class="smooth see-more" title="">SHOP NOW</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-slider">
-                <a href="#" class="">
-                    <img src="~/Test/image/catalog/demo/slider/home1/home-slider.png" alt="">
-                </a>
-                <div class="slider-info">
-                    <div class="container">
-                        <h3 class="small-title">FURNITURE</h3>
-                        <h4 class="small-desc">Survive The Reality Of Everyday Life</h4>
-                        <h2 class="big-title">COLLECTION</h2>
-                        <div class="text-center">
-                            <a href="#" class="smooth see-more" title="">SHOP NOW</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item-slider">
-                <a href="#" class="">
-                    <img src="~/Test/image/catalog/demo/slider/home1/home-slider.png" alt="">
-                </a>
-                <div class="slider-info">
-                    <div class="container">
-                        <h3 class="small-title">FURNITURE</h3>
-                        <h4 class="small-desc">Survive The Reality Of Everyday Life</h4>
-                        <h2 class="big-title">COLLECTION</h2>
-                        <div class="text-center">
-                            <a href="#" class="smooth see-more" title="">SHOP NOW</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        @await Component.InvokeAsync("HomeSlider")
         @RenderBody()
         <!-- FOOTER -->
         <footer class="typefooter-1">
@@ -1123,13 +738,13 @@
                                     <h3 class="footer-title">contact us</h3>
                                     <ul class="contact-list">
                                         <li>
-                                            <i class="fa fa-map-marker" aria-hidden="true"></i>Megnor Comp Pvt Limited, Trade Centre, Udhana Darwaja
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>828 Sư Vạn Hạnh Phường 13 Quận 10 TPHCM
                                         </li>
                                         <li>
-                                            <i class="fa fa-mobile" aria-hidden="true"></i><a href="tel:(91)-2613023333">(91)-261 3023333</a>
+                                            <i class="fa fa-mobile" aria-hidden="true"></i><a href="tel:(91)-2613023333">0938751116</a>
                                         </li>
                                         <li>
-                                            <i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:demo@harvest.com">demo@harvest.com</a>
+                                            <i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:khoitedu99@gmail.com">khoitedu99@gmail.com</a>
                                         </li>
                                     </ul>
                                     <div class="payment">
@@ -1148,17 +763,17 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="footer-bottom-left">
                                     <h6 class="footer-bottom-title">
-                                        Download Our App
+                                        Tải ứng dụng
                                     </h6>
                                     <a href="#" class="d-inline-block">
-                                        <img src="~/Test/image/catalog/demo/footer/down-app.png" class="img-responsive" alt="">
+                                        <img src="~/Test/image/catalog/demo/logo/rsz_nội_thất_sài_thành_.png" style="width: 25px;margin-right: 20px;" class="img-responsive" alt="">
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="footer-bottom-right">
                                     <h6 class="footer-bottom-title">
-                                        Follow Us
+                                        Theo dõi chúng tôi
                                     </h6>
                                     <ul class="footer-social">
                                         <li>
@@ -1192,7 +807,7 @@
                             </div>
                             <div class="col-lg-12 col-sm-12 col-xs-12">
                                 <div class="copyright text-center">
-                                    Furnicom HTML © 2019 Demo Store. All Rights Reserved. Designed by <a href="https://www.smartaddons.com/" target="_blank" class="smooth" title>SmartAddons.com</a>
+                                    Đồng thiết kế và là công ty con của <a href="https://thaicong.com/vi/" target="_blank" class="smooth" title>THÁI CÔNG INTERIOR DESIGN</a>
                                 </div>
                             </div>
                         </div>
@@ -1205,15 +820,14 @@
         <div class="back-to-top">
             <i class="fa fa-angle-up" aria-hidden="true"></i>
         </div>
-    @{@await Html.PartialAsync("_boxChat");}
-    <input type="hidden" id="base_url" value="@Url.RouteUrl(new {controller="/" })" />
+        @{@await Html.PartialAsync("_boxChat");}
     </div>
 
     <!-- End Color Scheme
     ============================================ -->
     <!-- Include Libs & Plugins
     ============================================ -->
-<!-- Placed at the end of the document so the pages load faster -->
+    <!-- Placed at the end of the document so the pages load faster -->
 
     <script type="text/javascript" src="~/Test/js/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="~/Test/js/bootstrap.min.js"></script>
@@ -1240,12 +854,51 @@
     <script type="text/javascript" src="~/Test/js/themejs/nouislider.js"></script>
     <script type="text/javascript" src="~/Test/js/themejs/script.js"></script>
     <script src="~/js/index.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Readmore.js/2.0.2/readmore.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="~/lib/aspnet/signalr/dist/browser/signalr.min.js"></script>
-<script src="~/js/ChatService/guest_process_chat.js"></script>
-<script src="~/js/process_box_chat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="~/lib/aspnet/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/process_box_chat.js"></script>
+    <script src="~/assets/js/easy-responsive-tabs.js"></script>
+    <script>
+        $(document).ready(function () {
+            var value = $('#iddangnhap').val(); 
+            if (value == null || value === '') {
+                $("#myModalLogin").modal();
+            }
+            $('#forgot').click(function() {
+                $('#myModalLogin').modal('hide');
+            });
+            $('#myModalLogin').on('hidden.bs.modal', function () {
+                $('#myModalLogin form')[0].reset();
+            });
+            $('#myModalRegister').on('hidden.bs.modal', function () {
+                $('#myModalRegister form')[0].reset();
+            });
+            $('#myModalForgot').on('hidden.bs.modal', function () {
+                $('#myModalForgot form')[0].reset();
+            });
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default',
+                width: 'auto',
+                fit: true,
+                closed: 'accordion',
+                activate: function (event) {
+                    var $tab = $(this);
+                    var $info = $('#tabInfo');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+            $('#verticalTab').easyResponsiveTabs({
+                type: 'vertical',
+                width: 'auto',
+                fit: true
+            });
+        });
+    </script>
     <script>
         $.post("/Cart/ItemControl",
             function (result) {
@@ -1258,307 +911,375 @@
                 $("#itemPrice").text(result);
             })
     </script>
-<script type="text/javascript" defer="">
-    $(document).ready(function() {
-        function sendPostRequest(url, postData, callback) {
-            $.ajax(url,
-                {
-                    type: "POST",
-                    dataType: "text",
-                    success: callback,
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        //alert('eerroorr');
-                    }
-                });
-        }
-
-        function validateEmail(email) {
-            var expr =
-                /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-            if (!expr.test(email)) {
-                return false;
-            }
-            return true;
-        }
-
-        $(".order-submit").on('click',
-            function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: "/Order/CheckLogin/",
-                    dataType: 'json',
-                    success: function(result) {
-                        if (result.success === true) {
-                            alert("Chúc quý khách mua hàng vui vẻ !!!!");
-                        } else {
-                            alert(result.message);
+    <script type="text/javascript" defer="">
+        $(document).ready(function() {
+            function sendPostRequest(url, postData, callback) {
+                $.ajax(url,
+                    {
+                        type: "POST",
+                        dataType: "text",
+                        success: callback,
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            //alert('eerroorr');
                         }
-                    },
-                    error: function(xhr, ajaxOptions, error) {
-                        alert('Đã xảy ra lỗi khi thực hiện yêu cầu của bạn. Vui lòng kiểm tra và thử lại!');
-                    },
-                    complete: function(result) {
-                        location.href = '@Url.Content("~/Order/HomeOrder")';
-                    }
-                });
-            });
-
-        function compareLargeStrings(a, b) {
-            if (a.length !== b.length) {
-                return false;
+                    });
             }
-            return a.localeCompare(b) === 0;
-        }
 
-        $('#crBtn').click(function(e) {
-            e.preventDefault();
-            var name = $('#crName').val();
-            var email = $('#crEmail').val();
-            var password = $('#crPassword').val();
-            var repassword = $('#crRePassword').val();
-            var data = {};
-            data.fullName = name;
-            data.email = email;
-            data.password = password;
-
-            if (name === '' || password === '' || !compareLargeStrings(password.trim(), repassword.trim())) {
-                e.preventDefault();
-                Swal.fire('Kiểm tra lại dữ liệu nhập vào', "", "error");
-
-                if (!validateEmail(email)) {
-                    e.preventDefault();
-                    Swal.fire('Email không hợp lệ', "", "error");
+            function validateEmail(email) {
+                var expr =
+                    /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                if (!expr.test(email)) {
+                    return false;
                 }
-            } else {
+                return true;
+            }
+
+            $(".order-submit").on('click',
+                function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        url: "/Order/CheckLogin/",
+                        dataType: 'json',
+                        success: function(result) {
+                            if (result.success === true) {
+                                location.href = '@Url.Content("~/DonHang.html")';
+                            } else {
+                                alert(result.message);
+                                location.href = '@Url.Content("~/trangchu.html")';
+                            }
+                        },
+                        error: function(xhr, ajaxOptions, error) {
+                            alert('Đã xảy ra lỗi khi thực hiện yêu cầu của bạn. Vui lòng kiểm tra và thử lại!');
+                        }@*,
+                        complete: function (result) {
+                            if (result.message === "Không khoá") {
+                                location.href = '@Url.Content("~/DonHang.html")';
+                            }
+                            else {
+                                location.href = '@Url.Content("~/trangchu.html")';
+                            }
+                        }*@
+                    });
+                });
+
+            function compareLargeStrings(a, b) {
+                if (a.length !== b.length) {
+                    return false;
+                }
+                return a.localeCompare(b) === 0;
+            }
+
+            $('#crBtn').click(function(e) {
                 e.preventDefault();
-                $.blockUI({ message: '<h1><img src="~/throbber.gif"/> Just a moment...</h1>' });
+                var name = $('#crName').val();
+                var email = $('#crEmail').val();
+                var password = $('#crPassword').val();
+                var repassword = $('#crRePassword').val();
+                var avatar = $("input[name=test]:checked").val();
+                var data = {};
+                data.fullName = name;
+                data.email = email;
+                data.password = password;
+                data.avatar = avatar;
 
-                $.ajax({
-                    type: 'Post',
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(data),
-                    url: '@Url.Action("AddUser", "Auth")',
+                if (name === '' || password === '' || !compareLargeStrings(password.trim(), repassword.trim())) {
+                    e.preventDefault();
+                    Swal.fire('Kiểm tra lại dữ liệu nhập vào', "", "error");
 
-                    success: function(data) {
-                        if (data.includes("thành công")) {
+                    if (!validateEmail(email)) {
+                        e.preventDefault();
+                        Swal.fire('Email không hợp lệ', "", "error");
+                    }
+                } else {
+                    e.preventDefault();
+                    $.blockUI({ message: '<h1><img src="~/throbber.gif"/> Just a moment...</h1>' });
+
+                    $.ajax({
+                        type: 'Post',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(data),
+                        url: '@Url.Action("AddUser", "Auth")',
+
+                        success: function(data) {
+                            if (data.includes("thành công")) {
+                                $.unblockUI();
+                                Swal.fire(
+                                    data,
+                                    '',
+                                    'success'
+                                );
+                                $('#closeModalBtn').click();
+                                location.href = '@Url.Content("~/trangchu.html")';
+                            }
+                            else {
+                                e.preventDefault();
+                                $.unblockUI();
+                                Swal.fire(data.message, "", "error");
+                            }
+                        },
+                        error: function() {
+                            $.unblockUI();
+                            Swal.fire('Data sending error ...', "", "error");
+                        }
+                    });
+
+                }
+            });
+            $('#forgotBtn').on("click",
+                function(e) {
+                    e.preventDefault();
+                    var bla = $('#forgot-email').val();
+                    var sData = {
+                        email: bla
+                    };
+                    $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
+
+
+                    $.ajax({
+                        url: "/Auth/ForgotPassword",
+                        data: sData,
+                        type: "GET",
+                        dataType: "json",
+                        cache: false,
+                        success: function(result) {
                             $.unblockUI();
                             Swal.fire(
-                                data,
+                                result,
                                 '',
                                 'success'
                             );
-                            $('#closeModalBtn').click();
-                            location.href = '@Url.Content("~/Home/Index")';
-                        } else {
-                            e.preventDefault();
+                        },
+                        error: function(jqXHR, textStatus) {
                             $.unblockUI();
-                            Swal.fire(data.Message, "", "error");
+                            Swal.fire('Data sending error ...', "", "error");
+                        }
+                    });
+                });
+            $('#loginBtn').click(function(e) {
+                var email = $('#loginEmail').val();
+                var password = $('#loginPassword').val();
+                var user = {
+                    Email: email,
+                    Password: password
+                }
+                $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
+                e.preventDefault();
+                $.ajax({
+                    type: 'Post',
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    url: '/Auth/Login/' + JSON.stringify(user),
+                    success: function(result) {
+                        if (result.includes("thành công")) {
+                            if (result.includes("quyền nhân viên bán hàng")) {
+                                $.unblockUI();
+                                Swal.fire(
+                                    result,
+                                    '',
+                                    'success'
+                                );
+                                $('#closeModalBtn').click();
+                                location.href = '@Url.Content("~/trangchuquanly.html")';
+                            }
+                            else {
+                                $.unblockUI();
+                                Swal.fire(
+                                    result,
+                                    '',
+                                    'success'
+                                );
+                                $('#closeModalBtn').click();
+                                location.href = '@Url.Content("~/trangchu.html")';
+                            }
+
+                        }
+                        else {
+                            $.unblockUI();
+                            Swal.fire(result, "", "error");
                         }
                     },
-                    error: function() {
+                    error: function(xhr) {
                         $.unblockUI();
+                        console.log(xhr.responseText);
                         Swal.fire('Data sending error ...', "", "error");
                     }
                 });
 
-            }
-        });
-        $('#forgotBtn').on("click",
-            function(e) {
+            });
+
+            $('#logoutBtn').click(function(e) {
                 e.preventDefault();
-                var bla = $('#forgot-email').val();
-                var sData = {
-                    email: bla
-                };
-                $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
-
-
                 $.ajax({
-                    url: "/Auth/ForgotPassword",
-                    data: sData,
-                    type: "GET",
-                    dataType: "json",
-                    cache: false,
+                    type: 'GET',
+                    url: '/Auth/Logout',
                     success: function(result) {
-                        $.unblockUI();
+
+                        location.reload();
                         Swal.fire(
                             result,
                             '',
                             'success'
                         );
-                    },
-                    error: function(jqXHR, textStatus) {
-                        $.unblockUI();
-                        Swal.fire('Data sending error ...', "", "error");
                     }
                 });
             });
-        $('#loginBtn').click(function(e) {
-            var email = $('#loginEmail').val();
-            var password = $('#loginPassword').val();
-            var user = {
-                Email: email,
-                Password: password
-            }
-            $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
-            e.preventDefault();
-            $.ajax({
-                type: 'Post',
-                traditional: true,
-                async: false,
-                cache: false,
-                url: '/Auth/Login/' + JSON.stringify(user),
-                success: function(result) {
-                    if (result.includes("thành công")) {
-                        $.unblockUI();
-                        Swal.fire(
-                            result,
-                            '',
-                            'success'
-                        );
-                        $('#closeModalBtn').click();
-                        location.href = '@Url.Content("~/Home/Index")';
-                    } else {
-                        $.unblockUI();
-                        Swal.fire(result, "", "error");
-                    }
-                },
-                error: function(xhr) {
-                    $.unblockUI();
-                    console.log(xhr.responseText);
-                    Swal.fire('Data sending error ...', "", "error");
-                }
-            });
+
 
         });
+    </script>
 
-        $('#logoutBtn').click(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'GET',
-                url: '/Auth/Logout',
-                success: function(result) {
-
-                    location.reload();
-                    Swal.fire(
-                        result,
-                        '',
-                        'success'
-                    );
-                }
-            });
-        });
-
-
-    });
-</script>
-@*<script type="text/javascript">
-    $(function () {
-            // Reference the auto-generated proxy for the hub.
-            var t = document.getElementById("noti").innerText;
-            $.connection.hub.qs = { 'uid': '@Html.Raw(Session["mataikhoan"])' };
-            var id = @Html.Raw(Session["mataikhoan"]);
-            var chat = $.connection.chatHub;
-            $.connection.hub.start()
-                .done(function () {
-                    console.log('Now connected, connection ID=' + $.connection.hub.id);
-                    chat.server.checkSeenNotification(id);
-                })
-                .fail(function () { console.log('Could not Connect!'); });
-            // Create a function that the hub can call back to display messages.
-            chat.client.addNotification = function (dem,check) {
-                if (t > 0) {
-                    t = t + parseInt(dem);
-                    document.getElementById("noti").innerHTML = t;
-                }
-                else {
-                    t = dem;
-                    document.getElementById("noti").innerHTML = t;
-                }
-                if (check === 1) {
-                    Swal.fire({
-                        type: 'success',
-                        title: 'Thông báo đơn hàng',
-                        text: 'Đơn hàng của bạn đã được mua vui lòng kiểm tra!'
-                    });
-                }
-                else if (check === 2) {
-                    Swal.fire({
-                        type: 'success',
-                        title: 'Thông báo đơn hàng',
-                        text: 'Đơn hàng của bạn đã duyệt vui lòng kiểm tra!'
-                    });
-                }
-                else if (check === 3) {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Thông báo đơn hàng',
-                        text: 'Đơn hàng của bạn đã bị từ chối vui lòng kiểm tra!'
-                    });
-                }
-                else if (check === 4) {
-                    Swal.fire({
-                        type: 'success',
-                        title: 'Thông báo đơn hàng',
-                        text: 'Đơn hàng của bạn đã được hoàn thành vui lòng kiểm tra!'
-                    });
-                }
-                else if (check === 5){
-                    Swal.fire({
-                        type: 'success',
-                        title: 'Thông báo đơn hàng',
-                        text: 'Đơn hàng của bạn đã được trả tiền vui lòng kiểm tra!'
-                    });
-                }
-            }
-
-            chat.client.addChatMessage = function (who, message, uid,inRoom) {
-                var audio = new Audio("/assets/ping_tune.wav");
-                var expression = /[-a-zA-Z0-9@@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@@:%_\+.~#?&//=]*)?/gi;
-                var regex = new RegExp(expression);
-                if (message.match(regex)) {
-                    console.log('is link');
-                    $('#discussion').append('<div class="incoming_msg"><div class="incoming_msg_img"><img src="/assets/img/jobs/img-5.jpg"/></div><div class="received_msg"><div class="received_withd_msg width-msg"><strong>' + htmlEncode(who) + '</strong><br /><p>' + '<a href=' + message + '>'
-                        + htmlEncode(message) + '</a> ' + '</div>' + '</div>' + '</div>');
-                } else {
-                    if (uid === id) {
-                        $('#discussion').append('<div class="outgoing_msg"><div class="sent_msg"><div class="received_withd_msg width-msgs"><strong>' + htmlEncode(who)
-                            + '</strong><br /><p> ' + htmlEncode(message) + '</p></div></div>');
-                    } else {
-
-                        $('#discussion').append('<div class="incoming_msg"><div class="incoming_msg_img"><img src="/assets/img/jobs/img-5.jpg"/></div><div class="received_msg"><div class="received_withd_msg width-msg"><strong>' + htmlEncode(who)
-                            + '</strong><br /><p> ' + htmlEncode(message) + '</p></div></div></div>');
-                    audio.play();
-                        chat.server.checkSeenNotification(id);
-
-
-                    }
-                }
-                var lastitem = [message];
-                var itempop = lastitem.pop();
-                document.getElementById("who-write").innerHTML = who + ":";
-
-                document.getElementById("content-msg-ar").innerHTML = itempop;
-
-                $(function () {
-                    $('#message-popup').fadeIn('slow', function () {
-                        $(this).delay(4000).fadeOut('slow');
-                    });
-                });
-                console.log(t);
-                console.log(who);
-
-
-            }
-        });
-        // This optional function html-encodes messages for display in the page.
-        function htmlEncode(value) {
-            var encodedValue = $('<div />').text(value).html();
-            return encodedValue;
-        }
-
-</script>*@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+@if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+    </script>
+}
+<div class="modal fade modal-login" id="myModalLogin" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Member Login</h4>
+            </div>
+            <div class="modal-body">
+                <div class="login" style="display: block; margin-left: auto; margin-right: auto;">
+                    <div class="login-form-container">
+                        <div class="login-form">
+                            <form>
+                                <p class="hint-text">Sign in with your social media account</p>
+                                <div style="text-align: center;" class="form-group social-btn clearfix">
+                                    <a asp-controller="Auth" asp-action="LoginFacebook" class="btn btn-secondary facebook-btn"><i class="fa fa-facebook"></i> Facebook</a>
+                                </div>
+                                <div class="or-seperator"><b>or</b></div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Tài khoản" id="loginEmail" name="loginEmail" value="" title="Xin vui lòng nhập tên tài khoản" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="loginPassword" class="form-control" name="loginPassword" value="" title="Xin vui lòng nhập mật khẩu" placeholder="Password" type="password" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <button id="loginBtn" class="btn btn-primary btn-lg btn-block login-btn">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="forgot" data-toggle="modal" data-target="#myModalForgot">Forgot Password?</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade modal-login" id="myModalRegister" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Member Register</h4>
+            </div>
+            <div class="modal-body">
+                <div class="login" style="display: block; margin-left: auto; margin-right: auto;">
+                    <div class="login-form-container">
+                        <div class="login-form">
+                            <form class="register-form">
+                                <div class="form-group">
+                                    <input id="crName" class="form-control" type="text" placeholder="Tên" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="crEmail" class="form-control" type="email" placeholder="E-mail address" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="crPassword" class="form-control" type="password" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="crRePassword" class="form-control" type="password" placeholder="Nhập lại password" required>
+                                </div>
+                                <div class="form-group">
+                                    <p>Select your Avatar</p>
+                                    <label>
+                                        <input type="radio" name="test" value="0" checked>
+                                        <img src="~/Chat/images/icons/avatar1.png">
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="test" value="1">
+                                        <img src="~/Chat/images/icons/avatar2.png">
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="test" value="2">
+                                        <img src="~/Chat/images/icons/avatar3.png">
+                                    </label>
+
+                                    <label>
+                                        <input type="radio" name="test" value="3">
+                                        <img src="~/Chat/images/icons/avatar4.png">
+                                    </label>
+                                </div>
+                                @*<div class="checkbox">
+                                        <input type="checkbox" id="chkDangKy" required oninvalid="this.setCustomValidity('Để đồng ý cần phải đồng ý với các điều khoản')" onchange="this.setCustomValidity('')"><p><a>Tôi đã đồng ý với các điều khoản khi bấm đăng ký</a></p>
+                                    </div>*@
+                                <div class="form-group">
+                                    <button id="crBtn" class="btn btn-primary btn-lg btn-block login-btn">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade modal-login" id="myModalForgot" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bạn đã quên mật khẩu?</h4>
+            </div>
+            <div class="modal-body">
+                <div id="throbber" style="display:none;">
+                    <img src="~/busy.gif" />
+                </div>
+                <p>Nhập đỉa chỉ E-Mail tài khoản của bạn. Chọn "Tiếp tục" để mật khẩu sẽ được gửi vào E-mail của bạn.</p>
+                <div class="login-form-container">
+                    <fieldset>
+                        <legend>Địa chỉ E-Mail của bạn</legend>
+                        <form>
+                            <div class="form-group required">
+                                <label class="col-sm-2 control-label" for="input-email">E-Mail</label>
+                                <div class="col-sm-10">
+                                    <input id="forgot-email" type="email" name="email" value="" placeholder="Địa chỉ E-Mail" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button id="forgotBtn" class="btn btn-primary btn-lg btn-block login-btn">Xác nhận</button>
+                            </div>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

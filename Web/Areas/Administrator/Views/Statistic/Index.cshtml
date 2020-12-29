@@ -1,13 +1,21 @@
 ﻿
-@{var list_data = (List<Domain.Shop.Dto.DataChart>)ViewBag.DataChart; }
-<section class="content">
+@{
+    var list_data = (List<Domain.Shop.Dto.DataChart>)ViewBag.DataChart;
+    var SalesedQuantity = (int?)ViewBag.SalesedQuantity;
+    var RemainingQuantity = (int?)ViewBag.RemainingQuantity;
+    var TotalQuantity = (int?)ViewBag.SalesedQuantity + (int?)ViewBag.RemainingQuantity;
+    float? PercentSalesedQuantity = ((float)SalesedQuantity / TotalQuantity) * 100;
+    float? PercentRemainingQuantity = ((float)RemainingQuantity / TotalQuantity) * 100;
+    var lstTotalMoneyWithMonth = ViewBag.TotalMoneyWithMonth;
+}
+<section class="content" onload="getData()">
     <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3>@ViewBag.Orders</h3>
-                    <p>New Orders</p>
+                    <p>Đơn hàng hôm nay</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
@@ -16,20 +24,7 @@
             </div>
         </div><!-- ./col -->
 
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-yellow">
-                <div class="inner">
-                    <h3>@ViewBag.Users</h3>
-                    <p>User Registrations</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                </div>
-                <a href="/admin/customers" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
@@ -43,7 +38,7 @@
             </div>
         </div><!-- ./col -->
 
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-12">
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
@@ -77,22 +72,255 @@
             </div><!-- /.box -->
         </section>
     </div>
-
-
+    <div class="row">
+        <div class="col-md-5 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thống kê tỉ lệ sản phẩm</h4>
+                    <input type="text" value="@PercentSalesedQuantity.ToString()" id="txtSalesedQuantity" style="display:none" />
+                    <input type="text" value="@PercentRemainingQuantity.ToString()" id="txtRemainingQuantity" style="display:none" />
+                    <canvas id="myChart"></canvas>
+                    <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <h4 class="card-title float-left">Biểu đồ doanh số theo tháng (doanh thu nhập / doanh thu tháng)</h4>
+                        <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+                        <input type="text" value="@lstTotalMoneyWithMonth" id="txtlistmonth" style="display:none" />
+                    </div>
+                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat2 ">
+                <div class="display">
+                    <div class="number" id="total-profit"></div>
+                    <div class="icon">
+                        <i class="icon-like"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat2 ">
+                <div class="display">
+                    <div class="number" id="total-inventory-value"></div>
+                    <div class="icon">
+                        <i class="icon-pie-chart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat2 ">
+                <div class="display">
+                    <div class="number" id="new-order"></div>
+                    <div class="icon">
+                        <i class="icon-basket"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="dashboard-stat2 ">
+                <div class="display">
+                    <div class="number" id="new-user"></div>
+                    <div class="icon">
+                        <i class="icon-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Revenue Recent Five Month</h4>
+                    <div id="dashboard_amchart_1" class="CSSAnimationChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title float-left">Finance</h4>
+                    <div id="dashboard_amchart_3" class="CSSAnimationChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @section scripts{
-    
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="~/dist/Chart/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+    <script src="~/Content/custom/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+    @*<script>
+            $('#traffic-chart').myfunction();
+        </script>*@
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                method: 'POST',
+                url: '/Administrator/Statistic/GetCommonInfo_JSON',
+                success: function(result) {
+                    var value = '<h3 class="font-green-sharp">';
+                    value += '<span data-counter="counterup">' + makeNumber(result['totalRevenue']) + '</span>';
+                    value += '<small class="font-green-sharp"> VND</small>';
+                    value += '</h3>';
+                    value += '<small>TOTAL PROFIT</small>';
+                    document.getElementById('total-profit').innerHTML = value;
 
+                    value = '<h3 class="font-red-haze">';
+                    value += '<span data-counter="counterup">' + makeNumber(result['totalProductValue']) + '</span>';
+                    value += '<small class="font-green-sharp"> VND</small>';
+                    value += '</h3>';
+                    value += '<small>TOTAL INVENTORY VALUE</small>';
+                    document.getElementById('total-inventory-value').innerHTML = value;
 
+                    value = '<h3 class="font-blue-sharp">';
+                    value += '<span data-counter="counterup">' + result['totalSaleBillCount'] + '</span>';
+                    value += '</h3>';
+                    value += '<small>NEW ORDERS</small>';
+                    document.getElementById('new-order').innerHTML = value;
+
+                    value = '<h3 class="font-purple-soft">';
+                    value += '<span data-counter="counterup">' + result['totalCustomer'] + '</span>';
+                    value += '</h3>';
+                    value += '<small>NEW USERS</small>';
+                    document.getElementById('new-user').innerHTML = value;
+
+                    console.log(makeNumber(result['totalSaleBillCount']));
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            });
+        });
+        function makeNumber(num) {
+            var value = '';
+            var count = 0;
+            var number = num < 0 ? -num : num;
+
+            while (number >= 1) {
+                count++;
+                value = number % 10 + value;
+                number = Math.floor(number / 10);
+                if (count % 3 === 0 && number >= 1) {
+                    value = '.' + value;
+                }
+            }
+            if (num < 0) {
+                value = '-' + value;
+            }
+            return value;
+        }
+    </script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext("2d");
+        var gradientStrokeBlue = ctx.createLinearGradient(0, 0, 0, 181);
+        gradientStrokeBlue.addColorStop(0, 'rgba(54, 215, 232, 1)');
+        gradientStrokeBlue.addColorStop(1, 'rgba(177, 148, 250, 1)');
+        var gradientLegendBlue = 'linear-gradient(to right, rgba(54, 215, 232, 1), rgba(177, 148, 250, 1))';
+
+        var gradientStrokeRed = ctx.createLinearGradient(0, 0, 0, 50);
+        gradientStrokeRed.addColorStop(0, 'rgba(255, 191, 150, 1)');
+        gradientStrokeRed.addColorStop(1, 'rgba(254, 112, 150, 1)');
+        var gradientLegendRed = 'linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))';
+
+        var gradientStrokeGreen = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientStrokeGreen.addColorStop(0, 'rgba(6, 185, 157, 1)');
+        gradientStrokeGreen.addColorStop(1, 'rgba(132, 217, 210, 1)');
+        var gradientLegendGreen = 'linear-gradient(to right, rgba(6, 185, 157, 1), rgba(132, 217, 210, 1))';
+        var SalesedQuantity = $('#txtSalesedQuantity').val();
+        var RemainingQuantity = $('#txtRemainingQuantity').val();
+        var trafficChartData = {
+            datasets: [{
+                data: [SalesedQuantity, RemainingQuantity],
+                backgroundColor: [
+                    gradientStrokeBlue,
+                    gradientStrokeGreen,
+                    gradientStrokeRed
+                ],
+                hoverBackgroundColor: [
+                    gradientStrokeBlue,
+                    gradientStrokeGreen,
+                    gradientStrokeRed
+                ],
+                borderColor: [
+                    gradientStrokeBlue,
+                    gradientStrokeGreen,
+                    gradientStrokeRed
+                ],
+                legendColor: [
+                    gradientLegendBlue,
+                    gradientLegendGreen,
+                    gradientLegendRed
+                ]
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [
+                'Phần trăm sản phẩm đã bán',
+                'Phần trăm sản phẩm còn lại (tồn kho)'
+            ]
+        };
+        var trafficChartOptions = {
+            responsive: true,
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+            legend: false,
+            legendCallback: function (chart) {
+                var text = [];
+                text.push('<ul>');
+                for (var i = 0; i < trafficChartData.datasets[0].data.length; i++) {
+                    text.push('<li><span class="legend-dots" style="background:' +
+                        trafficChartData.datasets[0].legendColor[i] +
+                        '"></span>');
+                    if (trafficChartData.labels[i] === "Phần trăm sản phẩm đã bán") {
+                        text.push(trafficChartData.labels[i]);
+                        text.push('<span class="float-right">' + SalesedQuantity + "%" + '</span>');
+                    }
+                    else {
+                        text.push(trafficChartData.labels[i]);
+                        text.push('<span class="float-right">' + RemainingQuantity + "%" + '</span>');
+                    }
+                }
+                text.push('</ul>');
+                return text.join('');
+            }
+        };
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: trafficChartData,
+            options: trafficChartOptions
+        });
+        $("#traffic-chart-legend").html(myChart.generateLegend());
+    </script>
     <script type="text/javascript">
-       var line = new Morris.Line({
+        var line = new Morris.Line({
             element: 'line-chart',
             resize: true,
             data: [
@@ -102,25 +330,373 @@
                  }
 
             ],
-           //xLabelFormat: function (x) { return x.toString() +""; },
-           //xLabels: "day",
-           xkey: 'y',
-           ykeys: ['item1'],
-           labels: ['Doanh số'],
-           lineColors: ['#efefef'],
-           // lineWidth: 2,
-           //  hideHover: 'auto',
-           gridTextColor: "#fff",
-           //  gridStrokeWidth: 0.4,
-           // pointSize: 4,
-           // pointStrokeColors: ["#efefef"],
-           gridLineColor: "#efefef",
-           gridTextFamily: "Open Sans",
-           gridTextSize: 10
+            //xLabelFormat: function (x) { return x.toString() +""; },
+            //xLabels: "day",
+            xkey: 'y',
+            ykeys: ['item1'],
+            labels: ['Doanh số'],
+            lineColors: ['#efefef'],
+            // lineWidth: 2,
+            //  hideHover: 'auto',
+            gridTextColor: "#fff",
+            //  gridStrokeWidth: 0.4,
+            // pointSize: 4,
+            // pointStrokeColors: ["#efefef"],
+            gridLineColor: "#efefef",
+            gridTextFamily: "Open Sans",
+            gridTextSize: 10
         });
 
     </script>
+    <script>
+        var ctx = document.getElementById('visit-sale-chart').getContext("2d");
+        var gradientStrokeViolet = ctx.createLinearGradient(0, 0, 0, 181);
+        gradientStrokeViolet.addColorStop(0, 'rgba(218, 140, 255, 1)');
+        gradientStrokeViolet.addColorStop(1, 'rgba(154, 85, 255, 1)');
+        var gradientLegendViolet = 'linear-gradient(to right, rgba(218, 140, 255, 1), rgba(154, 85, 255, 1))';
 
+        var gradientStrokeBlue = ctx.createLinearGradient(0, 0, 0, 360);
+        gradientStrokeBlue.addColorStop(0, 'rgba(54, 215, 232, 1)');
+        gradientStrokeBlue.addColorStop(1, 'rgba(177, 148, 250, 1)');
+        var gradientLegendBlue = 'linear-gradient(to right, rgba(54, 215, 232, 1), rgba(177, 148, 250, 1))';
+
+        var gradientStrokeRed = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientStrokeRed.addColorStop(0, 'rgba(255, 191, 150, 1)');
+        gradientStrokeRed.addColorStop(1, 'rgba(254, 112, 150, 1)');
+        var gradientLegendRed = 'linear-gradient(to right, rgba(255, 191, 150, 1), rgba(254, 112, 150, 1))';
+
+        var lst = jQuery.parseJSON($('#txtlistmonth').val());
+        var myChart = new Chart(ctx,
+            {
+                type: 'bar',
+                data: {
+                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+                    datasets: [
+                        {
+                            label: "PercentTotalMoney",
+                            borderColor: gradientStrokeViolet,
+                            backgroundColor: gradientStrokeRed,
+                            hoverBackgroundColor: gradientStrokeBlue,
+                            legendColor: gradientLegendViolet,
+                            pointRadius: 0,
+                            fill: false,
+                            borderWidth: 1,
+                            fill: 'origin',
+                            data: lst
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: false,
+                    legendCallback: function (chart) {
+                        var text = [];
+                        text.push('<ul>');
+                        for (var i = 0; i < chart.data.datasets.length; i++) {
+                            text.push('<li><span class="legend-dots" style="background:' +
+                                chart.data.datasets[i].legendColor +
+                                '"></span>');
+                            if (chart.data.datasets[i].label) {
+                                text.push(chart.data.datasets[i].label);
+                            }
+                            text.push('</li>');
+                        }
+                        text.push('</ul>');
+                        return text.join('');
+                    },
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    display: false,
+                                    min: 0,
+                                    stepSize: 20,
+                                    max: 100
+                                },
+                                gridLines: {
+                                    drawBorder: false,
+                                    color: 'rgba(235,237,242,1)',
+                                    zeroLineColor: 'rgba(235,237,242,1)'
+                                }
+                            }
+                        ],
+                        xAxes: [
+                            {
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: false,
+                                    color: 'rgba(0,0,0,1)',
+                                    zeroLineColor: 'rgba(235,237,242,1)'
+                                },
+                                ticks: {
+                                    padding: 20,
+                                    fontColor: "#9c9fa6",
+                                    autoSkip: true,
+                                },
+                                categoryPercentage: 0.5,
+                                barPercentage: 0.5
+                            }
+                        ]
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                }
+            });
+        $("#visit-sale-chart-legend").html(myChart.generateLegend());
+    </script>
+    <script>
+        var res;
+        var d = new Date();
+        var n = d.getMonth() + 1;
+        var a = d.getFullYear();
+        $(document).ready(function () {
+
+            $.ajax({
+                method: 'POST',
+                url: '/Administrator/Statistic/GetTotalSaleImportInMonths_JSON?startMonth=' + (n - 5) + '&startYear=' + a + '&endMonth=' + n + '&endYear=' + a,
+                success: function (result) {
+                    res = result;
+                    var chartData = [{
+                        "month": res[0]['Month'],
+                        "revenue": res[0]['TotalRevenue'] / 1000000,
+                        "expenses": res[0]['TotalImport'] / 1000000,
+                        "income": res[0]['TotalSale'] / 1000000
+                    }, {
+                        "month": res[1]['Month'],
+                        "revenue": res[1]['TotalRevenue'] / 1000000,
+                        "expenses": res[1]['TotalImport'] / 1000000,
+                        "income": res[1]['TotalSale'] / 1000000
+                    }, {
+                        "month": res[2]['Month'],
+                        "revenue": res[2]['TotalRevenue'] / 1000000,
+                        "expenses": res[2]['TotalImport'] / 1000000,
+                        "income": res[2]['TotalSale'] / 1000000
+                    }, {
+                        "month": res[3]['Month'],
+                        "revenue": res[3]['TotalRevenue'] / 1000000,
+                        "expenses": res[3]['TotalImport'] / 1000000,
+                        "income": res[3]['TotalSale'] / 1000000
+                    }, {
+                        "month": res[4]['Month'],
+                        "revenue": res[4]['TotalRevenue'] / 1000000,
+                        "expenses": res[4]['TotalImport'] / 1000000,
+                        "income": res[4]['TotalSale'] / 1000000
+                    }, {
+                        "month": res[5]['Month'],
+                        "revenue": res[5]['TotalRevenue'] / 1000000,
+                        "expenses": res[5]['TotalImport'] / 1000000,
+                        "income": res[5]['TotalSale'] / 1000000
+                    }];
+                    var chart = AmCharts.makeChart("dashboard_amchart_1", {
+                        type: "serial",
+                        fontSize: 12,
+                        fontFamily: "Open Sans",
+                        dataDateFormat: "DD",
+                        dataProvider: chartData,
+
+                        addClassNames: true,
+                        startincome: 1,
+                        color: "#6c7b88",
+                        marginLeft: 0,
+
+                        categoryField: "month",
+                        categoryAxis: {
+                            parseDates: true,
+                            minPeriod: "DD",
+                            autoGridCount: false,
+                            gridCount: 50,
+                            gridAlpha: 0.1,
+                            gridColor: "#FFFFFF",
+                            axisColor: "#555555",
+                            dateFormats: [{
+                                period: 'DD',
+                                format: 'DD'
+                            }]
+                        },
+
+                        valueAxes: [{
+                            id: "a1",
+                            title: "revenue",
+                            gridAlpha: 0,
+                            axisAlpha: 0
+                        }, {
+                            id: "a2",
+                            position: "right",
+                            gridAlpha: 0,
+                            axisAlpha: 0,
+                            labelsEnabled: false
+                        }, {
+                            id: "a3",
+                            title: "income",
+                            position: "right",
+                            gridAlpha: 0,
+                            axisAlpha: 0,
+                            inside: true,
+                            income: "mm",
+                            incomeUnits: {
+                                DD: "d. ",
+                                hh: "h ",
+                                mm: "min",
+                                ss: ""
+                            }
+                        }],
+                        graphs: [{
+                            id: "g1",
+                            valueField: "revenue",
+                            title: "Revenue",
+                            type: "column",
+                            fillAlphas: 0.7,
+                            valueAxis: "a1",
+                            balloonText: "Revenue [[value]] Triệu",
+                            legendValueText: "[[value]] Triệu",
+                            legendPeriodValueText: "Total: [[value.sum]] Triệu",
+                            lineColor: "#08a3cc",
+                            alphaField: "alpha",
+                        }, {
+                            id: "g2",
+                            valueField: "expenses",
+                            classNameField: "bulletClass",
+                            title: "Expenses",
+                            type: "line",
+                            valueAxis: "a2",
+                            lineColor: "#786c56",
+                            lineThickness: 1,
+                            legendValueText: "[[value]] Triệu",
+                            bullet: "round",
+                            bulletBorderColor: "#02617a",
+                            bulletBorderAlpha: 1,
+                            bulletBorderThickness: 2,
+                            bulletColor: "#89c4f4",
+                            balloonText: "Expenses:[[value]] Triệu",
+                            showBalloon: true,
+                            animationPlayed: true,
+                        }, {
+                            id: "g3",
+                            title: "Income",
+                            valueField: "income",
+                            type: "line",
+                            valueAxis: "a3",
+                            lineAlpha: 0.8,
+                            lineColor: "#e26a6a",
+                            balloonText: "Income [[value]] Triệu",
+                            lineThickness: 1,
+                            legendValueText: "[[value]] Triệu",
+                            bullet: "square",
+                            bulletBorderColor: "#e26a6a",
+                            bulletBorderThickness: 1,
+                            bulletBorderAlpha: 0.8,
+                            dashLengthField: "dashLength",
+                            animationPlayed: true
+                        }],
+
+                        chartCursor: {
+                            zoomable: false,
+                            categoryBalloonDateFormat: "DD",
+                            cursorAlpha: 0,
+                            categoryBalloonColor: "#e26a6a",
+                            categoryBalloonAlpha: 0.8,
+                            valueBalloonsEnabled: false
+                        },
+                        legend: {
+                            bulletType: "round",
+                            equalWidths: false,
+                            valueWidth: 120,
+                            useGraphSettings: true,
+                            color: "#6c7b88"
+                        }
+                    });
+                    var chart1 = AmCharts.makeChart("dashboard_amchart_3", {
+                        "type": "serial",
+                        "addClassNames": true,
+                        "theme": "light",
+                        "path": "../Content/custom/global/plugins/images/",
+                        "autoMargins": false,
+                        "marginLeft": 30,
+                        "marginRight": 8,
+                        "marginTop": 10,
+                        "marginBottom": 26,
+                        "balloon": {
+                            "adjustBorderColor": false,
+                            "horizontalPadding": 10,
+                            "verticalPadding": 8,
+                            "color": "#ffffff"
+                        },
+                        "dataProvider": [{
+                            "month": res[0]['Month'],
+                            "income": res[0]['TotalSale'] / 1000000,
+                            "expenses": res[0]['TotalImport'] / 1000000
+                        }, {
+                            "month": res[1]['Month'],
+                            "income": res[1]['TotalSale'] / 1000000,
+                            "expenses": res[1]['TotalImport'] / 1000000
+                        }, {
+                            "month": res[2]['Month'],
+                            "income": res[2]['TotalSale'] / 1000000,
+                            "expenses": res[2]['TotalImport'] / 1000000
+                        }, {
+                            "month": res[3]['Month'],
+                            "income": res[3]['TotalSale'] / 1000000,
+                            "expenses": res[3]['TotalImport'] / 1000000
+                        }, {
+                            "month": res[4]['Month'],
+                            "income": res[4]['TotalSale'] / 1000000,
+                            "expenses": res[4]['TotalImport'] / 1000000
+                        }, {
+                            "month": res[5]['Month'],
+                            "income": res[5]['TotalSale'] / 1000000,
+                            "expenses": res[5]['TotalImport'] / 1000000,
+                            "dashLengthColumn": 5,
+                            "alpha": 0.2,
+                            "additional": "(projection)"
+                        }],
+                        "valueAxes": [{
+                            "axisAlpha": 0,
+                            "position": "left"
+                        }],
+                        "startDuration": 1,
+                        "graphs": [{
+                            "alphaField": "alpha",
+                            "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+                            "fillAlphas": 1,
+                            "title": "Income",
+                            "type": "column",
+                            "valueField": "income",
+                            "dashLengthField": "dashLengthColumn"
+                        }, {
+                            "id": "graph2",
+                            "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+                            "bullet": "round",
+                            "lineThickness": 3,
+                            "bulletSize": 7,
+                            "bulletBorderAlpha": 1,
+                            "bulletColor": "#FFFFFF",
+                            "useLineColorForBulletBorder": true,
+                            "bulletBorderThickness": 3,
+                            "fillAlphas": 0,
+                            "lineAlpha": 1,
+                            "title": "Expenses",
+                            "valueField": "expenses"
+                        }],
+                        "categoryField": "month",
+                        "categoryAxis": {
+                            "gridPosition": "start",
+                            "axisAlpha": 0,
+                            "tickLength": 0
+                        },
+                        "export": {
+                            "enabled": true
+                        }
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+    </script>
 
 }
 

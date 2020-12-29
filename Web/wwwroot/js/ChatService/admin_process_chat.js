@@ -115,7 +115,7 @@ var addUser = function (connection, id, name) {
                     '<a href="#ct-' + id + '" class="clearfix user-chat" data-iduser="' + id + '" data-toggle="pill">' +
                         '<img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">' +
                         '<div class="friend-name">' +
-                            '<strong>' + 'Quan tri vien' + '</strong>' +
+        '<strong>' + name + '</strong>' +
                         '</div>' +
                         '<div class="last-message text-muted" id="content-last-ms-' + id + '"></div>' +
                         '<small class="time text-muted" id="time-last-ms-'+id+'"></small>'+
@@ -184,7 +184,7 @@ var process_click_send_message = function (connection,id) {
     // if ('#btn-send-message') { }
     console.log(id+"- register");
     $('#btn-send-message-'+id).click(function () {
-        //alert('abc');
+        alert('abc');
         var userid = $('#guest-selected').val();
         var message = $('#textbox-message-'+id).val();
         if ($.trim(message) != '') {

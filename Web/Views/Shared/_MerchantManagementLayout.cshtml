@@ -1,0 +1,238 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nội Thất Sài Thành - Kênh quản lý của nhân viên bán hàng</title>
+    <!--/tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Elite Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--//tags -->
+    <link href="~/maintemplate/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/maintemplate/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/maintemplate/css/font-awesome.css" rel="stylesheet">
+    <link href="~/maintemplate/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
+
+    <link href="~/maintemplate/css/fix.css" rel='stylesheet' rel="stylesheet" type='text/css' />
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- //for bootstrap working -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="container-fluid bg_header_knb">
+        <div class="container">
+            <div class="icon_header_knb">
+                <i class="fa fa-shopping-bag"></i>
+            </div>
+            <div class="logo_header_knb">
+                <a asp-controller="QuanLy" asp-action="Index">
+                    <h4><span>Trang Chủ</span></h4>
+                </a>
+            </div>
+            <div class="user_merchant">
+                <ul>
+                    <li><i class="fa fa-user"></i></li>
+                    <li>Xin chào @Context.Session.GetString("_Name")</li>
+                    <li class="gach_khoangcach">|</li>
+                    <a href="#">
+                        <li><i class="fa fa-unlock-alt" aria-hidden="true"></i></li>
+                        <li><a asp-controller="QuanLyTaiKhoan" asp-action="ThongTinTaiKhoan">Thông tin tài khoản</a></li>
+                    </a>
+                    <li class="gach_khoangcach">|</li>
+                    <a href="#">
+                        <li><i class="fa fa-sign-out"></i></li>
+                        <li><a asp-controller="Auth" asp-action="Logout">Đăng Xuất</a></li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal4 (Thay đổi thông tin) -->
+    <div class="modal fade" id="informationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-header-margin">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body modal-body-sub_agile">
+                    <div class="col-md-8 modal_body_left modal_body_left1">
+                        <h3 class="agileinfo_sign">Thông tin tài khoản</h3>
+                        <form asp-controller="TaiKhoan" asp-action="EditTaiKhoan" method="post">
+                            <div class="styled-input agile-styled-input-top">
+                                <input type="text" name="tendangnhap" id="edit-tendangnhap" readonly required oninvalid="this.setCustomValidity('Tên đăng nhập chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                                <label>Tên đăng nhập</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                <input type="text" name="ten" id="edit-ten" required oninvalid="this.setCustomValidity('Cần điền vào họ tên')" onchange="this.setCustomValidity('')">
+                                <label>Tên</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                <input type="text" name="tenshop" id="edit-tenshop" required oninvalid="this.setCustomValidity('Cần điền vào họ tên')" onchange="this.setCustomValidity('')">
+                                <label>Tên shop</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                <input type="email" name="email" id="edit-email" readonly required oninvalid="this.setCustomValidity('Cần điền vào email')" onchange="this.setCustomValidity('')">
+                                <label>Email</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                <input type="text" name="cmnd" id="edit-cmnd" readonly required oninvalid="this.setCustomValidity('Cần điền vào số điện thoại')" onchange="this.setCustomValidity('')">
+                                <label>CMND</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                <input type="text" name="dienthoai" id="edit-dienthoai" pattern=".{10,12}" required oninvalid="this.setCustomValidity('Cần điền vào số điện thoại')" onchange="this.setCustomValidity('')">
+                                <label>Số điện thoại</label>
+                                <span></span>
+                            </div>
+                            <input type="submit" value="Thay đổi thông tin">
+                            <br />
+                        </form>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-4 modal_body_right modal_body_right1">
+                        <img src="~/maintemplate/images/log_pic.jpg" alt=" " />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- //Modal content-->
+        </div>
+    </div>
+    <!-- //Modal4 -->
+    <!-- Modal5 (Thay đổi mật khẩu) -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header modal-header-margin">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body modal-body-sub_agile">
+                    <div class="col-md-8 modal_body_left modal_body_left1">
+                        <h3 class="agileinfo_sign">Sửa mật khẩu</h3>
+                        <div id="alertPasswordModal" style="display: none;">
+                            <p style="color: red;" id="alertContentPasswordModal">Thông báo</p>
+                        </div>
+                        <form id="passwordForm" role="form" action="" method="post">
+                            <div class="styled-input agile-styled-input-top">
+                                <input type="text" name="tendangnhap" id="edit-tendangnhap2" readonly required oninvalid="this.setCustomValidity('Tên đăng nhập chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                                <label>Tên đăng nhập</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                <input type="password" name="matkhau" id="edit-matkhau" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                                <label>Mật khẩu</label>
+                                <span></span>
+                            </div>
+                            <div class="styled-input">
+                                <input type="password" name="confirmmatkhau" id="edit-confirmmatkhau" pattern=".{8,}" required oninvalid="this.setCustomValidity('Mật khẩu chứa ít nhất 8 ký tự')" onchange="this.setCustomValidity('')">
+                                <label>Xác nhận mật khẩu</label>
+                                <span></span>
+                            </div>
+                            <input type="submit" value="Thay đổi thông tin">
+                            <br />
+                        </form>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-4 modal_body_right modal_body_right1">
+                        <img src="~/maintemplate/images/log_pic.jpg" alt=" " />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- //Modal content-->
+        </div>
+    </div>
+    <!-- //Modal5 -->
+    <div class="mainContainer">
+        @RenderBody()
+    </div>
+    <script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/maintemplate/js/bootstrap.js"></script>
+
+    <script>
+    $("#a-edit-modal").click(function () {
+        $.ajax({
+            url: "/Merchant/TaiKhoan/CheckTaiKhoan",
+            type: "post",
+            data: { "tendangnhap": "@Context.Session.GetString("TenDangNhap")" },
+            success: function (data) {
+                $("#edit-tendangnhap").val(data['tenDangNhap']);
+                $("#edit-ten").val(data['ten']);
+                $("#edit-tenshop").val(data['tenShop']);
+                $("#edit-cmnd").val(data['cmnd']);
+                $("#edit-email").val(data['email']);
+                $("#edit-dienthoai").val(data['dienThoai']);
+            },
+            error: function (data) {
+                alert("Error: " + data);
+            }
+        });
+    });
+
+    $("#a-password-modal").click(function () {
+        $.ajax({
+            url: "/Merchant/TaiKhoan/CheckTaiKhoan",
+            type: "post",
+            data: { "tendangnhap": "@Context.Session.GetString("TenDangNhap")" },
+            success: function (data) {
+                $("#edit-tendangnhap2").val(data['tenDangNhap']);
+            },
+            error: function (data) {
+                alert("Error: " + data);
+            }
+        });
+    });
+
+    $("#passwordForm").submit(function (e) {
+        e.preventDefault();
+        let tendangnhap = $("#edit-tendangnhap2").val();
+        let matkhau = $("#edit-matkhau").val();
+        let confirmmatkhau = $("#edit-confirmmatkhau").val();
+
+        if (matkhau != confirmmatkhau) {
+            $("#alertContentPasswordModal").text("Mật khẩu không trùng khớp");
+            $("#alertPasswordModal").css('display', 'block');
+        }
+        else {
+            $.ajax({
+                url: "/Merchant/TaiKhoan/EditPassword",
+                type: "post",
+                data: { "tendangnhap": tendangnhap, "matkhau": matkhau },
+                success: function (data) {
+                    alert(data);
+                    location.href = "@Url.Action("Index", "Home")";
+                },
+                error: function (data) {
+                    alert("Error: " + data);
+                }
+            });
+        }
+    });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+@if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBao)");
+        location.href = "@Url.Action("Index", "QuanLy")";
+    </script>
+}

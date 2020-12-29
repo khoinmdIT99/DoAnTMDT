@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using Domain.Shop.Entities.SystemManage;
 
 namespace Domain.Shop.Entities
 {
@@ -44,10 +45,23 @@ namespace Domain.Shop.Entities
 		public string District { get; set; }
 		[Column("PROVINCE")]
 		public string Province { get; set; }
-        public virtual List<DiemTichLuy> ListDiemTichLuy { get; set; }
+        [StringLength(255)]
+        public string SeoAlias { set; get; }
+
+        [StringLength(255)]
+        public string SeoKeywords { set; get; }
+
+        [StringLength(255)]
+        public string SeoDescription { set; get; }
+		public virtual List<DiemTichLuy> ListDiemTichLuy { get; set; }
 
 		public virtual ICollection<CustomerFeedback> CustomerFeedbacks { get; set; }
+        public ICollection<DanhGia> DanhGiaIdTaiKhoanDanhGiaNavigation { get; set; }
 		public virtual ICollection<ProductReview> ProductReviews { get; set; }
         public int TongDiemTichLuy() => ListDiemTichLuy?.ToList().Select(d => d.Diem).Sum() ?? 0;
-    }
+        public string Avatar { get; set; }
+        public string TinhTrang { get; set; }
+		public ICollection<Room> Rooms { get; set; }
+        public ICollection<Message> Messages { get; set; }
+	}
 }

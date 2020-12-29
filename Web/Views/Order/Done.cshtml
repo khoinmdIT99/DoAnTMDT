@@ -46,23 +46,16 @@
                             </tr>
                         <tr>
                             <td class=""><h5>Hình thức giao hàng</h5></td>
-                            <td>ViewBag.ShippingMethod</td>
+                            <td>@ViewBag.ShippingMethod</td>
                         </tr>
                         <tr>
                             <td class=""><h5>Hình thức thanh toán</h5></td>
-                            <td>ViewBag.PaymenMethod</td>
+                            <td>@ViewBag.PaymenMethod</td>
                         </tr>
-                            <tr>
-                                <td class=""><h5>Trạng thái thanh toán</h5></td>
-                                @if (Model.Status == 1)
-                                {
-                                    <td>Đã thanh toán</td>
-                                }
-                                else
-                                {
-                                    <td>Chưa thanh toán</td>
-                                }
-                            </tr>
+                        <tr>
+                            <td class=""><h5>Trạng thái thanh toán</h5></td>
+                            <td>@ViewBag.TinhTrang</td>
+                        </tr>
                         </tbody>
                     </table>
 

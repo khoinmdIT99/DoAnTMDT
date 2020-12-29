@@ -20,6 +20,7 @@ namespace Web.Controllers
         {
             return View();
         }
+        [Route("tintuc.html/{slug?}", Name = "Blog-Detail")]
         public ViewResult GetBlog(string slug)
         {
             BlogViewModel model = _blogRepository.GetBlogViewModelBySlug(slug);
