@@ -1,0 +1,127 @@
+﻿@using Domain.Shop.Entities.SystemManage
+@using Web.Areas.Administrator.Controllers
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Danh sách khách hàng</h5>
+                    @if (ViewBag.ThongBao != null)
+                    {
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Tình trạng: </strong>@ViewBag.ThongBao
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    <br/>
+                    <br/>
+                    @if ((List<ThongKeKhachHang>) ViewBag.groupList != null)
+                    {
+                        @foreach (var group in (List<ThongKeKhachHang>) ViewBag.groupList)
+                        {
+                            <h6>@group.LoaiKhachHang : @group.SL TK(
+                                @foreach (var x in group.TenKhachHang)
+                                {
+                                    <span>@x - </span>
+                                }
+                                )</h6>
+                        }
+                    }
+
+                    @if ((List<Quyen>) ViewBag.listquyen != null)
+                    {
+                        @foreach (var group in (List<Quyen>)ViewBag.listquyen)
+                        {
+                            <h6>@group.TenQuyen : 0 TK()</h6>
+                        }
+                    }
+
+
+                    <div class="card-tools">
+                        <a href="@Url.ActionLink("QuétTask","Customer")" role="button" class="btn bg-gradient-success btn-sm">
+                            Quét tài khoản - (nâng cấp)
+                        </a>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body" style="overflow-x: auto;">
+                    <table id="table-users-KH" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th>PhoneNo</th>
+                                <th>Địa chỉ</th>
+                                <th>Điểm</th>
+                            </tr>
+                            <tr role="row">
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo Họ tên"></th>
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo Email"></th>
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo PhoneNo"></th>
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo Địa chỉ"></th>
+                                <th rowspan="1" colspan="1"><input type="text" class="form-control" placeholder="Tìm theo Điểm"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+@section Scripts
+{
+
+    <!-- page script -->
+    <script>
+		$(function () {
+            $('#table-users-KH').CoreTable({
+			orderCellsTop: true,
+			fixedHeader: true,
+			processing: true,
+			columns: [
+				{
+                    data: "firstName",
+                    name: "firstName"
+				},
+				{
+                    data: "email",
+                    name: "email"
+				},
+				{
+                    data: "phoneNo",
+                    name: "phoneNo"
+				},
+                {
+                    data: "address",
+                    render: function ( data, type, row ) {
+                        return row.address + ' - ' + row.district + ' - ' + row.province;
+                    }
+                },
+                {
+                    data: "point",
+                    name: "point"
+                }
+			],
+			defaultAction: {
+				update: '@Url.ActionLink("UpdateUser", "Customer")',
+                delete: '@Url.ActionLink("Delete", "Customer")'
+            },
+			serverSide: true,
+                ajax: {
+                    url: '@Url.Action("GetDataCustomer")'
+                }
+
+		});
+
+    });
+    </script>
+}

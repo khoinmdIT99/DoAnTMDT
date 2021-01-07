@@ -35,13 +35,19 @@ namespace Infrastructure.Web
         {
             try
             {
+                senderPassword = "irts mecn xoyz pngm";
                 MailMessage mail = new MailMessage { IsBodyHtml = true };
                 var client = new SmtpClient(sender.EndsWith("huflit.edu.vn") ? SmtpClientAddressVnUmail : SmtpClientAddressGmail, Convert.ToInt32(sender.EndsWith("huflit.edu.vn") ? SmtpClientPortVnUmail : SmtpClientPortGmail))
                 {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(sender.Split('@')[0], senderPassword),
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Timeout = 20000,
                     EnableSsl = true
                 };
+                client.ServicePoint.MaxIdleTime = 1;
                 if (sender.EndsWith("huflit.edu.vn"))
                     ServicePointManager.ServerCertificateValidationCallback =
                         (s, certificate, chain, sslPolicyErrors) => true;
@@ -49,6 +55,10 @@ namespace Infrastructure.Web
                 mail.To.Add(StringHelper.KillChars(receiver));
                 mail.Subject = subject;
                 mail.Body = content;
+                mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+                mail.BodyEncoding = Encoding.UTF8;
                 if (att.Any())
                 {
                     foreach (var file in att)
@@ -78,14 +88,17 @@ namespace Infrastructure.Web
         {
             try
             {
+                senderPassword = "irts mecn xoyz pngm";
                 MailMessage mail = new MailMessage { IsBodyHtml = true };
                 var client = new SmtpClient(sender.EndsWith("huflit.edu.vn") ? SmtpClientAddressVnUmail : SmtpClientAddressGmail, Convert.ToInt32(sender.EndsWith("huflit.edu.vn") ? SmtpClientPortVnUmail : SmtpClientPortGmail))
                 {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(sender.Split('@')[0], senderPassword),
-                    EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Timeout = 20000
+                    Timeout = 20000,
+                    EnableSsl = true
                 };
                 client.ServicePoint.MaxIdleTime = 1;
                 if (sender.EndsWith("huflit.edu.vn"))
@@ -95,9 +108,9 @@ namespace Infrastructure.Web
                 mail.To.Add(StringHelper.KillChars(receiver));
                 mail.Subject = subject;
                 mail.Body = content;
-                mail.IsBodyHtml = true;
                 mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
                 mail.SubjectEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
                 mail.BodyEncoding = Encoding.UTF8;
                 mail.Attachments.Add(new System.Net.Mail.Attachment(new MemoryStream(), "SalarySlip.pdf"));
                 await client.SendMailAsync(mail);
@@ -112,14 +125,17 @@ namespace Infrastructure.Web
         {
             try
             {
+                senderPassword = "irts mecn xoyz pngm";
                 MailMessage mail = new MailMessage { IsBodyHtml = true };
                 var client = new SmtpClient(sender.EndsWith("huflit.edu.vn") ? SmtpClientAddressVnUmail : SmtpClientAddressGmail, Convert.ToInt32(sender.EndsWith("huflit.edu.vn") ? SmtpClientPortVnUmail : SmtpClientPortGmail))
                 {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(sender.Split('@')[0], senderPassword),
-                    EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Timeout = 20000
+                    Timeout = 20000,
+                    EnableSsl = true
                 };
                 client.ServicePoint.MaxIdleTime = 1;
                 if (sender.EndsWith("huflit.edu.vn"))
@@ -129,9 +145,9 @@ namespace Infrastructure.Web
                 mail.To.Add(StringHelper.KillChars(receiver));
                 mail.Subject = subject;
                 mail.Body = content;
-                mail.IsBodyHtml = true;
                 mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
                 mail.SubjectEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
                 mail.BodyEncoding = Encoding.UTF8;
                 mail.Attachments.Add(new System.Net.Mail.Attachment(new MemoryStream(pdf), "Invoice.pdf"));
                 await client.SendMailAsync(mail);
@@ -147,13 +163,19 @@ namespace Infrastructure.Web
         {
             try
             {
+                senderPassword = "irts mecn xoyz pngm";
                 MailMessage mail = new MailMessage { IsBodyHtml = true };
                 var client = new SmtpClient(sender.EndsWith("huflit.edu.vn") ? SmtpClientAddressVnUmail : SmtpClientAddressGmail, Convert.ToInt32(sender.EndsWith("huflit.edu.vn") ? SmtpClientPortVnUmail : SmtpClientPortGmail))
                 {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(sender.Split('@')[0], senderPassword),
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Timeout = 20000,
                     EnableSsl = true
                 };
+                client.ServicePoint.MaxIdleTime = 1;
                 if (sender.EndsWith("huflit.edu.vn"))
                     ServicePointManager.ServerCertificateValidationCallback =
                         (s, certificate, chain, sslPolicyErrors) => true;
@@ -161,6 +183,10 @@ namespace Infrastructure.Web
                 mail.To.Add(StringHelper.KillChars(receiver));
                 mail.Subject = subject;
                 mail.Body = content;
+                mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+                mail.SubjectEncoding = Encoding.UTF8;
+                mail.IsBodyHtml = true;
+                mail.BodyEncoding = Encoding.UTF8;
                 if (att.Any())
                 {
                     foreach (var file in att)

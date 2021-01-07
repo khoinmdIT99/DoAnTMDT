@@ -3,16 +3,16 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <div class="container menu_knb">
-    <h2>Chào mừng đến với SNKRX - Kênh Người bán</h2>
-    <p>SNKRX - Kênh Người bán là công cụ quản lý shop, giúp bạn dễ phân loại sản phẩm,</p>
-    <p>theo dõi đơn hàng, chăm sóc khách hàng và đánh giá hoạt động của shop.</p>
+    <h2>Chào mừng trình quản lý bán hàng</h2>
+    <p>Công cụ quản lý cho nhân viên của shop.</p>
+    @await Component.InvokeAsync("ThongBao")
     <div class="menu_quanly_knb">
         <div class="menu_knb_part">
-            <a asp-controller="QuanLy" asp-action="Review">
+            <a asp-controller="QuanLy" asp-action="ListSp">
                 <div class="menu_knb_icon" id="btntest">
                     <i class="fa fa-inbox"></i>
                 </div>
-                <h4>Review</h4>
+                <h4>Quản lý</h4>
             </a>
         </div>
         <div class="menu_knb_part">
@@ -34,7 +34,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="bottom_knb">
-        <p>Bạn có thắc mắc? Ghé thăm ngay<a asp-controller="QuanLy" asp-action="HoTro"> Trung tâm trợ giúp Người bán</a> để tìm hiểu các mẹo,</p>
+        <p>Bạn có thắc mắc? Ghé thăm ngay<a asp-controller="QuanLy" asp-action="HoTro"> Trung tâm trợ giúp</a> để tìm hiểu các mẹo,</p>
         <p> câu hỏi thường gặp và tài liệu hướng dẫn.</p>
     </div>
 </div>

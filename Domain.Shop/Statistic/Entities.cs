@@ -28,7 +28,7 @@ namespace Domain.Shop.Statistic
         public string ProductName { get; set; }
         public DateTime Date { get; set; }
         public int Amount { get; set; }
-        public long Price { get; set; }
+        public double Price { get; set; }
     }
 
     public class Product_Amount
@@ -43,15 +43,15 @@ namespace Domain.Shop.Statistic
     {
         public int Month { get; set; }
         public int Year { get; set; }
-        public long Amount { get; set; }
+        public double Amount { get; set; }
     }
 
     public class MonthYear_SumSaleImportRevenue
     {
         public int Month { get; set; }
         public int Year { get; set; }
-        public int TotalSale { get; set; }
-        public int TotalImport { get; set; }
-        public int TotalRevenue { get; set; }
+        public double TotalSale { get; set; }
+        public double TotalImport { get; set; }
+        public double TotalRevenue { get; set; }
     }
 }

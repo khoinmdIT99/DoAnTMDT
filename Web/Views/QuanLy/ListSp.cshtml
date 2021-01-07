@@ -1,0 +1,336 @@
+﻿@model List<Domain.Shop.Dto.Products.ProductViewModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_MerchantManagementLayout.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="new_arrivals_agile_w3ls_info menu-qlsp">
+    <div class="container">
+        <div id="horizontalTab">
+            <ul class="resp-tabs-list menu">
+                <a asp-controller="QuanLy" asp-action="ListSP"><li style="background-color: #fc636b">còn hàng</li></a>
+                <a asp-controller="QuanLy" asp-action="HetHang"><li>hết hàng</li></a>
+                <a asp-controller="QuanLy" asp-action="ListTranhChap"><li>tranh chấp</li></a>
+                <a asp-controller="QuanLy" asp-action="ListDanhGia"><li>đánh giá</li></a>
+                <a asp-controller="QuanLy" asp-action="ListReview"><li>Review</li></a>
+            </ul>
+            <div class="col-md-5 header-middle fix_timkiem_merchant">
+                <form asp-action="Search" asp-controller="QuanLy">
+                    <input type="search" name="search" placeholder="Tìm kiếm..." required="">
+                    <input type="submit" value=" ">
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+            <div class="resp-tabs-container">
+                <!--/tab_one-->
+                <div class="tab1">
+                    <div class="col-md-3 product-men margin_merchant">
+                        <div class="men-pro-item simpleCart_shelfItem" style="padding:0;" dia>
+                            <a href="#" style="text-decoration: none;">
+                                <div class="them_sanpham">
+                                    @if (ViewBag.Date > DateTime.Now)
+                                    {
+                                    <div class="icon_themsp" data-toggle="modal" data-target="#themModal">
+                                        <i class="fa fa-plus-circle" style="font-size:66px;"></i>
+                                        <h4><a asp-controller="QuanLy" asp-action="ListSP">Xem đánh giá</a></h4>
+                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="icon_themsp">
+                                            <i class="fa fa-plus-circle" style="font-size:66px;"></i>
+                                            <h4><a asp-controller="QuanLy" asp-action="ListSP">Xem đánh giá</a></h4>
+                                        </div>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        if (i <= 3)
+                        {
+                            <div class="col-md-3 product-men margin_merchant">
+                                <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-thumb-item">
+                                        <div class="men-thumb-item">
+                                            <input class="txtid-sanpham" type="text" hidden value="@item.Id" />
+                                            @if (item.DisplayImages.Any())
+                                            {
+                                        <div class="anhsanpham-3" style="background-image: url(/imageUpload/@item.DisplayImages[0].ToString().Replace("\\", "//"));"></div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="item-info-product ">
+                                        <h4><a href="single.html" class="tieude_sanpham">@item.ProductName</a></h4>
+                                        <div class="info-product-price">
+                                            @if (item.Discount != null && item.Discount != 0)
+                                            {
+                                                double gia = item.PriceAfter.GetValueOrDefault() * (100 - item.Discount) / 100 ?? 0;
+                                                <p><span class="item_price">@gia.ToString("#,###") đ</span> <del>- @item.PriceAfter.GetValueOrDefault().ToString("#,###") đ</del></p>
+                                            }
+                                            else
+                                            {
+                                                <p><span class="item_price">@item.PriceAfter.GetValueOrDefault().ToString("#,###") đ</span></p>
+                                            }
+                                        </div>
+                                        <div class="button-sua-xoa">
+                                            <form>
+                                                <button class="button-sua btnSuaChiTiet" type="button" data-toggle="modal" data-target="#suaModal">Chi tiết</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            i++;
+                        }
+                        if (i == 4)
+                        {
+                            <div class="clearfix"></div>
+                        }
+                        if (i >= 4)
+                        {
+                            break;
+                        }
+                    }
+                </div>
+                <div class="tab1">
+                    @{
+                        int j = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        if (j < 4)
+                        {
+                            j++;
+                            continue;
+                        }
+                        if (j >= 4)
+                        {
+                            <div class="col-md-3 product-men margin_merchant">
+                                <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-thumb-item">
+                                        <div class="men-thumb-item">
+                                            <input class="txtid-sanpham" type="text" hidden value="@item.Id" />
+                                            @if (item.DisplayImages.Any())
+                                            {
+                                                <div class="anhsanpham-3" style="background-image: url(/imageUpload/@item.DisplayImages[0].ToString().Replace("\\", "//"));"></div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="item-info-product ">
+                                        <h4><a href="single.html" class="tieude_sanpham">@item.ProductName</a></h4>
+                                        <div class="info-product-price">
+                                            @if (item.Discount != null && item.Discount != 0)
+                                            {
+                                                double gia = item.PriceAfter * (100 - item.Discount - item.ExtraDiscount) / 100 ?? 0;
+                                                <p><span class="item_price">@gia.ToString("#,###") đ</span> <del>- @item.PriceAfter.GetValueOrDefault().ToString("#,###") đ</del></p>
+                                            }
+                                            else
+                                            {
+                                                <p><span class="item_price">@item.PriceAfter.GetValueOrDefault().ToString("#,###") đ</span></p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="button-sua-xoa">
+                                        <form>
+                                            <button class="button-sua btnSuaChiTiet" type="button" data-toggle="modal" data-target="#suaModal">Chi tiết</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            j++;
+                            if (j % 4 == 0)
+                            {
+                                <div class="clearfix"></div>
+                            }
+                        }
+                    }
+                </div>
+                <!--//tab_one-->
+            </div>
+        </div>
+    </div>
+    <div>
+        <ul class="phantrang modal-1" style="padding-top: 1.5em;">
+            @if (ViewBag.TrangHienTai == 1)
+            {
+                <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+                    <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Trước</a>
+                </li>
+ }
+            else
+            {
+                <li class="paginate_button page-item previous" id="dataTable_previous">
+                    @switch (ViewBag.TrangThai)
+                    {
+                        case "index":
+                            <a asp-controller="QuanLy" asp-action="ListSP" asp-route-pagenumber="@Html.Raw(ViewBag.TrangHienTai - 1)" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link pageNumber">Trước</a> break;
+                        case "search":
+                            <a asp-controller="QuanLy" asp-action="Search" asp-route-pagenumber="@Html.Raw(ViewBag.TrangHienTai - 1)" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link pageNumber">Trước</a>break;
+                    }
+                </li>
+       }
+            @for (int k = 1; k <= ViewBag.TongTrang; k++)
+            {
+                if (k > 5)
+                {
+                    <li class="paginate_button page-item" disabled><a class="page-link" aria-controls="dataTable" data-dt-idx="0" tabindex="0" href="#">...</a></li>
+                    <li class="paginate_button page-item">
+                        @switch (ViewBag.TrangThai)
+                        {
+                            case "index":
+                                <a asp-controller="QuanLy" asp-action="ListSP" asp-route-pagenumber="@Html.Raw(ViewBag.TongTrang)" class="pageNumber">@ViewBag.TongTrang</a> break;
+
+                            case "search":
+                                <a asp-controller="QuanLy" asp-action="Search" asp-route-pagenumber="@Html.Raw(ViewBag.TongTrang)" class="pageNumber">@ViewBag.TongTrang</a>break;
+
+                        }
+                    </li>
+ break;
+                }
+                else
+                {
+                    if (k == ViewBag.TrangHienTai)
+                    {
+                        <li class="paginate_button page-item active"><a href="#" class="page-link" aria-controls="dataTable" data-dt-idx="2" tabindex="0">@k</a></li>
+ }
+                    else
+                    {
+                        <li class="paginate_button page-item" aria-controls="dataTables-example" tabindex="0">
+                            @switch (ViewBag.TrangThai)
+                            {
+                                case "index":
+                                    <a asp-controller="QuanLy" asp-action="ListSP" asp-route-pagenumber="@k" class="page-link pageNumber" aria-controls="dataTable" data-dt-idx="3" tabindex="0">@i</a> break;
+                                case "search":
+                                    <a asp-controller="QuanLy" asp-action="Search" asp-route-pagenumber="@k" class="page-link pageNumber" aria-controls="dataTable" data-dt-idx="3" tabindex="0">@i</a>break;
+                            }
+                        </li>
+}
+                }
+            }
+            @if (ViewBag.TrangHienTai == ViewBag.TongTrang)
+            {
+                <li class="paginate_button page-item next disabled" id="dataTable_next"><a class="page-link" aria-controls="dataTable" data-dt-idx="7" tabindex="0" href="#">Tiếp</a></li>
+ }
+            else
+            {
+                <li class="paginate_button page-item next" id="dataTable_next">
+                    @switch (ViewBag.TrangThai)
+                    {
+                        case "index":
+                            <a asp-controller="QuanLy" asp-action="ListSP" asp-route-pagenumber="@Html.Raw(ViewBag.TrangHienTai + 1)" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link pageNumber">Tiếp</a> break;
+                        case "search":
+                            <a asp-controller="QuanLy" asp-action="Search" asp-route-pagenumber="@Html.Raw(ViewBag.TrangHienTai + 1)" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link pageNumber">Tiếp</a>break;
+                    }
+                </li>
+       }
+        </ul>
+    </div>
+</div>
+<!-- //quanlysanpham -->
+<div class="modal fade" id="suaModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form enctype="multipart/form-data" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Sản phẩm</h4>
+                </div>
+                <div class="modal-body" id="modal-body-suachitiet">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@if (ViewBag.ThongBaoList != null)
+{
+    <script>
+        alert("@Html.Raw(ViewBag.ThongBaoList)");
+    </script>
+}
+<script type="text/javascript" src="~/maintemplate/js/jquery-2.1.4.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>
+<script>
+    function validateNumber(e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl/cmd+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+C
+            (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+X
+            (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    };
+</script>
+<script>
+
+   $("#item-them-gia").keydown(validateNumber);
+    $("#item-them-giamgia").change(function(){
+     if($(this).val() < 0)
+          $(this).val(0);
+     if($(this).val() > 100)
+          $(this).val(100);
+});
+   $(".pageNumber").click(function () {
+        //Get addtional href
+        let search = "@ViewBag.Search";
+        //Href
+        var $link = $('.pageNumber');
+        var href = $link.attr('href').split('/');
+        if (search != null && search != '') {
+            href.push('&search=' + search); //here you set your new asp-route-pagenumber value
+        }
+        href = href.join('/');
+        href = href.toString().replace(/\/&/g, '&');
+        $link.attr('href', href);
+    });
+    $(".btnSuaChiTiet").click(function () {
+        var id = $(this).closest(".men-pro-item").find(".txtid-sanpham").val();
+        $.ajax({
+            url: "/QuanLy/GetProductDetails",
+            type: "post",
+            data: { "id": id },
+            success: function (data) {
+                $("#modal-body-suachitiet").html(data);
+            },
+            error: function (data) {
+                alert("Error: " + data);
+            }
+        });
+    });
+    $(".btnXoa").click(function () {
+        let id = $(this).closest(".men-pro-item").find(".txtid-sanpham").val();
+        $.ajax({
+            url: "/Merchant/QuanLy/XoaSP",
+            type: "post",
+            data: { "id": id },
+            success: function (data) {
+                alert("Xoá thành công");
+                window.location = "@Url.Action("ListSP", "QuanLy")";
+            },
+            error: function (data) {
+                alert("Error: " + data);
+            }
+        });
+    });
+</script>

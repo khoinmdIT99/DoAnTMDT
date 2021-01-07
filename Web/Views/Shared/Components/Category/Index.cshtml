@@ -1,4 +1,5 @@
-﻿@using Web.Component
+﻿@using Domain.Shop.Entities
+@using Web.Component
 <li class="full-width menu-dinning with-sub-menu hover">
     <p class="close-menu"></p>
     <a href="#" class="smooth cleafix" title="">
@@ -29,7 +30,11 @@
                                                     if (i.Listcategoryphu.Count == 0)
                                                     {
                                                         <li>
-                                                            <a href="#" class="smooth" title="">@i.Tencategory</a>
+                                                            @{
+                                                                var listcategory = (List<Category>) ViewBag.listcategory;
+                                                                var slug = listcategory.FirstOrDefault(x => x.CategoryName.Contains(i.Tencategory))?.Slug;
+                                                            }
+                                                            <a asp-route="Category-Detail-List" asp-route-tenloai="@slug" class="smooth" title="">@i.Tencategory</a>
                                                         </li>
                                                     }
                                                     else
@@ -42,7 +47,11 @@
                                                                 @foreach (var j in i.Listcategoryphu)
                                                                 {
                                                                     <li>
-                                                                        <a href="#" class="smooth" title="">
+                                                                        @{
+                                                                            var listcategory = (List<Category>) ViewBag.listcategory;
+                                                                            var slug = listcategory.FirstOrDefault(x => x.CategoryName.Contains(j))?.Slug;
+                                                                        }
+                                                                        <a asp-route="Category-Detail-List" asp-route-tenloai="@slug" class="smooth" title="">
                                                                             @j
                                                                         </a>
                                                                     </li>

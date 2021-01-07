@@ -15,7 +15,7 @@ namespace DatabaseTools.Migrations.ShopDB
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -610,19 +610,13 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("Diem")
-                        .HasColumnType("int");
+                    b.Property<double>("Diem")
+                        .HasColumnType("float");
 
-                    b.Property<string>("HoadonId")
+                    b.Property<string>("IdHoaDon")
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("IdHoaDon")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdKhachHang")
-                        .HasColumnType("int");
-
-                    b.Property<string>("KhachhangId")
+                    b.Property<string>("IdKhachHang")
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime?>("LastUpdateAt")
@@ -639,9 +633,9 @@ namespace DatabaseTools.Migrations.ShopDB
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HoadonId");
+                    b.HasIndex("IdHoaDon");
 
-                    b.HasIndex("KhachhangId");
+                    b.HasIndex("IdKhachHang");
 
                     b.ToTable("DiemTichLuy");
                 });
@@ -1491,6 +1485,15 @@ namespace DatabaseTools.Migrations.ShopDB
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Diem")
+                        .HasColumnType("float");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GiamGia")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenQuyen")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)")
@@ -1504,21 +1507,29 @@ namespace DatabaseTools.Migrations.ShopDB
                         new
                         {
                             MaQuyen = 1,
+                            Diem = 0.0,
+                            GiamGia = 0,
                             TenQuyen = "Quản trị"
                         },
                         new
                         {
                             MaQuyen = 2,
+                            Diem = 0.0,
+                            GiamGia = 0,
                             TenQuyen = "Nhân viên"
                         },
                         new
                         {
                             MaQuyen = 3,
+                            Diem = 0.0,
+                            GiamGia = 0,
                             TenQuyen = "Khách hàng"
                         },
                         new
                         {
                             MaQuyen = 4,
+                            Diem = 0.0,
+                            GiamGia = 0,
                             TenQuyen = "Khách hàng thân thiết"
                         });
                 });
@@ -1865,11 +1876,11 @@ namespace DatabaseTools.Migrations.ShopDB
                 {
                     b.HasOne("Domain.Shop.Entities.Cart", "Hoadon")
                         .WithMany()
-                        .HasForeignKey("HoadonId");
+                        .HasForeignKey("IdHoaDon");
 
                     b.HasOne("Domain.Shop.Entities.Customer", "Khachhang")
                         .WithMany("ListDiemTichLuy")
-                        .HasForeignKey("KhachhangId");
+                        .HasForeignKey("IdKhachHang");
                 });
 
             modelBuilder.Entity("Domain.Shop.Entities.District", b =>

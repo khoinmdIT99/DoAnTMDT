@@ -26,8 +26,8 @@
 			var temp = '';
 			for (var i = valueArray.length - 1; i >= 0; i--) {
 				temp += valueArray[i];
-				counter++
-				if(counter == 3){
+                counter++;
+				if(counter === 3){
 					resultArray.push(temp);
 					counter = 0;
 					temp = '';

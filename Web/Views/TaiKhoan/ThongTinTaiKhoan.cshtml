@@ -14,6 +14,7 @@
     <div class="customer_quanly">
         <div class="cus_left">
             <h4><span>Tên: </span>@Model.FullName</h4>
+
             <hr>
             <div class="menu_cus">
                 <a class="menu_cus_item" asp-route="ThongTinTaiKhoan">
@@ -48,10 +49,16 @@
         </div>
         <div class="cus_right">
             <h4>Thông Tin Tài Khoản</h4>
+            <p>(@ViewBag.LoaiTaiKhoan đang được giảm @ViewBag.GiamGia)</p>
+            <p>Mỗi 1.000.000 đồng trên hóa đơn giá trị sản phẩm của khách hàng sẽ được quy đổi thành 01 điểm.</p>
+            <p>Khi mua hàng bạn sẽ được giảm 4% giá trị Bill (1000 điểm tích lũy)</p>
+            <p>Khi mua hàng bạn sẽ được giảm 6% giá trị Bill (6000 điểm tích lũy)</p>
+            <p>Khi mua hàng bạn sẽ được giảm 8% giá trị Bill (8000 điểm tích lũy)</p>
+            <p>Khi mua hàng bạn sẽ được giảm 10% giá trị Bill (10000 điểm tích lũy)</p>
             <hr>
             <form id="frmChangeInformation" method="post" role="form" action="">
                 <div class="cus_tt_canhan">
-                    <label>Tên</label>
+                    <label>Tên</label>  
                     <input type="text" id="txtSuaTen" required value="@Model.FullName" />
                     @*<h5>@Model.DienThoai</h5>*@
                 </div>

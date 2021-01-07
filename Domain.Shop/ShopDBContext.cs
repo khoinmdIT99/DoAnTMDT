@@ -88,6 +88,7 @@ namespace Shop.Application
             services.AddScoped<IXacMinhRepository, XacMinhRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IDanhGiaRepository, DanhGiaRepository>();
+            services.AddScoped<IDiemTichLuyRepository, DiemTichLuyRepository>();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

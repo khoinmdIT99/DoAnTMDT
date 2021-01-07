@@ -1,0 +1,858 @@
+﻿@using Domain.Shop.Dto.Products
+@using Domain.Shop.Entities
+@using Web.Component
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Infrastructure.Web.HelperTool.ListDatasource
+
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["Name"] = "Trang chủ";
+    ViewData["Controller"] = "Trang chủ";
+    ViewData["Action"] = "Danh sách sản phẩm";
+    Layout = "LayoutKH2";
+}
+<div class="product-list">
+    <div class="container">
+        <div class="row">
+            <aside class="col-lg-3 col-md-3 aside-left">
+                <span class="close-aside-left"><i class="fa fa-times" aria-hidden="true"></i></span>
+                <div class="aside-filter">
+                    <h3 class="aside-title">SHOP BY</h3>
+                    <form class="filter-category">
+                        <div class="filter-box">
+                            <h4 class="filter-box-title">CATEGORY</h4>
+                            <div class="fillter-category">
+                                @await Component.InvokeAsync("ProductCategory")
+                            </div>
+                        </div>
+                        <div class="filter-box">
+                            <h4 class="filter-box-title">price</h4>
+                            <fieldset class="filter-price">
+                                <div class="price-wrap">
+                                    <div class="price-container clearfix">
+                                        <div class="price-wrap-1">
+                                            <input id="one">
+                                            <label for="one">VNĐ</label>
+                                        </div>
+                                        <div class="price-wrap-2">
+                                            <input id="two">
+                                            <label for="two">VNĐ</label>
+                                        </div>
+                                        <button type="button" class="hv-border-inline btn btn-warning" onclick="SearchByPrice()">SEARCH</button>
+                                    </div>
+                                </div>
+                                <div class="price-field">
+                                    <input type="range" min="0" max="500000000" value="0" id="lower">
+                                    <input type="range" min="0" max="500000000" value="500000000" id="upper">
+                                </div>
+
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+            <div class="col-lg-9 col-md-9">
+                <div class="product-filter-top">
+                    <div>
+                        <div class="product-container" style="background: white;text-align: center">
+                            <div class="search-product" style="background: white">
+                                <div class="title">
+                                    <span>Tìm kiếm sản phẩm nội thất ở <a href="/">Vuongquocnoithat.vn</a> bằng bộ lọc thông minh</span>
+                                </div>
+                                <form id="search-form" action="/search.php" method="POST">
+                                    <div class="content-search">
+                                        <div class="row row-mb">
+                                            <div class="title-left">Chất liệu</div>
+                                            <div class="content-right">
+                                                @foreach (var item in (List<Material>)ViewBag.Dschatlieu)
+                                                {
+                                                    if (@ViewBag.chatlieu == item.SeoAlias)
+                                                    {
+                                                        <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai" asp-route-chatlieu="@item.SeoAlias" asp-route-loaisanpham="@ViewBag.loaisanpham">
+                                                            <input id="input-2" class="input-submit" name="code_style" type="radio" value="@item.SeoAlias" style="margin-right: 4px;" checked>@item.MaterialName
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai" asp-route-chatlieu="@item.SeoAlias" asp-route-loaisanpham="@ViewBag.loaisanpham">
+                                                            <input id="input-2" class="input-submit" name="code_style" type="radio" value="@item.SeoAlias" style="margin-right: 4px;">@item.MaterialName
+                                                        </a>
+                                                    }
+
+                                                }
+                                                <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai">
+                                                    <input id="input-2" class="input-submit" name="code_style" type="radio" style="margin-right: 4px;">Xóa lựa chọn
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row row-mb">
+                                            <div class="title-left">Phong cách</div>
+                                            <div class="content-right">
+                                                @foreach (var item in (List<ProductType>)ViewBag.DsLoai)
+                                                {
+                                                    if (ViewBag.loaisanpham == item.SeoAlias)
+                                                    {
+                                                        <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai" asp-route-chatlieu="@ViewBag.chatlieu" asp-route-loaisanpham="@item.SeoAlias">
+                                                            <input id="input-2" class="input-submit" name="code_style" type="radio" value="@item.SeoAlias" style="margin-right: 4px;" checked>@item.TypeName
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai" asp-route-chatlieu="@ViewBag.chatlieu" asp-route-loaisanpham="@item.SeoAlias">
+                                                            <input id="input-2" class="input-submit" name="code_style" type="radio" value="@item.SeoAlias" style="margin-right: 4px;">@item.TypeName
+                                                        </a>
+                                                    }
+
+                                                }
+                                                <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai">
+                                                    <input id="input-2" class="input-submit" name="code_style" type="radio" style="margin-right: 4px;">Xóa lựa chọn
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row row-mb-kg">
+                                            <div class="title-left">Khoảng giá</div>
+                                            <div class="content-right">
+                                                <input type="hidden" id="txttamgia" value="@ViewBag.tamgia"/>
+                                                <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai" asp-route-tamgia="be20">
+                                                    <input id="input-2" class="input-submit" name="code_forPrice" type="radio" value="be20" style="margin-right: 4px;">Dưới 20 triệu
+                                                </a>
+                                                <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai" asp-route-tamgia="lon20">
+                                                    <input id="input-2" class="input-submit" name="code_forPrice" type="radio" value="lon20" style="margin-right: 4px;">Từ 20 triệu - 150 triệu
+                                                </a>
+                                                <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai" asp-route-tamgia="full">
+                                                    <input id="input-2" class="input-submit" name="code_forPrice" type="radio" value="full" style="margin-right: 4px;">Trên 150 triệu
+                                                </a>
+                                                <a asp-route="Category-Detail-List" asp-route-tenloai="@ViewBag.tenloai">
+                                                    <input id="input-2" class="input-submit" name="code_style" type="radio" style="margin-right: 4px;">Xóa lựa chọn
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-sm-8 col-xs-12 form-inline">
+                            <div class="form-group sort-by">
+                                <label class="control-label">Sort-by</label>
+                                <select class="form-control sort">
+                                    <option>Position Asc</option>
+                                    <option>Position Desc</option>
+                                    <option>Name (A - Z)</option>
+                                    <option>Name (Z - A)</option>
+                                    <option>Price (Low > High)</option>
+                                    <option>Price (High > Low)</option>
+                                    <option>Rating (Highest)</option>
+                                    <option>Rating (Lowest)</option>
+                                </select>
+                            </div>
+                            <div class="form-group sort-by">
+                                <label class="control-label">Show</label>
+                                <select class="form-control target">
+                                    <option>16</option>
+                                    <option>10</option>
+                                    <option>25</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-4 col-xs-12">
+                            <div class="sidebar-overlay"></div>
+                            <div class="list-view">
+                                <button type="button" class="sidebar-toggle-btn"><i class="fa fa-align-left" aria-hidden="true"></i>SIDEBAR</button>
+                                <button type="button" id="table-view" class="active">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" id="list-view">
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="product-list-view">
+                        <div class="row" id="list-product">
+                            @foreach (var item in (IEnumerable<ProductViewModel>)Model.Data)
+                            {
+                                <div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                    <div class="product-box clearfix">
+                                        <div class="product-image">
+                                            <a class="c-img link-product aaf" href="javascript:void(0)" data-id="@item.Id">
+                                                @if (item.DisplayImages.Any())
+                                                {
+                                                    <img src="~/imageUpload/@item.DisplayImages[0]" class="img-responsive" alt="" height="250">
+                                                    <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="~/imageUpload/@item.DisplayImages[0]" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <img src="#" class="img-responsive" alt="" height="250">}
+                                            </a>
+                                        </div>
+                                        <div class="product-info">
+                                            <input type="hidden" asp-for="@item.Id" id="ProductId" />
+                                            <input type="hidden" asp-for="@item.BasketCount" value="@item.BasketCount" class="ProductCount" />
+                                            <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a></h4>
+                                            <input type="hidden" asp-for="@item.PriceAfter" class="ProductPrice" />
+                                            <div class="price pricevnd">
+                                            </div>
+                                            <span class="price-old">@item.Price?.ToString("N0") VNĐ</span>
+                                            <div class="rating">
+                                                <div class="rating-box">
+                                                    @if (item.Star != null)
+                                                    {
+                                                        @for (int i = 0; i < Math.Round(Convert.ToDecimal(item.Star)); i++)
+                                                        {
+                                                            <span class="fa fa-stack">
+                                                                <i class="fa fa-star fa-stack-1x"></i>
+                                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                                            </span>
+                                                        }
+                                                        @for (int i = 5; i > Math.Round(Convert.ToDecimal(item.Star)); i--)
+                                                        {
+                                                            <span class="fa fa-stack">
+                                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                                            </span>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="fa fa-stack">
+                                                            <i class="fa fa-star fa-stack-1x"></i>
+                                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                                        </span>
+                                                        <span class="fa fa-stack">
+                                                            <i class="fa fa-star fa-stack-1x"></i>
+                                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                                        </span>
+                                                        <span class="fa fa-stack">
+                                                            <i class="fa fa-star fa-stack-1x"></i>
+                                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                                        </span>
+                                                        <span class="fa fa-stack">
+                                                            <i class="fa fa-star fa-stack-1x"></i>
+                                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                                        </span>
+                                                        <span class="fa fa-stack">
+                                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="product-desc">
+                                                @Html.Raw(item.Description)
+                                            </div>
+                                        </div>
+                                        <div class="button-group">
+                                            <a class="btn btn-warning add-to-cart" data-count="@item.BasketCount" data-id="@item.Id" style="height: 45px; line-height: 35px; width: 268px; padding: 5px;" @*onclick="AddToCart('@item.Id')"*@> ADD TO CART</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="product-filter-top">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-8 col-xs-12 form-inline">
+                                <div class="form-group sort-by">
+                                    <label class="control-label">Sort assby</label>
+                                    <select class="form-control">
+                                        <option>Position</option>
+                                        <option>Name (A - Z)</option>
+                                        <option>Name (Z - A)</option>
+                                        <option>Price (Low > High)</option>
+                                        <option>Price (High > Low)</option>
+                                        <option>Rating (Highest)</option>
+                                        <option>Rating (Lowest)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group sort-by">
+                                    <label class="control-label">Show</label>
+                                    <select class="form-control target">
+                                        <option>16</option>
+                                        <option>10</option>
+                                        <option>25</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-4 col-xs-12">
+                                @await Component.InvokeAsync(nameof(vcPagging), new
+                                {
+                                    totals = @Model.Total
+                                    ,
+                                    pageSize = @Model.PageSize
+                                    ,
+                                    page = @Model.Page
+                                    ,
+                                    url = @Model.Url
+                                    ,
+                                    maxPage = @Model.MaxPage
+                                })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade product_view" id="MyModal">
+    <!--<div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a id="viewImg1" href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+                            <img id="viewImg2" src="" width="250" height="250">
+                        </a>
+
+                    </div>
+                    <div class="col-md-8">
+
+                        <p style="display:none"><label class="headertext" id="labelId"></label></p>
+                        <p><label class="headertext" id="labelName"></label></p>
+                        <p><label class="headertext" id="labelCode"></label></p>
+                        <p><label class="headertext" id="labelPrice"></label></p>
+                        <p><label class="headertext" id="labelCategory"></label></p>
+
+
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <input id="addViewinputCount" type="number" class="form-control text-center " value="1">
+                            </div>
+                            <div class="col-md-4" style="margin-top:4px;">
+                                <button type="button" class="btn btn-sm btn-success" onclick="AddProductView()">Add to Card</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>-->
+    <!-- Tab -->
+    <!--<div style="padding:30px">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">Description</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">İnfo</a>
+            </li>
+        </ul>
+
+        <div class="tab-content textsize">
+            <div id="home" class="container tab-pane active">
+                <span id="labelDescription"></span>
+            </div>
+            <div id="menu1" class="container tab-pane fade">
+                <span>This Menu1 page description area.</span>
+            </div>
+
+        </div>
+    </div>-->
+    <!-- Tab End -->
+    <!--</div>
+        </div>
+    </div>-->
+</div>
+<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a id="viewImg1" href="#" class="thumbnail" data-toggle="modal" data-target="#lightbox">
+                            <img id="viewImg2" src="" style="width: 250px; height: 250px;">
+                        </a>
+
+                    </div>
+                    <div class="col-md-8">
+                        <p style="display:none"><label class="headertext" id="labelId"></label></p>
+                        <p><label class="headertext" id="labelName"></label></p>
+                        <p><label class="headertext" id="labelCode"></label></p>
+                        <p><label class="headertext" id="labelPrice"></label></p>
+                        <p><label class="headertext" id="labelCategory"></label></p>
+
+
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <input id="addViewinputCount" type="number" class="form-control text-center " value="1">
+                            </div>
+                            <div class="col-md-4" style="margin-top:4px;">
+                                <button type="button" class="btn btn-sm btn-success" onclick="AddProductView()">Add to Cart</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Tab -->
+                <div style="padding:30px">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home">Chi tiết</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#Discount">Khuyến mãi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#menu1">Review</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content textsize">
+                        <div id="home" class="container tab-pane active">
+                            <div class="summary text">
+                                <span id="labelDescription"></span>
+                            </div>
+                            <a id="imageId" href="#">more</a>
+                        </div>
+                        <div id="Discount" class="container tab-pane">
+                            <span id="labelDiscount"></span><br />
+                            <span id="labelExtraDiscount"></span><br />
+                            <span id="labelPriceStar"></span>
+                        </div>
+                        <div id="menu1" class="container tab-pane fade">
+                            <span>Bình luận nổi bật</span>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Tab End -->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="lightbox" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">×</button>
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    @*<div class="product-desc">
+            ${value.description}
+        </div>*@
+    <!-- page script -->
+    <script>
+        $('#imageId').click(function() {
+            var text = $(this).prev('.text');
+            text.toggleClass('summary');
+            if(text.hasClass('summary')) {
+                $(this).text('Read More');
+            } else {
+                $(this).text('Read Less');
+            }
+        });
+    </script>
+    <script>
+
+    $(".target").change(function () {
+        $.ajax(
+            {
+                type: "GET",
+                url: '@Url.ActionLink("GetProducts", "Home")',
+                data: {
+                    value: $(".target").val()
+                },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                error: function (result) {
+                    debugger;
+                    alert("error");
+                },
+                success: function (result) {
+
+                    $("div").remove(".product-layout");
+                    if (result != null) {
+                        $.each(result.data,
+                            function(index, value) {
+                                var star = "";
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+
+                                if (value.star != null) {
+                                    for (let i = 0; i < Math.floor(value.star); i++) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                    for (let i = 5; i > Math.floor(value.star); i--) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                } else {
+                                    star =
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                }
+
+                                $('#list-product').append(
+                                    `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                <div class="product-box clearfix">
+                                    <div class="product-image">
+                                        <a class="c-img link-product aaf" href="javascript:void(0)" data-id="${value.id}">
+                                                <img src="/imageUpload/${value.displayImages[0]
+                                    }" class="img-responsive" alt="" height="250">
+                                        </a>
+                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                    .productName}</a></h4>
+                                        <div class="price pricevnd">
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
+                                        </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
+                                        <div class="rating">
+                                            <div class="rating-box">
+                                             ${star}
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                            ${value.description}
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
+                                    </div>
+                                </div>
+                            </div>`);
+                            });
+                    }
+                    else {
+                        alert("Không tìm thấy");
+                    }
+                }
+            });
+    });
+
+    function FilterByCategory(categoryName) {
+
+        $.ajax(
+            {
+                type: "GET",
+                url: '@Url.ActionLink("Filter", "Home")',
+                data: {
+                    CategoryName: categoryName
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    $("div").remove(".product-layout");
+                    if (result != null) {
+                        $.each(result.data,
+                            function(index, value) {
+                                var star = "";
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                                if (value.star != null) {
+                                    for (let i = 0; i < Math.floor(value.star); i++) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                    for (let i = 5; i > Math.floor(value.star); i--) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                } else {
+                                    star =
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                }
+                                $('#list-product').append(
+                                    `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                <div class="product-box clearfix">
+                                    <div class="product-image">
+                                        <a class="c-img link-product aaf" href="javascript:void(0)" data-id="${value.id}">
+                                                <img src="/imageUpload/${value.displayImages[0]
+                                    }" class="img-responsive" alt="" height="250">
+                                        </a>
+                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                        .productName}</a></h4>
+                                        <div class="price pricevnd">
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
+                                        </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
+                                        <div class="rating">
+                                            <div class="rating-box">
+                                               ${star}
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                            ${value.description}
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
+                                    </div>
+                                </div>
+                            </div>`);
+
+
+                            });
+                    }
+                    else {
+                        alert("Không tìm thấy");
+                    }
+                }
+            });
+
+    }
+    function SearchByPrice() {
+        $.ajax(
+            {
+                type: "GET",
+                url: '@Url.ActionLink("SearchByPrice", "Home")',
+                data: {
+                    min: $("#one").val(),
+                    max: $("#two").val()
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    $("div").remove(".product-layout");
+                    if (result != null) {
+                        $.each(result.data,
+                            function(index, value) {
+                                var star = "";
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                                if (value.star != null) {
+                                    for (let i = 0; i < Math.floor(value.star); i++) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                    for (let i = 5; i > Math.floor(value.star); i--) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                } else {
+                                    star =
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                }
+                                $('#list-product').append(
+                                    `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                <div class="product-box clearfix">
+                                    <div class="product-image">
+                                        <a href="detail.html" class="c-img link-product">
+                                                <img src="/imageUpload/${value.displayImages[0]
+                                    }" class="img-responsive" alt="" height="250">
+                                        </a>
+                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <input type="hidden" asp-for="${value.basketCount}" class="ProductCount" />
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                        .productName}</a></h4>
+                                        <div class="price pricevnd">
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
+                                        </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
+                                        <div class="rating">
+                                            <div class="rating-box">
+                                                 ${star}
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                           ${value.description}
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
+                                    </div>
+                                </div>
+                            </div>`);
+
+
+                            });
+                    }
+                    else {
+                        alert("Không tìm thấy");
+                    }
+                }
+            });
+    }
+    $(".sort").change(function () {
+        $.ajax(
+            {
+                type: "GET",
+                url: '@Url.ActionLink("SortProducts", "Home")',
+                data: {
+                    value: $(".sort").val()
+                },
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                error: function (result) {
+                    debugger;
+                    alert("error");
+                },
+                success: function (result) {
+
+                    $("div").remove(".product-layout");
+                    if (result != null) {
+                        $.each(result.data,
+                            function(index, value) {
+                                var star = "";
+                                var priceAfter = value.priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ';
+                                if (value.star != null) {
+                                    for (let i = 0; i < Math.floor(value.star); i++) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                    for (let i = 5; i > Math.floor(value.star); i--) {
+                                        star +=
+                                            "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                    }
+                                } else {
+                                    star =
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star fa-stack-1x'></i> <i class='fa fa-star-o fa-stack-1x'></i></span>" +
+                                        "<span class='fa fa-stack'> <i class='fa fa-star-o fa-stack-1x'></i></span>";
+                                }
+                                $('#list-product').append(
+                                    `<div class="product-layout product-layout-table col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+                                <div class="product-box clearfix">
+                                    <div class="product-image">
+                                        <a href="detail.html" class="c-img link-product">
+                                                <img src="/imageUpload/${value.displayImages[0]
+                                    }" class="img-responsive" alt="" height="250">
+                                        </a>
+                                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="${value.slug}" class="smooth" title="">${value
+                                        .productName}</a></h4>
+                                        <div class="price pricevnd">
+                                            ${priceAfter.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ
+                                        </div>
+                                        <span class="price-old">${value.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} VNĐ</span>
+                                        <div class="rating">
+                                            <div class="rating-box">
+                                             ${star}
+                                            </div>
+                                        </div>
+                                        <div class="product-desc">
+                                           ${value.description}
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                       <a class="btn btn-warning add-to-cart" style="padding:5px;height: 45px; line-height: 35px; width: 268px;"
+                                data-count="${value.basketCount}" data-id="${value.id}"> ADD TO CART</a>
+                                    </div>
+                                </div>
+                            </div>`);
+                            });
+                    }
+                    else {
+                        alert("Không tìm thấy");
+                    }
+                }
+            });
+    });
+    function AddToCart(id) {
+
+        $.ajax(
+            {
+                type: "POST",
+                url: '@Url.ActionLink("AddToShoppingCart", "Cart")',
+                data: {
+                    id: id
+                },
+                error: function (result) {
+                    alert("error");
+                },
+                success: function (result) {
+                    if (result === true) {
+                        alert("Bạn đã thêm vào giỏ hàng !");
+                    }
+                    else {
+                        alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                    }
+                }
+            });
+
+    }
+    $(document).ready(function () {
+        $('.ProductPrice').each(function () {
+            var value = $(this).val();
+            $(this).next().text(value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+        });
+        $(".home-slider").hide();
+        $('html, body').animate({
+            scrollTop: $(".product-list-view").offset().top
+        }, 1000);
+        
+        if ($('#txttamgia').val() != null) {
+            if ($('#txttamgia').val().includes("be20")) {
+                $('input:radio[name="code_forPrice"]').filter('[value="be20"]').attr('checked', true);
+            }
+            else if ($('#txttamgia').val().includes("lon20")) {
+                $('input:radio[name="code_forPrice"]').filter('[value="lon20"]').attr('checked', true);
+            }
+            else if ($('#txttamgia').val().includes("full")){
+                $('input:radio[name="code_forPrice"]').filter('[value="full"]').attr('checked', true);
+            }
+        }
+    });
+
+    $("#one").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#one').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+    $("#two").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#two').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+    $("#lower").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#one').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+    $("#upper").hover(function() {
+        $(this).css('cursor', 'pointer').attr('title', $('#two').val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' VNĐ');
+    }, function() {
+        $(this).css('cursor','auto');
+    });
+    </script>
+
+}
+

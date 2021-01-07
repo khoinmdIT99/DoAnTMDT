@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Domain.Shop.Dto;
 using Domain.Shop.IRepositories;
 using Domain.Shop.Statistic;
 using Infrastructure.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -23,7 +25,8 @@ namespace Web.Areas.Administrator.Controllers
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IImportRepository _importRepository;
         private readonly IImportDetailRepository _importDetailRepository;
-        public StatisticController(ICartRepository iCartRepository, ICustomerRepository iCustomerRepository, IProductRepository iProductRepository, ICategoryRepository iCategoryRepository, IShoppingCartRepository shoppingCartRepository, IImportRepository importRepository, IImportDetailRepository importDetailRepository)
+        private readonly ICartRepository _cartRepository;
+        public StatisticController(ICartRepository iCartRepository, ICustomerRepository iCustomerRepository, IProductRepository iProductRepository, ICategoryRepository iCategoryRepository, IShoppingCartRepository shoppingCartRepository, IImportRepository importRepository, IImportDetailRepository importDetailRepository, ICartRepository cartRepository)
         {
             _iCartRepository = iCartRepository;
             _iCustomerRepository = iCustomerRepository;
@@ -32,6 +35,7 @@ namespace Web.Areas.Administrator.Controllers
             _shoppingCartRepository = shoppingCartRepository;
             _importRepository = importRepository;
             _importDetailRepository = importDetailRepository;
+            _cartRepository = cartRepository;
         }
         [HttpGet]
         public FileResult Download(string fileName)
@@ -72,24 +76,50 @@ namespace Web.Areas.Administrator.Controllers
             return lstpercenttotalmoney;
         }
 
-        public IActionResult Check()
+        public async Task<IActionResult> Check()
         {
-            var a = new CommonStatistic(_iProductRepository, _iCartRepository, _shoppingCartRepository, _importRepository,
-                _importDetailRepository).GetTotalSaleImportInMonths(1, 2020, 12, 2020).Last().TotalRevenue;
-            return Content(a.ToString());
+            DateTime startDate = new DateTime(2021, 1, 1) ;
+            DateTime endDate = new DateTime(2021, 6, DateTime.DaysInMonth(2021, 6)) ;
+
+            DateTime iterator = startDate;
+            List<DateTime> monthsToConsider = new List<DateTime>();
+            while (true)
+            {
+                if (iterator > endDate) break;
+                monthsToConsider.Add(iterator);
+                iterator = iterator.AddMonths(1);
+            }
+
+            List<MonthYear_SumSaleImportRevenue> stats = new List<MonthYear_SumSaleImportRevenue>();
+            foreach (DateTime month in monthsToConsider)
+            {
+                double sumSale = new SaleStatistic(_iProductRepository, _cartRepository, _shoppingCartRepository).GetTotalSaleValueCertainMonth(month.Month, month.Year);
+                double sumImport = new ImportStatistic(_iProductRepository, _importRepository, _importDetailRepository).GetTotalImportValueCertainMonth(month.Month, month.Year);
+                double difference = sumSale - sumImport;
+                stats.Add(new MonthYear_SumSaleImportRevenue()
+                {
+                    Month = month.Month,
+                    Year = month.Year,
+                    TotalSale = sumSale,
+                    TotalImport = sumImport,
+                    TotalRevenue = difference,
+                });
+            }
+
+            return Json(stats);
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
             ViewBag.Orders = _iCartRepository.All.ToList().Where(x => x.CreateAt?.ToString("yyyy-MM-dd")
             == DateTime.Now.ToString("yyyy-MM-dd") && x.Status == "Đã xử lý").ToList().Count;
-            ViewBag.Users = _iCustomerRepository.All.ToList().Count;
-            ViewBag.Product = _iProductRepository.All.ToList().Count;
-            ViewBag.Category = _iCategoryRepository.All.ToList().Count;
+            ViewBag.Users = await _iCustomerRepository.All.CountAsync();
+            ViewBag.Product = await _iProductRepository.All.CountAsync();
+            ViewBag.Category = await _iCategoryRepository.All.CountAsync();
             //Gán số lượng sản phẩm đã bán
-            ViewBag.SalesedQuantity = _iProductRepository.All.ToList().Sum(x =>x.BuyCount);
+            ViewBag.SalesedQuantity = await _iProductRepository.All.SumAsync(x =>x.BuyCount);
             //Gán số lượng sản phẩm còn lại
-            ViewBag.RemainingQuantity = _iProductRepository.All.ToList().Sum(x => x.BasketCount);
+            ViewBag.RemainingQuantity =await _iProductRepository.All.SumAsync(x => x.BasketCount);
             ViewBag.TotalMoneyWithMonth = JsonConvert.SerializeObject(TotalMoneyOrderAndImportWithMonth());
             try
             {
@@ -227,11 +257,17 @@ namespace Web.Areas.Administrator.Controllers
 
         public IActionResult GetCommonInfo_JSON()
         {
+            double a = new CommonStatistic(_iProductRepository, _iCartRepository, _shoppingCartRepository,
+                _importRepository, _importDetailRepository).GetTotalRevenueAllTime();
+            if (a == 0)
+            {
+                a = 0;
+            }
             string converted = JsonConvert.SerializeObject(
                 new
                 {
                     //Tổng lợi nhuận
-                    totalRevenue = new CommonStatistic(_iProductRepository, _iCartRepository, _shoppingCartRepository, _importRepository, _importDetailRepository).GetTotalRevenueAllTime(),
+                    totalRevenue =  a,
                     //Tổng số đơn hàng
                     totalSaleBillCount = new SaleStatistic(_iProductRepository, _iCartRepository, _shoppingCartRepository).CountSaleBillAllTime(),
                     //Tổng số người dùng

@@ -10,9 +10,9 @@
             border-color: red !important;
         }
 
-        .trangthai-dahuy i {
-            color: red !important;
-        }
+            .trangthai-dahuy i {
+                color: red !important;
+            }
     </style>
 }
 @if (Model != null)
@@ -34,7 +34,7 @@
             </div>
             <div class="menu_cus">
                 <a class="menu_cus_item" asp-route="DoiMatKhau">
-                    <div class="menu_cus_icon" style="background-color:rgb(255, 193, 7);">
+                    <div class="menu_cus_icon" style="background-color: rgb(255, 193, 7);">
                         <i class="fa fa-lock"></i>
                     </div>
                     <div class="menu_cus_content">
@@ -44,7 +44,7 @@
             </div>
             <div class="menu_cus">
                 <a class="menu_cus_item" asp-controller="TaiKhoan" asp-action="DonMua" asp-route-tinhtrang="chuaxuly">
-                    <div class="menu_cus_icon" style="background-color:rgb(255, 87, 34);">
+                    <div class="menu_cus_icon" style="background-color: rgb(255, 87, 34);">
                         <i class="fa fa-shopping-basket"></i>
                     </div>
                     <div class="menu_cus_content">
@@ -85,7 +85,7 @@
             </div>
             <h5>Đơn Hàng Đã Đặt</h5>
         </a>
-    </div>}
+    </div>                }
                     @if (ViewBag.Host.ToString().Contains("DonMuadanggiao.html"))
                     {
     <div class="trangthai_donmua">
@@ -109,7 +109,7 @@
             </div>
             <h5>Đơn Hàng Đang Giao</h5>
         </a>
-    </div>}
+    </div>                }
                     @if (ViewBag.Host.ToString().Contains("DonMuadaxuly.html"))
                     {
     <div class="trangthai_donmua">
@@ -133,7 +133,7 @@
             </div>
             <h5>Đơn Hàng Đã Xử Lý</h5>
         </a>
-    </div>}
+    </div>                }
 
                     @if (ViewBag.Host.ToString().Contains("DonMuadahuy.html"))
                     {
@@ -158,7 +158,7 @@
             </div>
             <h5>Đơn Hàng Đã Huỷ</h5>
         </a>
-    </div>}
+    </div>                }
                 </div>
             </div>
             @foreach (var item in Model)
@@ -192,7 +192,7 @@ else
 {
 <div class="thongtin_donhang">
     <div class="sanpham_giohang sp_donhang">
-        <div class="hinh_sanpham_giohang hinh_donhang" style="background-image: url(/imageUpload/@it.Product.ProductImages[0].Url.ToString().Replace("\\","//"));"></div>
+        <div class="hinh_sanpham_giohang hinh_donhang" style="background-image: url(/imageUpload/@it.Product.ProductImages[0].Url.ToString().Replace("\\", "//"));"></div>
         <div class="form_ten_sp_giohang ten_sp_donhang">
             <h5>
                 @it.Product.ProductName
@@ -219,13 +219,105 @@ else
                     </div>
                     <div class="button_ct_huy">
                         <a asp-controller="TaiKhoan" asp-action="ChiTietDonMua" asp-route-id="@item.Id"><button>Xem Chi Tiết Đơn Hàng</button></a>
+
+                    </div>
+                    <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalEdit">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        Gửi báo cáo
+                    </a>
+                    <div class="modal fade" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title cus-title" id="exampleModalLabel">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                        Bạn có thể báo cáo bài đăng sau khi chọn vấn đề.
+                                    </h5>
+                                    <button type="button" class="close" id="close-form" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="wrap-btn-rp">
+                                        <button class="btn-rp-order" data-button="" id="reportSex">Ảnh khỏa thân</button>
+                                        <button class="btn-rp-order" data-button="Bạo lực">Bạo lực</button>
+                                        <button class="btn-rp-order" data-button="Bài đăng giả">Bài đăng giả</button>
+                                        <button class="btn-rp-order" data-button="Spam">Spam</button>
+                                        <button class="btn-rp-order" data-button="" id="reportForbidden">Bài đăng trái phép</button>
+                                        <button class="btn-rp-order" data-button="" id="reportWords">Ngôn từ gây thù ghét</button>
+                                        <button class="btn-rp-order" data-button="Khủng bố">Khủng bố</button>
+                                        <button class="btn-rp-order" data-button="Khác" id="reportOthers">Khác</button>
+                                    </div>
+                                    <div class="content-btn-rp">
+                                        <div class="service-sex">
+                                            <div class="rp-tt">
+                                                Hãy giúp chúng tôi hiểu vấn đề.
+                                            </div>
+                                            <button class="btn-rp-order-child" data-button="Khỏa thân : tôi ">Tôi</button>
+                                            <button class="btn-rp-order-child" data-button="Khỏa thân : ảnh khỏa thân người lớn ">Ảnh khỏa thân người lớn</button>
+                                            <button class="btn-rp-order-child" data-button="Khỏa thân : gợi dục ">Gợi dục</button>
+                                            <button class="btn-rp-order-child" data-button="Khỏa thân : hoạt động tình dục ">Hoạt động tình dục</button>
+                                            <button class="btn-rp-order-child" data-button="Khỏa thân : dịch vụ tình dục">Dịch vụ tình dục</button>
+                                            <button class="btn-rp-order-child" data-button="Khỏa thân : chia sẽ ảnh riêng tư ">Chia sẽ hình ảnh riêng tư</button>
+                                        </div>
+                                        <div class="service-forbidden">
+                                            <div class="rp-tt">
+                                                Hãy giúp chúng tôi hiểu vấn đề.
+                                            </div>
+                                            <button class="btn-rp-order-child" data-button="Trái phép : ma túy ">Ma túy</button>
+                                            <button class="btn-rp-order-child" data-button="Trái phép : súng">Súng</button>
+                                            <button class="btn-rp-order-child" data-button="Trái phép : gợi dục ">Gợi dục</button>
+                                            <button class="btn-rp-order-child" data-button="Trái phép : động vật tuyệt chủng ">Động vật có nguy cơ tuyệt chủng</button>
+                                            <button class="btn-rp-order-child" data-button="Trái phép : khác ">Khác</button>
+                                        </div>
+                                        <div class="service-words">
+                                            <div class="rp-tt">
+                                                Hãy giúp chúng tôi hiểu vấn đề.
+                                            </div>
+                                            <button class="btn-rp-order-child" data-button="Ngôn từ : chủng tộc ">Chủng tộc hoặc sắc tộc</button>
+                                            <button class="btn-rp-order-child" data-button="Ngôn từ : nguồn gốc quốc gia ">Nguồn gốc quốc gia</button>
+                                            <button class="btn-rp-order-child" data-button="Ngôn từ : tôn giáo ">Thành phần tôn giáo</button>
+                                            <button class="btn-rp-order-child" data-button="Ngôn từ : giai cấp ">Phân chia giai cấp</button>
+                                            <button class="btn-rp-order-child" data-button="Ngôn từ : tình dục ">Thiên hướng tình dục</button>
+                                            <button class="btn-rp-order-child" data-button="Ngôn từ : khuyết tật hoặc bệnh tất ">Tình trạng khuyết tật hoặc bệnh tật</button>
+                                            <button class="btn-rp-order-child" data-button="Ngôn từ : khác ">Hạng mục khác</button>
+                                        </div>
+                                        <div class="service-others">
+                                            <div class="rp-tt">
+                                                Hãy giúp chúng tôi hiểu vấn đề.
+                                            </div>
+
+                                            <textarea cols="80" rows="6" id="txt-report" class="text-rp"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="additon-info">
+
+                                        <div class="rp-tt">
+                                            Hãy để lại thông tin để chúng tôi phản hồi với bạn!
+                                        </div>
+                                        <input class="info-txt" type="text" id="contactrp" value="" />
+                                    </div>
+                                    <div class="warning-rp">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>Trường hợp khẳng cấp liên hệ ngay chúng tôi qua hotline website.
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                    <button data-id="@item.Id" class="btn btn-primary submit-report" onclick="sad(this)">Gửi</button>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="clearfix"></div>
-</div>                }
+</div>}
         </div>
     </div>
 </div> }
@@ -276,10 +368,168 @@ else
             });
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script>
+        $(document).ready(function () {
+            $(".service-sex").hide();
+            $(".service-forbidden").hide();
+            $(".service-words").hide();
+            $(".service-others").hide();
+            var btnReport = document.getElementsByClassName("btn-rp-order");
+            $('.btn-rp-order').on('click', function () {
+                $(".service-sex").hide();
+                $(".service-forbidden").hide();
+                $(".service-words").hide();
+                $(".service-others").hide();
 
+                $('.btn-rp-order').removeClass('active-rp');
+                $(this).addClass('active-rp');
+            });
+            $('#reportSex').on('click', function () {
+                $(".service-sex").show();
+            });
+
+            $('#reportForbidden').on('click', function () {
+                $(".service-forbidden").show();
+            });
+            $('#reportWords').on('click', function () {
+                $(".service-words").show();
+            });
+            $('#reportWords').on('click', function () {
+
+                $(".service-words").show();
+            });
+            $('#reportOthers').on('click', function () {
+                $(".service-others").show();
+            });
+
+            $('.btn-rp-order-child').on('click', function () {
+
+
+                $('.btn-rp-order-child').removeClass('active-rp');
+                $(this).addClass('active-rp');
+            });
+
+
+
+        });
+    </script>
+    <script>
+    var typeData = "";
+    var txtOthers = "";
+    var txtContact = "";
+    $('.btn-rp-order,.btn-rp-order-child').click(function () {
+        typeData = $(this).attr('data-button');
+        if (typeData === "") return;
+
+    });
+        function sad(elem) {
+            var id = $(elem).data("id");
+            alert(id);
+            txtOthers = $.trim($("#txt-report").val());
+            txtContact = $.trim($("#contactrp").val());
+            console.log(id);
+            console.log(typeData);
+            console.log(txtOthers);
+            console.log(txtContact);
+            var dad = { MaDDH : id, typeData: typeData, txtOthers: txtOthers,txtContact:txtContact };
+            var tat = JSON.stringify(dad);
+              $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ToCao","Order")',
+                    contentType: "application/json; charset=utf-8",
+                    processData: true,
+                    cache: false,
+                    data: tat,
+                  success: function (response) {
+                      $('#close-form').click();
+                      Swal.fire({
+                          position: 'top-end',
+                          type: 'success',
+                          title: response,
+                          showConfirmButton: false,
+                          timer: 1500
+                      });
+                  }
+              });
+        }
+    $('#acceptService').click(function () {
+        Swal.fire({
+            position: 'top-end',
+            type: 'success',
+            title: 'Nhận đơn hàng thành công!',
+            showConfirmButton: false,
+            timer: 2000
+        });
+
+    });
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            var str = $(".pricing-item");
+            for (let i = 0; i < str.length; i++) {
+                var formatstr = str[i].innerHTML.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                str[i].innerHTML = formatstr;
+
+            }
+
+        });
+    </script>
     <style>
         .swal-modal {
             border: 3px solid #bef4e9;
         }
+        
+        .active-rp {
+            background-color: #ff4f57;
+            color: white;
+            border: none;
+        }
+
+        .rp-tt {
+            padding-bottom: 8px;
+        }
+
+        .info-txt {
+            padding: 5px 27px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .text-rp {
+            border-radius: 3px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-rp-order, .btn-rp-order-child {
+            align-items: center;
+            border: 1px solid #dddfe2;
+            border-radius: 20px;
+            display: inline-flex;
+            margin-bottom: 8px;
+            margin-right: 8px;
+            padding: 8px 12px;
+            -webkit-user-select: none;
+        }
+
+        .warning-rp {
+            font-size: 14px;
+            line-height: 16px;
+            border-radius: 3px;
+            border-top: 1px solid #dddfe2;
+            color: #90949c;
+            padding: 12px 16px;
+            border-bottom: 1px solid #dddfe2;
+        }
+
+        .wrap-btn-rp, .additon-info {
+            padding: 5px 10px 5px 10px;
+        }
+        .rf {
+            padding-bottom: 10px;
+        }
+
     </style>
 }

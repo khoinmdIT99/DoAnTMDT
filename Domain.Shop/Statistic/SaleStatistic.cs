@@ -174,18 +174,18 @@ namespace Domain.Shop.Statistic
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns></returns>
-        public long GetTotalSaleValueCertainMonth(int month, int year)
+        public double GetTotalSaleValueCertainMonth(int month, int year)
         {
             DateTime startTime = new DateTime(year, month, 1);
             DateTime endTime = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
             var saleBillQuery = (
                 from saleBill in _cartRepository.All
-                where saleBill.CreateAt >= startTime && saleBill.CreateAt <= endTime
+                where saleBill.CreateAt >= startTime && saleBill.CreateAt <= endTime && saleBill.Status.Contains("Đã")
                 select saleBill
                 );
 
-            long sum = saleBillQuery.ToList().Sum(m => m.Totalprice);
+            double sum = saleBillQuery.ToList().Sum(m => m.Totalprice);
             
 
             return sum;
@@ -229,24 +229,18 @@ namespace Domain.Shop.Statistic
         }
 
 
-        public long GetTotalSaleValueAllTime()
+        public double GetTotalSaleValueAllTime()
         {
-            var saleBillQuery = (
-                from saleBill in _cartRepository.All
-                select saleBill
-                );
+            var saleBillQuery = _cartRepository.All.ToList();
 
-            long sum = saleBillQuery.ToList().Sum(m => m.Totalprice);
+            double sum = saleBillQuery.Sum(m => m.Totalprice);
 
             return sum;
         }
 
         public int CountSaleBillAllTime()
         {
-            var saleBillQuery = (
-                from saleBill in _cartRepository.All
-                select saleBill
-                );
+            var saleBillQuery = _cartRepository.All.ToList();
 
             int count = saleBillQuery.Count();
 

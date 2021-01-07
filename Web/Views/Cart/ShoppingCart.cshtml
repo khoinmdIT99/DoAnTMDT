@@ -72,8 +72,8 @@
                                                 </span>
                                             </div>
                                         </td>
-                                        <td class="text-right"> @item.Product.Price</td>
-                                        <td class="text-right">@((item.Quantity * item.Product.Price))</td>
+                                        <td class="text-right"> @item.Product.PriceAfter.GetValueOrDefault().ToString("N0") đ</td>
+                                        <td class="text-right">@((item.Quantity * item.Product.PriceAfter.GetValueOrDefault()).ToString("N0")) đ</td>
                                     </tr>
                                 }
                                 }

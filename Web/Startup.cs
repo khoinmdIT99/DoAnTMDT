@@ -97,11 +97,18 @@ namespace Web
                 logging.AddConsole();
                 logging.AddDebug();
             });
-            services.AddSignalR();
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+            });
             services.AddCors();
             services.Configure<PaypalApiSetting>(Configuration.GetSection("Paypal"));
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddAutoMapper(typeof(Startup));
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -140,6 +147,8 @@ namespace Web
                 endpoints.MapHub<ChatHub>("/chatHub");
                 endpoints.MapHub<NotifyHub>("/NotifyHub");
                 endpoints.MapHub<ChatDetailHub>("/chatDetailHub");
+                endpoints.MapHub<RestaurantHub>("/restauranthub");
+
             });
 
             configurationCache.SetConfiguration();

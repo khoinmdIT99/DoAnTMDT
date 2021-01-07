@@ -55,7 +55,48 @@
             font-weight: 500;
             font-size: 14px;
         }
-
+        .product-container .search-product {
+            width: 100%;
+            float: left;
+            border: 1px solid #d2d2d2;
+            margin-bottom: 10px;
+        }
+        .product-container .search-product .title {
+            border-bottom: 1px solid #d2d2d2;
+            background: white;
+            margin-bottom: 0px;
+            margin-top: 0px;
+        }
+        .product-container .search-product .title span {
+            line-height: 41px;
+            margin-left: 60px;
+            font-size: 14px;
+            color: #222222;
+            
+        }
+        .product-container .search-product .row {
+            width: 862px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-bottom: 1px dashed #999999;
+        }
+        .product-container .search-product .row .title-left {
+            color: #f6860e;
+            font-size: 14px;
+            width: 120px;
+            line-height: 44px;
+            font-weight: bold;
+            float: left;
+        }
+        .product-container .search-product .row .content-right {
+            line-height: 44px;
+        }
+        .product-container .search-product .row .content-right a {
+            display: inline-block;
+            margin-right: 30px;
+            color: #333333;
+            font-size: 14px;
+        }
         .show-more-text-view-p {
             cursor: pointer;
             color: #444;
@@ -71,7 +112,7 @@
             text-overflow: ellipsis;
         }
         /* HIDE RADIO */
-        [type=radio] {
+        #myModalRegister [type=radio] {
             position: absolute;
             opacity: 0;
             width: 0;
@@ -79,7 +120,7 @@
         }
 
             /* IMAGE STYLES */
-            [type=radio] + img {
+        #myModalRegister [type=radio] + img {
                 border-radius: 50%;
                 border: 2px solid transparent;
                 padding: 1px;
@@ -87,7 +128,7 @@
             }
 
             /* CHECKED STYLES */
-            [type=radio]:checked + img {
+        #myModalRegister [type=radio]:checked + img {
                 border-radius: 50%;
                 border: 2px solid #5dca38;
                 padding: 1px;
@@ -456,9 +497,9 @@
                                     <li>
                                         <a asp-action="ThongTinTaiKhoan" asp-controller="TaiKhoan" asp-area="" class="smooth" title="">
                                             <i class="fa fa-user" aria-hidden="true"></i>
-                                            Tài khoản 
+                                            Tài khoản
                                         </a>
-                                        <input type="hidden" id="iddangnhap" value="@Context.Session.GetString("_Name")"/>
+                                        <input type="hidden" id="iddangnhap" value="@Context.Session.GetString("_Name")" />
                                     </li>
                                     <li>
                                         <a asp-action="ShoppingCart" asp-controller="Cart" asp-area="" class="smooth" title="">
@@ -516,11 +557,11 @@
                     </div>
                     <div class="search-form">
                         <button type="button" class="smooth search-form-btn"><i class="fa fa-search"></i></button>
-                        <form action="#" method="post">
+                        <form asp-action="Search_Index" asp-controller="Home" method="post">
                             <div class="icon">
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </div>
-                            <input type="text" name="keyword" placeholder="Enter your keyword...">
+                            <input  type="text" name="keyword" placeholder="Enter your keyword...">
                             <button type="submit">Search</button>
                         </form>
                     </div>
@@ -593,8 +634,20 @@
                                                                     </div>
                                                                 </div>
                                                             </li>
+                                                            <li class="full-width menu-bedroom with-sub-menu hover">
+                                                                <p class="close-menu"></p>
+                                                                <a href="~/commingsoon.html" class="smooth cleafix" title="">
+                                                                    CONTACT US
+                                                                </a>
+                                                            </li>
+                                                            <li class="full-width menu-bedroom with-sub-menu hover">
+                                                                <p class="close-menu"></p>
+                                                                <a href="~/commingsoon.html" class="smooth cleafix" title="">
+                                                                    ABOUT US
+                                                                </a>
+                                                            </li>
                                                             <li class="menu-hot-deals">
-                                                                <a href="#" class="smooth" title>HOT DEALS</a>
+                                                                <a href="~/commingsoon.html" class="smooth" title>HOT DEALS</a>
                                                             </li>
 
                                                         </ul>
@@ -654,7 +707,7 @@
                             <p>SUPPORT TEAM 24/7 AT <a href="tel:(844)555-8386">(844) 555-8386</a></p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 newletter-right">
-                            <form action="#" method="post" class="send-letter form-inline">
+                            <form action="http://eepurl.com/hnsza9" method="post" class="send-letter form-inline">
                                 <div class="form-group form-box">
                                     <input type="text" name="email" placeholder="Enter your email address" class="form-control">
                                     <button type="submit" class="form-control">SUBSCRIBE</button>
@@ -861,13 +914,14 @@
     <script src="~/lib/aspnet/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/process_box_chat.js"></script>
     <script src="~/assets/js/easy-responsive-tabs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.1.1/typeahead.jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            var value = $('#iddangnhap').val(); 
+            var value = $('#iddangnhap').val();
             if (value == null || value === '') {
                 $("#myModalLogin").modal();
             }
-            $('#forgot').click(function() {
+            $('#forgot').click(function () {
                 $('#myModalLogin').modal('hide');
             });
             $('#myModalLogin').on('hidden.bs.modal', function () {
@@ -912,46 +966,46 @@
             })
     </script>
     <script type="text/javascript" defer="">
-        $(document).ready(function() {
-            function sendPostRequest(url, postData, callback) {
-                $.ajax(url,
-                    {
-                        type: "POST",
-                        dataType: "text",
-                        success: callback,
-                        error: function(xhr, ajaxOptions, thrownError) {
-                            //alert('eerroorr');
+    $(document).ready(function() {
+        function sendPostRequest(url, postData, callback) {
+            $.ajax(url,
+                {
+                    type: "POST",
+                    dataType: "text",
+                    success: callback,
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        //alert('eerroorr');
+                    }
+                });
+        }
+
+        function validateEmail(email) {
+            var expr =
+                /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            if (!expr.test(email)) {
+                return false;
+            }
+            return true;
+        }
+
+        $(".order-submit").on('click',
+            function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: "/Order/CheckLogin/",
+                    dataType: 'json',
+                    success: function(result) {
+                        if (result.success === true) {
+                            location.href = '@Url.Content("~/DonHang.html")';
+                        } else {
+                            alert(result.message);
+                            location.href = '@Url.Content("~/trangchu.html")';
                         }
-                    });
-            }
-
-            function validateEmail(email) {
-                var expr =
-                    /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-                if (!expr.test(email)) {
-                    return false;
-                }
-                return true;
-            }
-
-            $(".order-submit").on('click',
-                function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        type: 'POST',
-                        url: "/Order/CheckLogin/",
-                        dataType: 'json',
-                        success: function(result) {
-                            if (result.success === true) {
-                                location.href = '@Url.Content("~/DonHang.html")';
-                            } else {
-                                alert(result.message);
-                                location.href = '@Url.Content("~/trangchu.html")';
-                            }
-                        },
-                        error: function(xhr, ajaxOptions, error) {
-                            alert('Đã xảy ra lỗi khi thực hiện yêu cầu của bạn. Vui lòng kiểm tra và thử lại!');
-                        }@*,
+                    },
+                    error: function(xhr, ajaxOptions, error) {
+                        alert('Đã xảy ra lỗi khi thực hiện yêu cầu của bạn. Vui lòng kiểm tra và thử lại!');
+                    }@*,
                         complete: function (result) {
                             if (result.message === "Không khoá") {
                                 location.href = '@Url.Content("~/DonHang.html")';
@@ -960,177 +1014,207 @@
                                 location.href = '@Url.Content("~/trangchu.html")';
                             }
                         }*@
-                    });
+                });
+            });
+
+        function compareLargeStrings(a, b) {
+            if (a.length !== b.length) {
+                return false;
+            }
+            return a.localeCompare(b) === 0;
+        }
+
+        $('#crBtn').click(function(e) {
+            e.preventDefault();
+            var name = $('#crName').val();
+            var email = $('#crEmail').val();
+            var password = $('#crPassword').val();
+            var repassword = $('#crRePassword').val();
+            var avatar = $("input[name=test]:checked").val();
+            var data = {};
+            data.fullName = name;
+            data.email = email;
+            data.password = password;
+            data.avatar = avatar;
+
+            if (name === '' || password === '' || !compareLargeStrings(password.trim(), repassword.trim())) {
+                e.preventDefault();
+                Swal.fire('Kiểm tra lại dữ liệu nhập vào', "", "error");
+
+                if (!validateEmail(email)) {
+                    e.preventDefault();
+                    Swal.fire('Email không hợp lệ', "", "error");
+                }
+            } else {
+                e.preventDefault();
+                $.blockUI({ message: '<h1><img src="~/throbber.gif"/> Just a moment...</h1>' });
+
+                $.ajax({
+                    type: 'Post',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    url: '@Url.Action("AddUser", "Auth")',
+
+                    success: function(data) {
+                        if (data.includes("thành công")) {
+                            $.unblockUI();
+                            Swal.fire(
+                                data,
+                                '',
+                                'success'
+                            );
+                            $('#closeModalBtn').click();
+                            location.href = '@Url.Content("~/trangchu.html")';
+                        }
+                        else {
+                            e.preventDefault();
+                            $.unblockUI();
+                            Swal.fire(data.message, "", "error");
+                        }
+                    },
+                    error: function() {
+                        $.unblockUI();
+                        Swal.fire('Data sending error ...', "", "error");
+                    }
                 });
 
-            function compareLargeStrings(a, b) {
-                if (a.length !== b.length) {
-                    return false;
-                }
-                return a.localeCompare(b) === 0;
             }
-
-            $('#crBtn').click(function(e) {
+        });
+        $('#forgotBtn').on("click",
+            function(e) {
                 e.preventDefault();
-                var name = $('#crName').val();
-                var email = $('#crEmail').val();
-                var password = $('#crPassword').val();
-                var repassword = $('#crRePassword').val();
-                var avatar = $("input[name=test]:checked").val();
-                var data = {};
-                data.fullName = name;
-                data.email = email;
-                data.password = password;
-                data.avatar = avatar;
+                var bla = $('#forgot-email').val();
+                var sData = {
+                    email: bla
+                };
+                $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
 
-                if (name === '' || password === '' || !compareLargeStrings(password.trim(), repassword.trim())) {
-                    e.preventDefault();
-                    Swal.fire('Kiểm tra lại dữ liệu nhập vào', "", "error");
 
-                    if (!validateEmail(email)) {
-                        e.preventDefault();
-                        Swal.fire('Email không hợp lệ', "", "error");
+                $.ajax({
+                    url: "/Auth/ForgotPassword",
+                    data: sData,
+                    type: "GET",
+                    dataType: "json",
+                    cache: false,
+                    success: function(result) {
+                        $.unblockUI();
+                        Swal.fire(
+                            result,
+                            '',
+                            'success'
+                        );
+                    },
+                    error: function(jqXHR, textStatus) {
+                        $.unblockUI();
+                        Swal.fire('Data sending error ...', "", "error");
                     }
-                } else {
-                    e.preventDefault();
-                    $.blockUI({ message: '<h1><img src="~/throbber.gif"/> Just a moment...</h1>' });
-
-                    $.ajax({
-                        type: 'Post',
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(data),
-                        url: '@Url.Action("AddUser", "Auth")',
-
-                        success: function(data) {
-                            if (data.includes("thành công")) {
-                                $.unblockUI();
-                                Swal.fire(
-                                    data,
-                                    '',
-                                    'success'
-                                );
-                                $('#closeModalBtn').click();
-                                location.href = '@Url.Content("~/trangchu.html")';
-                            }
-                            else {
-                                e.preventDefault();
-                                $.unblockUI();
-                                Swal.fire(data.message, "", "error");
-                            }
-                        },
-                        error: function() {
-                            $.unblockUI();
-                            Swal.fire('Data sending error ...', "", "error");
-                        }
-                    });
-
-                }
+                });
             });
-            $('#forgotBtn').on("click",
-                function(e) {
-                    e.preventDefault();
-                    var bla = $('#forgot-email').val();
-                    var sData = {
-                        email: bla
-                    };
-                    $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
-
-
-                    $.ajax({
-                        url: "/Auth/ForgotPassword",
-                        data: sData,
-                        type: "GET",
-                        dataType: "json",
-                        cache: false,
-                        success: function(result) {
+        $('#loginBtn').click(function(e) {
+            var email = $('#loginEmail').val();
+            var password = $('#loginPassword').val();
+            var user = {
+                Email: email,
+                Password: password
+            }
+            $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
+            e.preventDefault();
+            $.ajax({
+                type: 'Post',
+                traditional: true,
+                async: false,
+                cache: false,
+                url: '/Auth/Login/' + JSON.stringify(user),
+                success: function(result) {
+                    if (result.includes("thành công")) {
+                        if (result.includes("quyền nhân viên bán hàng")) {
                             $.unblockUI();
                             Swal.fire(
                                 result,
                                 '',
                                 'success'
                             );
-                        },
-                        error: function(jqXHR, textStatus) {
-                            $.unblockUI();
-                            Swal.fire('Data sending error ...', "", "error");
-                        }
-                    });
-                });
-            $('#loginBtn').click(function(e) {
-                var email = $('#loginEmail').val();
-                var password = $('#loginPassword').val();
-                var user = {
-                    Email: email,
-                    Password: password
-                }
-                $.blockUI({ message: '<h1><img src="~/busy.gif" /> Just a moment...</h1>' });
-                e.preventDefault();
-                $.ajax({
-                    type: 'Post',
-                    traditional: true,
-                    async: false,
-                    cache: false,
-                    url: '/Auth/Login/' + JSON.stringify(user),
-                    success: function(result) {
-                        if (result.includes("thành công")) {
-                            if (result.includes("quyền nhân viên bán hàng")) {
-                                $.unblockUI();
-                                Swal.fire(
-                                    result,
-                                    '',
-                                    'success'
-                                );
-                                $('#closeModalBtn').click();
-                                location.href = '@Url.Content("~/trangchuquanly.html")';
-                            }
-                            else {
-                                $.unblockUI();
-                                Swal.fire(
-                                    result,
-                                    '',
-                                    'success'
-                                );
-                                $('#closeModalBtn').click();
-                                location.href = '@Url.Content("~/trangchu.html")';
-                            }
-
+                            $('#closeModalBtn').click();
+                            location.href = '@Url.Content("~/trangchuquanly.html")';
                         }
                         else {
                             $.unblockUI();
-                            Swal.fire(result, "", "error");
+                            Swal.fire(
+                                result,
+                                '',
+                                'success'
+                            );
+                            $('#closeModalBtn').click();
+                            location.href = '@Url.Content("~/trangchu.html")';
                         }
-                    },
-                    error: function(xhr) {
+
+                    }
+                    else {
                         $.unblockUI();
-                        console.log(xhr.responseText);
-                        Swal.fire('Data sending error ...', "", "error");
+                        Swal.fire(result, "", "error");
                     }
-                });
-
+                },
+                error: function(xhr) {
+                    $.unblockUI();
+                    console.log(xhr.responseText);
+                    Swal.fire('Data sending error ...', "", "error");
+                }
             });
-
-            $('#logoutBtn').click(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'GET',
-                    url: '/Auth/Logout',
-                    success: function(result) {
-
-                        location.reload();
-                        Swal.fire(
-                            result,
-                            '',
-                            'success'
-                        );
-                    }
-                });
-            });
-
 
         });
-    </script>
 
-    @RenderSection("Scripts", required: false)
+        $('#logoutBtn').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'GET',
+                url: '/Auth/Logout',
+                success: function(result) {
+
+                    location.reload();
+                    Swal.fire(
+                        result,
+                        '',
+                        'success'
+                    );
+                }
+            });
+        });
+
+        $("#btnReview").click(function (e) {
+            e.preventDefault();
+            var name = $("#txt_review_name").val();
+            var text = $("#txt_review_text").val();
+            var radioValue = $("input[name='inlineRadioOptions']:checked").val();
+            var id = $("#txtid").val();
+            if (text === null) {
+                alert("Thiếu dữ liệu");
+            }
+            else {
+                if (name == null) {
+                    name = $("#txtproductname").val();;
+                }
+                $.ajax({
+                    url: "/Home/Review",
+                    type: "post",
+                    data: { "id": id, "name": name, "review": text, "inlineRadioOptions": radioValue},
+                    success: function(data) {
+                        if (data === "Vui lòng đăng nhập để review") {
+                            alert(data);
+                        } else {
+                            alert(data);
+                            location.href = "@Url.Action("Index", "Home")";
+                        }
+                    },
+                    error: function(data) {
+                        alert("Error: " + data);
+                    }
+                });
+            }
+        });
+
+    });
+    </script>
+@RenderSection("Scripts", required: false)
 </body>
 </html>
 @if (ViewBag.ThongBao != null)

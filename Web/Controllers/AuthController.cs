@@ -14,7 +14,6 @@ using Domain.Common.Security;
 using Domain.Shop.Entities;
 using Domain.Shop.Entities.SystemManage;
 using Domain.Shop.IRepositories;
-using Facebook;
 using Infrastructure.Common;
 using Infrastructure.Database.Models;
 using Infrastructure.Web;
@@ -65,96 +64,96 @@ namespace Web.Controllers
             _quyenRepository = quyenRepository;
             _xacMinhRepository = xacMinhRepository;
         }
-        private Uri RedirectUri
-        {
-            get
-            {
-                var uriBuilder = new UriBuilder(Request.GetEncodedUrl())
-                {
-                    Query = null, Fragment = null, Path = Url.Action("FacebookCallback")
-                };
-                return uriBuilder.Uri;
-            }
-        }
-        [HttpGet]
-        [Route("LoginFaceBook")]
-        public IActionResult LoginFaceBook()
-        {
+        //private Uri RedirectUri
+        //{
+        //    get
+        //    {
+        //        var uriBuilder = new UriBuilder(Request.GetEncodedUrl())
+        //        {
+        //            Query = null, Fragment = null, Path = Url.Action("FacebookCallback")
+        //        };
+        //        return uriBuilder.Uri;
+        //    }
+        //}
+        //[HttpGet]
+        //[Route("LoginFaceBook")]
+        //public IActionResult LoginFaceBook()
+        //{
 
-            var fb = new FacebookClient();
-            var loginUrl = fb.GetLoginUrl(new
-            {
-                client_id = Configuration.GetSection("Facebook:FACEBOOK_APP_ID").Value,
-                client_secret = Configuration.GetSection("Facebook:FACEBOOK_APP_SECRET").Value,
-                redirect_uri = RedirectUri.AbsoluteUri,
-                reponse_type = "code",
-                scope = new[] { "email" }
-            });
-            return Redirect(loginUrl.AbsoluteUri);
-        }
-        public async Task<IActionResult> FacebookCallback(string code)
-        {
-            var fb = new FacebookClient();
-            dynamic result = fb.Post("oauth/access_token", new
-            {
-                client_id = Configuration.GetSection("Facebook:FACEBOOK_APP_ID").Value,
-                client_secret = Configuration.GetSection("Facebook:FACEBOOK_APP_SECRET").Value,
-                redirect_uri = RedirectUri.AbsoluteUri,
-                code = code
-            });
-            var accessToken = result.access_token;
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                fb.AccessToken = accessToken;
-                dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email");
-                string email = me.email;
-                string userName = me.email;
-                string firstname = me.first_name;
-                string middlename = me.middle_name;
-                string lastname = me.last_name;
-                var loginUser = await _accountRepository.All.FirstOrDefaultAsync(u => u.Email == email);
-                if (loginUser != null)
-                {
-                    var phanquyenId = _phanQuyenRepository.All
-                        .FirstOrDefaultAsync(x => x.MaTaiKhoan.Equals(loginUser.Id)).Result.MaQuyen;
-                    HttpContext.Session.SetInt32(SessionIdQuyen, phanquyenId);
-                    HttpContext.Session.SetString(SessionName, loginUser.Email);
-                    HttpContext.Session.SetString(SessionId, loginUser.Id);
-                }
-                else
-                {
-                    Customer customer = new Customer()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        Email = userName,
-                        FullName = middlename + lastname + firstname,
-                        CreateAt = DateTime.Now,
-                        Password = StringHelper.stringToSHA512("1"),
-                        TinhTrang = "Không khoá",
-                        Avatar = "avatar1.png"
-                    };
-                    _accountRepository.Add(customer);
-                    await _accountRepository.SaveAsync();
-                    var maquyen = _quyenRepository.All.FirstOrDefaultAsync(x => x.TenQuyen.Equals("Khách hàng")).GetAwaiter().GetResult().MaQuyen;
-                    PhanQuyen phanQuyen = new PhanQuyen()
-                    {
-                        MaQuyen = maquyen,
-                        MaTaiKhoan = customer.Id
-                    };
-                    await _phanQuyenRepository.AddAsync(phanQuyen);
-                    await _phanQuyenRepository.SaveAsync();
-                    HttpContext.Session.SetInt32(SessionIdQuyen, maquyen);
-                    HttpContext.Session.SetString(SessionName, customer.Email);
-                    HttpContext.Session.SetString(SessionId, customer.Id);
+        //    var fb = new FacebookClient();
+        //    var loginUrl = fb.GetLoginUrl(new
+        //    {
+        //        client_id = Configuration.GetSection("Facebook:FACEBOOK_APP_ID").Value,
+        //        client_secret = Configuration.GetSection("Facebook:FACEBOOK_APP_SECRET").Value,
+        //        redirect_uri = RedirectUri.AbsoluteUri,
+        //        reponse_type = "code",
+        //        scope = new[] { "email" }
+        //    });
+        //    return Redirect(loginUrl.AbsoluteUri);
+        //}
+        //public async Task<IActionResult> FacebookCallback(string code)
+        //{
+        //    var fb = new FacebookClient();
+        //    dynamic result = fb.Post("oauth/access_token", new
+        //    {
+        //        client_id = Configuration.GetSection("Facebook:FACEBOOK_APP_ID").Value,
+        //        client_secret = Configuration.GetSection("Facebook:FACEBOOK_APP_SECRET").Value,
+        //        redirect_uri = RedirectUri.AbsoluteUri,
+        //        code = code
+        //    });
+        //    var accessToken = result.access_token;
+        //    if (!string.IsNullOrEmpty(accessToken))
+        //    {
+        //        fb.AccessToken = accessToken;
+        //        dynamic me = fb.Get("me?fields=first_name,middle_name,last_name,id,email");
+        //        string email = me.email;
+        //        string userName = me.email;
+        //        string firstname = me.first_name;
+        //        string middlename = me.middle_name;
+        //        string lastname = me.last_name;
+        //        var loginUser = await _accountRepository.All.FirstOrDefaultAsync(u => u.Email == email);
+        //        if (loginUser != null)
+        //        {
+        //            var phanquyenId = _phanQuyenRepository.All
+        //                .FirstOrDefaultAsync(x => x.MaTaiKhoan.Equals(loginUser.Id)).Result.MaQuyen;
+        //            HttpContext.Session.SetInt32(SessionIdQuyen, phanquyenId);
+        //            HttpContext.Session.SetString(SessionName, loginUser.Email);
+        //            HttpContext.Session.SetString(SessionId, loginUser.Id);
+        //        }
+        //        else
+        //        {
+        //            Customer customer = new Customer()
+        //            {
+        //                Id = Guid.NewGuid().ToString(),
+        //                Email = userName,
+        //                FullName = middlename + lastname + firstname,
+        //                CreateAt = DateTime.Now,
+        //                Password = StringHelper.stringToSHA512("1"),
+        //                TinhTrang = "Không khoá",
+        //                Avatar = "avatar1.png"
+        //            };
+        //            _accountRepository.Add(customer);
+        //            await _accountRepository.SaveAsync();
+        //            var maquyen = _quyenRepository.All.FirstOrDefaultAsync(x => x.TenQuyen.Equals("Khách hàng")).GetAwaiter().GetResult().MaQuyen;
+        //            PhanQuyen phanQuyen = new PhanQuyen()
+        //            {
+        //                MaQuyen = maquyen,
+        //                MaTaiKhoan = customer.Id
+        //            };
+        //            await _phanQuyenRepository.AddAsync(phanQuyen);
+        //            await _phanQuyenRepository.SaveAsync();
+        //            HttpContext.Session.SetInt32(SessionIdQuyen, maquyen);
+        //            HttpContext.Session.SetString(SessionName, customer.Email);
+        //            HttpContext.Session.SetString(SessionId, customer.Id);
 
-                }
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
+        //        }
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //}
         [HttpPost]
         [Route("Login/{userStr}")]
         public async Task<IActionResult> Login(string userStr)
@@ -289,7 +288,7 @@ namespace Web.Controllers
                             Port = 587,
                             EnableSsl = true,
                             UseDefaultCredentials = false,
-                            Credentials = new NetworkCredential("khoitedu99@gmail.com", "Fizz1999")
+                            Credentials = new NetworkCredential("khoitedu99@gmail.com", "irts mecn xoyz pngm")
                         };
 
                         using (var messagee = new MailMessage("khoitedu99@gmail.com", taikhoan.Email)

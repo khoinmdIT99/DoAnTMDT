@@ -31,8 +31,9 @@ namespace Web.Component
 
             MemoryCacheEntryOptions options = new MemoryCacheEntryOptions
             {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300),
-                SlidingExpiration = TimeSpan.FromSeconds(60),
+                AbsoluteExpiration = DateTime.Now + TimeSpan.FromHours(3),
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(3),
+                SlidingExpiration = TimeSpan.FromHours(3),
                 Priority = CacheItemPriority.NeverRemove
             };
             var listslider = await _sliderRepository.All.ToListAsync();

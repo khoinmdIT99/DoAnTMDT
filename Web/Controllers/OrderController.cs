@@ -23,12 +23,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Web.Hubs;
 using Web.Models;
 using Web.MomoAPI;
 using Web.PaypalHelpers;
@@ -53,11 +55,15 @@ namespace Web.Controllers
         private readonly IActionContextAccessor _accessor;
         private readonly IConfiguration _configuration;
         private readonly IUtils _utils;
+        private readonly IPhanQuyenRepository _phanQuyenRepository;
+        private readonly IQuyenRepository _quyenRepository;
         private readonly IVnPayLibrary _vnPayLibrary;
+        private readonly IThongBaoRepository _thongBaoRepository;
+        private IHubContext<RestaurantHub> _hubContext;
         const string SessionId = "_Id";
 
         public OrderController(IProductRepository productRepository, IShoppingCartRepository shoppingCart, IServiceProvider services, 
-            IAccountRepository accountRepository, ICartRepository cartRepository, IDictrictRepository iDictrictRepository, IProvinceRepository iProvinceRepository, ITranhChapRepository iTranhChapRepository, IWebHostEnvironment webHostEnvironment, ISystemInformationRepository systemInformationRepository, IOptions<PaypalApiSetting> paypalSettings, IConfiguration configuration, IUtils utils, IVnPayLibrary vnPayLibrary, IActionContextAccessor accessor)
+            IAccountRepository accountRepository, ICartRepository cartRepository, IDictrictRepository iDictrictRepository, IProvinceRepository iProvinceRepository, ITranhChapRepository iTranhChapRepository, IWebHostEnvironment webHostEnvironment, ISystemInformationRepository systemInformationRepository, IOptions<PaypalApiSetting> paypalSettings, IConfiguration configuration, IUtils utils, IVnPayLibrary vnPayLibrary, IActionContextAccessor accessor, IPhanQuyenRepository phanQuyenRepository, IQuyenRepository quyenRepository, IThongBaoRepository thongBaoRepository, IHubContext<RestaurantHub> hubContext)
         {
             this._productRepository = productRepository;
             this._shoppingCart = shoppingCart;
@@ -74,6 +80,10 @@ namespace Web.Controllers
             _utils = utils;
             _vnPayLibrary = vnPayLibrary;
             _accessor = accessor;
+            _phanQuyenRepository = phanQuyenRepository;
+            _quyenRepository = quyenRepository;
+            _thongBaoRepository = thongBaoRepository;
+            _hubContext = hubContext;
         }
         [AllowAnonymous]
         public IActionResult CheckCurrency()
@@ -238,8 +248,8 @@ namespace Web.Controllers
                         Total = _shoppingCart.GetShoppingCartTotal(cartId),
                         TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
                     };
-                    //get customer
-                    string customerId = SecurityManager.getUserId(cookie.Cookies[SecurityManager._securityToken]);
+                    ////get customer
+                    //string customerId = SecurityManager.getUserId(cookie.Cookies[SecurityManager._securityToken]);
 
                     var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
                     if (HttpContext.Session.GetString(SessionId) == null)
@@ -279,6 +289,7 @@ namespace Web.Controllers
                 throw;
             }
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> AddCart(OrderViewModel model)
@@ -289,88 +300,114 @@ namespace Web.Controllers
             {
                 ViewBag.PayTypes = GetPayList();
                 ViewBag.ShipTypes = GetShipList();
-                
+                var customerpresent = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                var getmaquyen =
+                    await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customerpresent.Id);
+                var idmaquyen = getmaquyen.MaQuyen;
+                var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
+                long amountafter;
+                if (tenquyen.GiamGia > 0)
+                {
+                    amountafter =
+                        (long) (_shoppingCart.GetShoppingCartTotalPrice(cartId) -
+                                Math.Round((decimal) (tenquyen.GiamGia *
+                                                      _shoppingCart.GetShoppingCartTotalPrice(cartId))) / 100);
+                }
+                else
+                {
+                    amountafter = _shoppingCart.GetShoppingCartTotalPrice(cartId);
+                }
+
                 if (model.PaymentMethod == 1)
                 {
+
                     //request params need to request to MoMo system
-                string endpoint = momoInfo.endpoint;
-                string partnerCode = momoInfo.partnerCode;
-                string accessKey = momoInfo.accessKey;
-                string serectkey = momoInfo.serectkey;
-                string orderInfo = momoInfo.orderInfo;
-                string returnUrl = momoInfo.returnUrl;
-                string notifyurl = momoInfo.notifyurl;
+                    string endpoint = momoInfo.endpoint;
+                    string partnerCode = momoInfo.partnerCode;
+                    string accessKey = momoInfo.accessKey;
+                    string serectkey = momoInfo.serectkey;
+                    string orderInfo = momoInfo.orderInfo;
+                    string returnUrl = momoInfo.returnUrl;
+                    string notifyurl = momoInfo.notifyurl;
 
-                string amount = _shoppingCart.GetShoppingCartTotalPrice(cartId).ToString();
-                string orderid = Guid.NewGuid().ToString();
-                string requestId = Guid.NewGuid().ToString();
-                string extraData = "";
+                    string amount = amountafter.ToString();
+                    string orderid = Guid.NewGuid().ToString();
+                    string requestId = Guid.NewGuid().ToString();
+                    string extraData = "";
 
-                //Before sign HMAC SHA256 signature
-                string rawHash = "partnerCode=" +
-                    partnerCode + "&accessKey=" +
-                    accessKey + "&requestId=" +
-                    requestId + "&amount=" +
-                    amount + "&orderId=" +
-                    orderid + "&orderInfo=" +
-                    orderInfo + "&returnUrl=" +
-                    returnUrl + "&notifyUrl=" +
-                    notifyurl + "&extraData=" +
-                    extraData;
+                    //Before sign HMAC SHA256 signature
+                    string rawHash = "partnerCode=" +
+                                     partnerCode + "&accessKey=" +
+                                     accessKey + "&requestId=" +
+                                     requestId + "&amount=" +
+                                     amount + "&orderId=" +
+                                     orderid + "&orderInfo=" +
+                                     orderInfo + "&returnUrl=" +
+                                     returnUrl + "&notifyUrl=" +
+                                     notifyurl + "&extraData=" +
+                                     extraData;
 
 
-                MoMoSecurity crypto = new MoMoSecurity();
-                //sign signature SHA256
-                string signature = crypto.signSHA256(rawHash, serectkey);
+                    MoMoSecurity crypto = new MoMoSecurity();
+                    //sign signature SHA256
+                    string signature = crypto.signSHA256(rawHash, serectkey);
 
-                //build body json request
-                JObject message = new JObject
-                {
-                { "partnerCode", partnerCode },
-                { "accessKey", accessKey },
-                { "requestId", requestId },
-                { "amount", amount },
-                { "orderId", orderid },
-                { "orderInfo", orderInfo },
-                { "returnUrl", returnUrl },
-                { "notifyUrl", notifyurl },
-                { "extraData", extraData },
-                { "requestType", "captureMoMoWallet" },
-                { "signature", signature }
+                    //build body json request
+                    JObject message = new JObject
+                    {
+                        {"partnerCode", partnerCode},
+                        {"accessKey", accessKey},
+                        {"requestId", requestId},
+                        {"amount", amount},
+                        {"orderId", orderid},
+                        {"orderInfo", orderInfo},
+                        {"returnUrl", returnUrl},
+                        {"notifyUrl", notifyurl},
+                        {"extraData", extraData},
+                        {"requestType", "captureMoMoWallet"},
+                        {"signature", signature}
 
-                };
+                    };
                     string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
                     JObject jmessage = JObject.Parse(responseFromMomo);
                     string payURL = jmessage.GetValue("payUrl").ToString();
                     HttpContext.Session.Set("Order", model);
-                    return Redirect(jmessage.GetValue("payUrl").ToString());
+                    return Redirect(payURL);
                 }
                 else if (model.PaymentMethod == 2)
                 {
                     var paypalAPI = new PaypalAPI(_configuration);
-                    var tienviet = double.Parse(_shoppingCart.GetShoppingCartTotalPrice(cartId).ToString());
+                    var tienviet = double.Parse(amountafter.ToString());
                     var tienusd = 23129;
-                    var total = Math.Round(CurrencyHelper.VNDTOUSD(tienviet, tienusd),1 , MidpointRounding.AwayFromZero);
+                    var total = Math.Round(CurrencyHelper.VNDTOUSD(tienviet, tienusd), 1,
+                        MidpointRounding.AwayFromZero);
                     HttpContext.Session.Set("Order", model);
                     String url = await paypalAPI.GetRedirectUrlToPaypal(total, "USD");
                     return Redirect(url);
                 }
                 else if (model.PaymentMethod == 3)
                 {
-                    string vnp_Url = _configuration.GetSection("VNPayInfo").GetSection("vnp_Url").Value; //URL thanh toan cua VNPAY 
-                    string vnp_TmnCode = _configuration.GetSection("VNPayInfo").GetSection("vnp_TmnCode").Value; //Ma website
-                    string vnp_HashSecret = _configuration.GetSection("VNPayInfo").GetSection("vnp_HashSecret").Value; //Chuoi bi mat
+                    string vnp_Url =
+                        _configuration.GetSection("VNPayInfo").GetSection("vnp_Url").Value; //URL thanh toan cua VNPAY 
+                    string vnp_TmnCode =
+                        _configuration.GetSection("VNPayInfo").GetSection("vnp_TmnCode").Value; //Ma website
+                    string vnp_HashSecret =
+                        _configuration.GetSection("VNPayInfo").GetSection("vnp_HashSecret").Value; //Chuoi bi mat
                     if (string.IsNullOrEmpty(vnp_TmnCode) || string.IsNullOrEmpty(vnp_HashSecret))
                     {
-                        return Json("Vui lòng cấu hình các tham số: vnp_TmnCode,vnp_HashSecret trong file appsetting.json");
+                        return Json(
+                            "Vui lòng cấu hình các tham số: vnp_TmnCode,vnp_HashSecret trong file appsetting.json");
                     }
+
                     var hostname = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
                     _vnPayLibrary.AddRequestData("vnp_Version", "2.0.0");
                     _vnPayLibrary.AddRequestData("vnp_Command", "pay");
                     _vnPayLibrary.AddRequestData("vnp_TmnCode", vnp_TmnCode);
-                    _vnPayLibrary.AddRequestData("vnp_Amount", (_shoppingCart.GetShoppingCartTotalPrice(cartId) * 100).ToString());
+                    _vnPayLibrary.AddRequestData("vnp_Amount",
+                        (amountafter * 100).ToString());
                     _vnPayLibrary.AddRequestData("vnp_BankCode", "");
-                    _vnPayLibrary.AddRequestData("vnp_CreateDate", _cartRepository.Get(cartId).CreateAt?.ToString("yyyyMMddHHmmss"));
+                    _vnPayLibrary.AddRequestData("vnp_CreateDate",
+                        _cartRepository.Get(cartId).CreateAt?.ToString("yyyyMMddHHmmss"));
                     _vnPayLibrary.AddRequestData("vnp_CurrCode", "VND");
                     _vnPayLibrary.AddRequestData("vnp_IpAddr", _utils.GetIpAddress());
                     _vnPayLibrary.AddRequestData("vnp_Locale", "vn");
@@ -413,11 +450,13 @@ namespace Web.Controllers
                         cartProductViewModels.Add(cartProductViewModel);
 
                     }
+
                     var cart = new ShoppingCart()
                     {
                         Id = cartId,
                         cartProducts = cartProductViewModels,
-                        Total = _shoppingCart.GetShoppingCartTotal(cartId)
+                        Total = _shoppingCart.GetShoppingCartTotal(cartId),
+                        TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
                     };
                     var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
                     var orderViewModel = new OrderViewModel()
@@ -432,9 +471,20 @@ namespace Web.Controllers
                         ShoppingCart = cart,
                         Status = "Chưa xử lý"
                     };
+                    if (tenquyen.GiamGia > 0)
+                    {
+                        cart.TotalPrice =
+                            (long)(cart.TotalPrice - Math.Round((decimal)(tenquyen.GiamGia * cart.TotalPrice)) / 100);
+                    }
+                    ViewBag.GiaTienCu = cart.TotalPrice;
+                    ViewBag.LoaiTaiKhoan = tenquyen.TenQuyen;
+                    ViewBag.GiamGia = tenquyen.GiamGia;
                     model.Status = "Chưa xử lý";
                     var kq = await SaveOrder(model);
-                    ViewBag.KQ = !kq ? "Hệ thống gặp lỗi tuy nhiên đơn hàng của bạn vẫn được nhận" : "Đơn hàng của bạn đã đặt thành công.Hệ thống sẽ liên hệ với bạn sớm";
+                    ViewBag.KQ =
+                        !kq
+                            ? "Hệ thống gặp lỗi tuy nhiên đơn hàng của bạn vẫn được nhận"
+                            : "Đơn hàng của bạn đã đặt thành công.Hệ thống sẽ liên hệ với bạn sớm";
                     _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
                     HttpContext.Session.Remove("AddProducts");
                     return View(orderViewModel);
@@ -445,8 +495,9 @@ namespace Web.Controllers
                 throw;
             }
         }
+
         [AllowAnonymous]
-        public IActionResult Onepay()
+        public async Task<IActionResult> Onepay()
         {
             HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
             string cartId = cookie.Cookies["cardId"];
@@ -476,12 +527,29 @@ namespace Web.Controllers
                 Total = _shoppingCart.GetShoppingCartTotal(cartId),
                 TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
             };
+            var customerpresent = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+            var getmaquyen =
+                await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customerpresent.Id);
+            var idmaquyen = getmaquyen.MaQuyen;
+            var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
+            long amountafter;
+            if (tenquyen.GiamGia > 0)
+            {
+                amountafter =
+                    (long)(cart.TotalPrice -
+                           Math.Round((decimal)(tenquyen.GiamGia *
+                                                cart.TotalPrice)) / 100);
+            }
+            else
+            {
+                amountafter = cart.TotalPrice;
+            }
             var ip = _accessor.ActionContext.HttpContext.Connection.RemoteIpAddress.ToString();
-            string url = RedirectOnepay(RandomString(), (cart.TotalPrice * 100).ToString(), ip);
+            string url = RedirectOnepay(RandomString(), (amountafter * 100).ToString(), ip);
             return Redirect(url);
         }
         [AllowAnonymous]
-        public IActionResult Onepayvn()
+        public async Task<IActionResult> Onepayvn()
         {
             HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
             string cartId = cookie.Cookies["cardId"];
@@ -511,8 +579,25 @@ namespace Web.Controllers
                 Total = _shoppingCart.GetShoppingCartTotal(cartId),
                 TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
             };
+            var customerpresent = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+            var getmaquyen =
+                await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customerpresent.Id);
+            var idmaquyen = getmaquyen.MaQuyen;
+            var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
+            long amountafter;
+            if (tenquyen.GiamGia > 0)
+            {
+                amountafter =
+                    (long)(cart.TotalPrice -
+                           Math.Round((decimal)(tenquyen.GiamGia *
+                                                cart.TotalPrice)) / 100);
+            }
+            else
+            {
+                amountafter = cart.TotalPrice;
+            }
             var ip = _accessor.ActionContext.HttpContext.Connection.RemoteIpAddress.ToString();
-            string url = RedirectOnepayvn(RandomString(), (cart.TotalPrice * 100).ToString(), ip);
+            string url = RedirectOnepayvn(RandomString(), (amountafter * 100).ToString(), ip);
             return Redirect(url);
         }
         /// <summary>
@@ -662,6 +747,9 @@ namespace Web.Controllers
                     TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
                 };
                 var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                var getmaquyen = await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customer.Id);
+                var idmaquyen = getmaquyen.MaQuyen;
+                var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
                 var orderViewModel = new OrderViewModel()
                 {
                     CustomerId = customer.Id,
@@ -674,6 +762,14 @@ namespace Web.Controllers
                     ShoppingCart = cart,
                     Status = "Chưa xử lý"
                 };
+                ViewBag.GiaTienCu = cart.TotalPrice;
+                ViewBag.LoaiTaiKhoan = tenquyen.TenQuyen;
+                ViewBag.GiamGia = tenquyen.GiamGia;
+                if (tenquyen.GiamGia > 0)
+                {
+                    cart.TotalPrice =
+                        (long)(cart.TotalPrice - Math.Round((decimal)(tenquyen.GiamGia * cart.TotalPrice)) / 100);
+                }
                 _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
                 HttpContext.Session.Remove("AddProducts");
                 HttpContext.Session.Remove("Order");
@@ -752,6 +848,9 @@ namespace Web.Controllers
                     TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
                 };
                 var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                var getmaquyen = await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customer.Id);
+                var idmaquyen = getmaquyen.MaQuyen;
+                var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
                 var orderViewModel = new OrderViewModel()
                 {
                     CustomerId = customer.Id,
@@ -764,6 +863,14 @@ namespace Web.Controllers
                     ShoppingCart = cart,
                     Status = "Chưa xử lý"
                 };
+                ViewBag.GiaTienCu = cart.TotalPrice;
+                ViewBag.LoaiTaiKhoan = tenquyen.TenQuyen;
+                ViewBag.GiamGia = tenquyen.GiamGia;
+                if (tenquyen.GiamGia > 0)
+                {
+                    cart.TotalPrice =
+                        (long)(cart.TotalPrice - Math.Round((decimal)(tenquyen.GiamGia * cart.TotalPrice)) / 100);
+                }
                 _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
                 HttpContext.Session.Remove("AddProducts");
                 HttpContext.Session.Remove("Order");
@@ -852,6 +959,9 @@ namespace Web.Controllers
                             TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
                         };
                         var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                        var getmaquyen = await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customer.Id);
+                        var idmaquyen = getmaquyen.MaQuyen;
+                        var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
                         var orderViewModel = new OrderViewModel()
                         {
                             CustomerId = customer.Id,
@@ -864,6 +974,14 @@ namespace Web.Controllers
                             ShoppingCart = cart,
                             Status = "Chưa xử lý"
                         };
+                        ViewBag.GiaTienCu = cart.TotalPrice;
+                        ViewBag.LoaiTaiKhoan = tenquyen.TenQuyen;
+                        ViewBag.GiamGia = tenquyen.GiamGia;
+                        if (tenquyen.GiamGia > 0)
+                        {
+                            cart.TotalPrice =
+                                (long)(cart.TotalPrice - Math.Round((decimal)(tenquyen.GiamGia * cart.TotalPrice)) / 100);
+                        }
                         _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
                         HttpContext.Session.Remove("AddProducts");
                         HttpContext.Session.Remove("Order");
@@ -884,7 +1002,7 @@ namespace Web.Controllers
                 }
             }
             //SessionHelper.Set(HttpContext.Session, "cart", "");
-            return RedirectToAction(nameof(HomeOrder));
+            //return RedirectToAction(nameof(HomeOrder));
         }
         [AllowAnonymous]
         public async Task<IActionResult> Done(string amount, string errorCode)
@@ -925,6 +1043,9 @@ namespace Web.Controllers
                     TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
                 };
                 var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+                var getmaquyen = await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customer.Id);
+                var idmaquyen = getmaquyen.MaQuyen;
+                var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
                 var orderViewModel = new OrderViewModel()
                 {
                     CustomerId = customer.Id,
@@ -937,6 +1058,14 @@ namespace Web.Controllers
                     ShoppingCart = cart,
                     Status = "Chưa xử lý"
                 };
+                ViewBag.GiaTienCu = cart.TotalPrice;
+                ViewBag.LoaiTaiKhoan = tenquyen.TenQuyen;
+                ViewBag.GiamGia = tenquyen.GiamGia;
+                if (tenquyen.GiamGia > 0)
+                {
+                    cart.TotalPrice =
+                        (long)(cart.TotalPrice - Math.Round((decimal)(tenquyen.GiamGia * cart.TotalPrice)) / 100);
+                }
                 _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
                 HttpContext.Session.Remove("AddProducts");
                 HttpContext.Session.Remove("Order");
@@ -984,6 +1113,9 @@ namespace Web.Controllers
                 TotalPrice = _shoppingCart.GetShoppingCartTotalPrice(cartId)
             };
             var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+            var getmaquyen = await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customer.Id);
+            var idmaquyen = getmaquyen.MaQuyen;
+            var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
             var orderViewModel = new OrderViewModel()
             {
                 CustomerId = customer.Id,
@@ -996,6 +1128,14 @@ namespace Web.Controllers
                 ShoppingCart = cart,
                 Status = "Chưa xử lý"
             };
+            ViewBag.GiaTienCu = cart.TotalPrice;
+            ViewBag.LoaiTaiKhoan = tenquyen.TenQuyen;
+            ViewBag.GiamGia = tenquyen.GiamGia;
+            if (tenquyen.GiamGia > 0)
+            {
+                cart.TotalPrice =
+                    (long)(cart.TotalPrice - Math.Round((decimal)(tenquyen.GiamGia * cart.TotalPrice)) / 100);
+            }
             _shoppingCart.ClearCart(cookie.Cookies["cardId"]);
             HttpContext.Session.Remove("AddProducts");
             HttpContext.Session.Remove("Order");
@@ -1058,6 +1198,9 @@ namespace Web.Controllers
             var systemInfo = _systemInformationRepository.All.FirstOrDefault();
             HttpRequest cookie = _services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Request;
             var customer = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+            var getmaquyen = await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customer.Id);
+            var idmaquyen = getmaquyen.MaQuyen;
+            var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
             if (cookie != null)
             {
                 string cartId = cookie.Cookies["cardId"];
@@ -1066,13 +1209,28 @@ namespace Web.Controllers
                 cart.CustomerId = customer.Id;
                 cart.Total += _shoppingCart.GetShoppingCartTotal(cartId);
                 cart.Totalprice += _shoppingCart.GetShoppingCartTotalPrice(cartId);
+                if (tenquyen.GiamGia > 0)
+                {
+                    cart.Totalprice =
+                        (long)(cart.Totalprice - Math.Round((decimal)(tenquyen.GiamGia * cart.Totalprice)) / 100);
+                }
                 cart.PaymentMethod = model.PaymentMethod;
                 cart.ShippingMethod = model.ShippingMethod;
                 cart.Comments = model.Comment;
                 cart.Status = model.Status;
                 cart.TinhTrangDanhGiaCustomer = "Chưa đánh giá";
                 _cartRepository.UpdateAsync(cart);
+                var thongbaoorder = new ThongBao
+                {
+                    MaTaiKhoan = customer.Id,
+                    MaDdh = cart.Id,
+                    NoiDung = $"Khách hàng {customer.FirstName} đặt hàng",
+                    ThoiGian = DateTime.Now
+                };
+                await _thongBaoRepository.AddAsync(thongbaoorder);
+                await _thongBaoRepository.SaveAsync();
                 await _cartRepository.SaveAsync();
+                await _hubContext.Clients.All.SendAsync("NewOrder", thongbaoorder.MaThongBao, thongbaoorder.NoiDung,thongbaoorder.ThoiGian);
                 var detailCart = _shoppingCart.All.Where(x => x.CartId == cartId).ToList();
                 foreach (var item in detailCart)
                 {

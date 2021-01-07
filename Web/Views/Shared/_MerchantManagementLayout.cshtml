@@ -39,7 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="user_merchant">
                 <ul>
                     <li><i class="fa fa-user"></i></li>
-                    <li>Xin chào @Context.Session.GetString("_Name")</li>
+                    <li>Xin chào @Context.Session.GetString("_Name").ToString().Substring(0, 10)...</li>
                     <li class="gach_khoangcach">|</li>
                     <a href="#">
                         <li><i class="fa fa-unlock-alt" aria-hidden="true"></i></li>

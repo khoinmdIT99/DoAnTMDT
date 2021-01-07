@@ -41,14 +41,18 @@ namespace Web.Hubs
         private readonly IRoomRepository _iRoomRepository;
         private readonly IMessageRepository _iMessageRepository;
         private readonly IAccountRepository _iAccountRepository;
+        private IThongBaoRepository thongBaoRepository;
+        private ICustomerRepository customerRepository;
         const string SessionName = "_Name";
 
-        public ChatDetailHub(IMapper mapper, IRoomRepository iRoomRepository, IMessageRepository iMessageRepository, IAccountRepository iAccountRepository)
+        public ChatDetailHub(IMapper mapper, IRoomRepository iRoomRepository, IMessageRepository iMessageRepository, IAccountRepository iAccountRepository, IThongBaoRepository thongBaoRepository, ICustomerRepository customerRepository)
         {
             _mapper = mapper;
             _iRoomRepository = iRoomRepository;
             _iMessageRepository = iMessageRepository;
             _iAccountRepository = iAccountRepository;
+            this.thongBaoRepository = thongBaoRepository;
+            this.customerRepository = customerRepository;
         }
 
         public async Task SendPrivate(string receiverName, string message)
@@ -253,6 +257,20 @@ namespace Web.Hubs
             return base.OnConnectedAsync();
         }
 
+        public async Task AddClient(int orderid)
+        {
+            var callerId = Context.ConnectionId;
+            await Groups.AddToGroupAsync(callerId, orderid.ToString());
+        }
+
+
+        public async Task NewOrderMessage(int mathongbao, string noidung, DateTime thoigian)
+        {
+            var order = await thongBaoRepository.All.FirstOrDefaultAsync(o =>
+                o.MaThongBao == mathongbao && o.NoiDung.ToLower().Contains(noidung.ToLower()));
+            await Clients.All.SendAsync("NewOrder", order.MaThongBao, order.NoiDung, order.ThoiGian);
+
+        }
         public override Task OnDisconnectedAsync(Exception exception)
         {
             try

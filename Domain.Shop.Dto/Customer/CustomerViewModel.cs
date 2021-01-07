@@ -44,5 +44,7 @@ namespace Domain.Shop.Dto.Customer
 		[Required]
 		[DisplayName("Tỉnh/Thành Phố")]
 		public string Province { get; set; }
+        public double Point { get; set; }
+        public string TenLoaiKhachHang { get; set; }
 	}
 }

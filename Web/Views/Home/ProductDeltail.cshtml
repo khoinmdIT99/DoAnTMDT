@@ -1,8 +1,10 @@
 ﻿@model Domain.Shop.Dto.Products.ProductViewModel
 @using Microsoft.AspNetCore.Http;
 @using Microsoft.AspNetCore.Mvc;
-@{ ViewData["Title"] = "Product Detail";
-    Layout = "LayoutKH2"; }
+@{
+    ViewData["Title"] = "Product Detail";
+    Layout = "LayoutKH2";
+}
 @section Styles{
     <link href="~/Test/js/lightslider/lightslider.css" rel="stylesheet">
     <link href="~/Test/js/slick-slider/slick.css" rel="stylesheet">
@@ -14,30 +16,33 @@
             <div class="product-slider-box clearfix">
                 @if (Model.DisplayImages != null && Model.DisplayImages.Count > 0)
                 {
-    <div class="main-slider-box">
-        <div class="product-detail-slider popup-gallery">
-            @foreach (var item in Model.DisplayImages)
-            {
-<div class="item-slider">
-    <a href="~/imageUpload/@item">
-        <img id="zoom_05" data-zoom-image="~/imageUpload/@item" src="~/imageUpload/@item">
-    </a>
-</div>}
-        </div>
-    </div>
+                    <div class="main-slider-box">
+                        <div class="product-detail-slider popup-gallery">
+                            @foreach (var item in Model.DisplayImages)
+                            {
+                                <div class="item-slider">
+                                    <a href="~/imageUpload/@item">
+                                        <img id="zoom_05" data-zoom-image="~/imageUpload/@item" src="~/imageUpload/@item">
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
                     <div class="gallery-box">
                         <div class="product-detail-slider-gallery">
                             @for (int i = 1; i < Model.DisplayImages.Count; i++)
                             {
-            <div class="gallery-item">
-                <img src="~/imageUpload/@Model.DisplayImages[i]">
-            </div>}
+                                <div class="gallery-item">
+                                    <img src="~/imageUpload/@Model.DisplayImages[i]">
+                                </div>
+                            }
                         </div>
-                    </div>}
+                    </div>
+                }
             </div>
             <div class="product-infomation">
                 <div class="product-box">
-                    <h1 class="product-name">@Model.CategoryName</h1>
+                    <h1 class="product-name" id="txtproductname">@Model.ProductName</h1>
                     <div class="review-box">
                         <div class="rating">
                             <div class="rating-box">
@@ -118,33 +123,56 @@
 
             <div class="tab-content">
                 <div id="description" class="tab-pane fade in active">
-                    <p>@Model.Description</p>
+                    <p>@Html.Raw(Model.Description)</p>
                 </div>
                 <div id="reviews" class="tab-pane fade">
                     <form class="reviews-form">
                         <input type="hidden" id="txtid" value="@Model.Id"/>
                         <h4 class="form-title">Write A Review</h4>
                         <div class="form-group">
-                            <label>Tên</label>
-                            <input style="font-size: 14px;" id="txt_review_name" type="text" name="" placeholder="Tên của bạn" class="form-control">
+                            <label>Vấn đề</label>
+                            <input style="font-size: 14px;" id="txt_review_name" type="text" name="" placeholder="Nêu vấn đề bạn gặp phải" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Đánh giá</label>
                             <textarea style="font-size: 14px;" id="txt_review_text" placeholder="Đánh giá của bạn"></textarea>
                         </div>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="inlineRadio1">Bad</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="3">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="4">
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="5">
+                                <label class="form-check-label" for="inlineRadio3">Good</label>
+                            </div>
+                        </div>
                         <button type="button" id="btnReview" class="smooth hv-border-inline">CONTINUTE</button>
                     </form>
                 </div>
                 <div id="product-tags" class="tags-tab tab-pane fade">
-                    <a href="#" class="smooth active tag" title="">fashion </a>
-                    <a href="#" class="smooth tag" title="">gift </a>
-                    <a href="#" class="smooth tag" title="">shoes </a>
-                    <a href="#" class="smooth tag" title="">woman </a>
-                    <a href="#" class="smooth tag" title="">electric </a>
-                    <a href="#" class="smooth tag" title="">cameras </a>
-                    <a href="#" class="smooth tag" title="">cakes </a>
-                    <a href="#" class="smooth tag" title="">birthday </a>
-                    <a href="#" class="smooth tag" title="">annivaersary </a>
+                    @foreach (var item in ViewBag.ProductTagDetail)
+                    {
+                        @if (item == ViewBag.ProductTagDetail.First())
+                        {
+                            <a href="#" class="smooth tag" title="">@item</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="smooth tag" title="">@item</a>
+                        }
+                        
+                    }
                     <a href="#" class="smooth tag view-all" title="">View all Tags <i class="fa fa-caret-right"></i></a>
                 </div>
                 <div id="custom-tabs" class="tab-pane fade">
@@ -153,9 +181,10 @@
                     </p>
                     @if (Model.ExtraDiscount.GetValueOrDefault() != 0)
                     {
-        <p>
-            Giảm giá thêm trong mùa: @Model.ExtraDiscount %
-        </p>}
+                        <p>
+                            Giảm giá thêm trong mùa: @Model.ExtraDiscount %
+                        </p>
+                    }
                     @{ double tongcong = Model.Discount.GetValueOrDefault() + Model.ExtraDiscount.GetValueOrDefault(); }
                     <p>
                         Tổng cộng mức giảm giá : @tongcong % so với mức giá sản phẩm ban đầu: @Model.Price.GetValueOrDefault().ToString("N0") VNĐ
@@ -175,269 +204,88 @@
             </span>
         </h3>
         <div class="featured-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="4" data-items_column1="4" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product7.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
+            @foreach (var item in ViewBag.RelateProduct)
+            {
+                <div class="item">
+                    <div class="product-box">
+                        <div class="product-image">
+                            <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="c-img link-product">
+                                @if (item.DisplayImages != null)
+                                {
+                                    <img src="~/imageUpload/@item.DisplayImages[0]" class="img-responsive">
+                                }
+                                else
+                                {
+                                    <img src="#" class="img-responsive" alt="" height="250">
+                                }
+                            </a>
+                            <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
                         </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
+                        <div class="product-info">
+                            <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a></h4>
+                            <div class="price">
+                                @item.Price <span class="price-old">$142.00</span>
+                            </div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    @if (item.Star != null)
+                                    {
+                                        @for (int i = 0; i < Math.Round(Convert.ToDecimal(item.Star)); i++)
+                                        {
+                                            <span class="fa fa-stack">
+                                                <i class="fa fa-star fa-stack-1x"></i>
+                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                            </span>
+                                        }
+                                        @for (int i = 5; i > Math.Round(Convert.ToDecimal(item.Star)); i--)
+                                        {
+                                            <span class="fa fa-stack">
+                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                            </span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <span class="label-sale red-right">SALE</span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product9.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
+                        <div class="button-group">
+                            <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                                <i class="fa fa-retweet" aria-hidden="true"></i>
+                            </button>
+                            <a data-count="@item.BasketCount" data-id="@item.Id" class="add-to-cart smooth">
+                                ADD TO CART
+                            </a>
+                            <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
                         </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <span class="label-sale red-right">SALE</span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product4.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
-                        </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <span class="label-sale blue-left">SALE</span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
-                        </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
+                        <span class="label-sale red-right">SALE</span>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
-                        </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -447,273 +295,92 @@
     <div class="container">
         <h3 class="featured-title">
             <span>
-                UP-SELL <span>PRODUCTS</span>
+                New <span>PRODUCTS</span>
             </span>
         </h3>
         <div class="featured-slider yt-content-slider" data-autoplay="yes" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="4" data-items_column1="4" data-items_column2="3" data-items_column3="2" data-items_column4="1" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="yes" data-hoverpause="yes">
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product2.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
+            @foreach (var item in ViewBag.NewProduct)
+            {
+                <div class="item">
+                    <div class="product-box">
+                        <div class="product-image">
+                            <a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="c-img link-product">
+                                @if (item.DisplayImages != null)
+                                {
+                                    <img src="~/imageUpload/@item.DisplayImages[0]" class="img-responsive">
+                                }
+                                else
+                                {
+                                    <img src="#" class="img-responsive" alt="" height="250">
+                                }
+                            </a>
+                            <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
                         </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
+                        <div class="product-info">
+                            <h4 class="product-name"><a asp-controller="Home" asp-action="ProductDeltail" asp-route-slug="@item.Slug" class="smooth" title="">@item.ProductName</a></h4>
+                            <div class="price">
+                                @item.Price <span class="price-old">$142.00</span>
+                            </div>
+                            <div class="rating">
+                                <div class="rating-box">
+                                    @if (item.Star != null)
+                                    {
+                                        @for (int i = 0; i < Math.Round(Convert.ToDecimal(item.Star)); i++)
+                                        {
+                                            <span class="fa fa-stack">
+                                                <i class="fa fa-star fa-stack-1x"></i>
+                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                            </span>
+                                        }
+                                        @for (int i = 5; i > Math.Round(Convert.ToDecimal(item.Star)); i--)
+                                        {
+                                            <span class="fa fa-stack">
+                                                <i class="fa fa-star-o fa-stack-1x"></i>
+                                            </span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star fa-stack-1x"></i>
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                        <span class="fa fa-stack">
+                                            <i class="fa fa-star-o fa-stack-1x"></i>
+                                        </span>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <span class="label-sale red-right">SALE</span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product3.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
+                        <div class="button-group">
+                            <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
+                                <i class="fa fa-retweet" aria-hidden="true"></i>
+                            </button>
+                            <a data-count="@item.BasketCount" data-id="@item.Id" class="add-to-cart smooth">
+                                ADD TO CART
+                            </a>
+                            <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </button>
                         </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <span class="label-sale red-right">SALE</span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product4.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
-                        </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <span class="label-sale blue-left">SALE</span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
-                        </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
+                        <span class="label-sale red-right">SALE</span>
                     </div>
                 </div>
-            </div>
-            <div class="item">
-                <div class="product-box">
-                    <div class="product-image">
-                        <a href="detail.html" class="c-img link-product">
-                            <img src="~/images/catalog/demo/products/product1.jpg" class="img-responsive">
-                        </a>
-                        <a class="smooth quickview iframe-link btn-button quickview quickview_handler visible-lg" href="quickview.html" title="Quick view" target="_self" data-fancybox-type="iframe">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="product-info">
-                        <h4 class="product-name"><a href="detail.html" class="smooth" title="">Curabitur turpis orci</a></h4>
-                        <div class="price">
-                            $115.00 <span class="price-old">$142.00</span>
-                        </div>
-                        <div class="rating">
-                            <div class="rating-box">
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star fa-stack-1x"></i>
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                                <span class="fa fa-stack">
-                                    <i class="fa fa-star-o fa-stack-1x"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button class="wishlist-btn smooth" onclick="window.location.href='compare.html'">
-                            <i class="fa fa-retweet" aria-hidden="true"></i>
-                        </button>
-                        <button class="add-to-cart smooth" onclick="window.location.href='cart.html'">
-                            ADD TO CART
-                        </button>
-                        <button class="wishlist-btn smooth" onclick="window.location.href='wishlist.html'">
-                            <i class="fa fa-heart" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -724,33 +391,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $("#btnReview").click(function (e) {
-                e.preventDefault();
-                var name = $("#txt_review_name").val();
-                var text = $("#txt_review_text").val();
-                var id = $("#txtid").val();
-                if (name === null || text === null) {
-                    alert("Thiếu dữ liệu");
-                }
-                else {
-                    $.ajax({
-                        url: "/Home/Review",
-                        type: "post",
-                        data: { "id": id, "name": name, "review": text },
-                        success: function(data) {
-                            if (data === "Vui lòng đăng nhập để review") {
-                                alert(data);
-                            } else {
-                                alert(data);
-                                location.href = "@Url.Action("Index", "Home")";
-                            }
-                        },
-                        error: function(data) {
-                            alert("Error: " + data);
-                        }
-                    });
-                }
-            });
+            
         });
         @*$("#btnReview").click(function(e) {
             e.preventDefault();

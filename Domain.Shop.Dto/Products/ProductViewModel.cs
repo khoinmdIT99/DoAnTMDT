@@ -71,5 +71,6 @@ namespace Domain.Shop.Dto.Products
         public int? Discount { get; set; }
         [Display(Name = "Giá bán")]
         public double? PriceAfter { get; set; }
+        public DateTime? CreateAt { get; set; }
 	}
 }

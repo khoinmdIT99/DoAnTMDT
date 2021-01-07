@@ -1,0 +1,39 @@
+﻿@model IOrderedEnumerable<Domain.Shop.Entities.SystemManage.ThongBao>
+<div class="row">
+    <div class="panel panel-warning">
+        <div class="panel-heading text-center">
+            Thông báo nhận đơn
+        </div>
+        <div class="panel-body" id="orderlist" style="height: 500px;overflow: auto;">
+            @foreach (var item in Model)
+            {
+                <div class="panel panel-default" id="parentDiv">
+                    <div class="panel-body">
+                        <div class="pull-left col-sm-6">
+                            <div class="col-sm-12"><p>Đơn: @item.NoiDung</p></div>
+                            @{
+                                DateTime end = (DateTime)item.ThoiGian;                               
+                                DateTime now = DateTime.Now;
+                                TimeSpan diff = now.Subtract(end);
+                            } 
+                            <div class="com-sm-12"><p>Thời gian trải qua: @diff.ToString(@"dd\:hh\:mm\:ss")</p></div>
+                        </div>
+                        <div class="pull-right col-sm-6">                                   
+
+                            <div class="col-sm-12 jsformdiv" id="@item.MaThongBao">                                           
+                                <form class="btn-group" role="group">
+                                                
+                                    <a href="~/trangchuquanly/choxuly.html" value="Xem đơn" id="begin+@item.MaThongBao" class="btn btn-default" />
+                                </form>
+                            </div>                                       
+                           
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/Chat/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/kitchen.js" asp-append-version="true"></script>

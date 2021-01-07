@@ -39,6 +39,7 @@ namespace Web.Component
                 }
 
                 var categoriiii = category.OrderByDescending(x => x.Listcategoryphu.Count);
+                ViewBag.listcategory = await _categoryRepository.All.ToListAsync();
                 var hienthi = new HienThiCategory {DeMuc = group.Key, Categoryy = categoriiii.ToList() };
                 hienThiCategories.Add(hienthi);
             }

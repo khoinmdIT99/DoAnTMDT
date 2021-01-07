@@ -1,6 +1,39 @@
 ﻿@model IEnumerable<Domain.Shop.Dto.Cart.CartViewModel>
 @{ ViewData["Title"] = "Index";
     var check = ViewBag.CheckBlogCategory; } <!-- Main content -->
+<style>
+    .modal-body {
+        position: relative;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 1rem;
+    }
+    .table-bordered {
+        border: 1px solid #4484c4;
+    }
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+        border-bottom-color: rgb(222, 226, 230);
+        border-bottom-width: 2px;
+    }
+    .table .thead-dark th {
+        color: #fff;
+        background-color: #212529;
+        border-color: #32383e;
+    }
+    .table-striped tbody tr:nth-of-type(2n+1) {
+        background-color: rgba(0,0,0,.05);
+    }
+</style>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -27,30 +60,32 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
- 
-                            <tr>
-                                <td>@item.Customer.FirstName.ToString()</td>
-                                <td>@item.Customer.PhoneNo</td>
-                                <td>@item.Customer.Province.ToString(), @item.Customer.District.ToString(), @item.Customer.Address.ToString()</td>
-                                <td>@item.CreateAt.ToString()</td>
-                                <td>@item.Total</td>
-                                <td>@item.TotalPrice.ToString("N0") VNĐ</td>
-                                <td>@item.Status</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a role="button" class="btn btn-info" href="@Url.ActionLink("Detail", "Order", new { id = item.Id })">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a role="button" class="btn btn-danger" onclick="Delete('@item.Id')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                        <a role="button" class="btn btn-success" href="@Url.ActionLink("Print", "Order", new { id = item.Id })">
-                                            <i class="fas fa-print"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-}
+
+                                <tr>
+                                    <td class="item-madonhang" style="display: none">@item.Id</td>
+                                    <td>@item.Customer.FirstName.ToString()</td>
+                                    <td>@item.Customer.PhoneNo</td>
+                                    <td>@item.Customer.Province.ToString(), @item.Customer.District.ToString(), @item.Customer.Address.ToString()</td>
+                                    <td>@item.CreateAt.ToString()</td>
+                                    <td>@item.Total</td>
+                                    <td>@item.TotalPrice.ToString("N0") VNĐ</td>
+                                    <td>@item.Status</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a role="button" class="btn btn-info" href="@Url.ActionLink("Detail", "Order", new {id = item.Id})">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a role="button" class="btn btn-danger" onclick="Delete('@item.Id')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <a role="button" class="btn btn-success" href="@Url.ActionLink("Print", "Order", new {id = item.Id})">
+                                                <i class="fas fa-print"></i>
+                                            </a>
+                                            <button class="btn btn-primary btnChiTiet" onClick="ShowModal(this)" data-id="@item.Id" data-toggle="modal" data-target="#chitietModal">Chi Tiết</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <!-- /.row -->
@@ -61,38 +96,109 @@
         <!-- /.col -->
     </div>
 </section>
+<!-------------------------------------------------------- CHI TIET MODAL ---------------------------------------------------------->
+<div class="modal fade" id="chitietModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                <h4 class="modal-title"><b>Đơn Hàng</b></h4>
+            </div>
+            <div class="modal-body" id="modal-chitiet-body">
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts
 {
-
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <!-- page script -->
     <script>
     
 	
-    function Delete(id){
-		var r = confirm("Bạn có chắc chắn muốn xóa Vật liệu này?");
-        if (r === true) {
-            $.ajax(
-            {
+        function Delete(id){
+            var r = confirm("Bạn có chắc chắn muốn xóa Vật liệu này?");
+            if (r === true) {
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: '@Url.ActionLink("Delete", "Order")',
+                        data: {
+                            id: id
+                        },
+                        error: function (result) {
+                            alert("error");
+                        },
+                        success: function (result) {
+                            if (result === true) {
+                                window.location.reload();
+                            }
+                            else {
+                                alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                            }
+                        }
+                    });
+            }
+        }
+
+    </script>
+    <script type="text/javascript">
+        function ShowModal(elem){
+            var dataId = $(elem).data("id");
+            $.ajax({
                 type: "POST",
-                url: '@Url.ActionLink("Delete", "Order")',
-                data: {
-                    id: id
+                url: "@Url.Action("GetDetail")",
+                data: {id:dataId},
+                success: function (msg) {
+                    $("#modal-chitiet-body").html(msg);
                 },
-                error: function (result) {
-                    alert("error");
-                },
-                success: function (result) {
-                    if (result === true) {
-                        window.location.reload();
-                    }
-                    else {
-						alert("Có lỗi xảy ra, vui lòng thử lại sau!");
-                    }
+                error: function (req, status, error) {
+                    console.log(msg);
                 }
             });
         }
-        }
-       
     </script>
+    @*<script type="text/javascript">
+        $(document).ready(function(){
+            $(".btnChiTiet").click(function(){
+                var madonhang = $(this).closest('tr').find('.item-madonhang').text();
+                alert(madonhang);
+                var dataId = $(elem).data("id");
+                val1 = "5";
+                val2 = "2";
+                //$.ajax({
+                //    url: "/Administrator/Order/GetDetail",
+                //    type: "Post",
+                //    data: { "id": madonhang },
+                //    success: function (data) {
+                //        alert("Error: ");
+                //        $("#modal-chitiet-body").append(data);
+                //        $('#chitietModal').modal('show');
+                //    },
+                //    error: function (data) {
+                //        alert("Error: " + data);
+                //    }
+                //});
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Add")",
+                    data: {number1: val1, number2: val2},
+                    dataType: "text",
+                    success: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (req, status, error) {
+                        console.log(msg);
+                    }
+                }); 
+            });
+        });
+
+    </script>*@
+
 }

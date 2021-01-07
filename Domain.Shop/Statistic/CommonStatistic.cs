@@ -49,23 +49,23 @@ namespace Domain.Shop.Statistic
             List<MonthYear_SumSaleImportRevenue> stats = new List<MonthYear_SumSaleImportRevenue>();
             foreach (DateTime month in monthsToConsider)
             {
-                int sumSale = (int)new SaleStatistic(_iProductRepository,_cartRepository,_shoppingCartRepository).GetTotalSaleValueCertainMonth(month.Month, month.Year);
-                int sumImport = (int)new ImportStatistic(_iProductRepository,_importRepository,_importDetailRepository).GetTotalImportValueCertainMonth(month.Month, month.Year);
-                int difference = sumSale - sumImport;
+                double sumSale = new SaleStatistic(_iProductRepository,_cartRepository,_shoppingCartRepository).GetTotalSaleValueCertainMonth(month.Month, month.Year);
+                double sumImport = new ImportStatistic(_iProductRepository,_importRepository,_importDetailRepository).GetTotalImportValueCertainMonth(month.Month, month.Year);
+                double difference = sumSale - sumImport;
                 stats.Add(new MonthYear_SumSaleImportRevenue()
                 {
                     Month = month.Month,
                     Year = month.Year,
-                    TotalSale = sumSale,
-                    TotalImport = sumImport,
-                    TotalRevenue = difference,
+                    TotalSale = (int)sumSale,
+                    TotalImport = (int)sumImport,
+                    TotalRevenue = (int)difference,
                 });
             }
 
             return stats;
         }
 
-        public long GetTotalRevenueAllTime()
+        public double GetTotalRevenueAllTime()
         {
             return new SaleStatistic(_iProductRepository, _cartRepository, _shoppingCartRepository).GetTotalSaleValueAllTime() - new ImportStatistic(_iProductRepository, _importRepository, _importDetailRepository).GetTotalImportValueAllTime();
         }

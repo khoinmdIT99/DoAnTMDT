@@ -18,7 +18,7 @@
                     <div class="section-title">
                         <p class="text-success  ">Đặt hàng thành công!. </p>
                         <h3 class="title text-cam">Thông tin đơn hàng</h3>
-
+                        <h3 class="title text-cam">Trạng thái thanh toán: @ViewBag.TinhTrang</h3>
                     </div>
 
                     <table class="shopping-cart-table table">
@@ -48,14 +48,16 @@
                                 <td class=""><h5>Hình thức giao hàng</h5></td>
                                 <td>@ViewBag.ShippingMethod</td>
                             </tr>
-                            <tr>
-                                <td class=""><h5>Hình thức thanh toán</h5></td>
-                                <td>@ViewBag.PaymenMethod</td>
-                            </tr>
-                            <tr>
-                                <td class=""><h5>Trạng thái thanh toán</h5></td>
-                                <td>@ViewBag.TinhTrang</td>
-                            </tr>
+                        <tr>
+                            <td class=""><h5>Hình thức thanh toán</h5></td>
+                            <td>@ViewBag.PaymenMethod</td>
+                        </tr>
+                        <tr>
+                            <th class="empty" colspan="3"></th>
+                            <th>Thông tin</th>
+                            <th colspan="2" class="total"><del>@ViewBag.GiaTienCu.ToString("N0") VND</del>
+                                <br />- Loại TK: @ViewBag.LoaiTaiKhoan - Giảm @ViewBag.GiamGia % so với giá ban đầu</th>
+                        </tr>
                         </tbody>
                     </table>
 

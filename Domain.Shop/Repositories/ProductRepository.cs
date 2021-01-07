@@ -10,14 +10,14 @@ using Shop.Application;
 using Infrastructure.Common;
 using Domain.Shop.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Domain.Shop.Repositories
 {
     public class ProductRepository : Repository<ShopDBContext, Product>, IProductRepository
     {
-        public ProductRepository(IUnitOfWork<ShopDBContext> unitOfWork) : base(unitOfWork)
+        public ProductRepository(IUnitOfWork<ShopDBContext> unitOfWork, IMemoryCache cache) : base(unitOfWork)
         {
-
         }
         public Product GetProductById(string id)
         {
@@ -51,6 +51,7 @@ namespace Domain.Shop.Repositories
                 IsSpecial = m.IsSpecial,
                 Actived = m.Actived,
                 Views = m.Views,
+                CreateAt = m.CreateAt.GetValueOrDefault(),
                 PriceAfter = Math.Round((double) ((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
             }).FirstOrDefault();
             return model;
@@ -83,6 +84,7 @@ namespace Domain.Shop.Repositories
                 IsSpecial = m.IsSpecial,
                 Actived = m.Actived,
                 Views = m.Views,
+                CreateAt = m.CreateAt.GetValueOrDefault(),
                 PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
             }).FirstOrDefault();
             return model;
@@ -93,7 +95,11 @@ namespace Domain.Shop.Repositories
 
             try
             {
-                model = this.All.Select(m => new ProductViewModel
+                model = this.All
+                    .Include(x => x.Category)
+                    .Include(x => x.Material)
+                    .Include(x => x.ProductType)
+                    .Select(m => new ProductViewModel
                 {
                     Id = m.Id,
                     BasketCount = m.BasketCount,
@@ -119,6 +125,7 @@ namespace Domain.Shop.Repositories
                     IsSpecial = m.IsSpecial,
                     Actived = m.Actived,
                     Views = m.Views,
+                    CreateAt = m.CreateAt.GetValueOrDefault(),
                     PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList().OrderBy(p => p.ProductName).ToList();
             }
@@ -150,6 +157,7 @@ namespace Domain.Shop.Repositories
                     IsSpecial = m.IsSpecial,
                     Actived = m.Actived,
                     Views = m.Views,
+                    CreateAt = m.CreateAt.GetValueOrDefault(),
                     PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList().OrderBy(p => p.ProductName).ToList();
             }
@@ -187,6 +195,7 @@ namespace Domain.Shop.Repositories
                     IsSpecial = m.IsSpecial,
                     Actived = m.Actived,
                     Views = m.Views,
+                    CreateAt = m.CreateAt.GetValueOrDefault(),
                     PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList();
             }
@@ -229,6 +238,7 @@ namespace Domain.Shop.Repositories
                     IsSpecial = m.IsSpecial,
                     Actived = m.Actived,
                     Views = m.Views,
+                    CreateAt = m.CreateAt.GetValueOrDefault(),
                     PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList().GetRange(0, value).OrderBy(p => p.ProductName).ToList(); 
             }
@@ -260,6 +270,7 @@ namespace Domain.Shop.Repositories
                     IsSpecial = m.IsSpecial,
                     Actived = m.Actived,
                     Views = m.Views,
+                    CreateAt = m.CreateAt.GetValueOrDefault(),
                     PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList().OrderBy(p => p.ProductName).ToList();
             }
@@ -298,6 +309,7 @@ namespace Domain.Shop.Repositories
                     IsSpecial = m.IsSpecial,
                     Actived = m.Actived,
                     Views = m.Views,
+                    CreateAt = m.CreateAt.GetValueOrDefault(),
                     PriceAfter = Math.Round((double)((double)m.Price.GetValueOrDefault() * (1 - ((m.Discount + m.ExtraDiscount) / 100))), 1, MidpointRounding.AwayFromZero)
                 }).ToList();
             }

@@ -20,12 +20,23 @@ namespace Domain.Shop.Repositories
 
         public ProductTag GetProductTagId(string id)
         {
-            return this.All.Where(m => m.Id == id).FirstOrDefault();
+            return All.FirstOrDefault(m => m.Id == id);
         }
 
         public IEnumerable<ProductTagViewModel> GetProductTagViewModelsByProductId(string productId)
         {
-            return this.All.Where(m => m.ProductId == productId).Select(s => new ProductTagViewModel
+            return All.Where(m => m.ProductId == productId).Select(s => new ProductTagViewModel
+            {
+                Id = s.Id,
+                ProductId = s.ProductId,
+                TagId = s.TagId,
+                TagName = s.Tag.Name
+            }).ToList();
+        }
+
+        public IEnumerable<ProductTagViewModel> GetProductTagViewModelsByTag(string tag)
+        {
+            return All.Where(m => m.TagId == tag).Select(s => new ProductTagViewModel
             {
                 Id = s.Id,
                 ProductId = s.ProductId,

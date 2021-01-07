@@ -1,0 +1,29 @@
+﻿@model Infrastructure.Web.HelperTool.PaggingDatasource
+<ul class="pagination justify-content-center">
+
+    <li class="page-item">
+        <a class="page-link" href="@Model.PageFirstUrl" tabindex="-1">
+            <i class="fa fa-angle-double-left"></i>
+        </a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="@Model.PageBackUrl" tabindex="-1">
+            <i class="fa fa-angle-left"></i>
+        </a>
+    </li>
+    @foreach (var item in Model.PageNumbers)
+    {
+        <li class='@(item.Key == Model.page ? "page-item active" : "page-item") '><a class="page-link" href="@item.Value">@item.Key</a></li>
+    }
+
+    <li class="page-item">
+        <a class="page-link" href="@Model.PageNextUrl">
+            <i class="fa fa-angle-right"></i>
+        </a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="@Model.PageLastUrl">
+            <i class="fa fa-angle-double-right"></i>
+        </a>
+    </li>
+</ul>

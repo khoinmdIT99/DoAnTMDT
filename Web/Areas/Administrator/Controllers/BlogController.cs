@@ -9,6 +9,7 @@ using Infrastructure.Common;
 using Infrastructure.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Web.Areas.Administrator.Controllers
 {
@@ -16,20 +17,29 @@ namespace Web.Areas.Administrator.Controllers
     [BaseAuthorization]
     public class BlogController : BaseController
     {
+        private readonly IMemoryCache _cache;
         private readonly IBlogRepository _blogRepository;
         private readonly IBlogCategoryRepository _blogCategoryRepository;
 
-        public BlogController(IBlogRepository blogRepository, IBlogCategoryRepository blogCategoryRepository)
+        public BlogController(IBlogRepository blogRepository, IBlogCategoryRepository blogCategoryRepository, IMemoryCache cache)
         {
             this._blogRepository = blogRepository;
             this._blogCategoryRepository = blogCategoryRepository;
+            _cache = cache;
         }
         public ViewResult Index()
         {
             if (CheckBlogCategory())
             {
                 ViewBag.CheckBlogCategory = true;
-                return View(_blogRepository.GetBlogsViewModel());
+                if (_cache.TryGetValue("blogListAll", out List<BlogViewModel> bl))
+                {
+                    return View(bl);
+                }
+
+                var blogList = _blogRepository.GetBlogsViewModel();
+                
+                return View(blogList);
             }
             return View();
         }
@@ -62,6 +72,7 @@ namespace Web.Areas.Administrator.Controllers
                     PropertyCopy.Copy(model, blog);
                     _blogRepository.Add(blog);
                     _blogRepository.Save(RequestContext);
+                    _cache.Remove("blogListAll");
                     return RedirectToAction("Index");
                 }
                 catch (Exception )
@@ -91,6 +102,7 @@ namespace Web.Areas.Administrator.Controllers
                     PropertyCopy.Copy(model, blog);
                     _blogRepository.Update(blog);
                     _blogRepository.Save(RequestContext);
+                    _cache.Remove("blogListAll");
                     return RedirectToAction("Index");
                 }
                 catch (Exception)
@@ -117,6 +129,7 @@ namespace Web.Areas.Administrator.Controllers
                 Blog blog = _blogRepository.All.FirstOrDefault(b => b.Id == id);
                 _blogRepository.Delete(blog);
                 _blogRepository.Save(RequestContext);
+                _cache.Remove("blogListAll");
                 return true;
             }
             catch (Exception)

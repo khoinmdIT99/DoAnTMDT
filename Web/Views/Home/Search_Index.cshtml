@@ -1,0 +1,295 @@
+﻿@model List<Domain.Shop.Dto.Products.ProductViewModel>
+@{
+    Layout = "~/Views/Shared/LayoutKH2.cshtml";
+}
+<style>
+    #section-466-50938 {
+        text-align: center;
+    }
+
+    #section-79-50938 {
+        text-align: center;
+        background-color: #f5f5f5;
+    }
+
+        #section-79-50938 > .ct-section-inner-wrap {
+            padding-top: 75px;
+            padding-bottom: 75px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    #headline-238-50938 {
+        font-family: 'Poppins';
+        color: #243641;
+        margin-bottom: 25px;
+        font-weight: 800;
+    }
+
+    #_rich_text-271-50938 {
+        margin-bottom: 20px;
+    }
+
+    hr {
+        border: 2px solid #ff2b1a;
+        width: 90px;
+        margin-top: 20px;
+    }
+
+    #link_button-267-50938 {
+        margin-top: 20px;
+        font-size: 15px;
+        padding-left: 30px;
+        padding-right: 30px;
+        transition-duration: .2s;
+        transition-timing-function: ease-in-out;
+        url-encoded: true;
+    }
+
+    #link_button-267-50938 {
+        background-color: #243641;
+        border: 1px solid #243641;
+    }
+
+    .home-button {
+        margin: 0;
+        margin-top: 0px;
+    }
+
+    .home-button {
+        margin-top: 15px;
+    }
+
+    .ct-link-button {
+        font-weight: 800;
+        border-radius: 4px;
+    }
+
+    .ct-link-button {
+        background-color: #1e73be;
+        border: 1px solid #1e73be;
+        color: #fff;
+        padding: 10px 16px;
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .ct-link-button {
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .ct-section {
+        width: 100%;
+        background-size: cover;
+        background-repeat: repeat;
+    }
+
+        .ct-section > .ct-section-inner-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+    #section-466-50938 > .ct-section-inner-wrap {
+        padding-top: 75px;
+        padding-bottom: 80px;
+        align-items: center;
+    }
+
+    #headline-467-50938 {
+        font-family: 'Poppins';
+        color: #243641;
+        font-size: 42px;
+        margin-bottom: 20px;
+        line-height: 1;
+    }
+
+    #code_block-468-50938 {
+        width: 900px;
+    }
+
+    .custom-home-search input {
+        border: none;
+        width: 80%;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+        overflow: visible;
+        box-sizing: inherit;
+    }
+
+    .container-search {
+        padding: 15px;
+        border: 1px solid #f1f1f1;
+        border-radius: 5px;
+    }
+    /* SUBMIT BUTTON CSS
+    --------------------*/
+    .custom-home-search input[type=submit] {
+        background: red;
+        color: #fff;
+        width: 15%;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+        /* SUBMIT BUTTON HOVER EFFECT
+    -----------------------------*/
+        .custom-home-search input[type=submit]:hover {
+            background: black;
+            transition: .3s;
+        }
+
+    /* SEARCH ICON CSS
+    ------------------*/
+    .searchIcon {
+        margin-right: 5px;
+    }
+</style>
+<section id="section-466-50938" class=" ct-section">
+    <div class="ct-section-inner-wrap">
+        <h1 id="headline-467-50938" class="ct-headline">What are you looking for?</h1>
+        <div id="code_block-468-50938" class="ct-code-block">
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+            <div class="container-search">
+                <div class="custom-home-search">
+                    <form role="search" method="get" id="searchform" class="searchform">
+                        <label class="screen-reader-text" for="s"></label>
+                        <i class="fa fa-search searchIcon"></i>
+                        <input type="text" class="inputsearch" placeholder="Enter your keyword..." value="" name="Search" id="Search">
+                        <input type="submit" id="searchsubmit" value="Search">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="div_block-469-50938" class="ct-div-block">
+            <div id="text_block-470-50938" class="ct-text-block">Search By :</div>
+            <select id="SearchBy">
+                <option value="TenSanPham">Tên sản phẩm</option>
+                <option value="TrongTamGia">Trong tầm giá</option>
+            </select>
+        </div>
+    </div>
+</section>
+<section id="section-79-50938" class="ct-section">
+    <div class="ct-section-inner-wrap">
+        <h3 id="headline-238-50938" class="ct-headline">Kết quả tìm kiếm (@ViewBag.listsearch kết quả -> từ khóa @ViewBag.keyword)</h3>
+        <div id="_rich_text-271-50938" class="oxy-rich-text"><hr /></div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Khuyến mãi</th>
+            </tr>
+            </thead>
+            <tbody id="DataSearching">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="/sanpham/chitiet/@item.Slug">@item.ProductName</a></td>
+                    <td>@item.PriceAfter.GetValueOrDefault().ToString("N0") VNĐ</td>
+                    <td>@item.Discount.GetValueOrDefault() %</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <a id="link_button-267-50938" class="ct-link-button home-button" href="~/trangchu.html">Về trang chủ</a>
+    </div>
+</section>
+@section Scripts
+{
+    <script type="text/javascript" src="~/js/simple.money.format.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($("#SearchBy").val() === "TenSanPham") {
+                $(".inputsearch").off();
+                $(".inputsearch").removeClass("money");
+
+            } else {
+                $(".inputsearch").on();
+                $(".inputsearch").addClass("money");
+                $('.money').simpleMoneyFormat();
+            }
+            $('#SearchBy').on('change',
+                function (e) {
+                    var optionSelected = $("option:selected", this);
+                    var valueSelected = this.value;
+                    if (valueSelected === "TenSanPham") {
+                        $(".inputsearch").off();
+                        $(".inputsearch").removeClass("money");
+                    } else {
+                        $(".inputsearch").on();
+                        $(".inputsearch").addClass("money");
+                        $('.money').simpleMoneyFormat();
+                    }
+                });
+        });
+
+    </script>
+    <script>
+        function removeSpecials(str) {
+            var lower = str.toLowerCase();
+            var upper = str.toUpperCase();
+
+            var res = "";
+            for (var i = 0; i < lower.length; ++i) {
+                if (lower[i] !== upper[i] || lower[i].trim() === '')
+                    res += str[i];
+            }
+            return res;
+        }
+
+        $(document).ready(function () {
+            $("#searchsubmit").click(function (e) {
+                e.preventDefault();
+                var searchBy = $("#SearchBy").val();
+                var searchValue = $("#Search").val();
+                var s = searchValue.replace(/,/g, '');
+                alert(s);
+                var setData = $("#DataSearching");
+                setData.html("");
+                $.ajax({
+                    type: "post",
+                    url: "/Home/GetSearchingData?SearchBy=" + searchBy + "&SearchValue=" + s,
+                    contentType: "html",
+                    success: function (result) {
+                        if (result.length === 0) {
+                            setData.append('<tr style="color:red"><td colspan="3">No Match Data</td></tr>');
+                        } else {
+                            var length = Object.keys(result).length;
+                            if (searchBy === "TenSanPham") {
+                                $("#headline-238-50938").html("Kết quả tìm kiếm (" + length + " kết quả -> từ khóa " + searchValue +")");
+                            } else {
+                                $("#headline-238-50938").html("Kết quả tìm kiếm (" + length + " kết quả -> trong tầm giá " + searchValue +" đ)");
+                            }
+
+                            $.each(result,
+                                function (index, value) {
+                                    var x = value.priceAfter.toString();
+                                    x = x.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                                    var data = "<tr>" +
+                                        "<td><a href='/sanpham/chitiet/" +
+                                        value.slug +
+                                        "'>Tên sản phẩm: " +
+                                        value.productName +
+                                        "</a></td>" +
+                                        "<td>Giá: " +
+                                        x +
+                                        "VNĐ </td>" +
+                                        "<td>Đang KM: " +
+                                        value.discount +
+                                        "% </td>" +
+                                        "</tr>";
+                                    setData.append(data);
+                                });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

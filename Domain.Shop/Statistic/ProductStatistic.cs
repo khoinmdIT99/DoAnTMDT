@@ -19,10 +19,10 @@ namespace Domain.Shop.Statistic
         //    return _context.ProductAvailabilityCheck.Where(m => m.ProductID == productID).OrderBy(m => m.Date).ToList();
         //}
 
-        public int GetCurrentTotalProductValue()
+        public double GetCurrentTotalProductValue()
         {
-            long total = _iProductRepository.All.ToList().Sum(m => m.Price).GetValueOrDefault();
-            return Convert.ToInt32(total);
+            double total = _iProductRepository.All.ToList().Sum(m => m.PriceAfter.GetValueOrDefault());
+            return total;
         }
     }
 

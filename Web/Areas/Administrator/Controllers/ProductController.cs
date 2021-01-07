@@ -71,8 +71,9 @@ namespace Web.Areas.Administrator.Controllers
             }
             MemoryCacheEntryOptions options = new MemoryCacheEntryOptions
             {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300),
-                SlidingExpiration = TimeSpan.FromSeconds(60),
+                AbsoluteExpiration = DateTime.Now + TimeSpan.FromHours(3),
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(3),
+                SlidingExpiration = TimeSpan.FromHours(3),
                 Priority = CacheItemPriority.NeverRemove
             };
             IEnumerable<ProductViewModel> list = _productRepository.GetProductViewModels().ToList();
@@ -258,7 +259,6 @@ namespace Web.Areas.Administrator.Controllers
 
         public async Task<IActionResult> Update(string id)
         {
-            var model = _productRepository.GetProductViewModelById(id);
             if (_cache.TryGetValue("CACHE_MASTER_PRODUCT", out List<ProductViewModel> c_lstProd))
             {
                 SetComboData();
@@ -269,11 +269,13 @@ namespace Web.Areas.Administrator.Controllers
                 }
                 else
                 {
-                    return await Task.Run(() => View(model));
+                    var model_cache = c_lstProd.FirstOrDefault(x => x.Id == id);
+                    return await Task.Run(() => View(model_cache));
                 }
             }
             else
             {
+                var model = _productRepository.GetProductViewModelById(id);
                 SetComboData();
                 ViewBag.checkedTag = _productTagRepository.GetProductTagViewModelsByProductId(id).Select(s => s.TagId).ToList();
                 if (model == null)

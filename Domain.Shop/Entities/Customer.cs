@@ -58,7 +58,7 @@ namespace Domain.Shop.Entities
 		public virtual ICollection<CustomerFeedback> CustomerFeedbacks { get; set; }
         public ICollection<DanhGia> DanhGiaIdTaiKhoanDanhGiaNavigation { get; set; }
 		public virtual ICollection<ProductReview> ProductReviews { get; set; }
-        public int TongDiemTichLuy() => ListDiemTichLuy?.ToList().Select(d => d.Diem).Sum() ?? 0;
+        public double TongDiemTichLuy() => ListDiemTichLuy?.ToList().Select(d => d.Diem).Sum() ?? 1;
         public string Avatar { get; set; }
         public string TinhTrang { get; set; }
 		public ICollection<Room> Rooms { get; set; }

@@ -1,0 +1,27 @@
+﻿@model Domain.Shop.Dto.Cart.CartViewModel
+
+<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+    <thead class="thead-dark">
+    <tr>
+        <th>Mã Đơn Hàng</th>
+        <th>Tên Sản Phẩm</th>
+        <th>Tên Shop</th>
+        <th>Size</th>
+        <th>Số Lượng</th>
+        <th>Đơn Giá</th>
+    </tr>
+    </thead>
+    <tbody class="body-content">
+    @foreach (var item in Model.Products)
+    {
+        <tr class="odd gradeX">
+            <td class="item-madonhang">@item.CartId</td>
+            <td class="item-cmndnguoigiao">@item.Product.ProductName</td>
+            <td class="item-diachigiao">@Model.Customer.Address</td>
+            <td class="item-ngaytao">@Model.CreateAt.ToString()</td>
+            <td class="item-ngaygiao">@item.Quantity</td>
+            <td class="item-tongtien">@item.Price.GetValueOrDefault().ToString("N0") đ</td>
+        </tr>
+    }
+    </tbody>
+</table>

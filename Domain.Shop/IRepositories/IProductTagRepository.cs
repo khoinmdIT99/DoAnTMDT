@@ -10,6 +10,7 @@ namespace Domain.Shop.IRepositories
     public interface IProductTagRepository : IRepository<ProductTag>
     {
         IEnumerable<ProductTagViewModel> GetProductTagViewModelsByProductId(string productId);
+        IEnumerable<ProductTagViewModel> GetProductTagViewModelsByTag(string tag);
         IEnumerable<ProductTagViewModel> GetProductTagViewModelsByTagId(string tagId);
         ProductTag GetProductTagId(string id);
     }

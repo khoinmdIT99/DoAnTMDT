@@ -64,18 +64,18 @@ namespace Domain.Shop.Statistic
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns></returns>
-        public decimal GetTotalImportValueCertainMonth(int month, int year)
+        public double GetTotalImportValueCertainMonth(int month, int year)
         {
             DateTime startTime = new DateTime(year, month, 1);
             DateTime endTime = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-            
+
             var importBillQuery = (
                 from importBill in _importRepository.All.ToList()
-                where DateTime.ParseExact(importBill.DateCreated, "dd/MM/yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture) >= startTime && DateTime.ParseExact(importBill.DateCreated, "dd/MM/yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture) <= endTime
+                where importBill.StartDate >= startTime && importBill.StartDate <= endTime
                 select importBill
                 );
 
-            decimal sum = importBillQuery.ToList().Sum(m => m.TotalValue);
+            double sum = (double)importBillQuery.ToList().Sum(m => m.TotalValue);
 
             return sum;
         }
@@ -110,23 +110,20 @@ namespace Domain.Shop.Statistic
                 {
                     Month = month.Month,
                     Year = month.Year,
-                    Amount = (long)GetTotalImportValueCertainMonth(month.Month, month.Year),
+                    Amount = (double)GetTotalImportValueCertainMonth(month.Month, month.Year),
                 });
             }
 
             return stats;
         }
 
-        public long GetTotalImportValueAllTime()
-        {   
-            var importBillQuery = (
-                from importBill in _importRepository.All
-                select importBill
-                );
+        public double GetTotalImportValueAllTime()
+        {
+            var importBillQuery = _importRepository.All.ToList();
 
             var sum = importBillQuery.ToList().Sum(m => m.TotalValue);
 
-            return (long)sum;
+            return (double)sum;
         }
     }
 

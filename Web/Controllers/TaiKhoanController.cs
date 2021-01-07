@@ -36,11 +36,13 @@ namespace Web.Controllers
         private readonly ICategoryRepository _iCategoryRepository;
         private readonly IXacMinhRepository _xacMinhRepository;
         private readonly IDanhGiaRepository _danhGiaRepository;
+        private readonly IQuyenRepository _quyenRepository;
+        private readonly IPhanQuyenRepository _phanQuyenRepository;
         const string SessionName = "_Name";
         const string SessionId = "_Id";
         const string SessionIdQuyen = "_IdQuyen";
 
-        public TaiKhoanController(IProductRepository productRepository, IShoppingCartRepository shoppingCart, IAccountRepository accountRepository, ICartRepository cartRepository, IProvinceRepository iProvinceRepository, IDictrictRepository iDictrictRepository, ITranhChapRepository iTranhChapRepository, IWebHostEnvironment webHostEnvironment, ISystemInformationRepository systemInformationRepository, ICategoryRepository iCategoryRepository, IXacMinhRepository xacMinhRepository, IDanhGiaRepository danhGiaRepository, IHttpContextAccessor httpContextAccessor)
+        public TaiKhoanController(IProductRepository productRepository, IShoppingCartRepository shoppingCart, IAccountRepository accountRepository, ICartRepository cartRepository, IProvinceRepository iProvinceRepository, IDictrictRepository iDictrictRepository, ITranhChapRepository iTranhChapRepository, IWebHostEnvironment webHostEnvironment, ISystemInformationRepository systemInformationRepository, ICategoryRepository iCategoryRepository, IXacMinhRepository xacMinhRepository, IDanhGiaRepository danhGiaRepository, IHttpContextAccessor httpContextAccessor, IQuyenRepository quyenRepository, IPhanQuyenRepository phanQuyenRepository)
         {
             _productRepository = productRepository;
             _shoppingCart = shoppingCart;
@@ -55,16 +57,23 @@ namespace Web.Controllers
             _xacMinhRepository = xacMinhRepository;
             _danhGiaRepository = danhGiaRepository;
             _httpContextAccessor = httpContextAccessor;
+            _quyenRepository = quyenRepository;
+            _phanQuyenRepository = phanQuyenRepository;
         }
         [HttpGet]
         [Route("ThongTinTaiKhoan.html", Name = "ThongTinTaiKhoan")]
-        public IActionResult ThongTinTaiKhoan()
+        public async Task<IActionResult> ThongTinTaiKhoan()
         {
             string sessionval = HttpContext.Session.GetString(SessionId);
             Customer taikhoan;
             taikhoan = !string.IsNullOrEmpty(sessionval) ? _accountRepository.All.FirstOrDefaultAsync(x => x.Id == sessionval).Result : null;
-            List<Category> hang = _iCategoryRepository.All.OrderBy(x => x.HierarchyCode).ToList();
-            ViewBag.Hang = hang;
+            var customerpresent = _accountRepository.GetCustomerViewModel(HttpContext.Session.GetString(SessionId));
+            var getmaquyen =
+                await _phanQuyenRepository.All.FirstOrDefaultAsync(x => x.MaTaiKhoan == customerpresent.Id);
+            var idmaquyen = getmaquyen.MaQuyen;
+            var tenquyen = await _quyenRepository.All.FirstOrDefaultAsync(x => x.MaQuyen == idmaquyen);
+            ViewBag.LoaiTaiKhoan = tenquyen.TenQuyen;
+            ViewBag.GiamGia = tenquyen.GiamGia;
             return View(taikhoan);
         }
         public string EditThongTin(string tendangnhap, string email, string sdt)
@@ -105,15 +114,8 @@ namespace Web.Controllers
         public IActionResult DoiMatKhau()
         {
             string sessionval = HttpContext.Session.GetString(SessionId);
-            Domain.Shop.Entities.Customer taikhoan;
-            if (!string.IsNullOrEmpty(sessionval))
-            {
-                taikhoan = _accountRepository.All.FirstOrDefaultAsync(x => x.Id == sessionval).Result;
-            }
-            else
-            {
-                taikhoan = null;
-            }
+            Customer taikhoan;
+            taikhoan = !string.IsNullOrEmpty(sessionval) ? _accountRepository.All.FirstOrDefaultAsync(x => x.Id == sessionval).Result : null;
             List<Category> hang = _iCategoryRepository.All.OrderBy(x => x.HierarchyCode).ToList();
             ViewBag.Hang = hang;
             return View(taikhoan);
@@ -200,8 +202,8 @@ namespace Web.Controllers
         public async Task<IActionResult> ChiTietDonMua(string id)
         {
             string sessionval = HttpContext.Session.GetString(SessionId);
-            var taikhoan = new Customer();
-            var donhang = new Cart();
+            Customer taikhoan;
+            Cart donhang;
             List<CartProduct> listchitietdonhang = new List<CartProduct>();
             if (!string.IsNullOrEmpty(sessionval))
             {
@@ -224,12 +226,11 @@ namespace Web.Controllers
             }
             ViewBag.TaiKhoan = taikhoan;
             ViewBag.ChiTietDonHang = listchitietdonhang;
-            ViewBag.PaymenMethod = GetPayList().FirstOrDefault(x => x.ItemValue.Equals(donhang.PaymentMethod.ToString()))?.ItemText;
-            ViewBag.ShippingMethod = GetShipList().FirstOrDefault(x => x.ItemValue.Equals(donhang.ShippingMethod.ToString()))?.ItemText;
+            ViewBag.PaymenMethod = GetPayList().FirstOrDefault(x => donhang != null && x.ItemValue.Equals(donhang.PaymentMethod.ToString()))?.ItemText;
+            ViewBag.ShippingMethod = GetShipList().FirstOrDefault(x => donhang != null && x.ItemValue.Equals(donhang.ShippingMethod.ToString()))?.ItemText;
             //Kiểm tra có  cho huỷ hay không
-            bool huydonhang;
             List<CartProduct> listhuydon = listchitietdonhang.Where(c => c.TinhTrangChiTiet != "Chưa xử lý").ToList();
-            huydonhang = listhuydon.Count == 0;
+            var huydonhang = listhuydon.Count == 0;
             ViewBag.HuyDonHang = huydonhang;
             return View(donhang);
         }
@@ -262,9 +263,9 @@ namespace Web.Controllers
             string host = _httpContextAccessor.HttpContext.Request.GetDisplayUrl();
             ViewBag.Host = host;
             string sessionval = HttpContext.Session.GetString(SessionId);
-            var listdonhang = new List<Cart>();
+            List<Cart> listdonhang;
             var listchitietdonhang = new List<CartProduct>();
-            var taikhoan = new Customer();
+            Customer taikhoan;
             if (!string.IsNullOrEmpty(sessionval))
             {
                 taikhoan = _accountRepository.All.FirstOrDefault(x => x.Id == sessionval);
@@ -352,7 +353,7 @@ namespace Web.Controllers
             {
                 if (checkCode != null)
                 {
-                    if (sosanhngay(checkCode.Timer, DateTime.Now) >= 10)
+                    if (Sosanhngay(checkCode.Timer, DateTime.Now) >= 10)
                     {
                         _xacMinhRepository.Delete(checkCode);
                         await _xacMinhRepository.SaveAsync();
@@ -378,11 +379,11 @@ namespace Web.Controllers
             }
             return RedirectToAction("Index", "Home", new { thongbao = thongbao });
         }
-        public int sosanhngay(DateTime d1, DateTime d2)
+        public int Sosanhngay(DateTime d1, DateTime d2)
         {
-            TimeSpan Time = d1 - d2;
-            int TongSoPhut = Time.Minutes;
-            return TongSoPhut;
+            TimeSpan time = d1 - d2;
+            int tongSoPhut = time.Minutes;
+            return tongSoPhut;
         }
         public async Task<IActionResult> CustomerDanhGia(string iddonhang, int radio_check)
         {
@@ -390,7 +391,7 @@ namespace Web.Controllers
             if (!string.IsNullOrEmpty(sessionval))
             {
                 var customer = await _accountRepository.All.FirstOrDefaultAsync(x => x.Id == sessionval);
-                List<CartProduct> listchitietdonhang = new List<CartProduct>();
+                List<CartProduct> listchitietdonhang;
                 listchitietdonhang = await _shoppingCart.All.Where(c => c.CartId == iddonhang)
                     .Include(c => c.Cart)
                     .Include(c => c.Product)

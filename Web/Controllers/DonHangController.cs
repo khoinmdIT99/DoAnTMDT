@@ -18,12 +18,14 @@ namespace Web.Controllers
         private readonly ICartRepository _cartRepository;
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly ICustomerRepository _customerRepository;
+        private readonly IDiemTichLuyRepository _diemTichLuyRepository;
 
-        public DonHangController(ICartRepository cartRepository, IShoppingCartRepository shoppingCartRepository, ICustomerRepository customerRepository)
+        public DonHangController(ICartRepository cartRepository, IShoppingCartRepository shoppingCartRepository, ICustomerRepository customerRepository, IDiemTichLuyRepository diemTichLuyRepository)
         {
             _cartRepository = cartRepository;
             _shoppingCartRepository = shoppingCartRepository;
             _customerRepository = customerRepository;
+            _diemTichLuyRepository = diemTichLuyRepository;
         }
 
         public IActionResult Index(string thongbao)
@@ -199,10 +201,20 @@ namespace Web.Controllers
                 _shoppingCartRepository.UpdateAsync(item);
             }
             await _shoppingCartRepository.SaveAsync();
-            var cart = await _cartRepository.All.SingleOrDefaultAsync(x => x.Id == iddonhang);
+            var cart = await _cartRepository.All.Include(x=> x.Customer).SingleOrDefaultAsync(x => x.Id == iddonhang);
             cart.Status = "Đã xử lý";
             _cartRepository.UpdateAsync(cart);
             await _cartRepository.SaveAsync();
+            var diemtichluy = new DiemTichLuy
+            {
+                Id = Guid.NewGuid().ToString(),
+                Diem = Math.Round(a: (double) (cart.Totalprice / 1000000)),
+                IdKhachHang = cart.Customer.Id,
+                IdHoaDon = cart.Id,
+                ThoiGian = DateTime.Now
+            };
+            await _diemTichLuyRepository.AddAsync(diemtichluy);
+            await _diemTichLuyRepository.SaveAsync();
             return RedirectToAction("DaGiao");
         }
         [Route("trangchuquanly/dagiao.html", Name = "DaGiao")]
