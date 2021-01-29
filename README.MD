@@ -70,7 +70,7 @@ hàng thành công”
  Mục hỏi đáp sản phẩm  Chát trực tuyến (điểm +++)
 2.3. Khách hàng thân thiết – thêm các tính năng
  Nhận ưu đãi
- Cập nhật thông tin khách hàng
+Cập nhật thông tin khách hàng
  Reset mật khẩu  Xem điểm lích lũy
  Đánh giá sản phẩm  Đơn hàng
  Tất cả đơn hàng (từ ngày …đến ngày…)
