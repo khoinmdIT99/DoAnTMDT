@@ -104,5 +104,13 @@ Chạy ứng dụng
  * Mở trình duyệt web nhập link *http://localhost:5000*
  * Đăng nhập bằng tài khoản *admin/123456*
  
- 
+ ![Picture1](https://user-images.githubusercontent.com/68087743/106243314-bee1e580-623b-11eb-8a05-11a5c68058b2.png)
+![Picture6](https://user-images.githubusercontent.com/68087743/106243436-023c5400-623c-11eb-9c8f-45a2b3418fcb.png)
+![Picture7](https://user-images.githubusercontent.com/68087743/106243440-036d8100-623c-11eb-8d63-77a373b117fe.png)
+![Picture2](https://user-images.githubusercontent.com/68087743/106243441-036d8100-623c-11eb-9bd3-65d546cf5867.png)
+![Picture3](https://user-images.githubusercontent.com/68087743/106243442-04061780-623c-11eb-9b51-07cb33352142.png)
+![Picture4](https://user-images.githubusercontent.com/68087743/106243445-049eae00-623c-11eb-85d7-8719e7fc3b9d.png)
+![Picture5](https://user-images.githubusercontent.com/68087743/106243447-05374480-623c-11eb-807c-928902743438.png)
+
+
  
